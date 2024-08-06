@@ -78,4 +78,20 @@ public class MemberService {
 		
 	}
 
+	public int updatePwd(String memId, String memPwd, String updatePwd) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updatePwd(conn, memId, memPwd, updatePwd);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 }

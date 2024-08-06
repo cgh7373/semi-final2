@@ -3,6 +3,8 @@
     pageEncoding="UTF-8"%>
 <%
 	Member m = (Member)session.getAttribute("loginUser");
+	String alertMsg = (String)session.getAttribute("alertMsg");
+	String errorMsg = (String)session.getAttribute("errorMsg");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +24,7 @@
     <!-- SWIPER -->
     <link rel="stylesheet" href="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
+    <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 
     <!-- 내부파일 -->
@@ -33,6 +36,27 @@
 </head>
 
 <body>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+		// 성공메시지
+		 <% if (alertMsg != null) { %>
+       		 swal({
+             icon: 'success',
+             title: '<%=alertMsg%>',
+        	 });
+         <% session.removeAttribute("alertMsg"); %>
+   		 <% } %>
+
+   		 <% if (errorMsg != null) { %>
+       		 swal({
+             icon: 'error',
+             title: '<%=errorMsg%>',
+        	 });
+         <% session.removeAttribute("errorMsg"); %>
+    	 <% } %>
+		 });
+	</script>
 
     <div id="wrap">
 
@@ -180,7 +204,8 @@
                             <span class="set-tag">공지사항</span>
                         </div>
 
-                        <div class="setbox">
+                        <div class="setbox" data-toggle="modal"
+                                data-target="#updatePwdModal">
                             <span class="material-icons">
                                 key
                                 </span>
@@ -287,7 +312,72 @@
                             <span class="set-tag"></span>
                         </div>
 
-                        
+						<!-- 비밀번호 변경용 Modal -->
+						<% if (m != null) { %>
+                <div class="modal" id="updatePwdModal">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title">비밀번호 변경</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body" align="center">
+                               
+                               <form action="/Mingles/updatePwd.mi" method="post">
+                               
+                               		<input type="hidden" name="userId" value="<%= m.getMemId() %>">
+                               		<table>
+                               		
+										<tr>
+											<td>현재 비밀번호</td>                               		
+											<td><input type="password" name="userPwd" required></td>                               	
+										</tr>	
+                               		
+										<tr>
+											<td>변경할 비밀번호</td>                               		
+											<td><input type="password" name="updatePwd" required></td>                               	
+										</tr>	
+                               		
+										<tr>
+											<td>변경할 비밀번호 확인</td>                               		
+											<td><input type="password" name="checkPwd" required></td>                               	
+										</tr>	
+                               		
+                               		</table>
+                               
+                               		<br>
+                               		
+                               		<button type="submit" class="btn btn-sm btn-secondary" onclick="return validatePwd();">비밀번호 변경</button>
+                               
+                               </form>
+                               
+                               <script>
+                               
+                               		function validatePwd() {
+                               			
+                               			if ($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
+                               				swal({
+                               	             icon: 'error',
+                               	             title: '비밀번호가 일치하지 않아요',
+                               	        	 });
+                               				return false;
+                               			}
+                               			
+                               		}
+                               
+                               </script>
+                               
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                                        
 
                     </div>
 
@@ -300,7 +390,7 @@
        
 
     </div>
-
+<% } %>
 </body>
 
 </html>
