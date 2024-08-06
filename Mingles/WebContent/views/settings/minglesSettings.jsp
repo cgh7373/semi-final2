@@ -199,7 +199,7 @@
                     <!-- setboxes -->
                     <div class="right-bot">
 
-                        <div class="setbox">
+                        <div class="setbox" onclick="toNotice()">
                             <span class="material-icons">help_outline</span>
                             <span class="set-tag">공지사항</span>
                         </div>
@@ -212,13 +212,13 @@
                             <span class="set-tag">패스워드 변경</span>
                         </div>
 
-                        <div class="setbox">
-                            <span class="material-icons" onclick="toPosts();">feed</span>
+                        <div class="setbox" onclick="toPosts();">
+                            <span class="material-icons">feed</span>
                             <span class="set-tag">게시글 관리</span>
                         </div>
 
-                        <div class="setbox">
-                            <span class="material-icons" onclick="toEgg();">egg</span>
+                        <div class="setbox" onclick="toEgg();">
+                            <span class="material-icons">egg</span>
                             <span class="set-tag">거북알 충전</span>
                         </div>
                         
@@ -274,6 +274,10 @@
 							
 							function toPosts() {
 								location.href="/Mingles/postsForm.mi";
+							}
+							
+							function toNotice() {
+								location.href="/Mingles/notice.mi";
 							}
                         </script>
                         
