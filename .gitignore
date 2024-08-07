@@ -252,3 +252,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,macos,java,eclipse,maven
+
+# 유현동 서버연결용 입니다.
+Test_Project
