@@ -318,13 +318,13 @@
 
 						<!-- 비밀번호 변경용 Modal -->
 						<% if (m != null) { %>
-                <div class="modal" id="updatePwdModal">
-                    <div class="modal-dialog">
+                <div class="modal fade" id="updatePwdModal">
+                    <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
 
                             <!-- Modal Header -->
                             <div class="modal-header">
-                                <h4 class="modal-title">비밀번호 변경</h4>
+                                <h4 class="modal-title" align="center">비밀번호 변경</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
 
@@ -355,7 +355,7 @@
                                
                                		<br>
                                		
-                               		<button type="submit" class="btn btn-sm btn-secondary" onclick="return validatePwd();">비밀번호 변경</button>
+                               		<button type="submit" class="btn btn-sm" onclick="return validatePwd();">비밀번호 변경</button>
                                
                                </form>
                                
