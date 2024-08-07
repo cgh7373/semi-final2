@@ -1,0 +1,180 @@
+div, img {
+    box-sizing: border-box;
+}
+
+#wrap {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    border-radius: 20px;
+    margin: auto;
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    /*색상 변경*/
+    border-radius: 20px;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+}
+
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+div, ul, li, a, button{
+    font-family: 'omyu_pretty';
+}
+
+#wrap #container #right{
+    width: 100%;
+    height: 100%;
+}
+
+#wrap #container #right #post-right__title{
+    width: 90%;
+    height: 15%;
+    display: flex;
+    border-bottom: 5px solid #08817d;
+    margin-left: 80px;
+}
+
+#wrap #container #right #post-right__title #right-title__text{
+    width: 50%;
+    height: 100%;
+    font-size: 50px;
+    font-family: 'Katuri';
+    padding: 35px 30px;
+    color: #52b8b8;
+}
+
+#wrap #container #right #post-right__title #right-title__btn{
+    width: 50%;
+    position: relative;
+    display: flex;
+}   
+
+#wrap #container #right #post-right__title #right-title__btn button:hover{
+    transition: .3s;
+    background-color: #07BEB8;
+    color: #ffffff;
+}
+
+#wrap #container #right #post-right__title #right-title__btn button{
+    width: 150px;
+    height: 80px;
+    background-color: #80FFDB;
+    color: #08817d;
+    border: none;
+    border-radius: 10px;
+    position: absolute;
+    transition: .3s;
+}
+
+button.btn-set {
+border-radius: 6px;
+background-color: #4d8583;
+border: none;
+color: #FFFFFF;
+font-size: 17px;
+width: 100px;
+transition: all 0.3s;
+cursor: pointer;
+right: 0;
+top: 35px;
+}
+
+#right-title__btn #b1 {
+    margin-right: 800px;
+}
+
+#right-title__btn #b2 {
+    margin-right: 600px;
+}
+
+#right-title__btn #b3 {
+    margin-right: 400px;
+}
+
+#right-title__btn #b4 {
+    margin-right: 200px;
+}
+
+button.btn-set span {
+cursor: pointer;
+display: inline-block;
+position: relative;
+transition: 0.2s;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+button.btn-set span:after {
+content: '»';
+position: absolute;
+opacity: 0;
+top: 0;
+right: -15px;
+transition: 0.3s;
+}
+
+button.btn-set:hover span {
+padding-right: 15px;
+}
+
+button.btn-set:hover span:after {
+opacity: 1;
+right: 0;
+}
+
+#wrap #container #right #post-right__list{
+    width: 90%;
+    height: 82%;
+    border-bottom: 5px solid #60a5a3;
+    margin-left: 80px;
+}
+
+.right-list__content{
+    position: relative;
+}
+
+.right-list__content ul{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    position: relative;
+}
+
+.right-list__content ul:first-child{
+    background-color: aliceblue;
+}
+
+.right-list__content ul li{
+    width: 300px;
+    height: 64px;
+    line-height: 4;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 16px;
+}
+
+.right-list__content ul .list__check{
+    position: absolute;
+    left: 5px;
+}

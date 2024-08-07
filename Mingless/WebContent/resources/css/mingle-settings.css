@@ -1,0 +1,380 @@
+div, img {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'omyu_pretty';
+}
+
+#wrap {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    margin: auto;
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    position: absolute;
+    overflow: hidden;
+}
+
+
+
+/* 세팅화면 */
+#settings {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+/* 세팅화면 왼쪽 */
+#settings .left {
+    width: 50%;
+    height: 100%;
+}
+
+#settings .left .top {
+    width: 100%;
+    height: 40%;    
+    display: flex;
+}
+
+#settings .left .top .top__left {
+    height: 100%;
+    width: 45%;
+    position: relative;
+}
+
+#settings .left .top .top__left .profilePhoto {
+    position: absolute;
+    height: 100%;
+    width: 90%;
+    border-radius: 50%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    margin-top: 5%;
+    overflow: hidden;
+}
+
+#settings .left .top .top__left .profilePhoto img{
+    width: 100%;
+    height: 100%;
+}
+
+#settings .left .top .top__left label {
+    position: absolute;
+    right: 9%;
+    bottom:6%;
+}
+
+#settings .left .top .top__left label span {
+    font-size: 50px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    border: .5px solid #c8c8c8;
+}
+
+#settings .left .top .top__right {
+    height: 100%;
+    width: 55%;
+    padding: 18% 10% 0 10%;
+}
+
+#settings .left .top .top__right .nickName {
+    font-family: 'Katuri';
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+#settings .left .top .top__right .userEmail {
+    font-family: 'omyu_pretty';
+    font-size: 20px;
+}
+
+#settings .left .mid {
+    width: 100%;
+    height: 30%;
+}
+
+#settings .left .bot {
+    width: 100%;
+    height: 30%;
+}   
+
+#settings .left .mid .promotion {
+    height: 100%;
+    position: relative;
+    transition: .4s;
+    overflow: hidden;
+}
+
+#settings .left .mid .promotion .swiper-container {
+    width: calc(300px * 3 + 40px);
+    height: 250px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin-left: calc((300px * 3 + 40px) / -2);
+}
+
+#settings .left .mid .promotion .swiper-slide {
+    overflow: hidden;
+    width: 300px;
+}
+
+#settings .left .mid .promotion .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#settings .left .mid .promotion .swiper-container .btn {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#settings .left .mid .promotion .swiper-btn {
+    width: 32px;
+    height: 32px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    z-index: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .5s;
+    &.swiper-prev {
+        left: 56%;
+        margin-left: -200px;
+    }
+    &.swiper-next {
+        right: 56%;
+        margin-right: -200px;
+    }
+    &>div {
+        font-size: 35px;
+    }
+    &:hover {
+        color: #fff;
+        background-color: #333;
+    }
+}
+
+.promotion .promo-tag {
+    font-family: 'omyu_pretty';
+    font-size: 38px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}
+
+#settings .left .bot .promotion {
+    height: 100%;
+    position: relative;
+    transition: .4s;
+    overflow: hidden;
+}
+
+#settings .left .bot .promotion .swiper-container {
+    width: calc(300px * 3 + 40px);
+    height: 250px;
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    margin-left: calc((300px * 3 + 40px) / -2);
+}
+
+#settings .left .bot .promotion .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+#settings .left .bot .promotion .swiper-container .btn {
+    position: absolute;
+    width: 150px;
+    height: 30px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#settings .left .bot .promotion .swiper-btn {
+    width: 30px;
+    height: 30px;
+    border: 2px solid #333;
+    border-radius: 50%;
+    position: absolute;
+    top: 10px;
+    z-index: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .5s;
+    &.swiper-prev {
+        left: 56%;
+        margin-left: -200px;
+    }
+    &.swiper-next {
+        right: 56%;
+        margin-right: -200px;
+    }
+    &>div {
+        font-size: 35px;
+    }
+    &:hover {
+        color: #fff;
+        background-color: #333;
+    }
+}
+
+/* 세팅화면 오른쪽 */
+#settings .right {
+    width: 50%;
+    height: 100%;
+}
+
+#settings .right .right-top {
+    width: 95%;
+    height: 20%;
+    margin: 2.5%;
+    background-color: #07BEB8;
+    border: 4px solid dimgrey;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#settings .right .right-top span {
+    font-size: 55px;
+}
+
+#settings .right .right-top .rt-title {
+    font-size: 55px;
+    font-family: 'Katuri';
+}
+
+#settings .right .right-bot {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#settings .right .right-bot .setbox {
+    width: 20%;
+    height: 25%;
+    transition: .4s;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    &:hover {
+        background-color: #f6f5f0;
+    }
+}
+
+#settings .right .right-bot .setbox span {
+    &:hover {
+        cursor: pointer;
+    }
+    &:active {
+        transform: translateX(.6px) translateY(.6px);
+    }
+}
+
+#settings .right .right-bot .setbox .material-icons {
+    font-size: 100px;
+}
+
+#settings .right .right-bot .setbox .set-tag {
+    font-size: 24px;
+    font-family: 'omyu_pretty';
+    font-weight: 700;
+}   
+
+.modal * {
+	font-family: 'omyu_pretty';
+	font-size : 20px;
+}
+
+.modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background-color: #dbfffd;
+}
+
+.modal-title {
+	font-family: 'Katuri';
+    margin-left: 36%;
+    font-size: 25px;
+}
+
+.modal-body table * {
+    margin: 5%;
+}
+
+.modal .modal-body button {
+    border-radius: 10px;
+    background-color: #dbfffd;
+    transition: .8s;
+    &:hover {
+        box-shadow: 0 0 4px 2px #07BEB8;
+        background-color: #c3f8f5;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
