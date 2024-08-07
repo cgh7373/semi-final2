@@ -142,7 +142,8 @@ body {
     margin: 10px 0;
 }
 
-/* Popular and Recent Posts */#con3 .sub-title {
+/* Popular and Recent Posts */
+#con3 .sub-title {
     font-family: 'Katuri', sans-serif;
     font-size: 20px;
     color: #5390D9;
@@ -429,3 +430,29 @@ body {
     top:78px;
     left:257px;
   }
+
+  /* Tooltip */
+.tooltip-inner {
+    background-color: #fff !important;
+    color: #08817d !important;
+    border: 2px dotted #3DCCC7 !important;
+    width: 120px;
+    height: 40px;
+    border-radius: 20px !important;
+    font-size: 20px;
+    font-family: 'omyu_pretty';
+}
+
+.custom-tooltip .tooltip-inner {
+    font-size: 15px !important;
+    width: 200px !important;
+    height: 30px !important;
+}
+
+.tooltip .arrow::before, .tooltip .arrow::after {
+    border: transparent !important;
+}
+
+.tooltip.bs-tooltip-top .arrow::before {
+    border: transparent !important;
+}

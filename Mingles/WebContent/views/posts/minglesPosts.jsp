@@ -102,31 +102,32 @@
                     </div>
                 </div>
                 <div id="post-right__list">
-                    <section class="right-list__content">
+                    <table class="right-list__content">
                     
                         <!-- 여기가 제목칸들 -->
-                        <ul>
-                            <li>내용1</li>
-                            <li>내용2</li>
-                            <li>내용3</li>
-                            <li>내용4</li>
-                            <li>내용5</li>
-                            <li>내용6</li>
-                            <li>내용7</li>
-                        </ul>
+                        <thead>
+                            <tr>
+                                <th width="12%">게시번호</th>
+                                <th width="10%">태그</th>
+                                <th width="40%">제목</th>
+                                <th width="8%">조회수</th>
+                                <th width="30%">작성일</th>
+                            </tr>
+                        </thead> 
+                        
                         
                         <!-- 여기다가 게시글 동적으로 만들면됨 -->
-                        <ul>
-                            <li>내용1</li>
-                            <li>내용2</li>
-                            <li>내용3</li>
-                            <li>내용4</li>
-                            <li>내용5</li>
-                            <li>내용6</li>
-                            <li>내용7</li>
-                        </ul>
+                        <tbody>
+                            <tr>
+                                <td>내용1</td>
+                                <td>내용2</td>
+                                <td>내용3</td>
+                                <td>내용4</td>
+                                <td>내용5</td>
+                            </tr>
+                        </tbody>
                         
-                    </section>
+                    </table>
                 </div>
             </div>
         </div>

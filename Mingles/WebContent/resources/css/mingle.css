@@ -91,14 +91,12 @@ iframe {
     align-items: center;
 }
 
-
-
 /* 점차 생기는 로그인 화면 */
 #form {
     position: absolute;
     width: auto;
-    left: 500px;
-    top: 100px;
+    left: 35%;
+    top: 20%;
     background-color: #cafff0;
     border-radius: 20px;
 }
@@ -306,8 +304,8 @@ iframe {
 }
 
 .anyTab {
-    bottom: 39%;
-    right: 6%;
+    bottom: 35%;
+    left: 6%;
 }
 
 .shopTab {
@@ -342,8 +340,8 @@ iframe {
 }
 
 .logoutTab {
-    bottom: 35%;
-    left: 6%;
+    bottom: 39%;
+    right: 6%;
 }
 
 .chatTab {
