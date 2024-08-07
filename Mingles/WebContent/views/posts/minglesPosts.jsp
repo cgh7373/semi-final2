@@ -98,6 +98,7 @@
                     <div id="right-title__text">여기에 이 파일 이름</div>
                     <div id="right-title__btn">
                         <button><div>글쓰기</div></button>
+                        <button onclick="history.back()"><div>뒤로가기</div></button>
                     </div>
                 </div>
                 <div id="post-right__list">
