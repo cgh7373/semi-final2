@@ -24,14 +24,12 @@
 
 <body>
 
-    <div id="wrap">
-
         <!-- 메인 화면 -->
         <div id="container">
 
             <header id="turtle-egg-header">
                 <div id="teh__text">MY 거북알</div>
-                <button class="" onclick="history.back()">뒤로가기</button>
+                <button class="btn-back" onclick="history.back()">뒤로가기</button>
             </header>
 
             <section id="turtle-egg-content">
@@ -51,10 +49,12 @@
                 <div id="charge-list">
                     <div id="charge-list__top">
                         <div id="list-top__text">결제 내역</div>
-                        <input type="date" class="dateInput">
-                        <span>~</span>
-                        <input type="date" class="dateInput">
-                        <input type="submit" value="검색">
+                        <form action="">
+                          <input type="date" class="dateInput">
+                          <span>~</span>
+                          <input type="date" class="dateInput">
+                          <button type="submit">검색</button>
+                        </form>
                     </div>
 
                     <div id="charge-list__bot">
@@ -64,7 +64,6 @@
                                 <th>구매수량</th>
                                 <th>금액</th>
                                 <th>구매일자</th>
-                                
                               </tr>
                             </thead>
                             <tbody>
@@ -78,46 +77,7 @@
                                 <td>Moe</td>
                                 <td>mary@example.com</td>
                               </tr>
-                              <tr>
-                                <td>July</td>
-                                <td>Dooley</td>
-                                <td>july@example.com</td>
-                              </tr>
-                              <tr>
-                                <td>July</td>
-                                <td>Dooley</td>
-                                <td>july@example.com</td>
-                              </tr>
-                              <tr>
-                                <td>July</td>
-                                <td>Dooley</td>
-                                <td>july@example.com</td>
-                              </tr>
-                              <tr>
-                                <td>July</td>
-                                <td>Dooley</td>
-                                <td>july@example.com</td>
-                              </tr>
-                              <tr>
-                                <td>July</td>
-                                <td>Dooley</td>
-                                <td>july@example.com</td>
-                              </tr>
-                              <tr>
-                                <td>July</td>
-                                <td>Dooley</td>
-                                <td>july@example.com</td>
-                              </tr>
-                              <tr>
-                                <td>July</td>
-                                <td>Dooley</td>
-                                <td>july@example.com</td>
-                              </tr>
-                              <tr>
-                                <td>July</td>
-                                <td>Dooley</td>
-                                <td>july@example.com</td>
-                              </tr>
+                              
                             </tbody>
                           </table>
                     </div>
@@ -125,42 +85,8 @@
                 
             </section>
 
-
-
-
-
-
-
         </div>
 
-        <!-- 홈키 -->
-        <button id="homeKey" class="rounded-circle"></button>
-
-        <!-- 메뉴바 -->
-        <div id="menuBar">
-
-            <div id="menuWrap">
-
-                <!-- 뒤로가기버튼 -->
-                <button id="menuBack" class="rounded-circle" style="width: 70px; height: 70px; background-color: white; border: none;">
-                    <img src="../../resources/images/greenpointer.png" style="background-color: white; width: 70%; height: 70%;">
-                    <!-- 화살표 이미지(->)로 변경, deg(270 제거) -->
-                </button>
-
-                <!-- mHead -->
-                 <div id="mHead"><img src="../../resources/images/밍글로고.PNG" style = "width:90%; height:90%;"></div>
-
-                <!-- mBody -->
-                 <div id="mBody"></div>
-
-                <!-- mFoot -->
-                 <div id="mFoot"></div>
-
-            </div>
-
-        </div>
-
-    </div>
 
     <!-- 충전 모달 -->
     <div class="modal" id="charge-modal">
@@ -207,6 +133,7 @@
 
     <!-- 선물 모달 -->
     <div class="modal" id="gift-modal">
+    
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
       
