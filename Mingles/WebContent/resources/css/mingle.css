@@ -301,54 +301,54 @@ iframe {
 }
 
 .settings {
-    top: 600px;
-    left: 30px;
+    bottom: 22%;
+    right: 4%;
 }
 
 .anyTab {
-    top: 500px;
-    left: 79px;
+    bottom: 39%;
+    right: 6%;
 }
 
 .shopTab {
-    top: 380px;
-    left: 57px;
+    bottom: 52%;
+    right: 3%;
 }
 
 .explore-tab {
-    top: 180px;
-    left: 119px;
+    bottom: 72%;
+    right: 7%;
 }
 
 .styleTab {
-    top: 30px;
-    left: 69px;
+    bottom: 86%;
+    right: 3%;
 }
 
 .mainTab {
-    top: 180px;
-    right: 19px;
+    bottom: 80%;
+    left: 3%;
     visibility: hidden;
 }
 
 .postsTab {
-    top: 680px;
-    right: 69px;
+    bottom: 67%;
+    left: 5%;
 }
 
 .anyTab7 {
-    top: 480px;
-    left: 1739px;
+    bottom: 54%;
+    left: 3%;
 }
 
 .logoutTab {
-    top: 380px;
-    right: 59px;
+    bottom: 35%;
+    left: 6%;
 }
 
 .chatTab {
-    top: 150px;
-    right: 119px;
+    bottom: 19%;
+    left: 5%;
 }
 
 .turtle {

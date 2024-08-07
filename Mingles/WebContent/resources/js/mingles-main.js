@@ -1,30 +1,3 @@
-
-$(function() {
-
-    $('#homeKey').click(function() {
-        $('#menuBar').css('display','block');
-        gsap.to('#menuBar',{
-            duration: 1,
-            right : 0,
-            ease : 'power1.out',
-        });
-    });
-
-    $('#menuBack').click(function() {
-        gsap.to('#menuBar',{
-            duration: 1,
-            right:'-20%',
-            ease : 'power1.in',
-            onComplete: function(){
-            setTimeout(function(){
-                $('#menuBar').css('display','none');
-            },200)
-            }
-        })
-    })
-
-})
-
 $(function(){
 
     let bounce;

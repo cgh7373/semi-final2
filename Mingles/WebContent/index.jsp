@@ -9,7 +9,6 @@
 <body>
 
 	<%@ include file="views/common/Mingles.jsp" %>
-    sdfsdfsdfsdfsdf
 
 </body>
 </html>

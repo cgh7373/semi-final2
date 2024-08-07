@@ -1,8 +1,6 @@
-@font-face {
-    font-family: 'omyu_pretty';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+/* General Styling */
+div, img {
+    box-sizing: border-box;
 }
 
 @font-face {
@@ -12,284 +10,176 @@
     font-style: normal;
 }
 
-div, img {
-    box-sizing: border-box;
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    font-family: 'omyu_pretty', sans-serif;
 }
 
 #wrap {
     width: 100vw;
     height: 100vh;
     margin: 0;
-    margin: auto;
-    position: relative;
     display: flex;
     box-sizing: border-box;
-    overflow:hidden;
 }
 
 #container {
     width: 100%;
     height: 100%;
     background-color: white;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
     position: relative;
 }
 
-/* 왼쪽 화면 */
-#wrap>#container>div.post-list {
-    height: 100%;
-}
-
-#wrap>#container>div#left {
+#left {
     width: 30%;
-    margin-left:1.5%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
 }
 
-#wrap>#container>div#left>div.left__content {
-    width: 80%;
-    margin-left:30px;
+#right {
+    width: 70%;
+    padding: 20px;
 }
 
-/* 사진 부분 */
-#wrap>#container>div#left>div#con1 {
+.left__content {
+    margin-bottom: 20px;
+}
+
+#con1 {
     height: 35%;
-    width:70%;
     border-bottom: 5px solid #80FFDB;
     text-align: center;
-    margin-left:50px;
-}
-#wrap>#container>div#left>div#con1>img {
-    width: 270px;
-    height: 270px;
-    margin: 20px;
-    padding:20px;
 }
 
-/* 프로필 부분 */
-#wrap>#container>div#left>div#con2 {
-    height:19%;
-    width:70%;
+#con1 img {
+    width: 60%;
+    max-width: 300px;
+    height: auto;
+    margin: 20px auto;
+}
+
+#con2 {
+    height: 25%;
     border-bottom: 5px solid #80FFDB;
     position: relative;
-    margin-left:50px;
+    padding: 10px;
 }
 
-#wrap>#container>div#left>div#con2 div{
-    width: 100%;
-    height: 27%;
-}
-
-#container>#left>#con2>#con2__nickname{
+#con2__nickname {
     font-size: 30px;
-    margin: 13px;
-    font-family:"Katuri";
+    margin: 15px 0;
+    font-family: 'Katuri', sans-serif;
 }
 
-/* 채팅창콘, 다이어리 아이콘 */
-#mailIcon, #diary{
+#mailIcon {
     font-size: 40px;
     color: #34c299;
     position: absolute;
-    cursor:pointer;
-    border: transparent;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    border: none;
     background-color: transparent;
     border-radius: 20px;
-    transition-duration: 1s;
-    transition-property: border, box-shadow;
+    transition: box-shadow 0.3s;
 }
 
-#mailIcon{
-  top: -5px;
-  right: 10px;
-}
-
-#diary{
-  top: -5px;
-  right: 70px;
-}
-
-#mailIcon:hover, #diary:hover{
+#mailIcon:hover {
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
 }
 
-#mailIcon:active, #diary:active{
-    color:#C4FFF9 ;
-    background-color: #64DFDF;
+#mailIcon:active {
+    color: #C4FFF9;
+    background-color: #34c299;
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
 }
 
-#container>#left>#con2>#con2__my_text{
+#con2__my_text {
     font-size: 20px;
-    margin: 0 0 5px 10px;
-    line-height: normal;
-    font-family: 'omyu_pretty';
+    line-height: 1.5;
+    margin: 10px 0;
+    height: 40%;
 }
 
-#container>#left>#con2>#con2__my_info{
+#con2__my_info {
     display: flex;
-    position: relative;
-    font-family: 'omyu_pretty';
-    font-size:20px;
-    color: #07BEB8 ;
-    text-align:center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: #07BEB8;
+}
+
+#con2__my_info > div {
+    width: 25%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    transition-delay:2s;
-    transition-property: border, box-shadow;
+    margin: 5px 0;
+    border-radius: 20px;
+    transition: box-shadow 0.3s;
+    font-size: 20px;
+    cursor: pointer;
 }
 
-#container>#left>#con2>#con2__my_info>#my_info__1{
-    width:200px;
-    height:30px;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    transition: all 1s;
-}
-
-#container>#left>#con2>#con2__my_info>#my_info__1:hover{
-    width:200px;
-    height:30px;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    border-radius:20px;
+#con2__my_info > div:hover {
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition-duration:1s;
 }
 
-#container>#left>#con2>#con2__my_info>#my_info__2{
-    width:200px;
-    height:30px;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    transition: all 1s;
+.post-box {
+    border: 5px dotted #56CFE1;
+    width: 100%;
+    margin: 10px 0;
 }
 
-#container>#left>#con2>#con2__my_info>#my_info__2:hover{
-    width:200px;
-    height:30px;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    border-radius:20px;
-    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition-duration:1s;
-}
-
-#container>#left>#con2>#con2__my_info>#my_info__3{
-    width:200px;
-    height:30px;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    transition: all 1s;
-}
-
-#container>#left>#con2>#con2__my_info>#my_info__3:hover{
-    width:200px;
-    height:30px;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    border-radius:20px;
-    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition-duration:1s;
-}
-
-#container>#left>#con2>#con2__my_info>#my_info__4{
-    width:200px;
-    height:30px;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    transition: all 1s;
-}
-
-#container>#left>#con2>#con2__my_info>#my_info__4:hover{
-    width:200px;
-    height:30px;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    border-radius:20px;
-    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition-duration:1s;
-}
-
-/* tooltip */
-.tooltip-inner{
-  background-color: #fff !important;
-  color:#08817d !important;
-  border: 2px dotted #3DCCC7  !important;
-  width:120px;
-  height:40px;
-  border-radius:20px !important;
-  font-size:20px;
-  font-family:'omyu_pretty' 
-}
-
-.custom-tooltip .tooltip-inner {
-  font-size:15px !important; 
-  width: 200px !important; 
-  height: 30px !important;
-}
-
-.tooltip .arrow::before, .tooltip .arrow::after {
-  border: transparent !important;
-}
-
-.tooltip.bs-tooltip-top .arrow::before {
-  border: transparent!important;
-}
-
-/* 인기글, 최신글 화면 */
-
-#wrap>#container>div#left>div#con3 {
-    height: 30%;
-}
-
-.post-box{
-    border:5px dotted #56CFE1;
-    width: 87%;
-    height: 50%;
-    top: 0;
-    bottom: 0;
-    margin: 15px;
-    margin-left:20px;
-}
-#con3 .sub-title{
-    font-family: "Katuri";
-    font-size:20px;
-    margin:8px;
+/* Popular and Recent Posts */#con3 .sub-title {
+    font-family: 'Katuri', sans-serif;
+    font-size: 20px;
     color: #5390D9;
+    margin-bottom: 10px;
 }
 
-#con3 li{
-    font-family: "omyu_pretty";
+#con3 ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#con3 li {
     font-size: 18px;
-    margin:3px;
-    padding:3px;
+    margin: 3px 0;
+    padding: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
 }
 
-#con3 li:hover{
-    background-color:#e9ffff ;
-    box-shadow: 0 0 5px  #56CFE1 , 0 0 10px #48BFE3, 0 0 15px #4EA8DE ;
+#con3 li:hover {
+    background-color: #e9ffff;
+    box-shadow: 0 0 5px #56CFE1, 0 0 10px #48BFE3, 0 0 15px #4EA8DE;
+    border-radius: 20px;
 }
-
-/* 미니홈피 화면 */
 
 .minihompi{
-    width:1000px;
-    height:650px;
-    top:0;
-    bottom:5;
+    width:67%;
+    height:77%;
+    bottom: 10%;
     border: 2px solid #07BEB8;
     border-radius: 20px;
     position:absolute;
     margin-left:31%;
     margin-top:6%;
     z-index:2;
-    overflow:hidden;s
+    overflow:hidden;
 }
 
 .minihompi img{
@@ -302,7 +192,7 @@ div, img {
 /* 나도 꾸미기 버튼 */
 #decorate {
     text-decoration: none;
-    position: relative;
+    position: absolute;
     border: none;
     font-size: 23px;
     font-family: "omyu_pretty";
@@ -315,16 +205,16 @@ div, img {
     background-size: 300%;
     border-radius: 50px;
     z-index: 1;
-    left:32%;
-    bottom:7%;
-  }
+    left: 31.5%;
+    bottom: 4%;
+}
   
-  #decorate:hover {
+#decorate:hover {
     animation: ani 8s linear infinite;
     border: none;
-  }
-  
-  @keyframes ani {
+}
+
+@keyframes ani {
     0% {
       background-position: 0%;
     }
@@ -356,17 +246,15 @@ div, img {
     background: linear-gradient(32deg, #965df2, #4EA8DE , #56CFE1, #72EFDD);
   }
 
-
-
-/* 좋아요 버튼*/
+  /* 좋아요 버튼*/
 .heart-container {
     --heart-color: rgb(255, 91, 137);
-    position: relative;
+    position: absolute;
     width: 50px;
     height: 50px;
     transition: .3s;
-    right:-93%;
-    bottom:13%;
+    right: 2%;
+    bottom:4%;
   }
   
   .heart-container .checkbox {
@@ -446,217 +334,98 @@ div, img {
       display: none;
     }
   }
-  
- /* mp3음악 버튼 */
+
+  /* mp3음악 버튼 */
 
  .music{
-  position:absolute;
-  width:30px;
-  height:30px;
-  top:20px;
-  right:180px;
-  }
-
-  .music>img{
-    width:70px;
-    height: 70px;
-    cursor:pointer;
-  }
-
-  /* mp3창 */
-
-  .popover-content { 
-    position:relative;
-    border: 1px solid black;
-    border-radius:20px;
-    top:5px;
-    right:250px;
-    width:300px;
-    height:120px;
-    justify-content:center;
-    flex-wrap:wrap;
-    z-index:5;
-    background-color:#68D8D6;
-    opacity:0;
-    display:none;
-    transition: opacity .5s ease;
-    
-}
-
-.popover-content.youShow{
-  opacity:1;
-  display:flex;
-}
-
-.iframe-container {
-    position: relative;
-    width:90px;
-    height:90px;
-    right:8px;
-    top:13px;
-    overflow: hidden;
-    border-radius: 50px;
-    background-color:#07BEB8;
-}
-
-.iframe-container iframe{
-  width:180%;
-  height:100%;
-  position:absolute;
+    position:absolute;
+    width:30px;
+    height:30px;
+    top: 30px;
+    right: 85px;
+    }
   
-}
-
-.music--info{
-  position:relative;
-  display:inline-block;
-  width:120px;
-  height:70px;
-  left:50px;
-  top:25px;
-}
-
-.music--title{
-  font-size:27px;
-  font-weight:500;
-  font-family:'omyu_pretty';
-}
-
-.music--singer{
-  padding-top:10px;
-  font-size:18px;
-  font-family:'omyu_pretty';
-}
-
-/* 플리 버튼 */
-.popover-content button{
-  width:10px;
-  height: 10px;
-  padding:10px;
-  border: transparent;
-  background-color:transparent;
-  color:#08817d;
-}
-
-#playlist{
-  position:absolute;
-  top:78px;
-  left:257px;
-}
-
-
-/* 메뉴키 */
-
-#homeKey {
-    width: 3%;
-    height: 6%;
-    position: absolute;
-    left: 96.3%;
-    top: 50%;
-    cursor: pointer;
-    border: 2px outset #07BEB8; /*색상 변경, 테두리 solid -> outset으로 변경, 테두리 1px -> 2px로 변경*/
-    box-shadow: 0 0 2px 1px #08817d; /*색상 변경(팔레트에 없는 색상)*/
+    .music>img{
+      width:70px;
+      height: 70px;
+      cursor:pointer;
+    }
+  
+    /* mp3창 */
+  
+    .popover-content { 
+      position:absolute;
+      border: 1px solid black;
+      border-radius:20px;
+      bottom: -208%;
+      right:40px;
+      width:300px;
+      height:120px;
+      justify-content:center;
+      flex-wrap:wrap;
+      z-index:5;
+      background-color:#68D8D6;
+      opacity:0;
+      display:none;
+      transition: opacity .5s ease;
+      
+  }
+  
+  .popover-content.youShow{
+    opacity:1;
+    display:flex;
+  }
+  .iframe-container {
+      position: relative;
+      width:90px;
+      height:90px;
+      right:8px;
+      top:13px;
+      overflow: hidden;
+      border-radius: 50px;
+      background-color:#07BEB8;
+  }
+  
+  .iframe-container iframe{
+    width:180%;
+    height:100%;
+    position:absolute;
     
-}
+  }
+  
+  .music--info{
+    position:relative;
+    display:inline-block;
+    width:120px;
+    height:70px;
+    left:50px;
+    top:25px;
+  }
+  
+  .music--title{
+    font-size:27px;
+    font-weight:500;
+    font-family:'omyu_pretty';
+  }
+  
+  .music--singer{
+    padding-top:10px;
+    font-size:18px;
+    font-family:'omyu_pretty';
+  }
 
-#menuBar {
-    width: 20%;
-    height: 100%;
-    /* border-top-right-radius: 20px; */
-    /* border-bottom-right-radius: 20px; */
-    border-radius: 20px;
-    border: 3px solid  #07BEB8; /*색상 변경, 테두리 1px -> 3px변경*/
-    box-shadow: 0 0 1px 1px #07BEB8 ; /*색상 변경*/
-    right: -20%;
-    position: absolute;
-    background-color: white;
-    display: none;
-    z-index:3;
-}
-
-#menuWrap {
-    width: 100%;
-    height: 100%;
-    position: relative;
-
-}
-
-#mHead {
-    position: absolute;
-    left: 24%;
-    width: 54%;
-    height: 10%;
-    border-bottom: 2px solid #07BEB8; /*색상 변경*/
-}
-
-/* mBody */
-
-#mBody{
-  height: 80%;
-  position:relative;
-  top:100px;
-}
-
-.menu{
-  height: 40%;
-  justify-content: center;
-  align-items:center;
-}
-
-.category{
-  width:95%;
-  height: 45%;
-  margin-left:10px;
-  border: 5px dashed #73b2ff;
-  border-radius:20px;
-  background-image: url("https://i.pinimg.com/originals/11/77/06/1177069fecb298a09e4a9966a7821752.gif");
-  top:120px;
-}
-
-.menu>*{
-  width:60%;
-  border-radius:20px;
-  margin:15px;
-  padding:5px;
-  font-size:40px;
-  margin-left:30px;
-  padding-left:20px;
-  font-family:"omyu_pretty";
-}
-
-.menu>*:hover{
-  box-shadow: 0 0 5px  #56CFE1 , 0 0 10px #48BFE3, 0 0 15px #4EA8DE ;
-  transition-duration: 0.5s;
-  transition-property: border, box-shadow;
-}
-
-.menu>*:active{
-  background-color: #3DCCC7 ;
-  color: #e9ffff;
-  box-shadow: 0 0 5px   #3DCCC7, 0 0 10px  #9CEAEF, 0 0 15px #68D8D6  ;
-}
-
-.category>p{
-  font-family:"katuri";
-  font-size:32px;
-  border:transparent;
-  color:#2d5f9c
-}
-
-.category>*{
-  width:65%;
-  border-radius:20px;
-  margin:10px auto;
-  padding:5px;
-  font-size:27px;
-  font-family:"omyu_pretty";
-  justify-content: center;
-  align-items: center;
-  text-align:center;
-  transition-duration: 0.5s;
-  transition-property: border, box-shadow;
-}
-
-.category > *:not(p):hover {
-  background-color: #e9ffff;
-  box-shadow: 0 0 5px #56CFE1, 0 0 10px #48BFE3, 0 0 15px #4EA8DE;
-}
+  /* 플리 버튼 */
+.popover-content button{
+    width:10px;
+    height: 10px;
+    padding:10px;
+    border: transparent;
+    background-color:transparent;
+    color:#08817d;
+  }
+  
+  #playlist{
+    position:absolute;
+    top:78px;
+    left:257px;
+  }
