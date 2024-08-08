@@ -79,7 +79,7 @@ div, img {
 
 #settings .left .top .top__left .profilePhoto img{
     width: 100%;
-    height: auto;
+    height: 100%;
 }
 
 #settings .left .top .top__left label {
