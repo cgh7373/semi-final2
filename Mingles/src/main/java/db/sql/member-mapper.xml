@@ -84,6 +84,15 @@
 			WHERE MEM_ID = ?
 			  AND STATUS = 'Y'
 	</entry>
+	
+	<entry key="updateEmail">
+			UPDATE MEMBER
+			   SET EMAIL = ?
+			     , MODIFY_DATE = SYSDATE
+		     WHERE
+				   MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
 
 
 </properties>

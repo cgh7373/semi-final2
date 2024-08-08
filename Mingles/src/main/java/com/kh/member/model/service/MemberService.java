@@ -112,6 +112,24 @@ public class MemberService {
 		return updateMem;
 	}
 
+	public Member updateEmail(Member m) {
+
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateEmail(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
 
 
 }

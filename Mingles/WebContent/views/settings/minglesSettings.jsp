@@ -228,9 +228,10 @@
                             <span class="set-tag">닉네임 변경</span>
                         </div>
 
-                        <div class="setbox">
-                            <span class="material-icons"></span>
-                            <span class="set-tag"></span>
+                        <div class="setbox" data-toggle="modal"
+                        data-target="#updateEmailModal">
+                            <span class="material-icons">alternate_email</span>
+                            <span class="set-tag">이메일 변경</span>
                         </div>
 
                         <div class="setbox">
@@ -445,7 +446,71 @@
                                     </div>
                                 </div>
                             </div>
-                                        
+                                       
+                            <!-- 이메일 변경용 Modal -->
+						    <% if (m != null) { %>
+                            <div class="modal fade" id="updateEmailModal">
+                                <div class="modal-dialog modal-dialog-centered">
+                                       <div class="modal-content">
+    
+                                       <!-- Modal Header -->
+                                       <div class="modal-header">
+                                           <h4 class="modal-title" align="center">이메일 변경</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+    
+                                    <!-- Modal body -->
+                                    <div class="modal-body" align="center">
+                                   
+                                    <form action="/Mingles/updateEmail.mi" method="post">
+                                   
+                                           <input type="hidden" name="userId" value="<%= m.getMemId() %>">
+                                           <table>
+                                           
+                                            <tr>
+                                                <td>변경할 이메일</td>                               		
+                                                <td><input type="email" name="userEmail" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호</td>                               		
+                                                <td><input type="password" name="updatePwd" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호 확인</td>                               		
+                                                <td><input type="password" name="checkPwd" required></td>                               	
+                                            </tr>	
+                                           
+                                           </table>
+                                   
+                                           <br>
+                                           
+                                           <button type="submit" class="btn btn-sm" onclick="return validatePwd();">이메일 변경</button>
+                                   
+                                   </form>
+                                   
+                                   <script>
+                                   
+                                           function validatePwd() {
+                                               
+                                               if ($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
+                                                   swal({
+                                                    icon: 'error',
+                                                    title: '비밀번호가 일치하지 않아요',
+                                                    });
+                                                   return false;
+                                               }
+                                               
+                                           }
+                                   
+                                   </script>
+                                   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
 
                     </div>
 
