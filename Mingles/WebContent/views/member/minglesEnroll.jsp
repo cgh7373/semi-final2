@@ -180,7 +180,7 @@
             <!-- 회원가입버튼 -->
             <br><br>
             <div class = "welcome">
-              <button class="text" type="submit" id="welcome">Welcome!</button>
+              <button class="text" type="submit" id="welcome">Welcome!!</button>
             </div>
   
         </div>
