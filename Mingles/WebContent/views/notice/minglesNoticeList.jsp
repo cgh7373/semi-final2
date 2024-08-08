@@ -98,9 +98,16 @@
                     <div id="right-title__text">공지사항</div>
                     <div id="right-title__btn">
                         <button><div>글쓰기</div></button>
-                        <button onclick="history.back()"><div>뒤로가기</div></button>
+                        <button onclick="goSettings();"><div>뒤로가기</div></button>
                     </div>
                 </div>
+                
+                <script>
+                	function goSettings() {
+                		location.href="views/settings/minglesSettings.jsp";
+                	}
+                </script>
+                
                 <div id="post-right__list">
                     <table class="right-list__content">
                     
