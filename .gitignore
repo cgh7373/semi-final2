@@ -1,6 +1,6 @@
 /.metadata/
 # Ignore Servers directory
-Servers/
+/Servers/
 
 # Java build files
 *.class

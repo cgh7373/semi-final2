@@ -1,0 +1,190 @@
+/* 기본 스타일 초기화 */
+a,
+div,
+img {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: #222222;
+}
+
+a:hover {
+    color: #64DFDF;
+    text-decoration: none;
+}
+
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+div, ul, li, a, button{
+    font-family: 'omyu_pretty';
+}
+
+/* 전체 랩 스타일 */
+#wrap {
+    width: 99vw;
+    height: 99.5vh;
+    border: 3px solid #07BEB8;
+    border-radius: 20px;
+    background-color: #80FFDB;
+    margin: auto;
+    position: relative;
+    display: flex;
+}
+
+/* 메인 컨테이너 스타일 */
+#container {
+    width: 94%;
+    height: 95%;
+    background-color: white;
+    border: 1px solid #64DFDF;
+    border-radius: 20px;
+    position: absolute;
+    top: 2.5%;
+    left: 1.5%;
+}
+
+/* 홈키 스타일 */
+#homeKey {
+    width: 3%;
+    height: 6%;
+    position: absolute;
+    left: 96.3%;
+    top: 50%;
+    cursor: pointer;
+    border: 2px outset #07BEB8;
+    box-shadow: 0 0 2px 1px #08817d;
+}
+
+/* 메뉴바 스타일 */
+#menuBar {
+    width: 20%;
+    height: 100%;
+    border-radius: 20px;
+    border: 3px solid #07BEB8;
+    box-shadow: 0 0 1px 1px #07BEB8;
+    right: 0;
+    position: absolute;
+    background-color: white;
+    display: none;
+}
+
+/* 메뉴 랩 스타일 */
+#menuWrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/* 메뉴 헤드 스타일 */
+#mHead {
+    position: absolute;
+    left: 24%;
+    width: 54%;
+    height: 10%;
+    border-bottom: 2px solid #07BEB8;
+}
+
+/* 메뉴 바디 스타일 */
+#mBody {
+    top: 20%;
+    position: absolute;
+}
+
+#mBody .material-icons {
+    margin: 55px;
+}
+
+#mBody .material-icons a {
+    margin: 5px;
+}
+
+.menu-button {
+    width: 70px;
+    height: 70px;
+    background-color: white;
+    border: none;
+}
+
+.menu-image {
+    background-color: white;
+    width: 70%;
+    height: 70%;
+}
+
+.menu-logo {
+    width: 90%;
+    height: 90%;
+}
+
+/* chart */
+#myChart {
+    width: 50%;
+    height: 500px;
+}
+
+#container{
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+}
+
+#container2 {
+    width: 94%;
+    height: 47.5%;
+    position: absolute;
+    bottom: 2.5%;
+    left: 1.5%;
+}
+#report {
+    margin: 10px;
+
+}
+#container #myChart2{
+    margin-left: 20px;
+}
+#reportTable{
+    height: 350px;
+    /* border: 1px solid black; */
+}
+
+#reportTable *{
+    /* border: 1px solid black; */
+    border-radius: 5px;
+}
+
+#reportTable th{ 
+    background-color: #08817d;
+    color: #64DFDF;
+    width: 800px;
+    line-height: 30px;
+    text-align: center;
+    font-weight: 700;
+}
+
+#reportTable th:first-child{
+    width: 10%;
+    height: 30px;
+    
+}
+
+#reportTable td{
+    background-color: #cfffdb;
+    line-height: 30px;
+    text-align: center;
+    font-weight: 400;
+}
