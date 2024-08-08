@@ -95,7 +95,7 @@
             <!-- Right Screen with Post Frame -->
             <div class="post-list" id="right">
                 <div id="post-right__title">
-                    <div id="right-title__text">여기에 이 파일 이름</div>
+                    <div id="right-title__text">공지사항</div>
                     <div id="right-title__btn">
                         <button><div>글쓰기</div></button>
                         <button onclick="history.back()"><div>뒤로가기</div></button>

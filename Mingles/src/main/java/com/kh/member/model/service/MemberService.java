@@ -94,4 +94,24 @@ public class MemberService {
 		return result;
 	}
 
+	public Member updateNick(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateNick(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+
+
 }

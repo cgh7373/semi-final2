@@ -222,9 +222,10 @@
                             <span class="set-tag">거북알 충전</span>
                         </div>
                         
-                        <div class="setbox">
-                            <span class="material-icons"></span>
-                            <span class="set-tag"></span>
+                        <div class="setbox" data-toggle="modal"
+                        data-target="#updateNNameModal">
+                            <span class="material-icons">face</span>
+                            <span class="set-tag">닉네임 변경</span>
                         </div>
 
                         <div class="setbox">
@@ -318,20 +319,20 @@
 
 						<!-- 비밀번호 변경용 Modal -->
 						<% if (m != null) { %>
-                <div class="modal fade" id="updatePwdModal">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
+                		<div class="modal fade" id="updatePwdModal">
+                    		<div class="modal-dialog modal-dialog-centered">
+                       			<div class="modal-content">
 
-                            <!-- Modal Header -->
-                            <div class="modal-header">
-                                <h4 class="modal-title" align="center">비밀번호 변경</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
+                           		<!-- Modal Header -->
+                           		<div class="modal-header">
+                               		<h4 class="modal-title" align="center">비밀번호 변경</h4>
+                                	<button type="button" class="close" data-dismiss="modal">&times;</button>
+                            	</div>
 
-                            <!-- Modal body -->
-                            <div class="modal-body" align="center">
+                            	<!-- Modal body -->
+                            	<div class="modal-body" align="center">
                                
-                               <form action="/Mingles/updatePwd.mi" method="post">
+                                <form action="/Mingles/updatePwd.mi" method="post">
                                
                                		<input type="hidden" name="userId" value="<%= m.getMemId() %>">
                                		<table>
@@ -375,12 +376,75 @@
                                
                                </script>
                                
+                                    </div>
+                                </div>
                             </div>
-
-
                         </div>
-                    </div>
-                </div>
+						<% } %>
+	
+                        <!-- 닉네임 변경용 Modal -->
+						<% if (m != null) { %>
+                            <div class="modal fade" id="updateNNameModal">
+                                <div class="modal-dialog modal-dialog-centered">
+                                       <div class="modal-content">
+    
+                                       <!-- Modal Header -->
+                                       <div class="modal-header">
+                                           <h4 class="modal-title" align="center">닉네임 변경</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+    
+                                    <!-- Modal body -->
+                                    <div class="modal-body" align="center">
+                                   
+                                    <form action="/Mingles/updateNick.mi" method="post">
+                                   
+                                           <input type="hidden" name="userId" value="<%= m.getMemId() %>">
+                                           <table>
+                                           
+                                            <tr>
+                                                <td>변경할 닉네임</td>                               		
+                                                <td><input type="text" name="userNick" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호</td>                               		
+                                                <td><input type="password" name="updatePwd" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호 확인</td>                               		
+                                                <td><input type="password" name="checkPwd" required></td>                               	
+                                            </tr>	
+                                           
+                                           </table>
+                                   
+                                           <br>
+                                           
+                                           <button type="submit" class="btn btn-sm" onclick="return validatePwd();">닉네임 변경</button>
+                                   
+                                   </form>
+                                   
+                                   <script>
+                                   
+                                           function validatePwd() {
+                                               
+                                               if ($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
+                                                   swal({
+                                                    icon: 'error',
+                                                    title: '비밀번호가 일치하지 않아요',
+                                                    });
+                                                   return false;
+                                               }
+                                               
+                                           }
+                                   
+                                   </script>
+                                   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                                         
 
                     </div>

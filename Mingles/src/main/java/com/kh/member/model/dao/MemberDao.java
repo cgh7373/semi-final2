@@ -124,6 +124,73 @@ public class MemberDao {
 		return result;
 	}
 
+	public int updateNick(Connection conn, Member m) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNick");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getNickname());
+			pstmt.setString(2, m.getMemId());
+			pstmt.setString(3, m.getMemPwd());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Member selectMember(Connection conn, String memId) {
+		
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, memId);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				
+				m = new Member(
+								  rset.getInt(1)
+								, rset.getString(2)
+								, rset.getString(3)
+								, rset.getString(4)
+								, rset.getString(5)
+								, rset.getString(6)
+								, rset.getString(7)
+								, rset.getString(8)
+								, rset.getString(9)
+								, rset.getString(10)
+								, rset.getString(11)
+								, rset.getString(12)
+							  );
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
+
 
 	
 	
