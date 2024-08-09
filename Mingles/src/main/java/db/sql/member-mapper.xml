@@ -93,6 +93,13 @@
 				   MEM_ID = ?
 			   AND MEM_PWD = ?
 	</entry>
+	
+	<entry key="quitMember">
+			UPDATE MEMBER
+			   SET STATUS = 'N'
+			 WHERE MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
 
 
 </properties>

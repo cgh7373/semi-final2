@@ -15,7 +15,7 @@ function scrollToSection(index) {
     if (index >= 0 && index < sections.length) {
         sections[index].scrollIntoView({
             behavior: 'smooth',
-            block: 'start'
+            block: 'nearest'
         });
     }
 }

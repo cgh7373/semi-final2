@@ -41,14 +41,14 @@ img {
 
 .main-left {
     height: 100%;
-    width: 29%;
+    width: 28%;
     display: flex;
     flex-direction: column;
     margin-left: 2%;
 }
 
 .logo {
-    margin: 30px 0 10px;
+    margin: 8% 0 3%;
 }
 
 .title {
@@ -58,39 +58,42 @@ img {
     color: #7aecbc;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: #1d4d45;
-    margin-bottom: 20px;
+    margin-bottom: 5%;
 }
 
 .style-tag {
     font-family: 'omyu_pretty';
     color: #64DFDF;
     font-size: 33px;
-    margin-left: 40px;
+    margin-left: 10%;
 }
 
 .item-container {
+	width : 100%;
+	height : 64%;
     display: flex;
     flex-wrap: wrap;
-    margin: 10px;
+    margin: 5%;
     border-top: 3px solid #80ffdb;
     border-bottom: 3px solid #80ffdb;
-    padding-bottom: 20px;
+    padding-bottom: 10%;
 }
 
 .item-container .items {
-    width: 100px;
-    height: 100px;
+    width: 24%;
+    height: auto;
     border: 2px solid transparent;
     border-radius: 10px;
-    margin-left: 20px;
-    margin-top: 20px;
+    margin-left: 7%;
+    margin-top: 5%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     box-shadow: 0 0 3px 3px #f6f5f0;
     cursor: pointer;
     transition: .6s;
     overflow: hidden;
+    box-sizing:border-box;
     &:hover {
         box-shadow: 0 0 4px 4px #80FFDB;
     }
@@ -106,8 +109,8 @@ img {
 }
 
 .item-container .items img {
-    width: 90px;
-    height: 90px;
+    width: 100%;
+    height: 100%;
     transition: .6s;
 }
 
@@ -118,9 +121,8 @@ footer .pagination-container {
     justify-content: center;
     font-family: 'omyu_pretty';
     font-size: 30px;
-    line-height: 60px;
     position: absolute;
-    bottom: 14px;
+    bottom: 1.5%;
 
     &>div {
         margin: 0 5px;
@@ -221,9 +223,6 @@ footer .pagination-container {
     background-repeat: no-repeat;
 }
 
-.main-right .right-wrapper .vis-room img {
-}
-
 .main-right .right-wrapper .bot-box {
     height: 7%;
     display: flex;
@@ -284,7 +283,7 @@ footer .pagination-container {
 	display: block;
 	width: 0;
 	z-index: 1;
-	top: 61px; 
+	top: 95%; 
 }
 	
 .bal:before {
@@ -296,7 +295,7 @@ footer .pagination-container {
 	display: block;
 	width: 0;
 	z-index: 0;
-	top: 66px;
+	top: 100%;
 }
 
 .bal.bal1.onoffTo {

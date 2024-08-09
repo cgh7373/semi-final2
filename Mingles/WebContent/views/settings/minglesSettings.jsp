@@ -197,6 +197,7 @@
                     </div>
 
                     <!-- setboxes -->
+                    <% if (m != null) { %>
                     <div class="right-bot">
 
                         <div class="setbox" onclick="toNotice()">
@@ -234,9 +235,10 @@
                             <span class="set-tag">이메일 변경</span>
                         </div>
 
-                        <div class="setbox">
-                            <span class="material-icons"></span>
-                            <span class="set-tag"></span>
+                        <div class="setbox" data-toggle="modal"
+                        data-target="#memberQuitModal">
+                            <span class="material-icons">sentiment_dissatisfied</span>
+                            <span class="set-tag">회원 탈퇴</span>
                         </div>
 
                         <div class="setbox">
@@ -319,7 +321,6 @@
                         </div>
 
 						<!-- 비밀번호 변경용 Modal -->
-						<% if (m != null) { %>
                 		<div class="modal fade" id="updatePwdModal">
                     		<div class="modal-dialog modal-dialog-centered">
                        			<div class="modal-content">
@@ -361,30 +362,12 @@
                                
                                </form>
                                
-                               <script>
-                               
-                               		function validatePwd() {
-                               			
-                               			if ($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
-                               				swal({
-                               	             icon: 'error',
-                               	             title: '비밀번호가 일치하지 않아요',
-                               	        	 });
-                               				return false;
-                               			}
-                               			
-                               		}
-                               
-                               </script>
-                               
                                     </div>
                                 </div>
                             </div>
                         </div>
-						<% } %>
 	
                         <!-- 닉네임 변경용 Modal -->
-						<% if (m != null) { %>
                             <div class="modal fade" id="updateNNameModal">
                                 <div class="modal-dialog modal-dialog-centered">
                                        <div class="modal-content">
@@ -448,7 +431,6 @@
                             </div>
                                        
                             <!-- 이메일 변경용 Modal -->
-						    <% if (m != null) { %>
                             <div class="modal fade" id="updateEmailModal">
                                 <div class="modal-dialog modal-dialog-centered">
                                        <div class="modal-content">
@@ -490,27 +472,58 @@
                                    
                                    </form>
                                    
-                                   <script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 회원 탈퇴용 Modal -->
+                            <div class="modal fade" id="memberQuitModal">
+                                <div class="modal-dialog modal-dialog-centered">
+                                       <div class="modal-content">
+    
+                                       <!-- Modal Header -->
+                                       <div class="modal-header">
+                                           <h4 class="modal-title" align="center">회원 탈퇴</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+    
+                                    <!-- Modal body -->
+                                    <div class="modal-body" align="center">
                                    
-                                           function validatePwd() {
-                                               
-                                               if ($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
-                                                   swal({
-                                                    icon: 'error',
-                                                    title: '비밀번호가 일치하지 않아요',
-                                                    });
-                                                   return false;
-                                               }
-                                               
-                                           }
+                                    <form action="/Mingles/memberQuit.mi" method="post">
                                    
-                                   </script>
+                                           <input type="hidden" name="userId" value="<%= m.getMemId() %>">
+                                           <table>
+                                           
+                                            <tr>
+                                                <td>"탈퇴하겠습니다"를 입력해주세요</td>                               		
+                                                <td><input type="text" name="quitMent" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호</td>                               		
+                                                <td><input type="password" name="updatePwd" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호 확인</td>                               		
+                                                <td><input type="password" name="checkPwd" required></td>                               	
+                                            </tr>	
+                                           
+                                           </table>
+                                   
+                                           <br>
+                                           
+                                           <button type="submit" class="btn btn-sm" onclick="return validatePwd();">회원 탈퇴</button>
+                                   
+                                   </form>
                                    
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <% } %>
+                            
 
                     </div>
 
@@ -523,7 +536,14 @@
        
 
     </div>
-<% } %>
+    	<% } else { %>
+             <script>
+             function cancelMembership() {
+                 window.parent.postMessage('membershipCanceled', '*');
+             }
+             cancelMembership();
+             </script>
+    	<% } %>
 </body>
 
 </html>

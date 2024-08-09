@@ -57,6 +57,12 @@
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
 		 });
+	
+	 	window.addEventListener('message', function(event) {
+	        if (event.data === 'membershipCanceled') {
+	            scrollToSection(0); 
+	        }
+	    });
 	</script>
 
     <!-- 바탕화면 -->
@@ -143,7 +149,7 @@
 						            icons[i].style.visibility = 'visible';
 						            icons[i].style.opacity = 1;
 						            icons[i].style.transition = '2s';
-						        }, 800 + (300 * (i + 1)));
+						        }, 300 + (100 * (i + 1)));
 						    };
 
 						    initializeFloatingAnimations();
