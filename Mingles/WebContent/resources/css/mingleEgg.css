@@ -60,7 +60,28 @@
     background-color: #fff;
 
 
-    &:hover {
+     &:hover {
+    border-radius:20px;
+    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+    transition-duration:.5s;
+    }
+}
+
+#turtle-egg-header>.reload{
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 20px;
+    font-family: 'omyu_pretty';
+    transition: all .5s;
+    box-shadow: none;
+    position: absolute;
+    top: 12px;
+    right: 200px;
+    background-color: #fff;
+
+
+     &:hover {
     border-radius:20px;
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
     transition-duration:.5s;
@@ -135,11 +156,11 @@
     box-shadow: none;
     border: 1px solid #64DFDF;
 
-    &:hover {
+     &:hover {
     border-radius:20px;
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
     transition-duration:.5s;
-    }
+    } 
 }
 
 
@@ -190,11 +211,11 @@
     margin-right: 20px;
     background-color: #fff;
 
-    &:hover {
+     &:hover {
     border-radius:20px;
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
     transition-duration:.5s;
-    }
+    } 
 }
 
 #charge-list #charge-list__bot{
@@ -215,11 +236,26 @@
     text-align: center;
 }
 
+
+
+
+.modal-header>.modal-title{
+    font-family: 'omyu_pretty';
+    font-size: 30px;
+    font-weight: 700;
+    margin-left: 50px;
+}
+
 .modal-body{
     padding-top: 0;
+    font-family: 'omyu_pretty';
+    display: flex;
 }
 
 .modal-body ul{
+    width: 400px;
+    height: 100%;
+    margin: 0 10px;
 }
 
 .modal-body li{
@@ -227,14 +263,22 @@
     border-bottom: 1px solid #e5e5e5;
     height: 80px;
     position: relative;
+    width: 100%;
+}
+
+.modal-body li div, .modal-body li button{
+    font-family: 'omyu_pretty';
 }
 
 .modal-body li>div{
     position: absolute;
     top: 30px;
+    font-weight: 700;
+    font-size: 25px;
 }
 
 .modal-body li>button{
+    width: 100px;
     height: 40px;
     position: absolute;
     right: 10px;

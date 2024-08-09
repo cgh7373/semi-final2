@@ -70,6 +70,52 @@ public class MemberDao {
 		
 		return m;
 	}
+	
+public Member loginMember(Connection conn, int userNo) {
+		
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				
+				m = new Member(
+								  rset.getInt(1)
+								, rset.getString(2)
+								, rset.getString(3)
+								, rset.getString(4)
+								, rset.getString(5)
+								, rset.getString(6)
+								, rset.getString(7)
+								, rset.getString(8)
+								, rset.getString(9)
+								, rset.getString(10)
+								, rset.getString(11)
+								, rset.getInt(12)
+								, rset.getString(13)
+							  );
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
+
 
 	public int insertMember(Connection conn, Member m, String zodiacSign) {
 		

@@ -22,6 +22,17 @@ public class MemberService {
 		
 		return m;
 	}
+	
+	public Member loginMember(int userNo) {
+
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().loginMember(conn, userNo);
+		
+		close(conn);
+		
+		return m;
+	}
 
 	public int insertMember(Member m) {
 		

@@ -1,5 +1,9 @@
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Member m = (Member)session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,7 +21,7 @@
     
     <!-- 내부파일 -->
     <link rel="stylesheet" href="./resources/css/mingleEgg.css">
-    <script src="./resources/js/mingleEgg.js"></script>
+    <script defer src="./resources/js/mingleEgg.js"></script>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
@@ -29,6 +33,7 @@
 
             <header id="turtle-egg-header">
                 <div id="teh__text">MY 거북알</div>
+                <button class="reload" onclick="location.reload()">새로고침</button>
                 <button class="btn-back" onclick="history.back()">뒤로가기</button>
             </header>
 
@@ -36,7 +41,7 @@
                 <div id="turtle-egg">
                     <div id="turtle-egg__top">
                         <div id="top__text">보유 거북알</div>
-                        <div id="top__point">10000</div>
+                        <div id="top__point"><%= m.getEgg() %></div>
                         <div id="top__p-text">거북알</div>
                     </div>
 
@@ -93,39 +98,71 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
       
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">거북알 충전</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+              <!-- Modal Header -->
+              <div class="modal-header">
+                <h4 class="modal-title">거북알 충전</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
       
-            <!-- Modal body -->
-            <div class="modal-body">
-              <div>
-                <ul>
+              <!-- Modal body -->
+              <div class="modal-body">
+                
+                  <ul>
+                      <li>
+                          <div>거북알 1개</div>
+                          <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="openPop(<%=m.getMemNo()%>,<%=m.getEgg()%>,100,1)">100원</button>
+                      </li>
+                      <li>
+                          <div>거북알 10개</div>
+                          <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="openPop(<%=m.getMemNo()%>,<%=m.getEgg()%>,1000,10)">1,000원</button>
+                      </li>
+                      <li>
+                          <div>거북알 30개</div>
+                          <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="openPop(<%=m.getMemNo()%>,<%=m.getEgg()%>,3000,30)">3,000원</button>
+                      </li>
+                      <li>
+                          <div>거북알 50개</div>
+                          <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="openPop(<%=m.getMemNo()%>,<%=m.getEgg()%>,5000,50)">5,000원</button>
+                      </li>
+                      <li>
+                          <div>거북알 100개</div>
+                          <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="openPop(<%=m.getMemNo()%>,<%=m.getEgg()%>,10000,100)">10,000원</button>
+                      </li>
+                  </ul>
+                  <ul>
                     <li>
-                        <div>100원</div>
-                        <button type="button" class="btn btn-outline-success">100거북알</button>
+                        <div>거북알 200개</div>
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="openPop(<%=m.getMemNo()%>,<%=m.getEgg()%>,20000,200)">20,000원</button>
                     </li>
                     <li>
-                        <div>100원</div>
-                        <button type="button" class="btn btn-outline-success">100거북알</button>
+                        <div>거북알 300개</div>
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="openPop(<%=m.getMemNo()%>,<%=m.getEgg()%>,30000,300)">30,000원</button>
                     </li>
                     <li>
-                        <div>100원</div>
-                        <button type="button" class="btn btn-outline-success">100거북알</button>
+                        <div>거북알 500개</div>
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="openPop(<%=m.getMemNo()%>,<%=m.getEgg()%>,50000,500)">50,000원</button>
                     </li>
                     <li>
-                        <div>100원</div>
-                        <button type="button" class="btn btn-outline-success">100거북알</button>
+                        <div>거북알 700개</div>
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="openPop(<%=m.getMemNo()%>,<%=m.getEgg()%>,70000,700)">70,000원</button>
                     </li>
                     <li>
-                        <div>100원</div>
-                        <button type="button" class="btn btn-outline-success">100거북알</button>
+                        <div>거북알 1000개</div>
+                        <button type="button" class="btn btn-outline-success" data-dismiss="modal" onclick="openPop(<%=m.getMemNo()%>,<%=m.getEgg()%>,100000,1000)">100,000원</button>
                     </li>
                 </ul>
+                
               </div>
-            </div>
+              <script>
+                function openPop(userNo, egg, price, point){
+                  // 새로운 팝업창 띄워줄 예정
+                    var option = 'top=70, left=680, width=500, height=802, status=no, menubar=no, toolbar=no, resizable=no';
+                    window.open('chargeEgg.mi?price='+price+"&egg="+egg+"&userNo="+userNo+"&point="+point, '_blank', option);
+                  // 매개변수 price로 해당 가격 받아와서 결제페이지로 넘겨줄 예정
+                  // "/Mingles/egg충전.mi?price=" + price 
+                		  //location.href = "/Mingles/chargeEgg.mi?price=" + price;
+                }
+              </script>
       
           </div>
         </div>
@@ -152,20 +189,20 @@
                             <button type="button" class="btn btn-outline-success">100거북알</button>
                         </li>
                         <li>
-                            <div>100원</div>
-                            <button type="button" class="btn btn-outline-success">100거북알</button>
+                            <div>200원</div>
+                            <button type="button" class="btn btn-outline-success">210거북알</button>
                         </li>
                         <li>
-                            <div>100원</div>
-                            <button type="button" class="btn btn-outline-success">100거북알</button>
+                            <div>300원</div>
+                            <button type="button" class="btn btn-outline-success">330거북알</button>
                         </li>
                         <li>
-                            <div>100원</div>
-                            <button type="button" class="btn btn-outline-success">100거북알</button>
+                            <div>400원</div>
+                            <button type="button" class="btn btn-outline-success">460거북알</button>
                         </li>
                         <li>
-                            <div>100원</div>
-                            <button type="button" class="btn btn-outline-success">100거북알</button>
+                            <div>500원</div>
+                            <button type="button" class="btn btn-outline-success">600거북알</button>
                         </li>
                     </ul>
                   </div>
