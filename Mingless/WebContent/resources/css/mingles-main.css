@@ -1,0 +1,507 @@
+/* General Styling */
+div, img {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    font-family: 'omyu_pretty', sans-serif;
+}
+
+#wrap {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    box-sizing: border-box;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+#left {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+#right {
+    width: 70%;
+    padding: 20px;
+}
+
+.left__content {
+    margin-bottom: 20px;
+}
+
+#con1 {
+    height: 35%;
+    border-bottom: 5px solid #80FFDB;
+    text-align: center;
+}
+
+#con1 img {
+    width: 35%;
+    max-width: 300px;
+    height: auto;
+    margin: 10px auto;
+    box-sizing: border-box;
+}
+
+#con2 {
+    height: 30%;
+    border-bottom: 5px solid #80FFDB;
+    position: relative;
+    padding: 10px;
+}
+
+#con2__nickname {
+    font-size: 30px;
+    margin: 15px 0;
+    font-family: 'Katuri', sans-serif;
+}
+
+#mailIcon, #diary{
+    font-size: 40px;
+    color: #34c299;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    border-radius: 20px;
+    transition: box-shadow 0.3s;
+}
+
+#diary{
+  right: 70px;
+}
+
+
+#mailIcon:hover, #diary:hover {
+    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+}
+
+#mailIcon:active, #diary:active {
+    color: #C4FFF9;
+    background-color: #34c299;
+    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+}
+
+#con2__my_text {
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 10px 0;
+    height: 30%;
+}
+
+#con2__my_info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: #07BEB8;
+}
+
+#con2__my_info > div {
+    width: 25%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* margin: 5px 0; */
+    border-radius: 20px;
+    transition: box-shadow 0.3s;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#con2__my_info > div:hover {
+    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+}
+
+.post-box {
+    border: 5px dotted #56CFE1;
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* Popular and Recent Posts */
+#con3 .sub-title {
+    font-family: 'Katuri', sans-serif;
+    font-size: 20px;
+    color: #5390D9;
+    margin-bottom: 10px;
+}
+
+#con3 ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#con3 li {
+    font-size: 18px;
+    margin: 3px 0;
+    padding: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+#con3 li:hover {
+    background-color: #e9ffff;
+    box-shadow: 0 0 5px #56CFE1, 0 0 10px #48BFE3, 0 0 15px #4EA8DE;
+    border-radius: 20px;
+}
+
+.minihompi{
+    width:67%;
+    height:77%;
+    bottom: 10%;
+    border: 2px solid #07BEB8;
+    border-radius: 20px;
+    position:absolute;
+    margin-left:31%;
+    margin-top:6%;
+    z-index:2;
+    overflow:hidden;
+}
+
+.minihompi img{
+    width: 100%;
+    height: 100%;
+    z-index:1; 
+    position:absolute;
+}
+
+/* 나도 꾸미기 버튼 */
+#decorate {
+    text-decoration: none;
+    position: absolute;
+    border: none;
+    font-size: 23px;
+    font-family: "omyu_pretty";
+    cursor: pointer;
+    color: #fff;
+    width: 120px;
+    height: 35px;
+    text-align: center;
+    background: linear-gradient(60deg, #965df2 , #48BFE3 , #64DFDF, #80FFDB);
+    background-size: 300%;
+    border-radius: 50px;
+    z-index: 1;
+    left: 31.5%;
+    bottom: 4%;
+}
+  
+#decorate:hover {
+    animation: ani 8s linear infinite;
+    border: none;
+}
+
+@keyframes ani {
+    0% {
+      background-position: 0%;
+    }
+  
+    100% {
+      background-position: 400%;
+    }
+  }
+  
+  #decorate:before {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+    background: linear-gradient(30deg, #965df2 , #48BFE3 , #64DFDF, #80FFDB);
+    background-size: 400%;
+    border-radius: 35px;
+    transition: 1s;
+  }
+  
+  #decorate:hover::before {
+    filter: blur(20px);
+  }
+  
+  #decorate:active {
+    background: linear-gradient(32deg, #965df2, #4EA8DE , #56CFE1, #72EFDD);
+  }
+
+  /* 좋아요 버튼*/
+.heart-container {
+    --heart-color: rgb(255, 91, 137);
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    transition: .3s;
+    right: 2%;
+    bottom:4%;
+  }
+  
+  .heart-container .checkbox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 20;
+    cursor: pointer;
+  }
+  
+  .heart-container .svg-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .heart-container .svg-outline,
+          .heart-container .svg-filled {
+    fill: var(--heart-color);
+    position: absolute;
+  }
+  
+  .heart-container .svg-filled {
+    animation: keyframes-svg-filled 1s;
+    display: none;
+  }
+  
+  .heart-container .svg-celebrate {
+    position: absolute;
+    animation: keyframes-svg-celebrate .5s;
+    animation-fill-mode: forwards;
+    display: none;
+    stroke: var(--heart-color);
+    fill: var(--heart-color);
+    stroke-width: 2px;
+  }
+  
+  .heart-container .checkbox:checked~.svg-container .svg-filled {
+    display: block
+  }
+  
+  .heart-container .checkbox:checked~.svg-container .svg-celebrate {
+    display: block
+  }
+  
+  @keyframes keyframes-svg-filled {
+    0% {
+      transform: scale(0);
+    }
+  
+    25% {
+      transform: scale(1.2);
+    }
+  
+    50% {
+      transform: scale(1);
+      filter: brightness(1.5);
+    }
+  }
+  
+  @keyframes keyframes-svg-celebrate {
+    0% {
+      transform: scale(0);
+    }
+  
+    50% {
+      opacity: 1;
+      filter: brightness(1.5);
+    }
+  
+    100% {
+      transform: scale(1.4);
+      opacity: 0;
+      display: none;
+    }
+  }
+
+  /* mp3음악 버튼 */
+
+ .music{
+    position:absolute;
+    width:30px;
+    height:30px;
+    top: 30px;
+    right: 85px;
+    }
+  
+    .music>img{
+      width:70px;
+      height: 70px;
+      cursor:pointer;
+    }
+  
+    /* mp3창 */
+  
+    .popover-content { 
+      position:absolute;
+      border: 1px solid black;
+      border-radius:20px;
+      bottom: -208%;
+      right:40px;
+      width:300px;
+      height:120px;
+      justify-content:center;
+      flex-wrap:wrap;
+      z-index:5;
+      background-color:#68D8D6;
+      opacity:0;
+      display:none;
+      transition: opacity .5s ease;
+      
+  }
+  
+  .popover-content.youShow{
+    opacity:1;
+    display:flex;
+  }
+  .iframe-container {
+      position: relative;
+      width:90px;
+      height:90px;
+      right:8px;
+      top:13px;
+      overflow: hidden;
+      border-radius: 50px;
+      background-color:#07BEB8;
+  }
+  
+  .iframe-container iframe{
+    width:180%;
+    height:100%;
+    position:absolute;
+    
+  }
+  
+  .music--info{
+    position:relative;
+    display:inline-block;
+    width:120px;
+    height:70px;
+    left:50px;
+    top:25px;
+  }
+  
+  .music--title{
+    font-size:27px;
+    font-weight:500;
+    font-family:'omyu_pretty';
+  }
+  
+  .music--singer{
+    padding-top:10px;
+    font-size:18px;
+    font-family:'omyu_pretty';
+  }
+
+  /* 플리 버튼 */
+.popover-content button{
+    width:10px;
+    height: 10px;
+    padding:10px;
+    border: transparent;
+    background-color:transparent;
+    color:#08817d;
+  }
+  
+  #playlist{
+    position:absolute;
+    top:78px;
+    left:257px;
+  }
+
+  /* Tooltip */
+.tooltip-inner {
+    background-color: #fff !important;
+    color: #08817d !important;
+    border: 2px dotted #3DCCC7 !important;
+    width: 120px;
+    height: 40px;
+    border-radius: 20px !important;
+    font-size: 20px;
+    font-family: 'omyu_pretty';
+}
+
+.custom-tooltip .tooltip-inner {
+    font-size: 15px !important;
+    width: 200px !important;
+    height: 30px !important;
+}
+
+.tooltip .arrow::before, .tooltip .arrow::after {
+    border: transparent !important;
+}
+
+.tooltip.bs-tooltip-top .arrow::before {
+    border: transparent !important;
+}
+
+
+/* PLAYLIST UPDATE MODAL */
+
+.modal .modal-title {
+  color: #08817d;
+  font-size: 30px;
+  text-align: center;
+  font-weight:600;
+}
+
+.modal-body .music--update,
+.modal-body .music--sequence{
+  margin:5px;
+  padding:5px;
+  font-size:15px;
+}
+
+.modal-body p{
+  font-size:20px;
+  font-weight:400;
+}
+
+.music--list{
+  font-size:15px;
+}
+
+.music--list 
+
+#music--icon, #music--icon{
+  color: black;
+  font-size:30px;
+  margin-top:10px;
+}
+
+input[type="file"]{
+  display: none;
+}
+
+table input[type="text"]{
+  width: 130px;
+  margin:4px;
+}
