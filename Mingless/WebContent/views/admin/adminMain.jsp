@@ -23,17 +23,19 @@ String contextPath = request.getContextPath();
 <link
     href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet">
+<!-- w3 icon -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 <!-- reset -->
 <link
     href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
     rel="stylesheet">
 
-<link rel="stylesheet" href="./views/admin/mingle-admin.css">
-<script src="./views/admin/mingle-admin.js" defer></script>
+<link rel="stylesheet" href="./views/admin/resources/mingle-admin.css">
+<script src="./views/admin/resources/mingle-admin.js" defer></script>
 </head>
 <body>
-	<div id="wrap">
-
+	<!-- <div id="wrap"> -->
+			
             <!-- 메인 화면 -->
             <div id="container">
               <!-- 차트 -->
@@ -96,8 +98,9 @@ String contextPath = request.getContextPath();
                 </div>
               </div>
               
-            <!-- 홈키 -->
-            <button id="homeKey" class="rounded-circle"></button>
+              <!-- 홈키 -->
+              <!-- <div id="homeKey" class="rounded-circle"></div> -->
+              <i id="homeKey" class="fas fa-bars"></i>
 
             <!-- 메뉴바 -->
             <div id="menuBar">
@@ -147,6 +150,6 @@ String contextPath = request.getContextPath();
 
             </div>
 
-        </div>
+        <!-- </div> -->
 </body>
 </html>

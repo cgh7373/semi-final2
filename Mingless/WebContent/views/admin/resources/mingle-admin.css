@@ -37,9 +37,9 @@ div, ul, li, a, button{
 #wrap {
     width: 99vw;
     height: 99.5vh;
-    border: 3px solid #07BEB8;
-    border-radius: 20px;
-    background-color: #80FFDB;
+    /* border: 3px solid #07BEB8; */
+    /* border-radius: 20px; */
+    /* background-color: #80FFDB; */
     margin: auto;
     position: relative;
     display: flex;
@@ -49,8 +49,8 @@ div, ul, li, a, button{
 #container {
     width: 94%;
     height: 95%;
-    background-color: white;
-    border: 1px solid #64DFDF;
+    /* background-color: white; */
+    /* border: 1px solid #64DFDF; */
     border-radius: 20px;
     position: absolute;
     top: 2.5%;
@@ -62,12 +62,15 @@ div, ul, li, a, button{
     width: 3%;
     height: 6%;
     position: absolute;
-    left: 96.3%;
-    top: 50%;
+    left: 92.3%;
+    top: 40px;
+    font-size: 18px;
     cursor: pointer;
-    border: 2px outset #07BEB8;
-    box-shadow: 0 0 2px 1px #08817d;
+    color: #222222;
+    /* border: 2px outset #07BEB8; */
+    /* box-shadow: 0 0 2px 1px #08817d; */
 }
+
 
 /* 메뉴바 스타일 */
 #menuBar {
