@@ -2,6 +2,8 @@ package com.kh.common;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -11,32 +13,32 @@ import java.util.Properties;
 
 public class JDBCTemplate {
 
-	// 1. Connection 객체 생성 한후 해당 Connection 객체를 반환하는 getConnection 메소드
+	
+	
+	/**
+	 * connection 생성
+	 * @return Connection
+	 */
 	public static Connection getConnection() {
 
 		Connection conn = null;
 		
-		Properties prop = new Properties(); // Map계열 컬렉션 (키-밸류 쌍)
+		Properties prop = new Properties();
 		
-		// 읽어들이고자 하는 classes 폴더내의 driver.properties 파일의 물리적인 경로
-		// /는 최상위 폴더 의미
 		String filePath = JDBCTemplate.class.getResource("/db/driver/driver.properties").getPath();
-		
+		filePath = URLDecoder.decode(filePath, StandardCharsets.UTF_8);
+		System.out.println(filePath);
 		try {
 			prop.load(new FileInputStream(filePath));
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		
 		try {
-			// jdbc driver 등록
 			Class.forName(prop.getProperty("driver"));
-			
-			// 접속할 db의 url, 계정명, 비밀번호 제시해서 Connection 객체 생성
-			conn = DriverManager.getConnection(prop.getProperty("url"),
-											   prop.getProperty("username"),
-											   prop.getProperty("password"));
-			
+			conn = 	DriverManager.getConnection(prop.getProperty("url")
+					                          , prop.getProperty("username")
+					                          , prop.getProperty("password"));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -44,26 +46,31 @@ public class JDBCTemplate {
 		}
 		
 		return conn;
-		
 	}
 	
-	// 2_1. Connection 객체 전달받아 commit하는 commit 메소드
+	/**
+	 * Commit 메소드
+	 * @param conn
+	 */
 	public static void commit(Connection conn) {
-		
 		try {
-			if (conn != null && !conn.isClosed()) {
-				conn.commit();
+			if(conn != null && !conn.isClosed()) {
+				conn.commit();			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
-	// 2_2. 	""				  rollback하는 rollback 메소드
+	/**
+	 * RollBack 메소드
+	 * @param conn
+	 */
 	public static void rollback(Connection conn) {
 		
 		try {
-			if (conn != null && !conn.isClosed()) {
+			if(conn != null && !conn.isClosed()) {
 				conn.rollback();
 			}
 		} catch (SQLException e) {
@@ -71,11 +78,15 @@ public class JDBCTemplate {
 		}
 	}
 	
-	// 3_1. Connection 객체 전달받아서 반납하는 close 메소드
+	// -- 반납 -- 
+	/**
+	 * Connection 반납
+	 * @param conn
+	 */
 	public static void close(Connection conn) {
 		
 		try {
-			if (conn != null && !conn.isClosed()) {
+			if(conn != null && !conn.isClosed()) {
 				conn.close();
 			}
 		} catch (SQLException e) {
@@ -83,11 +94,13 @@ public class JDBCTemplate {
 		}
 	}
 	
-	// 3_2. Statement 객체 전달받아서 반납하는 close 메소드
+	/**
+	 * Statement 반납
+	 * @param stmt
+	 */
 	public static void close(Statement stmt) {
-		
 		try {
-			if (stmt != null && !stmt.isClosed()) {
+			if(stmt!= null && !stmt.isClosed()) {
 				stmt.close();
 			}
 		} catch (SQLException e) {
@@ -95,23 +108,18 @@ public class JDBCTemplate {
 		}
 	}
 	
-	// 3_3. ResultSet 객체 전달받아서 반납한느 close 메소드
+	/**
+	 * ResultSet 반납
+	 * @param rset
+	 */
 	public static void close(ResultSet rset) {
 		
 		try {
-			if (rset != null && !rset.isClosed()) {
+			if(rset != null && !rset.isClosed()) {
 				rset.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 }
