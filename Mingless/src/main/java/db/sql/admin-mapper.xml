@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectBlacklist">
+		SELECT
+		        m.MEM_ID,
+		        m.NICKNAME,
+		        b.BLOCK_TYPE,
+		        b.BLOCK_COUNT,
+		        r.MEM_ID,
+		        b.BLOCK_DATE
+		  FROM
+		        MEMBER_BLACKLIST b
+		  JOIN
+		        MEMBER m ON b.MEM_NO = m.MEM_NO  -- 내부조인
+		  JOIN
+		        MEMBER r ON b.REPORTMEM_NO = r.MEM_NO  -- 신고자 회원 정보와 조인
+		  ORDER
+		     BY
+		        b.BLOCK_DATE DESC;
+	</entry>
+	
+</properties>

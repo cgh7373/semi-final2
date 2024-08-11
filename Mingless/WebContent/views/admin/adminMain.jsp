@@ -1,155 +1,176 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-String contextPath = request.getContextPath();
-%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Admin Main</title>
-<!-- bootstrap -->
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-<script
-    src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<!-- chart -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- icon -->
-<link
-    href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
-<!-- w3 icon -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-<!-- reset -->
-<link
-    href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
-    rel="stylesheet">
-
-<link rel="stylesheet" href="./views/admin/resources/mingle-admin.css">
-<script src="./views/admin/resources/mingle-admin.js" defer></script>
+    <head>
+        <meta charset="UTF-8">
+        <title>adminMain</title>
 </head>
-<body>
-	<!-- <div id="wrap"> -->
-			
-            <!-- 메인 화면 -->
-            <div id="container">
-              <!-- 차트 -->
-                <div class="statisticsUser">
-                  <div>
-                    <canvas id="myChart" width="800" height="400"></canvas>
-                  </div>
-                </div>
-                <div class="statisticsPost">
-                  <div>
-                    <canvas id="myChart2" width="800" height="400"></canvas>
-                  </div>
-                </div>
-              </div>
-              <div id="container2">
-                <!-- 신고현황  -->
-                <div id="report">
-                  <table id="reportTable">
-                    <legend>신고 현황</legend>
-                    <thead>
-                      <tr>
-                        <th>아이디</th>
-                        <th>신고횟수</th>
-                        <th>신고내용</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>user1</td>
-                        <td>???</td>
-                        <td>???</td>
-                      </tr>
-                      <tr>
-                        <td>user1</td>
-                        <td>???</td>
-                        <td>???</td>
-                      </tr>
-                      <tr>
-                        <td>user1</td>
-                        <td>???</td>
-                        <td>???</td>
-                      </tr>
-                      <tr>
-                        <td>user1</td>
-                        <td>???</td>
-                        <td>???</td>
-                      </tr>
-                      <tr>
-                        <td>user1</td>
-                        <td>???</td>
-                        <td>???</td>
-                      </tr>
-                      <tr>
-                        <td>user1</td>
-                        <td>???</td>
-                        <td>???</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              
-              <!-- 홈키 -->
-              <!-- <div id="homeKey" class="rounded-circle"></div> -->
-              <i id="homeKey" class="fas fa-bars"></i>
+<body id="page-top">
 
-            <!-- 메뉴바 -->
-            <div id="menuBar">
+    <!-- 페이지 래퍼 -->
+    <div id="wrapper">
 
-                <div id="menuWrap">
+        <%@include file="./adminMenubar.jsp" %>
 
-                    <!-- 뒤로가기버튼 -->
-                    <button
-                        id="menuBack"
-                        class="rounded-circle"
-                        style="width: 70px; height: 70px; background-color: white; border: none;">
-                        <img
-                            src="resources/images/greenpointer.png"
-                            style="background-color: white; width: 70%; height: 70%;">
-                        <!-- 화살표 이미지(->)로 변경, deg(270 제거) -->
-                    </button>
+        <!-- 콘텐츠 래퍼 -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-                    <!-- mHead -->
-                    <div id="mHead"><img
-                        src="resources/images/밍글로고.PNG"
-                        style="width:90%; height:90%;"></div>
+            <!-- 메인 콘텐츠 -->
+            <div id="content">
+                <!-- 상단바 -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <!-- 상단바 네비게이션 -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- 네비게이션 항목 - 사용자 정보 -->
+                        <li class="nav-item no-arrow">
+                            <a class="nav-link" href="#" id="userDropdown">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">관리자님 환영합니다</span>
+                                <img class="img-profile rounded-circle"
+                                    src="./resources/images/Mingles-removebg-preview.png">
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
 
-                    <!-- mBody -->
-                    <div id="mBody">
-                        <div class="material-icons">home
-                        <!-- ./views/common/Mingles.jsp -->
-                            <a href="<%=contextPath%>/login.me">홈</a>
-                        </div>
-                        <div class="material-icons">store
-                            <a href="../mingle store admin/store admin.html">상점관리</a>
-                        </div>
-                        <div class="material-icons">view_list
-                            <a href="../member/mingle-member.html">회원관리</a>
-                        </div>
-                        <div class="material-icons">signpost
-                            <a href="../mingle post admin/게시글관리.html">게시글관리</a>
-                        </div>
-                        <div class="material-icons">logout
-                            <a href="javascript:void(0)">로그아웃</a>
-                        </div>
+                <!-- 시작 페이지 내용 -->
+                <div class="container-fluid">
+
+                    <!-- 페이지 헤더 -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">관리자 페이지</h1>
                     </div>
 
-                    <!-- mFoot -->
-                    <div id="mFoot"></div>
+                    <!-- 페이지 콘텐츠 -->
+                    <div class="row">
+                        <div class="col-lg-5 mb-1">
 
+                            <!-- 차트 -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">회원 차트</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="statisticsUser">
+                                        <div>
+                                          <canvas id="myChart" class="col-lg-12" ></canvas>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-xl-5 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">게시글 차트</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="statisticsPost">
+                                        <div>
+                                          <canvas id="myChart2" class="col-lg-12"></canvas>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-10 mb-1">
+                            <div class="card shadow mb-6">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">신고 현황</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <tr>
+                                                    <th>아이디</th>
+                                                    <th>닉네임</th>
+                                                    <th>신고사유</th>
+                                                    <th>신고횟수</th>
+                                                    <th>신고자</th>
+                                                    <th>신고날짜</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>누군가</td>
+                                                    <td>누군가닉네임</td>
+                                                    <td>잘못해서~~~~~~~~~~~~~~</td>
+                                                    <td>61</td>
+                                                    <td>신고자</td>
+                                                    <td>2024/09/25</td>
+                                                </tr>
+                                                  <tr>
+                                                    <td>누군가</td>
+                                                    <td>누군가닉네임</td>
+                                                    <td>잘못해서~~~~~~~~~~~~~~</td>
+                                                    <td>61</td>
+                                                    <td>신고자</td>
+                                                    <td>2024/09/25</td>
+                                                </tr>
+                                 				<tr>	
+                                                    <td>누군가</td>
+                                                    <td>누군가닉네임</td>
+                                                    <td>잘못해서~~~~~~~~~~~~~~</td>
+                                                    <td>61</td>
+                                                    <td>신고자</td>
+                                                    <td>2024/09/25</td>
+                                                </tr>
+                                      
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>              
+                        </div>
+                    </div>
+                    
                 </div>
 
             </div>
 
-        <!-- </div> -->
+        </div>
+
+    </div>
+
+    <!-- 스크롤 버튼 위로 -->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- 로그아웃 모달 -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">정말 로그아웃하시겠습니까?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">로그아웃을 원하면 아래 "로그아웃"을 클릭하세요.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+                    <a class="btn btn-danger" href="login.html">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+	    window.onload = function() {
+	        const url = window.location.href;
+	        const urlWithoutQueryString = window.location.origin + window.location.pathname;
+	
+	        // 현재 URL이 쿼리 문자열을 포함하고 있는지 확인합니다.
+	        if (url !== urlWithoutQueryString) {
+	            // 쿼리 문자열이 제거된 URL로 브라우저의 URL을 업데이트합니다.
+	            window.history.replaceState({}, document.title, urlWithoutQueryString);
+	        }
+	    };
+    </script>
 </body>
 </html>

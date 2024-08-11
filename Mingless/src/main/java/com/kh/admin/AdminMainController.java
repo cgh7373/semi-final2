@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.kh.member.model.service.MemberService;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class AdminMainController
@@ -26,7 +30,15 @@ public class AdminMainController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/admin/adminMenubar.jsp").forward(request, response);
+		request.setCharacterEncoding("utf-8");
+		String userId = request.getParameter("userId");
+		String userPwd = request.getParameter("userPwd");
+		HttpSession session = request.getSession();
+		
+		
+		request.getRequestDispatcher("views/admin/adminMain.jsp").forward(request, response);
+		
+		
 	}
 
 	/**

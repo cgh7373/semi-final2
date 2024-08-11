@@ -27,7 +27,6 @@ public class JDBCTemplate {
 		
 		String filePath = JDBCTemplate.class.getResource("/db/driver/driver.properties").getPath();
 		filePath = URLDecoder.decode(filePath, StandardCharsets.UTF_8);
-		System.out.println(filePath);
 		try {
 			prop.load(new FileInputStream(filePath));
 		} catch (IOException e) {
