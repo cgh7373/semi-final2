@@ -27,9 +27,11 @@
         href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
         rel="stylesheet">
 
-        <!-- <link rel="stylesheet" href="./views/admin/resources/adminMenubar.css"> -->
+        <!-- 내부파일 -->
         <link href="./views/admin/resources/sb-admin-2.css" rel="stylesheet">
-        <script src="./views/admin/resources/adminMenubar.js" defer></script>  
+        <script src="./views/admin/resources/adminMenubar.js" defer></script>                 
+        <script src="./views/admin/resources/jquery.easing.js" defer></script>
+        <script src="./views/admin/resources/sb-admin-2.min.js" defer></script>
 </head>
 <body id="page-top">
 
@@ -41,8 +43,6 @@
 
             <!-- 사이드바 - 브랜드 -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">    
-                </div>
                 <div class="logo-wrap animate__animated animate__zoomOut animate__delay-1s">
                     <div class="logo--disappear">
                         <h1 class="animate__animated animate__zoomOut animate__delay-1s">
@@ -125,32 +125,20 @@
 
             <!-- 메인 콘텐츠 -->
             <div id="content">
-
                 <!-- 상단바 -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- 사이드바 토글 버튼 (상단바) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
                     <!-- 상단바 네비게이션 -->
                     <ul class="navbar-nav ml-auto">
-
                         <!-- 네비게이션 항목 - 사용자 정보 -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <li class="nav-item no-arrow">
+                            <a class="nav-link" href="#" id="userDropdown">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">관리자님 환영합니다</span>
                                 <img class="img-profile rounded-circle"
                                     src="./resources/images/Mingles-removebg-preview.png">
                             </a>
                         </li>
-
                     </ul>
-
                 </nav>
-                <!-- 상단바 끝 -->
 
                 <!-- 시작 페이지 내용 -->
                 <div class="container-fluid">
@@ -164,7 +152,7 @@
                     <div class="row">
                         <div class="col-lg-5 mb-1">
 
-                            <!-- 페이지 내용 예시 -->
+                            <!-- 차트 -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">회원 차트</h6>
@@ -172,7 +160,7 @@
                                 <div class="card-body">
                                     <div class="statisticsUser">
                                         <div>
-                                          <canvas id="myChart" width="600" height="300"></canvas>
+                                          <canvas id="myChart" class="col-lg-12" ></canvas>
                                         </div>
                                       </div>
                                 </div>
@@ -188,14 +176,14 @@
                                 <div class="card-body">
                                     <div class="statisticsPost">
                                         <div>
-                                          <canvas id="myChart2" width="600" height="300"></canvas>
+                                          <canvas id="myChart2" class="col-lg-12"></canvas>
                                         </div>
                                       </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-lg-5 mb-1">
+                        <div class="col-lg-10 mb-1">
                             <div class="card shadow mb-6">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">신고 현황</h6>
@@ -222,6 +210,22 @@
                                                     <td>2011/04/25</td>
                                                     <td>잘못</td>
                                                 </tr>
+                                                <tr>
+                                                    <td>누군가</td>
+                                                    <td>잘못해서</td>
+                                                    <td>신고자</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td>잘못</td>
+                                                </tr><tr>
+                                                    <td>누군가</td>
+                                                    <td>잘못해서</td>
+                                                    <td>신고자</td>
+                                                    <td>61</td>
+                                                    <td>2011/04/25</td>
+                                                    <td>잘못</td>
+                                                </tr>
+                                                
                                             </tbody>
                                         </table>
                                     </div>
@@ -231,16 +235,12 @@
                     </div>
                     
                 </div>
-                <!-- 끝 페이지 내용 -->
 
             </div>
-            <!-- 끝 메인 콘텐츠 -->
 
         </div>
-        <!-- 끝 콘텐츠 래퍼 -->
 
     </div>
-    <!-- 끝 페이지 래퍼 -->
 
     <!-- 스크롤 버튼 위로 -->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -266,12 +266,5 @@
             </div>
         </div>
     </div>
-    
-    <!-- Core plugin JavaScript-->
-    <script src="./views/admin/resources/jquery.easing.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="./views/admin/resources/sb-admin-2.min.js"></script>
-
 </body>
 </html>
