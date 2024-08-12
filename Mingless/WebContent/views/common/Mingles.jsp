@@ -225,7 +225,7 @@
             <!-- 아무탭7 -->
             <%if(loginUser != null) {%>
 				<%if(loginUser.getMemId().equals("admin")){ %>
-            <a href="<%=contextPath %>/main.am?userId=<%=loginUser.getMemId() %>&userPwd=<%=loginUser.getMemPwd() %>" class="material-icons anyTab7" style="text-decoration: none; color: black;">manage_accounts</a>
+            <a href="<%=contextPath %>/main.am" class="material-icons anyTab7" style="text-decoration: none; color: black;">manage_accounts</a>
                 <%} %>
             <%} %>
         

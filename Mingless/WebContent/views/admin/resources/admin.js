@@ -32,6 +32,9 @@
 
 // 차트 
 const ctx = document.querySelector("#myChart");
+console.log(memberCount);
+
+
 new Chart(ctx, {
     type: 'line',
     data: {
@@ -53,18 +56,18 @@ new Chart(ctx, {
             {
                 label: '회원수',
                 data: [
-                    3,
-                    5,
-                    8,
-                    4,
-                    5,
-                    6,
-                    12,
-                    9,
-                    8,
-                    10,
-                    11,
-                    20
+                    memberCount[0],
+                    memberCount[1],
+                    memberCount[2],
+                    memberCount[3],
+                    memberCount[4],
+                    memberCount[5],
+                    memberCount[6],
+                    memberCount[7],
+                    memberCount[8],
+                    memberCount[9],
+                    memberCount[10],
+                    memberCount[11]
                 ],
                 borderWidth: 1
             }

@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>adminMain</title>
+        <title>adminStore</title>
         
 </head>
 <body id="page-top">
@@ -39,7 +39,7 @@
 							
                     <!-- 페이지 헤더 -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">관리자 페이지</h1>
+                        <h1 class="h3 mb-0 text-gray-800">상점 관리</h1>
                     </div>
 
                     <!-- 페이지 콘텐츠 -->
@@ -47,9 +47,6 @@
                         <div class="col-lg-5 mb-1">
 
                             <!-- 차트 -->
-                            <script>
-                                const memberCount = <%=memberCount %>;
-                            </script>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">회원 차트</h6>
@@ -87,47 +84,6 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>아이디</th>
-                                                    <th>닉네임</th>
-                                                    <th>신고사유</th>
-                                                    <th>신고횟수</th>
-                                                    <th>신고자</th>
-                                                    <th>신고날짜</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <%for(Blacklist b : blacklist) {%>
-                                                <tr>
-                                                    <td><%=b.getMemId() %></td>
-                                                    <td><%=b.getNickname() %></td>
-                                                    <td><%=b.getReason() %></td>
-                                                    <td><%=b.getCount() %></td>
-                                                    <td><%=b.getReportId() %></td>
-                                                    <td><%=b.getBlockDate() %></td>
-                                                </tr>
-                                            <%} %>
-                                                  <tr>
-                                                    <td>누군가</td>
-                                                    <td>누군가닉네임</td>
-                                                    <td>잘못해서~~~~~~~~~~~~~~</td>
-                                                    <td>61</td>
-                                                    <td>신고자</td>
-                                                    <td>2024/09/25</td>
-                                                </tr>
-                                 				<tr>	
-                                                    <td>누군가</td>
-                                                    <td>누군가닉네임</td>
-                                                    <td>잘못해서~~~~~~~~~~~~~~</td>
-                                                    <td>61</td>
-                                                    <td>신고자</td>
-                                                    <td>2024/09/25</td>
-                                                </tr>
-                                      
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
                             </div>              

@@ -1,3 +1,5 @@
+<%@page import="com.kh.admin.model.vo.Blacklist"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -5,6 +7,8 @@
 <% 
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member)session.getAttribute("loginUser");
+	ArrayList<Blacklist> blacklist = (ArrayList<Blacklist>)request.getAttribute("blacklist");
+	ArrayList<Integer> memberCount = (ArrayList<Integer>)request.getAttribute("memberCount");
 %>
 <!DOCTYPE html>
 <html>
@@ -34,9 +38,8 @@
         rel="stylesheet">
 
         <!-- 내부파일 -->
-        <link href="./views/admin/resources/sb-admin-2.css" rel="stylesheet">
-        <script src="./views/admin/resources/adminMenubar.js" defer></script>                 
-        <script src="./views/admin/resources/sb-admin-2.min.js" defer></script>
+        <link href="./views/admin/resources/admin.css" rel="stylesheet">                 
+        <script src="./views/admin/resources/admin.js" defer></script>
 </head>
 <body id="page-top">
 
@@ -68,7 +71,7 @@
 
             <!-- 네비게이션 항목 - 대시보드 -->
             <li class="nav-item">
-                <a class="nav-link" href="<%=contextPath%>/login.me">
+                <a class="nav-link" href="<%=contextPath%>/login.me?userId=<%=loginUser.getMemId()%>&userPwd=<%=loginUser.getMemPwd()%>">
                     <i class="fas fa-fw fa-home"></i>
                     <span>메인화면</span></a>
             </li>
@@ -79,7 +82,7 @@
 
             <!-- 네비게이션 항목 - 페이지 접기 메뉴 -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<%=contextPath%>/store.am">
                     <i class="fas fa-fw fa-store"></i>
                     <span>상점 관리</span>
                 </a>
@@ -118,7 +121,7 @@
 
         </ul>
         <!-- 사이드바 끝 -->
-
+		
 
     </div>
 

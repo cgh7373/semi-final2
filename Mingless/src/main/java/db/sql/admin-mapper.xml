@@ -3,21 +3,26 @@
 <properties>
 	<entry key="selectBlacklist">
 		SELECT
-		        m.MEM_ID,
-		        m.NICKNAME,
-		        b.BLOCK_TYPE,
-		        b.BLOCK_COUNT,
-		        r.MEM_ID,
-		        b.BLOCK_DATE
+		        m.MEM_ID AS "MEM_ID",
+		        m.NICKNAME AS "NICKNAME",
+		        b.BLOCK_TYPE AS "BLOCK_TYPE",
+		        b.BLOCK_COUNT AS "BLOCK_COUNT",
+		        r.MEM_ID "REPORT_ID",
+		        b.BLOCK_DATE "BLOCK_DATE"
 		  FROM
 		        MEMBER_BLACKLIST b
 		  JOIN
-		        MEMBER m ON b.MEM_NO = m.MEM_NO  -- 내부조인
+		        MEMBER m ON b.MEM_NO = m.MEM_NO 
 		  JOIN
-		        MEMBER r ON b.REPORTMEM_NO = r.MEM_NO  -- 신고자 회원 정보와 조인
+		        MEMBER r ON b.REPORTMEM_NO = r.MEM_NO  
 		  ORDER
 		     BY
-		        b.BLOCK_DATE DESC;
+		        b.BLOCK_DATE DESC
 	</entry>
-	
+	<entry key="selectMemberCount">
+		SELECT COUNT(MEM_NO) AS "COUNT"
+		  FROM MEMBER
+		 WHERE EXTRACT(MONTH FROM ENROLL_DATE) = ?
+		   AND STATUS != 'N'
+	</entry>
 </properties>

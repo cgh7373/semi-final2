@@ -1,27 +1,28 @@
-package com.kh.admin;
+package com.kh.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.kh.admin.model.service.AdminService;
+import com.kh.admin.model.vo.Item;
 
 /**
- * Servlet implementation class AdminMainController
+ * Servlet implementation class AdminStoreController
  */
-@WebServlet("/main.am")
-public class AdminMainController extends HttpServlet {
+@WebServlet("/store.am")
+public class AdminStoreController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMainController() {
+    public AdminStoreController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +31,10 @@ public class AdminMainController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		HttpSession session = request.getSession();
 		
-		
-		request.getRequestDispatcher("views/admin/adminMain.jsp").forward(request, response);
-		
-		
+		// 아이템 테이블 조회 
+		ArrayList<Item> itemList = new AdminService().selectItem();
+		// 상품등록시 첨부파일
 	}
 
 	/**
