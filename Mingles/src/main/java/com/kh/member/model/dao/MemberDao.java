@@ -57,6 +57,8 @@ public class MemberDao {
 								, rset.getString(10)
 								, rset.getString(11)
 								, rset.getString(12)
+								, rset.getString(13)
+								, rset.getString(14)
 							  );
 				
 			}
@@ -177,6 +179,8 @@ public class MemberDao {
 								, rset.getString(10)
 								, rset.getString(11)
 								, rset.getString(12)
+								, rset.getString(13)
+								, rset.getString(14)
 							  );
 				
 			}
@@ -226,6 +230,29 @@ public class MemberDao {
 			
 			pstmt.setString(1, memId);
 			pstmt.setString(2, memPwd);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateMBTI(Connection conn, String userId, String mbti) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMBTI");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, mbti);
+			pstmt.setString(2, userId);
 			
 			result = pstmt.executeUpdate();
 			

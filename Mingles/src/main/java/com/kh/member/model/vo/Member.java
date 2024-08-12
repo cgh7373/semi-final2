@@ -14,7 +14,45 @@ public class Member {
 	private String modifyDate;
 	private String status;
 	private String zodiac;
+	private String ABO;
+	private String MBTI;
 	
+	public String getABO() {
+		return ABO;
+	}
+
+	public void setABO(String aBO) {
+		ABO = aBO;
+	}
+
+	public String getMBTI() {
+		return MBTI;
+	}
+
+	public void setMBTI(String mBTI) {
+		MBTI = mBTI;
+	}
+
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, String zodiac, String aBO,
+			String mBTI) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.zodiac = zodiac;
+		ABO = aBO;
+		MBTI = mBTI;
+	}
+
 	public Member() {}
 
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,

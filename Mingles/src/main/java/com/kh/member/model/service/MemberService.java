@@ -146,6 +146,24 @@ public class MemberService {
 		return result;
 	}
 
+	public Member updateMBTI(String userId, String mbti) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMBTI(conn, userId, mbti);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, userId);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
 
 
 }
