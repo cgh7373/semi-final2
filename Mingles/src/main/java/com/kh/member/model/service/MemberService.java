@@ -94,4 +94,58 @@ public class MemberService {
 		return result;
 	}
 
+	public Member updateNick(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateNick(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updateEmail(Member m) {
+
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateEmail(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public int quitMember(String memId, String memPwd) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().quitMember(conn, memId, memPwd);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+
+
 }

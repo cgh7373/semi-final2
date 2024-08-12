@@ -58,7 +58,48 @@
 			   AND MEM_PWD =?
 	</entry>
 
+	<entry key="updateNick">
+			UPDATE MEMBER
+			   SET NICKNAME = ?
+			     , MODIFY_DATE = SYSDATE
+		     WHERE
+				   MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
 
+	<entry key="selectMember">
+		   SELECT MEM_NO
+		   		, MEM_ID
+				, MEM_PWD
+				, NICKNAME
+				, BIRTHDATE
+				, PHONE
+				, EMAIL
+				, GENDER
+				, ENROLL_DATE
+				, MODIFY_DATE
+				, STATUS
+				, ZODIAC
+		     FROM MEMBER
+			WHERE MEM_ID = ?
+			  AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateEmail">
+			UPDATE MEMBER
+			   SET EMAIL = ?
+			     , MODIFY_DATE = SYSDATE
+		     WHERE
+				   MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
+	
+	<entry key="quitMember">
+			UPDATE MEMBER
+			   SET STATUS = 'N'
+			 WHERE MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
 
 
 </properties>

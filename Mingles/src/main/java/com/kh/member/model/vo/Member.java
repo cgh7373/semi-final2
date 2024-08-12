@@ -61,6 +61,13 @@ public class Member {
 		this.status = status;
 		this.zodiac = zodiac;
 	}
+	
+	public Member(String memId, String memPwd, String nickname) {
+		super();
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+	}
 
 	public int getMemNo() {
 		return memNo;

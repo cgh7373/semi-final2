@@ -1,30 +1,3 @@
-
-$(function() {
-
-    $('#homeKey').click(function() {
-        $('#menuBar').css('display','block');
-        gsap.to('#menuBar',{
-            duration: 1,
-            right : 0,
-            ease : 'power1.out',
-        });
-    });
-
-    $('#menuBack').click(function() {
-        gsap.to('#menuBar',{
-            duration: 1,
-            right:'-20%',
-            ease : 'power1.in',
-            onComplete: function(){
-            setTimeout(function(){
-                $('#menuBar').css('display','none');
-            },200)
-            }
-        })
-    })
-
-})
-
 $(function(){
 
     let bounce;
@@ -76,4 +49,54 @@ $(document).ready(function(){
     $('[data-toggle="popover"]').popover();
 
   });
+
+  $(document).ready(function() {
+    // MP3 FILE INSERT -> COLOR CHANGE
+    $('#file').change(function() {
+      if (this.files && this.files[0].type === 'audio/mp3') {
+        $('#music--icon').css('color', '#68D8D6');
+      } else {
+        $('#music--icon').css('color', 'black');
+      }
+    });
+  
+    // THUMBNAIL FILE INSERT -> COLOR CHANGE
+    $('#thumbnail').change(function() {
+      if (this.files && this.files[0]) {
+        let fileExt = this.files[0].name.split('.').pop().toLowerCase();
+        let allowedExt = ['jpg', 'jpeg', 'png'];
+  
+        if (allowedExt.includes(fileExt)) {
+          $('#music--thumbnail').css('color', '#68D8D6');
+        } else {
+          $('#music--thumbnail').css('color', 'black');
+        }
+      }
+    });
+  
+    // MUSIC PLAYLIST ADD
+    $('#music--add').click(function() {
+      let title = $('#musicTitle').val().trim();
+      let singer = $('#singer').val().trim();
+  
+      // Check for maximum limit of 10 songs
+      if ($('.music--list li').length >= 10) {
+        alert('Maximum 10 songs allowed.');
+        return;
+      }
+  
+      $('.music--list').append("<li>제목: " + title + " 가수: " + singer + "</li>");
+  
+      // Clear input fields
+      $('#musicTitle').val('');
+      $('#singer').val('');
+    });
+  
+    // MUSIC PLAYLIST DELETE
+    $('.music--list').on('click', 'li', function() {
+      $(this).remove();
+    });
+  
+  });
+  
 

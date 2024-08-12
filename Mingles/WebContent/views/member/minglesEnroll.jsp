@@ -24,6 +24,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
 
+  <!-- 보라색 부트스트랩 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
   <!-- https://animate.style/ 웹사이트 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
@@ -31,10 +35,10 @@
   <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <!-- 내부파일 -->
+  <link rel="stylesheet" href="./resources/css/mingle-join.css">
   <script src="./resources/js/mingle-join.js"></script>
   <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <link rel="icon" href="./resources/images/Mingles아이콘-removebg-preview.png">
-  <link rel="stylesheet" href="resources/css/mingle-join.css">
 
 </head>
 
@@ -49,13 +53,15 @@
       <img class="background" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnNpeng2dTFhbnExeHlpMG5kN3k5eXYzcHFvMXJhcmJvM3BpOGllcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0CRCxtNyUteI6hI4/giphy.webp" alt="">
 
       <!-- 애니메이션 효과 화면 -->
-      <div class="animate__animated animate__zoomInDown">
+      <div class="animate__animated animate__zoomInDown" id="parent">
+        
+        <!-- form 태그 시작 -->
+        <form action="<%=request.getContextPath()%>/insert.mi">
 
        <!-- 회원가입 화면 -->
-      <div class="form_area" id="basicInfoForm">
+      <div class="form_area" id="basicInfoForm" >
 
         <p class="title">회원 가입</p>
-      <form action="<%=request.getContextPath()%>/insert.mi">
         <!-- 아이디 입력 -->
         <div class="form_group">
           <label class="sub_title" for="id">ID</label>
@@ -95,43 +101,12 @@
           <input placeholder="이메일을 입력하세요" class="form_style" id="email" type="email" name="enrollEmail" required/>
         </div>
 
-        <!-- 성별 입력 -->
-        <div class="form_group form_gender">
-          <label class="sub_title" for="gender">성별</label>
-
-          <input class="form_style_gender" type="radio" id="radioM" name = "gender" value= "M" checked> <label for="radioM"> 남자</label>
-          <input class="form_style_gender" type="radio" id="radioF" name = "gender" value= "F"> <label for="radioF"> 여자</label>
-
-        </div>
-        
-        <!-- 추가정보 입력버튼 -->
-        <div>
-          <button class="btn" type = "button" id = "moreInfo" onclick ="moreInfo()">추가 정보 입력</button>
-        </div>
+    </div>
 
         <!-- 추가정보 입력화면 -->
-        <div class="form_area" id="moreInfoForm">
-          <p class="title">추가정보</p>
-            <!-- 별자리 입력 -->
-           <div class="form_group_2">
-              <label class="sub_title" for="zodiacType" style ="font-size:30px;">나의 별자리는?</label>
-              <select name="zodiacType" id="zodiac" class ="select">
-                <option value="null">선택안함</option>
-                <option value="aries">양자리</option>
-                <option value="taurus">황소자리</option>
-                <option value="gemini">쌍둥이자리</option>
-                <option value="cancer">게자리</option>
-                <option value="leo">사자자리</option>
-                <option value="virgo">처녀자리</option>
-                <option value="libra">천칭자리</option>
-                <option value="scorpio">전갈자리</option>
-                <option value="sagittarius">궁수자리</option>
-                <option value="capricorn">염소자리</option>
-                <option value="aquarius">물병자리</option>
-                <option value="pisces">물고기자리</option>
-              </select>
-            </div> 
-  
+        <div class="form_area" id="moreInfoForm" >
+          <p class="title" id="secondTitle">추가정보(선택)</p>
+            
             <!-- MBTI 입력 -->
             <div class="form_group_2">
               <label class="sub_title" for="MBTI" style ="font-size:30px;">나의 MBTI는?</label>
@@ -155,6 +130,21 @@
                 <option value="enfp">ENFP</option>
               </select>
             </div> 
+
+            <!-- 성별 입력 -->
+            <div class="form_group form_gender">
+              <label class="sub_title" for="gender" style ="font-size:30px;">당신의 성별은?</label>
+              
+              <div class="Radio">
+                <input class="form_style_gender" type="radio" id="radioM" name = "gender" value= "M"> 
+                <label for="radioM"> 남자</label>
+              </div>
+
+              <div class="Radio">
+                <input class="form_style_gender" type="radio" id="radioF" name = "gender" value= "F"> 
+                <label for="radioF"> 여자</label>
+              </div>
+            </div>
   
             <!-- 혈액형 입력 -->
             <div class="form_group_ABO">
@@ -182,10 +172,10 @@
             <div class = "welcome">
               <button class="text" type="submit" id="welcome">Welcome!</button>
             </div>
-  
-        </div>
+            
+          </div> 
+        </form>
 
-      </form>
 	
      </div>
  
@@ -197,23 +187,6 @@
 
 </body>
 
-		<script>
 
-      document.addEventListener("DOMContentLoaded", function(){
-        let moreInfo = document.getElementById("moreInfo");
-        let moreInfoForm = document.getElementById("moreInfoForm");
-        let basicInfoForm = document.getElementById("basicInfoForm");
-
-        moreInfoForm.style.display = "none";
-
-        moreInfo.addEventListener("click",function(){
-
-            moreInfoForm.style.display = "block";
-            basicInfoForm.style.display = "none";
-         
-        });
-
-      })
-		</script>
 
 </html>

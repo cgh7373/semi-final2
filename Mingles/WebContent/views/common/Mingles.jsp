@@ -28,7 +28,7 @@
     <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
     <!-- 내부파일 -->
-    <link rel="stylesheet" href="resources/css/mingle.css">
+    <link rel="stylesheet" href="./resources/css/mingle.css">
     <script defer src="<%=contextPath %>/resources/js/mingle.js"></script>
     <link rel="icon" href="./resources/images/Mingles아이콘-removebg-preview.png">
 
@@ -57,6 +57,12 @@
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
 		 });
+	
+	 	window.addEventListener('message', function(event) {
+	        if (event.data === 'membershipCanceled') {
+	            scrollToSection(0); 
+	        }
+	    });
 	</script>
 
     <!-- 바탕화면 -->
@@ -92,7 +98,6 @@
                         <!-- 로그인 화면 -->
                         <div class="appear animate__animated animate__fadeIn animate__delay-2s">
                             <div id="form">
-                                <div id = "background">
                                 <div class="form_area">
                                     <p class="title">Sign in</p>
                                     <form action="<%=contextPath %>/login.me" method="post">
@@ -122,7 +127,6 @@
                                         <button> <img src="./resources/images/카톡로고.png" alt="카톡간편로그인"> </button>
                                         <button> <img src="./resources/images/네이버로고.png" alt="네이버간편로그인"> </button>
                                     </div>
-                                  </div>
                                 </div>
                             </div>
                         </div>
@@ -145,7 +149,7 @@
 						            icons[i].style.visibility = 'visible';
 						            icons[i].style.opacity = 1;
 						            icons[i].style.transition = '2s';
-						        }, 800 + (300 * (i + 1)));
+						        }, 300 + (100 * (i + 1)));
 						    };
 
 						    initializeFloatingAnimations();
