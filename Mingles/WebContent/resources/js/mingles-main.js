@@ -53,7 +53,7 @@ $(document).ready(function(){
   $(document).ready(function() {
     // MP3 FILE INSERT -> COLOR CHANGE
     $('#file').change(function() {
-      if (this.files && this.files[0].type === 'audio/mp3') {
+      if (this.files && this.files[0].type === 'audio/mpeg') {
         $('#music--icon').css('color', '#68D8D6');
       } else {
         $('#music--icon').css('color', 'black');
@@ -81,22 +81,44 @@ $(document).ready(function(){
   
       // Check for maximum limit of 10 songs
       if ($('.music--list li').length >= 10) {
-        alert('Maximum 10 songs allowed.');
+        alert('최대 10개까지 추가 가능합니다.');
         return;
       }
   
-      $('.music--list').append("<li>제목: " + title + " 가수: " + singer + "</li>");
-  
+      $('.music--list').append(`
+        <li class = "song">
+        <div class="material-icons" style ="color:#07BEB8; font-size:18px; cursor:pointer;">play_arrow</div>
+             ${title} - ${singer} 
+                <div class="material-icons trashcan" style ="color:#dc3545; font-size:16px; visibility:hidden; cursor:pointer;">delete_outline</div>
+            </button>
+        </li>
+    `);
+
       // Clear input fields
       $('#musicTitle').val('');
       $('#singer').val('');
+
     });
   
+    let flag = false;
     // MUSIC PLAYLIST DELETE
-    $('.music--list').on('click', 'li', function() {
-      $(this).remove();
-    });
-  
+    $('#music--delete').click(function(){
+      if(flag){
+      $('.trashcan').css('visibility','hidden');
+      }else{
+        $('.trashcan').css('visibility','visible');
+      }
+      flag = !flag;
+    })
+
+    $('.music--list').on('click', '.trashcan', function(){
+      $(this).parent().remove();
+    })
+
+    // <div class="material-icons" style ="color:#07BEB8; font-size:18px; cursor:pointer;">play_arrow</div> 클릭하면 음악 재생하게 하기
+
+
+
   });
   
 

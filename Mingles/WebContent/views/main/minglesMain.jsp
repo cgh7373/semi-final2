@@ -105,7 +105,7 @@
                             </table>
                             <br><br>
                             <div class="btn btn-sm btn-info" id = "music--add">
-                                추가=
+                                추가
                             </div>
                             <div class="btn btn-sm btn-warning" id = "music--seq">
                                 순서변경
