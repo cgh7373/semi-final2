@@ -25,4 +25,28 @@
 		 WHERE EXTRACT(MONTH FROM ENROLL_DATE) = ?
 		   AND STATUS != 'N'
 	</entry>
+	
+	<entry key="selectItem">
+		SELECT ITEM_NUM
+		     , CATEGORYNAME
+		     , ITEM_NAME
+		     , PRICE
+		     , ITEM_INTRO
+		     , ITEM_DATE
+		     , ITEM_STATUS
+		  FROM ITEM
+		  JOIN ITEMCATEGORY USING(ITEM_CATEGORY)
+		 WHERE ITEM_STATUS = 'Y'
+		 ORDER
+		    BY ITEM_NUM DESC
+	</entry>
+	
+	<entry key="selectItemCategory">
+		SELECT ITEM_CATEGORY
+		     , CATEGORYNAME
+		  FROM ITEMCATEGORY
+	</entry>
+	
+	
+	
 </properties>

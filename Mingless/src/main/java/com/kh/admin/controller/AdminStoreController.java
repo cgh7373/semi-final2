@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.admin.model.service.AdminService;
 import com.kh.admin.model.vo.Item;
+import com.kh.admin.model.vo.ItemCategory;
 
 /**
  * Servlet implementation class AdminStoreController
@@ -34,7 +35,11 @@ public class AdminStoreController extends HttpServlet {
 		
 		// 아이템 테이블 조회 
 		ArrayList<Item> itemList = new AdminService().selectItem();
+		ArrayList<ItemCategory> itemCategory = new AdminService().selectItemCategory();
 		// 상품등록시 첨부파일
+		request.setAttribute("itemCategory", itemCategory);
+		request.setAttribute("item", itemList);
+		request.getRequestDispatcher("/views/admin/adminStore.jsp").forward(request, response);;
 	}
 
 	/**

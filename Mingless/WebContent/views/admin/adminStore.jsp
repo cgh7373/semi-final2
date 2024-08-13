@@ -1,5 +1,14 @@
+<%@page import="com.kh.admin.model.vo.ItemCategory"%>
+<%@page import="com.kh.admin.model.vo.Item"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+	ArrayList<Item> item = (ArrayList<Item>)request.getAttribute("item");
+	// 아이템번호, 카테고리이름, 아이템이름, 가격, 아이템설명, 아이템등록일, 아이템 판매상태
+	ArrayList<ItemCategory> itemCategory = (ArrayList<ItemCategory>)request.getAttribute("itemCategory");
+	// 아이템카테고리번호, 카테고리 이름
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,56 +47,52 @@
                 <div class="container-fluid">
 							
                     <!-- 페이지 헤더 -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <div class="d-sm-flex justify-content-start mb-4" id="page-header">
                         <h1 class="h3 mb-0 text-gray-800">상점 관리</h1>
+                        <div class="dropdown d-flex align-items-start">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                                상점 카테고리 선택
+                            </button>
+                            <div class="dropdown-menu">
+                            	<%for(ItemCategory i : itemCategory){ %>
+	                                <button class="dropdown-item" id="<%=i.getCategoryNo()%>"><%=i.getCategoryName() %></button>
+                                <%} %>
+                            </div>
+                        </div>
                     </div>
-
+					
+					<script>
+						// 카테고리별로 뜨는 아이템 변화주는 ajax
+					</script>
                     <!-- 페이지 콘텐츠 -->
                     <div class="row">
-                        <div class="col-lg-5 mb-1">
-
-                            <!-- 차트 -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">회원 차트</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="statisticsUser">
-                                        <div>
-                                            <canvas id="myChart" class="col-lg-12" ></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-						
-                        <div class="col-xl-5 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">게시글 차트</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="statisticsPost">
-                                        <div>
-                                            <canvas id="myChart2" class="col-lg-12"></canvas>
-                                        </div>
+                    	<%for(Item i : item) {%>
+                         <div class="card" style="width:200px; height: auto; margin-left: 20px; margin-bottom: 20px">
+                            <img class="card-img-top" src="./resources/images/storeItem.png" alt="item image1" style="width:100%">
+                            <div class="card-body">
+                                <h4 class="card-title"><%=i.getItemName() %></h4>
+                                <p class="price"><%=i.getPrice() %></p>
+                                <br>
+                                <p class="card-text"><%=i.getItemExplan() %></p>
+                                <br>
+                                <button class="dropdown-menu btn-primary" id="itemSetting">상품관리</button>
+                                <div class="dropdown">
+                                    <button
+                                        type="button"
+                                        class="btn btn-item dropdown-toggle btn-primary"
+                                        data-toggle="dropdown">
+                                        상품관리
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <button class="dropdown-item" id="deleteItem">상품삭제</button>
+                                        <button class="dropdown-item" id="resetItem">가격설정</button>
+                                        <button class="dropdown-item" id="settingPhoto">상품사진관리</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-10 mb-1">
-                            <div class="card shadow mb-6">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">신고 현황</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                    </div>
-                                </div>
-                            </div>              
-                        </div>
+						<%} %>
+                
                     </div>
                     
                 </div>

@@ -26,6 +26,20 @@ public class Item {
 		this.itemUpdate = itemUpdate;
 		this.itemStatus = itemStatus;
 	}
+	
+	
+
+	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
+			String itemStatus) {
+		super();
+		this.itemNo = itemNo;
+		this.itemCategory = itemCategory;
+		this.itemName = itemName;
+		this.price = price;
+		this.itemExplan = itemExplan;
+		this.itemEnrollDate = itemEnrollDate;
+		this.itemStatus = itemStatus;
+	}
 
 	public int getItemNo() {
 		return itemNo;

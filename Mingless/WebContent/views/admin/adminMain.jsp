@@ -166,6 +166,7 @@
             </div>
         </div>
     </div>
+    <!-- 
     <script>
 	    window.onload = function() {
 	        const url = window.location.href;
@@ -178,5 +179,6 @@
 	        }
 	    };
     </script>
+     -->
 </body>
 </html>

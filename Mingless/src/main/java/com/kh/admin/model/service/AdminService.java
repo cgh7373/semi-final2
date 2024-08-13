@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.kh.admin.model.dao.AdminDao;
 import com.kh.admin.model.vo.Blacklist;
 import com.kh.admin.model.vo.Item;
+import com.kh.admin.model.vo.ItemCategory;
 
 import static com.kh.common.JDBCTemplate.*;
 
@@ -32,7 +33,23 @@ public class AdminService {
 	}
 
 	public ArrayList<Item> selectItem() {
-		return null;
+		Connection conn = getConnection();
+		
+		ArrayList<Item> list = new AdminDao().selecItem(conn);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<ItemCategory> selectItemCategory() {
+		Connection conn = getConnection();
+		
+		ArrayList<ItemCategory> itemCategory = new AdminDao().selectItemCategory(conn);
+		
+		close(conn);
+		
+		return itemCategory;
 	}
 
 }
