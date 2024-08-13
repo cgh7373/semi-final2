@@ -28,8 +28,6 @@
 </head>
 <body>
 
-	<!-- 게시글 관련 파일 만들때 이거 통으로 복붙한다음에 만들어요 절대 이파일은 수정하지 말것 -->
-
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 		// 성공메시지
@@ -49,6 +47,17 @@
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
 		 });
+		/*
+		$(function() {
+			showPostList();
+		})
+		
+		function showPostList() {
+			$.ajax({
+				url : '',
+				
+			})
+		}*/
 	</script>
 	
 	 <div id="wrap">

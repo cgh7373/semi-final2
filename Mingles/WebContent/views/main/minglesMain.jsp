@@ -132,7 +132,8 @@
                     <!-- img 클릭하면 이 창 뜸 -->
                     <div class ="popover-content" id = "show">
                         <div class = "iframe-container" id="player">
-                            <iframe src="https://www.youtube.com/embed/?autoplay=1&mute=1" allow="autoplay"></iframe>
+                            <!-- <iframe src="https://www.youtube.com/embed/?autoplay=1&mute=1" allow="autoplay"></iframe> -->
+                            <iframe width="1280" height="720" src="https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1" title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                         <div class = "music--info">
                             <p class="music--title">ETA</p>
