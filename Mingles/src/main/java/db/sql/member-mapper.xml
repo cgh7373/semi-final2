@@ -14,6 +14,7 @@
 				, ENROLL_DATE
 				, MODIFY_DATE
 				, STATUS
+				, EGG
 				, ZODIAC
 				, ABO
 				, MBTI

@@ -56,11 +56,12 @@ public class MemberDao {
 								, rset.getString(9)
 								, rset.getString(10)
 								, rset.getString(11)
-								, rset.getString(12)
+								, rset.getInt(12)
 								, rset.getString(13)
 								, rset.getString(14)
 								, rset.getString(15)
 								, rset.getString(16)
+								, rset.getString(17)
 							  );
 				
 			}
