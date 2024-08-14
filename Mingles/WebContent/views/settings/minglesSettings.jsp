@@ -269,7 +269,7 @@
 
                         <script>
 							function toEgg() {
-								location.href="/Mingles/eggForm.mi";
+								location.href="/Mingles/eggForm.mi?cpage=1&userNo=" + <%= m.getMemNo() %>;
 							}                     
 							
 							function toPosts() {

@@ -1,9 +1,20 @@
+<%@page import="com.kh.shop.model.vo.EggPayMent"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.common.model.vo.PageInfo"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	Member m = (Member)session.getAttribute("loginUser");
 	String alertMsg = (String)request.getAttribute("alertMsg");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<EggPayMent> list = (ArrayList<EggPayMent>)request.getAttribute("list");
+	String contextPath = request.getContextPath();
+
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
+	int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,40 +82,65 @@
                     
 
                     <div id="charge-list__bot">
-                        <table class="table table-hover">
+                        <table class="table table-hover" >
                             <thead>
                               <tr>
                                 <th>구매수량</th>
                                 <th>금액</th>
+                                <th>결제방법</th>
                                 <th>구매일자</th>
+                                <th>기타</th>
+                                
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>John</td>
-                                <td>Doe</td>
-                                <td>john@example.com</td>
-                              </tr>
-                              <tr>
-                                <td>Mary</td>
-                                <td>Moe</td>
-                                <td>mary@example.com</td>
-                              </tr>
-                              
+                            <% if(list.isEmpty()){ %>
+			                <!-- case1. 게시글이 없을 경우 -->
+			                <tr>
+			                    <td colspan="5">조회된 결제내역이 없습니다..</td>
+			                </tr>
+			                <% } else { %>
+			                	<% for(EggPayMent ep : list) { %>
+		                              <tr>
+		                                <td><%= ep.getPoint() %>개</td>
+		                                <td><%= ep.getPrice() %>원</td>
+		                                <td><%= ep.getPayOption() %></td>
+		                                <td><%= ep.getPayDate() %></td>
+		                                <td><%= ep.getCategory() %></td>
+		                              </tr>
+                              	<% } %>
+                             
                             </tbody>
                           </table>
-                          <div class="paging-area" align="center">
-
-                            <button>1</button>
-                          </div>
+                          <div class="pageWrap">
+                            <div class="pagination">
+                                
+                                <% if(currentPage != 1){ %>
+					               <a href="<%= contextPath %>/eggForm.mi?cpage=<%= currentPage -1 %>&userNo=<%= m.getMemNo() %>">&laquo;</a>
+					            <%} %>
+					            
+					            <% for(int p = startPage; p <= endPage; p++) { %>
+					               <% if(p == currentPage){ %>
+					                  <a href="#" class="active"><%= p %></a>
+					               <% } else { %>
+					               	  <a href="<%= contextPath %>/eggForm.mi?cpage=<%= p %>&userNo=<%= m.getMemNo() %>"><%= p %></a>
+					               <% } %>
+					         	<% } %>
+					            
+					            <% if(currentPage != maxPage) {%>
+					               <a href="<%= contextPath %>/eggForm.mi?cpage=<%= currentPage +1 %>&userNo=<%= m.getMemNo() %>">&raquo;</a>
+					            <% } %>
+					           <% } %>
+                            </div>
+                         </div>
                     </div>
                 </div>
                 
             </section>
         </div>
-
-       
-
+        
+        
+        
 
     <!-- 충전 모달 -->
     <div class="modal" id="charge-modal">
