@@ -326,8 +326,14 @@ document.addEventListener("DOMContentLoaded", function(){
     document.querySelector(".bal-hair").addEventListener("click", function(){
         var hairOptions = document.querySelector(".item-container");
         
-        hairOptions.addEventListener('click', )
+        hairOptions.addEventListener('click', function(event){
+            var target = event.target;
+            if(target.tagName === 'IMG'){
+                var characterHair = document.getElementById('hair');
+                characterHair.src = target.src;
+            }
+        });
+        initializePagination();
 
         });
- initializePagination();
 });
