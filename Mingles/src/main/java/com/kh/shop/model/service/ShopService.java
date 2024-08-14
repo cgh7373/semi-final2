@@ -25,5 +25,16 @@ public class ShopService {
 		close(conn);
 		return list;
 	}
+	
+	public int insertChargeList(EggPayMent ep) {
+		Connection conn = getConnection();
+		int result = new ShopDao().insertChargeList(conn, ep);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
 
 }

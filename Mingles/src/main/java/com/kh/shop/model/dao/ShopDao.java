@@ -92,6 +92,29 @@ private Properties prop = new Properties();
          }
          return list;
 	}
+	
+	public int insertChargeList(Connection conn, EggPayMent ep) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertChargeList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ep.getMemNo());
+			pstmt.setInt(2, ep.getPrice());
+			pstmt.setInt(3, ep.getPoint());
+			pstmt.setString(4, ep.getPayOption());
+			pstmt.setString(5, ep.getCategory());
+			System.out.println(result);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
 }
 

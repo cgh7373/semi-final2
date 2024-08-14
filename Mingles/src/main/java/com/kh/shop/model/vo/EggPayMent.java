@@ -38,6 +38,15 @@ public class EggPayMent {
 		this.payDate = payDate;
 		this.category = category;
 	}
+	
+	public EggPayMent(int memNo, int price, int point, String payOption, String category) {
+		super();
+		this.memNo = memNo;
+		this.price = price;
+		this.point = point;
+		this.payOption = payOption;
+		this.category = category;
+	}
 
 	public int getPayNo() {
 		return payNo;

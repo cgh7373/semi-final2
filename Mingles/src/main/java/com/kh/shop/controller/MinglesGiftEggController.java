@@ -38,9 +38,9 @@ public class MinglesGiftEggController extends HttpServlet {
 		
 		int userEgg = m.getEgg(); // 선물할 상대의 거북알 뽑아서 넣기
 		int sum = point + userEgg;
-		int userNo = m.getMemNo();
+		int giftUserNo = m.getMemNo();
 		
-		request.setAttribute("userNo", userNo);
+		request.setAttribute("giftUserNo", giftUserNo);
 		request.setAttribute("sum", sum);
 		request.setAttribute("price", price);
 		request.setAttribute("point", point);

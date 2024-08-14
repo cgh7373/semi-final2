@@ -1,6 +1,8 @@
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	Member m = (Member)session.getAttribute("loginUser");
 	int price = (int)request.getAttribute("price");
 	int point = (int)request.getAttribute("point");
 	int sum = (int)request.getAttribute("sum");
@@ -63,7 +65,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header">
                         <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          계좌 간편 결제
+                          간편 결제
                         </button>
                       </h2>
                       <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
@@ -82,7 +84,7 @@
                     <div class="accordion-item">
                       <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          카드 간편 결제
+                          간편 결제
                         </button>
                       </h2>
                       <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -127,14 +129,26 @@
             <div id="fin-content">
                 <button class="fin-btn" onclick="charge(<%= userNo %>, <%= sum %>);">결제하기</button>
             </div>
+            
+        </footer>
+        
             <script>
+	            var payOption = '간편결제'
+	                $(function(){
+	                  $(".accordion-button").click(function(){
+	                    payOption = $(this).text();
+	                  })
+	                })
+
+                const userNo = <%= m.getMemNo() %>;
+                const price = <%= price %>;
+                const point = <%= point %>;
+                
               function charge(userNo, sum){
-	              location.href= "eggUpdate.mi?userNo=" + userNo + "&sum=" + sum;
+	              location.href= "eggUpdate.mi?userNo="+userNo+"&sum="+sum+"&price="+price+"&point="+point+"&payOption="+payOption;;
               }
               
             </script>
-        </footer>
-        
     
     </div>
 	

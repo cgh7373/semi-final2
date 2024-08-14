@@ -232,16 +232,17 @@
             <div class="modal-header" id="gift-userId">
                 <form action="" class="gift-form">
                     <h4 class="modal-title" id="gift-userId__text">선물하고자하는 사람의 아이디를 입력해주세요 :</h4>
-                    <input type="text" name="userId" placeholder="아이디를 입력해주세요" required>
+                    <input type="text" name="userId" id="input-userId" placeholder="아이디를 입력해주세요" required>
                     <button type="button" onclick="ajaxIdCheck();">확인</button>
                 </form>
             </div>
             <script>    
                 function ajaxIdCheck(){
-
+					var userId = document.getElementById("input-userId").value;
+                    
                     $.ajax({
                         url:'ajaxIdCheck.mi',
-                        data:{userId:$('.gift-form input[name=userId]').val()},
+                        data:{userId:userId},
                         success:function(result){
 							if(result === "success"){
 								alert("선물할 금액을 선택하세요.")
@@ -251,7 +252,8 @@
 								gift2.style.display = "block"
                                 $('.gift-form input[name=userId]').attr("readonly", true);
 							}else{
-								alert("아이디가 일치하지 않습니다.")
+								alert("존재하지 않은 아이디 입니다.")
+								console.log(userId);
 							}
                         },
                     })
@@ -317,7 +319,7 @@
 
     <script>
         function openGiftPop(price, point){
-            var userId = $('.gift-form input[name=userId]').val();
+            var userId = document.getElementById("input-userId").value;
             var option = 'top=70, left=680, width=500, height=802, status=no, menubar=no, toolbar=no, resizable=no';
             window.open('giftEgg.mi?price='+price+"&point="+point+"&userId="+userId, '_blank', option);
 

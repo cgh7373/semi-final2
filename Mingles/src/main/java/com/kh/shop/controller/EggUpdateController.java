@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
+import com.kh.shop.model.service.ShopService;
+import com.kh.shop.model.vo.EggPayMent;
 
 /**
  * Servlet implementation class EggUpdateController
@@ -36,6 +38,13 @@ public class EggUpdateController extends HttpServlet {
 		
 		Member m = new MemberService().selectNoMember(userNo);
 		request.getSession().setAttribute("loginUser", m);
+		
+		int price = Integer.parseInt(request.getParameter("price"));
+		int point = Integer.parseInt(request.getParameter("point"));
+		String payOption = request.getParameter("payOption");
+		String category = "본인";
+		EggPayMent ep = new EggPayMent(userNo, price, point, payOption, category);
+		int result2 = new ShopService().insertChargeList(ep);
 		
 		request.getRequestDispatcher("views/shop/minglesChargeFinish.jsp").forward(request, response);
 		
