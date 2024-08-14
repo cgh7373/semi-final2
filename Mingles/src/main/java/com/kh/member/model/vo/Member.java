@@ -13,6 +13,7 @@ public class Member {
 	private String enrollDate; 
 	private String modifyDate;
 	private String status;
+	private int egg;
 	private String zodiac;
 	private String ABO;
 	private String MBTI;
@@ -255,6 +256,15 @@ public class Member {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+
+	public int getEgg() {
+		return egg;
+	}
+
+	public void setEgg(int egg) {
+		this.egg = egg;
 	}
 
 	@Override

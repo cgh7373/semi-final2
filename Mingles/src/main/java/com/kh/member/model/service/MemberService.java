@@ -22,6 +22,28 @@ public class MemberService {
 		
 		return m;
 	}
+	
+	public Member selectNoMember(int userNo) {
+
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().selectNoMember(conn, userNo);
+		
+		close(conn);
+		
+		return m;
+	}
+	
+	public Member selectIdMember(String userId) {
+
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().selectIdMember(conn, userId);
+		
+		close(conn);
+		
+		return m;
+	}
 
 	public int insertMember(Member m) {
 		
@@ -147,6 +169,28 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public int chargeEgg(int userNo, int sum) {
+		Connection conn = getConnection();
+		int result = new MemberDao().chargeEgg(conn, userNo, sum);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
+	public int idCheck(String userId) {
+		Connection conn = getConnection();
+		int result = new MemberDao().idCheck(conn, userId);
+		
+		close(conn);
+		return result;
+	}
+	
+	
 
 	public Member updateMBTI(String userId, String mbti) {
 		
@@ -205,3 +249,14 @@ public class MemberService {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
