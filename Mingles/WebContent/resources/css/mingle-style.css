@@ -103,10 +103,6 @@ img {
         transform: translateX(2px) translateY(2px);
         transition: .2s;
     }
-
-    &:hover img {
-        transform: scale(1.1);
-    }
 }
 
 .item-container .items img {
@@ -327,8 +323,9 @@ footer .pagination-container {
     border: 2px solid #48BFE3;
     &:hover {
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition-duration:1s;
-    color: #48BFE3;
+    transition-duration:.3s;
+    background-color: #48BFE3;
+    color:white;
     }
     &:active {
         transform: translateX(1.6px) translateY(1.6px);

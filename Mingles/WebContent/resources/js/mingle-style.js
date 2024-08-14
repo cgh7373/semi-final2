@@ -168,7 +168,7 @@ function updateCategory(){
 // data.length = listCount = 현재 총 게시글 수
 const getTotalPage = function () {
     let total = Math.ceil(currentData.length / count_per_page);
-    return total-1;
+    return total;
 };
 
 // pageLimit: 하단에 보여질 페이징 바의 페이지 최대 개수 
@@ -319,3 +319,15 @@ document.querySelector('.avatar').addEventListener('click',function() {
     bal3.toggle('onoffTo')
 
 })
+
+
+// SELECT ITEMS WITH CLICK
+document.addEventListener("DOMContentLoaded", function(){
+    document.querySelector(".bal-hair").addEventListener("click", function(){
+        var hairOptions = document.querySelector(".item-container");
+        
+        hairOptions.addEventListener('click', )
+
+        });
+ initializePagination();
+});
