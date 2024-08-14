@@ -124,16 +124,16 @@
 	 <div id="wrap">
         <div id="container">
             <!-- Left Screen -->
+                    <% if (m != null) { %>
             <div class="post-list" id="left">
                 <div class="left__content" id="con1">
-                    <img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt="">
+                    <img src="<%=m.getProfilePic() %>" alt="">
                 </div>
                 <div class="left__content" id="con2">
-                    <% if (m != null) { %>
                     <div id="con2__nickname"><%= m.getNickname() %></div>
                     <button id= "diary" class="material-icons">auto_stories</button> 
                     <button id="mailIcon" class="material-icons">mail_outline</button>
-                    <div id="con2__my_text">제이름은 남도일 탐정입니다. 범인은 검은 쫄쫄이</div>
+                    <div id="con2__my_text"><%=m.getStatusMsg() %></div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
                         <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
@@ -214,7 +214,31 @@
                 </div>
 
             </div>
+<<<<<<< HEAD
 
+=======
+                 <!--mp3 음악 버튼-->
+                   <div class="music">
+                   <img src="../../resources/images/cd.png" alt="cd그림" id ="mp3Button">
+    
+                    <!-- img 클릭하면 이 창 뜸 -->
+                    <div class ="popover-content" id ="show">
+                        <div class = "iframe-container" id="player">
+                            <!-- <iframe src="https://www.youtube.com/embed/?autoplay=1&mute=1" allow="autoplay"></iframe> -->
+                            <iframe width="1280" height="720" src="https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1" title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div class = "music--info">
+                            <p class="music--title">ETA</p>
+                            <p class="music--singer">뉴진스</p>
+                        </div>
+                        <!-- 플리 버튼 -->
+                        <button class="material-icons">expand_less</button>
+                        <button class="material-icons">expand_more</button>
+                        <button class="material-icons" id="playlist">playlist_play</button>
+                    </div>
+    
+                </div>
+>>>>>>> dc1619705f5f8cf4e19f9b747dbf59cba3f6c6b9
                 
                 <script>
                 const show = document.getElementById("show");

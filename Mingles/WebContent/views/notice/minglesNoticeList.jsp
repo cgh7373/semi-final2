@@ -51,6 +51,7 @@
 		 });
 	</script>
 	
+     <% if (m != null) { %>
 	 <div id="wrap">
         <div id="container">
             <!-- Left Screen -->
@@ -59,10 +60,9 @@
                     <img src="./resources/images/Mingles아이콘-removebg-preview.png" alt="">
                 </div>
                 <div class="left__content" id="con2">
-                    <% if (m != null) { %>
                     <div id="con2__nickname"><%= m.getNickname() %></div>
                     <button id="mailIcon" class="material-icons">mail_outline</button>
-                    <div id="con2__my_text">제이름은 남도일 탐정입니다. 범인은 검은 쫄쫄이</div>
+                    <div id="con2__my_text"><%=m.getStatusMsg() %></div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
                         <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>

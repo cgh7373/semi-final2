@@ -60,18 +60,18 @@
 		}*/
 	</script>
 	
+     <% if (m != null) { %>
 	 <div id="wrap">
         <div id="container">
             <!-- Left Screen -->
             <div class="post-list" id="left">
                 <div class="left__content" id="con1">
-                    <img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt="">
+                    <img src="<%=m.getProfilePic() %>" alt="">
                 </div>
                 <div class="left__content" id="con2">
-                    <% if (m != null) { %>
                     <div id="con2__nickname"><%= m.getNickname() %></div>
                     <button id="mailIcon" class="material-icons">mail_outline</button>
-                    <div id="con2__my_text">제이름은 남도일 탐정입니다. 범인은 검은 쫄쫄이</div>
+                    <div id="con2__my_text"><%=m.getStatusMsg() %></div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
                         <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
@@ -106,8 +106,8 @@
                 <div id="post-right__title">
                     <div id="right-title__text">여기에 이 파일 이름</div>
                     <div id="right-title__btn">
-                        <button><div>글쓰기</div></button>
-                        <button onclick="history.back()"><div>뒤로가기</div></button>
+                        <button data-toggle="modal"
+                        data-target="#writePostModal"><div>글쓰기</div></button>
                     </div>
                 </div>
                 <div id="post-right__list">
@@ -139,7 +139,52 @@
                     </table>
                 </div>
             </div>
-        </div>
+     
+    						<!-- 글쓰기용 Modal -->
+                            <div class="modal fade" id="writePostModal">
+                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                       <div class="modal-content">
+    
+                                       <!-- Modal Header -->
+                                       <div class="modal-header">
+                                           <h4 class="modal-title" align="center">회원 탈퇴</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+    
+                                    <!-- Modal body -->
+                                    <div class="modal-body" align="center">
+                                   
+                                    <form action="/Mingles/memberQuit.mi" method="post">
+                                   
+                                           <input type="hidden" name="userId" value="<%= m.getMemId() %>">
+                                           <table>
+                                           
+                                            <tr>
+                                                <td>"탈퇴하겠습니다"를 입력해주세요</td>                               		
+                                                <td><input type="text" name="quitMent" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호</td>                               		
+                                                <td><input type="password" name="updatePwd" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호 확인</td>                               		
+                                                <td><input type="password" name="checkPwd" required></td>                               	
+                                            </tr>	
+                                           
+                                           </table>
+                                   
+                                           <br>
+                                           
+                                           <button type="submit" class="btn btn-sm" onclick="return validatePwd();">회원 탈퇴</button>
+                                  		 </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                               </div>
     </div>
 	<% } %>
 

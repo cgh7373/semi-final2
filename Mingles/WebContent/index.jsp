@@ -8,7 +8,6 @@
 </head>
 <body>
 
-	<a href = "Mingles/test.t"></a>
 	<%@ include file="./views/common/Mingles.jsp" %>
 
 </body>

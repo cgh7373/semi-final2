@@ -3,7 +3,7 @@ $(function () {
     $('.top__left label').click(function () {
         $('.top__left .profilePhoto img').attr('src', $('top__left input').val());
     })
-
+    
     $(".top__left input").change(function (event) {
         var reader = new FileReader();
         reader.onload = function (event) {
