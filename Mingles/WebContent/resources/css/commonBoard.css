@@ -58,7 +58,8 @@ body {
 
 #con1 {
     width: 70%;
-    height: 40%;
+    aspect-ratio: 1;
+    height: auto;
     text-align: center;
     border-radius: 50%;
     overflow: hidden;
@@ -266,4 +267,42 @@ tbody tr:hover {
     border: 1px solid #48BFE3;
     border-radius: 5%;
     cursor: pointer;
+}
+
+#writePostModal {
+	width : 80%;
+}
+
+.modal * {
+	font-family: 'omyu_pretty';
+	font-size : 20px;
+}
+
+.modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background-color: #dbfffd;
+}
+
+.modal-title {
+	font-family: 'Katuri';
+    margin-left: 36%;
+    font-size: 25px;
+}
+
+.modal-body table * {
+    margin: 5%;
+}
+
+.modal .modal-body button {
+    border-radius: 10px;
+    background-color: #dbfffd;
+    transition: .8s;
+    &:hover {
+        box-shadow: 0 0 4px 2px #07BEB8;
+        background-color: #c3f8f5;
+    }
 }
