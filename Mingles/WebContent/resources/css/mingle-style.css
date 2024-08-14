@@ -69,22 +69,23 @@ img {
 }
 
 .item-container {
-	width : 100%;
-	height : 64%;
+	width : 90%;
+	height : 60%;
     display: flex;
     flex-wrap: wrap;
     margin: 5%;
-    border-top: 3px solid #80ffdb;
-    border-bottom: 3px solid #80ffdb;
+    margin-left:10%;
+    border-top: 5px solid #80ffdb;
+    border-bottom: 5px solid #80ffdb;
     padding-bottom: 10%;
 }
 
 .item-container .items {
-    width: 24%;
-    height: auto;
+    width: 30%;
+    height: 30%;
     border: 2px solid transparent;
     border-radius: 10px;
-    margin-left: 7%;
+    margin-left: 10%;
     margin-top: 5%;
     display: flex;
     align-items: center;
@@ -102,16 +103,12 @@ img {
         transform: translateX(2px) translateY(2px);
         transition: .2s;
     }
-
-    &:hover img {
-        transform: scale(1.1);
-    }
 }
 
 .item-container .items img {
     width: 100%;
     height: 100%;
-    transition: .6s;
+    transition: .3s;
 }
 
 footer .pagination-container {
@@ -212,12 +209,13 @@ footer .pagination-container {
 }
 
 .main-right .right-wrapper .vis-room {
+    position:relative;
     height: 74%;
     border-radius: 20px;
     border: 2px solid #7F7F7F;
     margin-top: 1%;
     overflow: hidden;
-    background-image: url(http://i61.photobucket.com/albums/h58/bourniio/cyworld%20backgrounds/030305_wall_01.gif);
+    background-color:#ceffea;
     background-size: cover;
     box-sizing: border-box;
     background-repeat: no-repeat;
@@ -325,11 +323,73 @@ footer .pagination-container {
     border: 2px solid #48BFE3;
     &:hover {
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition-duration:1s;
-    color: #48BFE3;
+    transition-duration:.3s;
+    background-color: #48BFE3;
+    color:white;
     }
     &:active {
         transform: translateX(1.6px) translateY(1.6px);
         transition: .3s;
     }
+}
+
+/* MINIHOMPI BOX */
+
+/* AVATAR : Z-INDEX 90s */
+
+.body img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:91;
+}
+
+.hair img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:92;
+}
+
+.eyes img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:93;
+}
+
+.bottom img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:94;
+}
+
+.top img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:95;
+}
+
+.shoes img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:96;
+}
+
+.avatar-box{
+position:relative;
+left:20%;
+top:30%;
+}
+
+/* FLOOR : Z-INDEX 70s */
+
+.floor-skin img{
+position:absolute;
+width:100%;
+height:100%;
+z-index:71;
 }

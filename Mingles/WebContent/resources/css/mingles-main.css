@@ -63,14 +63,15 @@ body {
 }
 
 #con1 img {
-    width: 60%;
+    width: 35%;
     max-width: 300px;
     height: auto;
-    margin: 20px auto;
+    margin: 10px auto;
+    box-sizing: border-box;
 }
 
 #con2 {
-    height: 25%;
+    height: 30%;
     border-bottom: 5px solid #80FFDB;
     position: relative;
     padding: 10px;
@@ -82,7 +83,7 @@ body {
     font-family: 'Katuri', sans-serif;
 }
 
-#mailIcon {
+#mailIcon, #diary{
     font-size: 40px;
     color: #34c299;
     position: absolute;
@@ -95,11 +96,16 @@ body {
     transition: box-shadow 0.3s;
 }
 
-#mailIcon:hover {
+#diary{
+  right: 70px;
+}
+
+
+#mailIcon:hover, #diary:hover {
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
 }
 
-#mailIcon:active {
+#mailIcon:active, #diary:active {
     color: #C4FFF9;
     background-color: #34c299;
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
@@ -109,7 +115,7 @@ body {
     font-size: 20px;
     line-height: 1.5;
     margin: 10px 0;
-    height: 40%;
+    height: 30%;
 }
 
 #con2__my_info {
@@ -125,7 +131,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5px 0;
+    /* margin: 5px 0; */
     border-radius: 20px;
     transition: box-shadow 0.3s;
     font-size: 20px;
@@ -376,6 +382,7 @@ body {
     opacity:1;
     display:flex;
   }
+
   .iframe-container {
       position: relative;
       width:90px;
@@ -455,4 +462,45 @@ body {
 
 .tooltip.bs-tooltip-top .arrow::before {
     border: transparent !important;
+}
+
+
+/* PLAYLIST UPDATE MODAL */
+
+.modal .modal-title {
+  color: #08817d;
+  font-size: 30px;
+  text-align: center;
+  font-weight:600;
+}
+
+.modal-body .music--update,
+.modal-body .music--sequence{
+  margin:5px;
+  padding:5px;
+  font-size:15px;
+}
+
+.modal-body p{
+  font-size:25px;
+  font-weight:400;
+}
+
+.music--list{
+  font-size:20px;
+}
+
+#music--icon, #music--icon{
+  color: black;
+  font-size:30px;
+  margin-top:10px;
+}
+
+input[type="file"]{
+  display: none;
+}
+
+table input[type="text"]{
+  width: 130px;
+  margin:4px;
 }

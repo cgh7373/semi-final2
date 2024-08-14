@@ -33,33 +33,34 @@
         <!-- 메인 화면 -->
         <div id="container">
 
+            <!-- ELEMENTS -->
             <div class="main-left">
 
                 <img src="../../resources/images/Mingles로고-움직임-짤.gif" alt="" class="logo" />
 
                 <div class="float title">방꾸미기</div>
 
+                <!-- 클릭시 카테고리 바뀌기 -->
                 <span class="style-tag">가구</span>
 
                 <ul class="item-container">
-
-                    <li class="items"><img src="../../resources/images/tb1.PNG" /></li>
-
-                    <li class="items"><img src="../../resources/images/tb2.PNG" /></li>
-
+                    <li class="items"><img src="../../resources/stylesources/eyes1.png" /></li>
+                    <li class="items"><img src="../../resources/stylesources/eyes2.png" /></li>
+                    <li class="items"><img src="../../resources/stylesources/eyes3.png" /></li>
                 </ul>
 
                 <footer>
                     <div class="pagination-container">
 
+                        <!-- 이전 버튼 -->
                         <div class="prev-button">&lt;</div>
 
+                        <!-- 페이징바 : pageLimit: 하단에 보여질 페이징 바의 페이지 최대 개수 -->
                         <div class="btn-wrapper">
-
                             <span class="number-btn">1</span>
-
                         </div>
 
+                        <!-- 다음 버튼 -->
                         <div class="next-button">&gt;</div>
 
                     </div>
@@ -68,7 +69,7 @@
                 </footer>
             </div>
 
-
+            <!-- CATEGORY -->
             <div class="main-right">
 
                 <div class="right-wrapper">
@@ -104,9 +105,60 @@
 
                     </div>
 
+                    <!-- MINIHOMPI ROOM-->
                     <div class="vis-room">
-                        <!-- <img src="http://i61.photobucket.com/albums/h58/bourniio/cyworld%20backgrounds/030305_wall_01.gif" alt="미니홈피 배경화면"> -->
-                    </div>
+
+                        <!-- AVATAR : 90-->
+                        <div class = "avatar-box">
+                            
+                            <!-- BODY -->
+                            <div class="body">
+                                <img id = "body" src="../../resources/stylesources/body.png" alt="body">
+                            </div>
+
+                            <!-- HAIR -->
+                            <div class="hair">
+                                <img  id = "hair" src="../../resources/stylesources/hair3.png" alt="hair">
+                            </div>
+
+                            <!-- EYES -->
+                             <div class="eyes">
+                                <img id = "eyes" src="../../resources/stylesources/eyes3.png" alt="eyes">
+                             </div>
+
+                             <!-- BOTTOM -->
+                              <div class="bottom">
+                                 <img id ="bottom" src="../../resources/stylesources/bottom2.png" alt="bottom">
+                              </div>
+
+                            <!-- TOP -->
+                             <div class="top">
+                                <img id= "top" src="../../resources/stylesources/top4.png" alt="top">
+                             </div>
+
+                            <!-- SHOES -->
+                             <div class="shoes">
+                                <img id = "shoes" src="../../resources/stylesources/shoes13.png" alt="shoes">
+                             </div>
+
+                        </div> <!--AVATAR-->
+
+                        <!-- FLOOR SKIN -->
+                         <div class="floor-box">
+                            <!-- FLOOR관련 ACCESSORIES 배치할 것 -->    
+
+                            <div class="floor-skin">
+                                <img id = "floor-skin" src="../../resources/stylesources/floor10.png" alt="floor">
+                            </div>
+
+                         </div> <!-- FLOOR -->
+
+                        <!-- WALL SKIN -->
+                         <div class="wall-box">
+                            <!-- WALL관련 ACCESSORIES 배치할 것 -->
+                         </div> <!--WALL-->
+
+                    </div> <!-- MINIHOMPI ROOM-->
 
                     <div class="bot-box">
                         <div class="btn btn1">mingleShop</div>
