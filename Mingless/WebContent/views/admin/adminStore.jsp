@@ -8,6 +8,7 @@
 	// 아이템번호, 카테고리이름, 아이템이름, 가격, 아이템설명, 아이템등록일, 아이템 판매상태
 	ArrayList<ItemCategory> itemCategory = (ArrayList<ItemCategory>)request.getAttribute("itemCategory");
 	// 아이템카테고리번호, 카테고리 이름
+	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -17,7 +18,12 @@
         
 </head>
 <body id="page-top">
-	
+	<% if(alertMsg != null){ %>
+		<script>
+			alert("<%=alertMsg %>");				
+		</script>
+		<% session.removeAttribute("alertMsg"); %>
+	<% } %>
     <!-- 페이지 래퍼 -->
     <div id="wrapper">
 
@@ -50,53 +56,130 @@
                     <div class="d-sm-flex justify-content-start mb-4" id="page-header">
                         <h1 class="h3 mb-0 text-gray-800">상점 관리</h1>
                         <div class="dropdown d-flex align-items-start">
-                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" id="iCategory">
                                 상점 카테고리 선택
                             </button>
                             <div class="dropdown-menu">
-                            	<%for(ItemCategory i : itemCategory){ %>
-	                                <button class="dropdown-item" id="<%=i.getCategoryNo()%>"><%=i.getCategoryName() %></button>
-                                <%} %>
+                                <% for(ItemCategory it : itemCategory) { %>
+                                    <button class="dropdown-item" onclick="selectIC(this)" id="<%=it.getCategoryNo()%>"><%=it.getCategoryName() %></button>
+                                <% } %>
                             </div>
                         </div>
-                    </div>
-					
-					<script>
-						// 카테고리별로 뜨는 아이템 변화주는 ajax
-					</script>
-                    <!-- 페이지 콘텐츠 -->
-                    <div class="row">
-                    	<%for(Item i : item) {%>
-                         <div class="card" style="width:200px; height: auto; margin-left: 20px; margin-bottom: 20px">
-                            <img class="card-img-top" src="./resources/images/storeItem.png" alt="item image1" style="width:100%">
-                            <div class="card-body">
-                                <h4 class="card-title"><%=i.getItemName() %></h4>
-                                <p class="price"><%=i.getPrice() %></p>
-                                <br>
-                                <p class="card-text"><%=i.getItemExplan() %></p>
-                                <br>
-                                <button class="dropdown-menu btn-primary" id="itemSetting">상품관리</button>
-                                <div class="dropdown">
-                                    <button
-                                        type="button"
-                                        class="btn btn-item dropdown-toggle btn-primary"
-                                        data-toggle="dropdown">
-                                        상품관리
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <button class="dropdown-item" id="deleteItem">상품삭제</button>
-                                        <button class="dropdown-item" id="resetItem">가격설정</button>
-                                        <button class="dropdown-item" id="settingPhoto">상품사진관리</button>
+                        <div class="goToPrice">
+                            <button id="productReg" class="btn btn-primary" data-toggle="modal" data-target="#addProduct">상품등록</button>
+                            <div class="modal fade" id="addProduct">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <div class="addProduct">
+                                                <h2 class="modal-header">상품 등록</h2>
+                                                <form action="insertItem.am" method="post" enctype="multipart/form-data">
+                                                    <div id="productImage"></div>
+                                                    <label class="input-file-button" for="input-file">
+                                                        사진 업로드
+                                                    </label>
+                                                    <input type="file" name="itemImg" id="input-file" accept="image/*" style="display: none;"/>
+                                                    <div class="form">
+                                                        상품이름<input type="text" name="itemName" id="itemName" required="required">
+                                                        상품설명<textarea name="itemDes" id="itemDes" required="required"></textarea>
+                                                        상품가격<input type="number" name="itemPrice" id="itemPrice" required="required">
+                                                        <div class="custom-select" style="width: 200px;">
+                                                            <select name="category" id="productCategory" required="required">
+                                                                <option value="none">카테고리 선택</option>
+                                                                <option value="IC1">홈피꾸미기</option>
+                                                                <option value="IC2">내방꾸미기</option>
+                                                                <option value="IC3">아바타꾸미기</option>
+                                                                <option value="IC4">아이템광장</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="detailCategory">
+                                                            <input name="basic" id="tag"/>
+                                                        </div>
+                                                        <div class="openTag btn">태그작성</div>
+                                                    </div>
+                                                    <button class="submit btn btn-sm btn-primary">상품등록</button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-						<%} %>
-                
                     </div>
-                    
+					
+					
+                    <!-- 페이지 콘텐츠 -->
+                    <div class="row">
+                        <%for(Item i : item) {%>
+                            <div class="card" style="width:200px; height: auto; margin-left: 20px; margin-bottom: 20px">
+                                <img class="card-img-top" src=".<%=i.getSaveFile() %>" alt="item image1" style="width:100%">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><%=i.getItemName() %></h4>
+                                        <p class="price"><%=i.getPrice() %> <i class="fas fa-solid fa-egg" style="color: lightblue"></i></p>
+                                        <p class="card-text" style="font-size:18px" height:60px><%=i.getItemExplan() %></p>
+                                        <br>
+                                        <button class="dropdown-menu btn-primary" id="itemSetting">상품관리</button>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-item dropdown-toggle btn-primary" data-toggle="dropdown">
+                                            상품관리
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <button class="dropdown-item" id="deleteItem">상품삭제</button>
+                                                <button class="dropdown-item" id="resetItem">가격설정</button>
+                                                <button class="dropdown-item" id="settingPhoto">상품사진관리</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                        <% } %>
+                    </div>   
                 </div>
-
+				<script>
+						// 카테고리별로 뜨는 아이템 변화주는 ajax
+						// 카테고리에서 선택시 아이템 목록 조회 다시해서 카테고리별로 띄우기
+						// 백틱사용해서 html문 만들기
+						function selectIC(el){	
+							
+							$.ajax({
+								url:"categoryChoice.am",
+								data:{category: $(el).text()},
+								success:function(a){
+									let value = "";
+									$(".row").html("");
+									for(let i=0;i<a.length; i++){
+										value += `
+											<div class="card" style="width:200px; height: auto; margin-left: 20px; margin-bottom: 20px">
+                                                <img class="card-img-top" src=".\${a[i].saveFile}" alt="item image1" style="width:100%">
+                                                <div class="card-body">
+                                                <h4 class="card-title">\${a[i].itemName}</h4>
+                                                <p class="price">\${a[i].price} <i class="fas fa-egg" style="color: lightblue"></i></p>
+                                                    
+                                                <p class="card-text" style="font-size:18px">\${a[i].itemExplan}</p>
+                                                <br>
+                                                <button class="dropdown-menu btn-primary" id="itemSetting">상품관리</button>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-item dropdown-toggle btn-primary" data-toggle="dropdown">
+                                                        상품관리
+                                                    </button>
+                                                    <div class="dropdown-menu ">
+                                                        <button class="dropdown-item" id="deleteItem">상품삭제</button>
+                                                        <button class="dropdown-item" id="resetItem">가격설정</button>
+                                                        <button class="dropdown-item" id="settingPhoto">상품사진관리</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+										`;									
+									}
+									$(".row").html(value);
+									$("#iCategory").text($(el).text());
+								},
+								error:function(){
+									console.log("categroy ajax fail");
+								},
+							})							
+						}
+				</script>
             </div>
 
         </div>
@@ -128,16 +211,16 @@
         </div>
     </div>
     <script>
-	    window.onload = function() {
-	        const url = window.location.href;
-	        const urlWithoutQueryString = window.location.origin + window.location.pathname;
+        window.onload = function() {
+            const url = window.location.href;
+            const urlWithoutQueryString = window.location.origin + window.location.pathname;
 	
 	        // 현재 URL이 쿼리 문자열을 포함하고 있는지 확인합니다.
-	        if (url !== urlWithoutQueryString) {
+            if (url !== urlWithoutQueryString) {
 	            // 쿼리 문자열이 제거된 URL로 브라우저의 URL을 업데이트합니다.
-	            window.history.replaceState({}, document.title, urlWithoutQueryString);
-	        }
-	    };
+                window.history.replaceState({}, document.title, urlWithoutQueryString);
+            }
+        };
     </script>
 </body>
 </html>

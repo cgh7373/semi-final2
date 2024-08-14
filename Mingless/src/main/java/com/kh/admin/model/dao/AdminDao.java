@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.kh.admin.model.vo.Attachment;
 import com.kh.admin.model.vo.Blacklist;
 import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
@@ -99,7 +100,6 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -110,6 +110,7 @@ public class AdminDao {
 								, rset.getString("item_intro")
 								, rset.getDate("item_date")
 								, rset.getString("item_status")
+								, rset.getString("save_file")
 								));
 			}
 		} catch (SQLException e) {
@@ -144,6 +145,81 @@ public class AdminDao {
 		}
 		
 		return itemCategory;
+	}
+
+	public ArrayList<Item> choiceCategory(Connection conn, String ic) {
+		ArrayList<Item> itemList = new ArrayList<Item>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("choiceCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, ic);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				itemList.add(new Item(rset.getInt("item_num")
+									, rset.getString("categoryname")
+									, rset.getString("item_name")
+									, rset.getInt("price")
+									, rset.getString("item_intro")
+									, rset.getDate("item_date")
+									, rset.getString("item_status")
+									, rset.getString("SAVE_FILE")
+									));
+						}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return itemList;
+	}
+
+	public int insertItemImg(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertItemImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertItem(Connection conn, Item i) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertItem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, i.getItemCategory());
+			pstmt.setString(2, i.getItemName());
+			pstmt.setInt(3, i.getPrice());
+			pstmt.setString(4, i.getItemExplan());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

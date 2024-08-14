@@ -11,11 +11,12 @@ public class Item {
 	private Date itemEnrollDate;
 	private Date itemUpdate;
 	private String itemStatus;
+	private String saveFile;
 	
 	public Item () {}
 
 	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
-			Date itemUpdate, String itemStatus) {
+			Date itemUpdate, String itemStatus, String saveFile) {
 		super();
 		this.itemNo = itemNo;
 		this.itemCategory = itemCategory;
@@ -25,12 +26,13 @@ public class Item {
 		this.itemEnrollDate = itemEnrollDate;
 		this.itemUpdate = itemUpdate;
 		this.itemStatus = itemStatus;
+		this.saveFile = saveFile;
 	}
 	
 	
 
 	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
-			String itemStatus) {
+			String itemStatus, String saveFile) {
 		super();
 		this.itemNo = itemNo;
 		this.itemCategory = itemCategory;
@@ -39,6 +41,15 @@ public class Item {
 		this.itemExplan = itemExplan;
 		this.itemEnrollDate = itemEnrollDate;
 		this.itemStatus = itemStatus;
+		this.saveFile = saveFile;
+	}
+	
+	public String getSaveFile() {
+		return saveFile;
+	}
+	
+	public void setSaveFile(String saveFile) {
+		this.saveFile = saveFile;
 	}
 
 	public int getItemNo() {
@@ -109,8 +120,9 @@ public class Item {
 	public String toString() {
 		return "Item [itemNo=" + itemNo + ", itemCategory=" + itemCategory + ", itemName=" + itemName + ", price="
 				+ price + ", itemExplan=" + itemExplan + ", itemEnrollDate=" + itemEnrollDate + ", itemUpdate="
-				+ itemUpdate + ", itemStatus=" + itemStatus + "]";
+				+ itemUpdate + ", itemStatus=" + itemStatus + ", saveFile=" + saveFile + "]";
 	}
+
 	
 	
 }

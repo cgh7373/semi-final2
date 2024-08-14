@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.admin.model.dao.AdminDao;
+import com.kh.admin.model.vo.Attachment;
 import com.kh.admin.model.vo.Blacklist;
 import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
@@ -50,6 +51,32 @@ public class AdminService {
 		close(conn);
 		
 		return itemCategory;
+	}
+
+	public ArrayList<Item> choiceCategory(String ic) {
+		Connection conn = getConnection();
+		
+		ArrayList<Item> itemList = new AdminDao().choiceCategory(conn, ic); 
+		
+		close(conn);
+		
+		return itemList;
+	}
+
+	public int insertItem(Attachment at, Item i) {
+		Connection conn = getConnection();
+		
+		int result1 = new AdminDao().insertItemImg(conn, at);
+		
+		int result2 = new AdminDao().insertItem(conn, i);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else{
+			rollback(conn);
+		}
+		
+		return result1 * result2;
 	}
 
 }

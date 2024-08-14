@@ -19,7 +19,8 @@
         <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+        <!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script
         src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script
@@ -32,14 +33,22 @@
         rel="stylesheet">
         <!-- w3 icon -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <!-- tagify -->
+        <script src="https://cdn.jsdelivr.net/npm/@yaireo/tagify"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+        <link
+            href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css"
+            rel="stylesheet"
+            type="text/css"/>
         <!-- reset -->
         <link
         href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
         rel="stylesheet">
-
         <!-- 내부파일 -->
         <link href="./views/admin/resources/admin.css" rel="stylesheet">                 
         <script src="./views/admin/resources/admin.js" defer></script>
+        <script src="./views/admin/resources/adminJq.js" defer></script>
 </head>
 <body id="page-top">
 
@@ -50,7 +59,7 @@
         <ul class="navbar-nav bg-gradient-green sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- 사이드바 - 브랜드 -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=contextPath%>/login.me?userId=<%=loginUser.getMemId()%>&userPwd=<%=loginUser.getMemPwd()%>">
                 <div class="logo-wrap animate__animated animate__zoomOut animate__delay-1s">
                     <div class="logo--disappear">
                         <h1 class="animate__animated animate__zoomOut animate__delay-1s">
@@ -71,7 +80,7 @@
 
             <!-- 네비게이션 항목 - 대시보드 -->
             <li class="nav-item">
-                <a class="nav-link" href="<%=contextPath%>/login.me?userId=<%=loginUser.getMemId()%>&userPwd=<%=loginUser.getMemPwd()%>">
+                <a class="nav-link" href="<%=contextPath%>/main.am">
                     <i class="fas fa-fw fa-home"></i>
                     <span>메인화면</span></a>
             </li>
