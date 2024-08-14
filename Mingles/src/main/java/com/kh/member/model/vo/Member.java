@@ -122,6 +122,24 @@ public class Member {
 		this.status = status;
 		this.zodiac = zodiac;
 	}
+
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.egg = egg;
+		this.zodiac = zodiac;
+	}
 	
 	public Member(String memId, String memPwd, String nickname) {
 		super();
