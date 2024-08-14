@@ -2,6 +2,8 @@ package com.kh.member.model.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +20,7 @@ public class MemberDao {
 	public MemberDao() {
 		
 		String filePath = MemberDao.class.getResource("/db/sql/member-mapper.xml").getPath();
-		
+		filePath = URLDecoder.decode(filePath, StandardCharsets.UTF_8);
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
 		} catch (IOException e) {

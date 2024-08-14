@@ -2,6 +2,8 @@ package com.kh.common;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,13 +23,13 @@ public class JDBCTemplate {
 		// 읽어들이고자 하는 classes 폴더내의 driver.properties 파일의 물리적인 경로
 		// /는 최상위 폴더 의미
 		String filePath = JDBCTemplate.class.getResource("/db/driver/driver.properties").getPath();
+		filePath = URLDecoder.decode(filePath, StandardCharsets.UTF_8);
 		
 		try {
 			prop.load(new FileInputStream(filePath));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
 		try {
 			// jdbc driver 등록
 			Class.forName(prop.getProperty("driver"));
@@ -59,7 +61,7 @@ public class JDBCTemplate {
 		}
 	}
 	
-	// 2_2. 	""				  rollback하는 rollback 메소드
+	// 2_2. Connection 객체 전달받아 rollback하는 rollback 메소드
 	public static void rollback(Connection conn) {
 		
 		try {
@@ -106,12 +108,5 @@ public class JDBCTemplate {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 	
 }

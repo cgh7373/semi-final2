@@ -1,23 +1,3 @@
-$(function() {
-    $('#homeKey').click(function() {
-        console.log("homeKey clicked");
-        $('#menuBar').animate({width: 'toggle'});
-    });
-    $('#menuBack').click(function() {
-        console.log("menuBack clicked");
-        $('#menuBar').animate({width: 'toggle'});
-    });
-
-    // 메뉴바 외의 부분 눌렀을때 메뉴바 사라지기
-    $(document).click(function(event) {
-        if (!$(event.target).closest('#menuBar, #homeKey').length) {
-            if ($('#menuBar').is(":visible")) {
-                $('#menuBar').animate({width: 'toggle'});
-            }
-        }
-    }); 
-});
-
 // 채팅창 자스
 // 캔버스 함수
 const canvas = document.getElementById('jsCanvas')
@@ -114,6 +94,4 @@ function init(){
     draw.addEventListener("click", handClick)
 }
 init();
-
-
 
