@@ -16,7 +16,7 @@
 
     <!-- 외부파일 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
@@ -58,6 +58,7 @@
 		 });
 	</script>
 
+<% if (m != null) { %>
     <div id="wrap">
 
         <!-- 메인 화면 -->
@@ -73,10 +74,12 @@
 
                             <!-- 사진이 나오는곳 -->
                             <div class="profilePhoto">
-                                <img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt="profilePhoto">
+                                <img src="<%=m.getProfilePic()%>" alt="profilePhoto">
                             </div>
 
                             <!-- 사진첨부할 인풋 -->
+                            <form id="proPic" method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/updatePic.mi">
+                            <input type="hidden" name="memId" value="<%=m.getMemId()%>">
                             <label for="file">
                                 <div class="btn-upload">
                                     <span class="material-icons">
@@ -84,19 +87,21 @@
                                     </span>
                                 </div>
                             </label>
-                            <input type="file" name="file" id="file" style="display: none;">
-
+                            <input type="file" name="profilePic" id="file" style="display: none;" accept="image/*">
+                            <button type="submit" style="opacity:0"></button>
+                            <script>
+                            	$("#file").change(function () {
+                            		$(".top__left button").click();
+                            	})
+                            </script>
+							</form>
+							
                         </div>
-
+                        
+                        
                         <div class="top__right">
-
-							<% if (m != null) { %>
                             <div class="nickName"><%=m.getNickname() %></div>
                             <div class="userEmail"><%=m.getEmail() %></div>
-                            <% } else { %>
-							<div class="nickName">로그인이 필요해요</div>
-                            <div class="userEmail">로그인이 필요해요</div>
-							<% } %>
                         </div>
 
                     </div>
@@ -197,7 +202,6 @@
                     </div>
 
                     <!-- setboxes -->
-                    <% if (m != null) { %>
                     <div class="right-bot">
 
                         <div class="setbox" onclick="toNotice()">
@@ -247,9 +251,10 @@
                             <span class="set-tag">MBTI 변경</span>
                         </div>
 
-                        <div class="setbox">
-                            <span class="material-icons"></span>
-                            <span class="set-tag"></span>
+                        <div class="setbox" data-toggle="modal"
+                        data-target="#statusMsgModal">
+                            <span class="material-icons">psychology_alt</span>
+                            <span class="set-tag">상태메세지 변경</span>
                         </div>
 
                         <div class="setbox">
@@ -584,12 +589,47 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <!-- 상태메세지 변경용 Modal -->
+                            <div class="modal fade" id="statusMsgModal">
+                                <div class="modal-dialog modal-dialog-centered">
+                                       <div class="modal-content">
+    
+                                       <!-- Modal Header -->
+                                       <div class="modal-header">
+                                           <h4 class="modal-title" align="center">상태메세지 변경</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+    
+                                    <!-- Modal body -->
+                                    <div class="modal-body" align="center">
+                                   
+                                    <form action="/Mingles/statusMsg.mi" method="post">
+                                   
+                                           <input type="hidden" name="userId" value="<%= m.getMemId() %>">
+                                           <table>
+                                           
+                                            <tr>
+                                                <td>변경할 상태메세지를 입력해주세요</td>                               		
+                                                <td><input type="text" name="statusMsg" required></td>                               	
+                                            </tr>	
+                                           
+                                           </table>
+                                   
+                                           <br>
+                                           
+                                           <button type="submit" class="btn btn-sm">상태메세지 변경</button>
+                                  		 </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                    </div>
+        </div>
 
-                </div>
+        </div>
 
-            </div>
+        </div>
 
         </div>
 

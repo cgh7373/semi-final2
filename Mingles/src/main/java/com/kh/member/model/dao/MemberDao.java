@@ -59,6 +59,8 @@ public class MemberDao {
 								, rset.getString(12)
 								, rset.getString(13)
 								, rset.getString(14)
+								, rset.getString(15)
+								, rset.getString(16)
 							  );
 				
 			}
@@ -90,6 +92,8 @@ public class MemberDao {
 			pstmt.setString(6, m.getEmail());
 			pstmt.setString(7, m.getGender());
 			pstmt.setString(8, zodiacSign);
+			pstmt.setString(9, m.getABO());
+			pstmt.setString(10, m.getMBTI());
 			
 			result = pstmt.executeUpdate();
 			
@@ -181,6 +185,8 @@ public class MemberDao {
 								, rset.getString(12)
 								, rset.getString(13)
 								, rset.getString(14)
+								, rset.getString(15)
+								, rset.getString(16)
 							  );
 				
 			}
@@ -253,6 +259,52 @@ public class MemberDao {
 			
 			pstmt.setString(1, mbti);
 			pstmt.setString(2, userId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateMsg(Connection conn, String memId, String msg) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMsg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, msg);
+			pstmt.setString(2, memId);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updatePic(Connection conn, Member m) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePic");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getProfilePic());
+			pstmt.setString(2, m.getMemId());
 			
 			result = pstmt.executeUpdate();
 			

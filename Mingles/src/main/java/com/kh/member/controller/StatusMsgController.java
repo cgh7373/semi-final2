@@ -12,16 +12,16 @@ import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberInsertController
+ * Servlet implementation class StatusMsgController
  */
-@WebServlet("/insert.mi")
-public class MemberInsertController extends HttpServlet {
+@WebServlet("/statusMsg.mi")
+public class StatusMsgController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberInsertController() {
+    public StatusMsgController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,28 +33,20 @@ public class MemberInsertController extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 		
-		String enrollId = request.getParameter("enrollId");
-		String enrollPwd = request.getParameter("enrollPwd");
-		String enrollNickname = request.getParameter("enrollNickname");
-		String enrollBirthdate = request.getParameter("enrollBirthdate");
-		String enrollPhone = request.getParameter("enrollPhone");
-		String enrollEmail = request.getParameter("enrollEmail");
-		String gender = request.getParameter("gender");
-		String abo = request.getParameter("bloodType");
-		String mbti = request.getParameter("MBTI");
+		String memId = request.getParameter("userId");
+		String Msg = request.getParameter("statusMsg");
 		
-		Member m = new Member(enrollId, enrollPwd, enrollNickname, enrollBirthdate, enrollPhone, enrollEmail, gender, abo, mbti);
-		
-		int result = new MemberService().insertMember(m);
+		Member updateMem = new MemberService().updateMsg(memId, Msg);
 		
 		HttpSession session = request.getSession();
-		if (result > 0) {
-			session.setAttribute("alertMsg", "회원가입 성공");
-			response.sendRedirect(request.getContextPath());
+		if (updateMem == null) {
+			session.setAttribute("errorMsg", "상태메세지가 변경되지 않았어요");
 		} else {
-			session.setAttribute("errorMsg", "회원가입 실패");
-			request.getRequestDispatcher("views/member/minglesEnroll.jsp").forward(request, response);
+			session.setAttribute("loginUser", updateMem);
+			session.setAttribute("alertMsg", "상태메세지가 변경됐어요");
 		}
+		
+		response.sendRedirect("views/settings/minglesSettings.jsp");
 		
 	}
 

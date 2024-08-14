@@ -17,6 +17,8 @@
 				, ZODIAC
 				, ABO
 				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
 		     FROM MEMBER
 			WHERE MEM_ID = ?
 			  AND MEM_PWD = ?
@@ -36,10 +38,14 @@
 				  , EMAIL
 				  , GENDER
 				  , ZODIAC
+				  , ABO
+				  , MBTI
 				  )
 				    VALUES 
 				  (
 				  	SEQ_MEM.NEXTVAL
+				  , ?
+				  , ?
 				  , ?
 				  , ?
 				  , ?
@@ -84,6 +90,8 @@
 				, ZODIAC
 				, ABO
 				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
 		     FROM MEMBER
 			WHERE MEM_ID = ?
 			  AND STATUS = 'Y'
@@ -110,6 +118,17 @@
 			   SET MBTI = ?
 			 WHERE MEM_ID = ?
 	</entry>
+	
+	<entry key="updateMsg">
+			UPDATE MEMBER
+			   SET STATUS_MSG = ?
+			 WHERE MEM_ID = ?
+	</entry>
 
+	<entry key="updatePic">
+			UPDATE MEMBER
+			   SET PROFILE_PIC = ?
+			 WHERE MEM_ID = ?
+	</entry>
 
 </properties>

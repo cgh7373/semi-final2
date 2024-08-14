@@ -166,6 +166,42 @@ public class MemberService {
 		return updateMem;
 	}
 
+	public Member updateMsg(String memId, String msg) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMsg(conn, memId, msg);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, memId);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updatePic(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updatePic(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
 
 
 }

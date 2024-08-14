@@ -16,23 +16,11 @@ public class Member {
 	private String zodiac;
 	private String ABO;
 	private String MBTI;
+	private String profilePic;
+	private String statusMsg;
 	
-	public String getABO() {
-		return ABO;
-	}
-
-	public void setABO(String aBO) {
-		ABO = aBO;
-	}
-
-	public String getMBTI() {
-		return MBTI;
-	}
-
-	public void setMBTI(String mBTI) {
-		MBTI = mBTI;
-	}
-
+	public Member() {}
+	
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
 			String gender, String enrollDate, String modifyDate, String status, String zodiac, String aBO,
 			String mBTI) {
@@ -49,11 +37,45 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.status = status;
 		this.zodiac = zodiac;
-		ABO = aBO;
-		MBTI = mBTI;
+		this.ABO = aBO;
+		this.MBTI = mBTI;
 	}
 
-	public Member() {}
+	public Member(String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String aBO, String mBTI) {
+		super();
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.ABO = aBO;
+		this.MBTI = mBTI;
+	}
+
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, String zodiac, String aBO, String mBTI,
+			String profilePic, String statusMsg) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.zodiac = zodiac;
+		this.ABO = aBO;
+		this.MBTI = mBTI;
+		this.profilePic = profilePic;
+		this.statusMsg = statusMsg;
+	}
 
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
 			String gender, String enrollDate, String modifyDate, String status) {
@@ -107,12 +129,44 @@ public class Member {
 		this.nickname = nickname;
 	}
 
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
+
+	public String getStatusMsg() {
+		return statusMsg;
+	}
+
+	public void setStatusMsg(String statusMsg) {
+		this.statusMsg = statusMsg;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}
 
 	public void setMemNo(int memNo) {
 		this.memNo = memNo;
+	}
+	
+	public String getABO() {
+		return ABO;
+	}
+	
+	public void setABO(String aBO) {
+		this.ABO = aBO;
+	}
+	
+	public String getMBTI() {
+		return MBTI;
+	}
+	
+	public void setMBTI(String mBTI) {
+		this.MBTI = mBTI;
 	}
 
 	public String getMemId() {
