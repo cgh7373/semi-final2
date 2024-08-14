@@ -51,23 +51,23 @@
 		 });
 	</script>
 	
+     <% if (m != null) { %>
 	 <div id="wrap">
         <div id="container">
             <!-- Left Screen -->
             <div class="post-list" id="left">
                 <div class="left__content" id="con1">
-                    <img src="./resources/images/Mingles아이콘-removebg-preview.png" alt="">
+                    <img src="<%=m.getProfilePic() %>" alt="">
                 </div>
                 <div class="left__content" id="con2">
-                    <% if (m != null) { %>
                     <div id="con2__nickname"><%= m.getNickname() %></div>
                     <button id="mailIcon" class="material-icons">mail_outline</button>
                     <div id="con2__my_text">제이름은 남도일 탐정입니다. 범인은 검은 쫄쫄이</div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
-                        <div id="my_info__2" data-toggle="tooltip" title="INTJ">MBTI</div>
+                        <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
                         <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리</div>
-                        <div id="my_info__4" data-toggle="tooltip" title="o형">혈액형</div>
+                        <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO() %>">혈액형</div>
                     </div>
                     
                 </div>
@@ -102,31 +102,32 @@
                     </div>
                 </div>
                 <div id="post-right__list">
-                    <section class="right-list__content">
+                    <table class="right-list__content">
                     
                         <!-- 여기가 제목칸들 -->
-                        <ul>
-                            <li>내용1</li>
-                            <li>내용2</li>
-                            <li>내용3</li>
-                            <li>내용4</li>
-                            <li>내용5</li>
-                            <li>내용6</li>
-                            <li>내용7</li>
-                        </ul>
+                        <thead>
+                            <tr>
+                                <th width="12%">게시번호</th>
+                                <th width="10%">태그</th>
+                                <th width="40%">제목</th>
+                                <th width="8%">조회수</th>
+                                <th width="30%">작성일</th>
+                            </tr>
+                        </thead> 
+                        
                         
                         <!-- 여기다가 게시글 동적으로 만들면됨 -->
-                        <ul>
-                            <li>내용1</li>
-                            <li>내용2</li>
-                            <li>내용3</li>
-                            <li>내용4</li>
-                            <li>내용5</li>
-                            <li>내용6</li>
-                            <li>내용7</li>
-                        </ul>
+                        <tbody>
+                            <tr>
+                                <td>내용1</td>
+                                <td>내용2</td>
+                                <td>내용3</td>
+                                <td>내용4</td>
+                                <td>내용5</td>
+                            </tr>
+                        </tbody>
                         
-                    </section>
+                    </table>
                 </div>
             </div>
         </div>

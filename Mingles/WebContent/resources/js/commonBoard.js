@@ -1,16 +1,3 @@
-$(function() {
-
-
-    $('#homeKey').click(function() {
-        $('#menuBar').animate({width:'toggle'})
-    })
-
-    $('#menuBack').click(function() {
-        $('#menuBar').animate({width:'toggle'})
-    })
-
-});
-
 $(document).ready(function(){
     $('[data-toggle="popover"]').popover();
   });

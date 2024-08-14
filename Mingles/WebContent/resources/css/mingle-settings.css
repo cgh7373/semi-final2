@@ -67,8 +67,9 @@ div, img {
 
 #settings .left .top .top__left .profilePhoto {
     position: absolute;
-    height: 100%;
     width: 90%;
+    aspect-ratio: 1;
+    height: auto;
     border-radius: 50%;
     margin: auto;
     left: 0;

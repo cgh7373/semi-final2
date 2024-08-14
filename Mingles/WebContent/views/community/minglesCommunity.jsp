@@ -53,16 +53,16 @@
                     <div class="tagList">
                         <div class="swiper">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide btn btn--tag color-7"># 태그1</div>
-                                <div class="swiper-slide btn btn--tag color-7"># 태그2</div>
-                                <div class="swiper-slide btn btn--tag color-7"># 태그3</div>
-                                <div class="swiper-slide btn btn--tag color-7"># 태그4</div>
-                                <div class="swiper-slide btn btn--tag color-7"># 태그5</div>
-                                <div class="swiper-slide btn btn--tag color-7"># 태그6</div>
-                                <div class="swiper-slide btn btn--tag color-7"># 태그7</div>
-                                <div class="swiper-slide btn btn--tag color-7"># 태그8</div>
-                                <div class="swiper-slide btn btn--tag color-7"># 태그9</div>
-                                <div class="swiper-slide btn btn--tag color-7"># 태그10</div>
+                                <div class="swiper-slide btn btn--tag">태그1</div>
+                                <div class="swiper-slide btn btn--tag">태그2</div>
+                                <div class="swiper-slide btn btn--tag">태그3</div>
+                                <div class="swiper-slide btn btn--tag">태그4</div>
+                                <div class="swiper-slide btn btn--tag">태그5</div>
+                                <div class="swiper-slide btn btn--tag">태그6</div>
+                                <div class="swiper-slide btn btn--tag">태그7</div>
+                                <div class="swiper-slide btn btn--tag">태그8</div>
+                                <div class="swiper-slide btn btn--tag">태그9</div>
+                                <div class="swiper-slide btn btn--tag">태그10</div>
                             </div>
                         </div>
                     </div>
@@ -70,23 +70,16 @@
 
                 <section class="homepage">
                     <div class="showHomefield">
-                        <div class="slide-title--homepage">
-                          <h5>
-                            <span>미</span>
-                            <span>니</span>
-                            <span>홈</span>
-                            <span>피</span>
-                          </h5>
-                        </div>
+                        <div class="slide-title--homepage">미니홈피 슬라이드</div>
                         <div class="swiper">
                             <div class="swiper-wrapper">
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
+                                <div class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></div>
+                                <div class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></div>
+                                <div class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></div>
+                                <div class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></div>
+                                <div class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></div>
+                                <div class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></div>
+                                <div class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></div>
                             </div>
                             <div class="swiper-button-next"></div>
                             <div class="swiper-button-prev"></div>
@@ -95,15 +88,7 @@
                 </section>
                 <section class="popularPost">
                     <div class="showPopularPost">
-                        <div class="slide-title--homepage">
-                          <h5>
-                            <span>인</span>
-                            <span>기</span>
-                            <span>게</span>
-                            <span>시</span>
-                            <span>물</span>
-                          </h5>
-                        </div>
+                        <div class="slide-title--homepage">인기게시글</div>
                         <div class="swiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide"><img src="../../resources/images/게시글사진.webp"/></div>

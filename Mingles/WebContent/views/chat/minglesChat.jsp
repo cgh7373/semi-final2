@@ -240,17 +240,6 @@
              <a href="http://127.0.0.1:5500/chat/chat.html" class="chat-logo"><img src="../../resources/images/Mingles로고-움직임-짤.gif" alt="mingles"></a>
              <div class="chat-left">
 
-              <div class="group">
-                <svg viewBox="0 0 24 24" aria-hidden="true" class="Searchicon">
-                  <g>
-                    <path
-                      d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-                    ></path>
-                  </g>
-                </svg>
-                <input class="inputSearch" type="search" placeholder="Search" />
-              </div>
-
                 <!-- 로고 누르면 home창 만들고 싶어. 안예쁠것 같아서 고민중.! -->
 
                 <ul class="chat-friend">
@@ -258,72 +247,63 @@
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div class="friend-info">
                             <span class="friend__name">김서경</span>
-                            <span class="friend__text">1</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
+                            <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span>
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">이주영</span>
-                            <span class="friend__text">20</span>
-                            <!-- <span class="friend__text">반짝반짝 작은별 아름답게 비치네</span> -->
+                            <span class="friend__text">반짝반짝 작은별 아름답게 비치네</span>
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">유현동</span>
-                            <span class="friend__text">99+</span>
-                            <!-- <span class="friend__text"> 동쪽하늘에서도 서쪽하늘에서도</span> -->
+                            <span class="friend__text"> 동쪽하늘에서도 서쪽하늘에서도</span>
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">김상우</span>
-                            <span class="friend__text">20</span>
-                            <!-- <span class="friend__text">반짝반짝 작은별 아름답게 비치네 짝!</span> -->
+                            <span class="friend__text">반짝반짝 작은별 아름답게 비치네 짝!</span>
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">정택은</span>
-                            <span class="friend__text">3</span>
-                            <!-- <span class="friend__text"></span> -->
+                            <span class="friend__text"></span>
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">최규호</span>
-                            <span class="friend__text">50</span>
-                            <!-- <span class="friend__text">그냥.. 복붙만 하니까 이상해서 아무거나 써봤어요;;</span> -->
+                            <span class="friend__text">그냥.. 복붙만 하니까 이상해서 아무거나 써봤어요;;</span>
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">김서경</span>
-                            <span class="friend__text">89</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
+                            <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span>
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">김서경</span>
-                            <span class="friend__text">99+</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
+                            <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span>
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">김서경</span>
-                            <span class="friend__text">10</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
+                            <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span>
                         </div>
                     </li>
                 </ul>
@@ -387,24 +367,16 @@
                 </div>
                 
                 <form class="chat-form"> 
-                  <div class="inputContainer">
                     <input type="text" id="messageInput" placeholder="메세지를 입력하세요 :)"/>
-                    <label for="input-file">
-                      <div class="material-icons">attach_file</div>
-                    </label>
-                    <input type="file" id="input-file" style="display: none;" accept="image/*" onchange="setThumbnail(event);"/>
-                    <span class="material-icons draw">draw</span>
-                    <button type="submit" class="send_btn">
-                      send
-                      <div class="hoverEffect">
-                        <div></div>
-                      </div>
-                    </button>
-                  </div>
+                        <label for="input-file">
+                            <div class="material-icons">attach_file</div>
+                        </label>
+                        <input type="file" id="input-file" style="display: none;" accept="image/*" onchange="setThumbnail(event);"/>
+                        <span class="material-icons draw">draw</span>
+                    <input type="submit" value="send">
                 </form>
             </div>
          </section>
-         
 
     </div>
 
