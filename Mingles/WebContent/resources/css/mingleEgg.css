@@ -40,7 +40,7 @@ html{
 
 #turtle-egg-header{
     width: 100%;
-    height: 8%;
+    height: 7%;
     background-color: #07BEB8;
     position: relative;
 }
@@ -97,7 +97,7 @@ html{
 #turtle-egg-content{
     width: 60%;
     height: 90%;
-    margin: 15px auto 0;
+    margin: 10px auto 0;
     position: relative;
     
 }
@@ -183,7 +183,7 @@ html{
 #charge-list>div{
     width: 100%;
     border-radius: 10px;
-    border: 1px solid #e5e5e5;
+    
 }
 
 
@@ -232,14 +232,22 @@ html{
 }
 
 #charge-list #charge-list__bot{
-    height: 470px;
+    height: 480px;
     overflow: hidden;
     background-color: #fff;
     box-shadow: 0 0 10px #e5e5e5;
 }
 
+#charge-list__bot .table{
+    margin-bottom: 4px;
+}
+
+#charge-list__bot thead{
+    background-color: #a7d3da;
+    font-weight: 700;
+}
+
 #charge-list #charge-list__bot tr{
-    height: 42px;
     border-bottom: 1px solid #e5e5e5;
 }
 
@@ -249,7 +257,47 @@ html{
 
 #charge-list #charge-list__bot tr th,td{
     text-align: center;
+    font-size: 15px;
+    font-family: 'omyu_pretty';
 }
+
+/*  */
+.pageWrap{
+    text-align: center;
+    height: 6%;
+
+    margin: auto;
+    bottom: 0;
+    left: 30%;
+}
+
+.pagination {
+display: inline-block;
+}
+
+.pagination a {
+color: black;
+float: left;
+padding: 8px 16px;
+text-decoration: none;
+font-family: 'omyu_pretty';
+margin: 0 2px;
+}
+
+.pagination a.active {
+background-color: #4CAF50;
+color: white;
+border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+background-color: #ddd;
+border-radius: 5px;
+}
+
+
+
+
 
 
 

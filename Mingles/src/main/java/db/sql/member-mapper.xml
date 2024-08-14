@@ -169,4 +169,18 @@
 			 WHERE MEM_ID = ?
 	</entry>
 
+	<entry key="chargeEgg">
+		UPDATE MEMBER
+		   SET EGG = ?
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+
+	<entry key="idCheck">
+		SELECT
+		       COUNT(*) "COUNT"
+		  FROM MEMBER
+		 WHERE MEM_ID = ?
+		   AND STATUS = 'Y'
+	</entry>
 </properties>
