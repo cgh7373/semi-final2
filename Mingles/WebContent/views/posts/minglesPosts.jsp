@@ -28,8 +28,6 @@
 </head>
 <body>
 
-	<!-- 게시글 관련 파일 만들때 이거 통으로 복붙한다음에 만들어요 절대 이파일은 수정하지 말것 -->
-
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 		// 성공메시지
@@ -49,6 +47,17 @@
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
 		 });
+		/*
+		$(function() {
+			showPostList();
+		})
+		
+		function showPostList() {
+			$.ajax({
+				url : '',
+				
+			})
+		}*/
 	</script>
 	
 	 <div id="wrap">
@@ -65,9 +74,9 @@
                     <div id="con2__my_text">제이름은 남도일 탐정입니다. 범인은 검은 쫄쫄이</div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
-                        <div id="my_info__2" data-toggle="tooltip" title="INTJ">MBTI</div>
+                        <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
                         <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리</div>
-                        <div id="my_info__4" data-toggle="tooltip" title="o형">혈액형</div>
+                        <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO() %>">혈액형</div>
                     </div>
                     
                 </div>

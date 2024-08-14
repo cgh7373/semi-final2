@@ -12,16 +12,16 @@ import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class UpdatePasswordController
+ * Servlet implementation class MemberMBTIController
  */
-@WebServlet("/updatePwd.mi")
-public class UpdatePasswordController extends HttpServlet {
+@WebServlet("/memberMBTI.mi")
+public class MemberMBTIController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdatePasswordController() {
+    public MemberMBTIController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,21 +31,21 @@ public class UpdatePasswordController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String memId = request.getParameter("userId");
-		String memPwd = request.getParameter("userPwd");
-		String updatePwd = request.getParameter("updatePwd");
+		String userId = request.getParameter("userId");
+		String mbti = request.getParameter("mbti");
 		
-		Member updateMem = new MemberService().updatePwd(memId, memPwd, updatePwd);
+		Member updateMem = new MemberService().updateMBTI(userId, mbti);
 		
 		HttpSession session = request.getSession();
 		if (updateMem == null) {
-			session.setAttribute("errorMsg", "비밀번호가 변경되지 않았어요");
+			session.setAttribute("errorMsg", "MBTI가 변경되지 않았어요");
 		} else {
 			session.setAttribute("loginUser", updateMem);
-			session.setAttribute("alertMsg", "비밀번호가 변경됐어요");
+			session.setAttribute("alertMsg", "MBTI가 변경됐어요");
 		}
 		
 		response.sendRedirect("views/settings/minglesSettings.jsp");
+		
 	}
 
 	/**

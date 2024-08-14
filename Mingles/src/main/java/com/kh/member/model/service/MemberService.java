@@ -78,20 +78,22 @@ public class MemberService {
 		
 	}
 
-	public int updatePwd(String memId, String memPwd, String updatePwd) {
+	public Member updatePwd(String memId, String memPwd, String updatePwd) {
 		
 		Connection conn = getConnection();
 		
 		int result = new MemberDao().updatePwd(conn, memId, memPwd, updatePwd);
 		
+		Member updateMem = null;
 		if (result > 0) {
 			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, memId);
 		} else {
 			rollback(conn);
 		}
 		close(conn);
 		
-		return result;
+		return updateMem;
 	}
 
 	public Member updateNick(Member m) {
@@ -144,6 +146,24 @@ public class MemberService {
 		close(conn);
 		
 		return result;
+	}
+
+	public Member updateMBTI(String userId, String mbti) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMBTI(conn, userId, mbti);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, userId);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
 	}
 
 

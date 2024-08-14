@@ -136,9 +136,9 @@
                     <div id="con2__my_text">제이름은 남도일 탐정입니다. 범인은 검은 쫄쫄이</div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
-                        <div id="my_info__2" data-toggle="tooltip" title="INTJ">MBTI</div>
+                        <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
                         <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리</div>
-                        <div id="my_info__4" data-toggle="tooltip" title="o형">혈액형</div>
+                        <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO()%>">혈액형</div>
                     </div>
                     
                 </div>
@@ -214,6 +214,27 @@
                 </div>
 
             </div>
+                 <!--mp3 음악 버튼-->
+                   <div class="music">
+                   <img src="../../resources/images/cd.png" alt="cd그림" id ="mp3Button">
+    
+                    <!-- img 클릭하면 이 창 뜸 -->
+                    <div class ="popover-content" id = "show">
+                        <div class = "iframe-container" id="player">
+                            <!-- <iframe src="https://www.youtube.com/embed/?autoplay=1&mute=1" allow="autoplay"></iframe> -->
+                            <iframe width="1280" height="720" src="https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1" title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div class = "music--info">
+                            <p class="music--title">ETA</p>
+                            <p class="music--singer">뉴진스</p>
+                        </div>
+                        <!-- 플리 버튼 -->
+                        <button class="material-icons">expand_less</button>
+                        <button class="material-icons">expand_more</button>
+                        <button class="material-icons" id="playlist">playlist_play</button>
+                    </div>
+    
+                </div>
                 
                 <script>
                 const show = document.getElementById("show");

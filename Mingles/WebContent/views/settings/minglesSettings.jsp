@@ -241,9 +241,10 @@
                             <span class="set-tag">회원 탈퇴</span>
                         </div>
 
-                        <div class="setbox">
-                            <span class="material-icons"></span>
-                            <span class="set-tag"></span>
+                        <div class="setbox" data-toggle="modal"
+                        data-target="#MBTIModal">
+                            <span class="material-icons">attribution</span>
+                            <span class="set-tag">MBTI 변경</span>
                         </div>
 
                         <div class="setbox">
@@ -516,14 +517,73 @@
                                            <br>
                                            
                                            <button type="submit" class="btn btn-sm" onclick="return validatePwd();">회원 탈퇴</button>
-                                   
-                                   </form>
-                                   
+                                  		 </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             
+                            <!-- MBTI용 Modal -->
+                            <div class="modal fade" id="MBTIModal">
+                                <div class="modal-dialog modal-dialog-centered">
+                                       <div class="modal-content">
+    
+                                       <!-- Modal Header -->
+                                       <div class="modal-header">
+                                           <h4 class="modal-title" align="center">MBTI 변경</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+    
+                                    <!-- Modal body -->
+                                    <div class="modal-body" align="center">
+                                   
+                                    <form action="/Mingles/memberMBTI.mi" method="post">
+                                   
+                                           <input type="hidden" name="userId" value="<%= m.getMemId() %>">
+                                           <table>
+                                           
+                                            <tr>
+                                                <td>MBTI 선택 : </td>                               		
+                                                <td><select name="mbti">
+                                                	<option>ISTJ</option>
+                                                	<option>ISFJ</option>
+                                                	<option>INTJ</option>
+                                                	<option>INFJ</option>
+                                                	<option>ISTP</option>
+                                                	<option>ISFP</option>
+                                                	<option>INFP</option>
+                                                	<option>INTP</option>
+                                                	<option>ESTP</option>
+                                                	<option>ESFP</option>
+                                                	<option>ENFP</option>
+                                                	<option>ENTP</option>
+                                                	<option>ESTJ</option>
+                                                	<option>ESFJ</option>
+                                                	<option>ENFJ</option>
+                                                	<option>ENTJ</option>
+                                                </select></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호</td>                               		
+                                                <td><input type="password" name="updatePwd" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호 확인</td>                               		
+                                                <td><input type="password" name="checkPwd" required></td>                               	
+                                            </tr>	
+                                           
+                                           </table>
+                                   
+                                           <br>
+                                           
+                                           <button type="submit" class="btn btn-sm" onclick="return validatePwd();">변경</button>
+                                  		 </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                     </div>
 
