@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <%
 	int price = (int)request.getAttribute("price");
 	int point = (int)request.getAttribute("point");
@@ -13,7 +14,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -26,14 +27,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="./resources/css/minglesChargeEgg.css">
+    <link rel="stylesheet" href="./resources/css/minglesGiftEgg.css">
 
 
 </head>
 <body>
-		
 
-	<div class="wrap">
+    <div class="wrap">
 
         <header>
             <div id="left">
@@ -129,7 +129,7 @@
             </div>
             <script>
               function charge(userNo, sum){
-	              location.href= "eggUpdate.mi?userNo=" + userNo + "&sum=" + sum;
+	              location.href= "eggGiftUpdate.mi?userNo=" + userNo + "&sum=" + sum;
               }
               
             </script>
@@ -138,7 +138,6 @@
     
     </div>
 	
-
 
 
 </body>

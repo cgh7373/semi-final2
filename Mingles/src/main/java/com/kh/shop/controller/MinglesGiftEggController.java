@@ -11,16 +11,16 @@ import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class MinglesChargeEggController
+ * Servlet implementation class MinglesGiftEggController
  */
-@WebServlet("/chargeEgg.mi")
-public class MinglesChargeEggController extends HttpServlet {
+@WebServlet("/giftEgg.mi")
+public class MinglesGiftEggController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MinglesChargeEggController() {
+    public MinglesGiftEggController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +29,25 @@ public class MinglesChargeEggController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		int egg = Integer.parseInt(request.getParameter("egg"));
+		
 		int price = Integer.parseInt(request.getParameter("price"));
 		int point = Integer.parseInt(request.getParameter("point"));
+		String userId = request.getParameter("userId");
 		
-		int sum = egg + point;
-
+		Member m = new MemberService().selectIdMember(userId);
+		
+		int userEgg = m.getEgg(); // 선물할 상대의 거북알 뽑아서 넣기
+		int sum = point + userEgg;
+		int userNo = m.getMemNo();
+		
 		request.setAttribute("userNo", userNo);
 		request.setAttribute("sum", sum);
 		request.setAttribute("price", price);
 		request.setAttribute("point", point);
 		
-		request.getRequestDispatcher("views/shop/minglesChargeEgg.jsp").forward(request, response);
-	
+			
+		request.getRequestDispatcher("views/shop/minglesGiftEgg.jsp").forward(request, response);
+		
 	
 	}
 

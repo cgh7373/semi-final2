@@ -56,7 +56,8 @@ public class MemberDao {
 								, rset.getString(9)
 								, rset.getString(10)
 								, rset.getString(11)
-								, rset.getString(12)
+								, rset.getInt(12)
+								, rset.getString(13)
 							  );
 				
 			}
@@ -71,12 +72,12 @@ public class MemberDao {
 		return m;
 	}
 	
-public Member loginMember(Connection conn, int userNo) {
+	public Member selectNoMember(Connection conn, int userNo) {
 		
 		Member m = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectMember");
+		String sql = prop.getProperty("selectNoMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -115,7 +116,51 @@ public Member loginMember(Connection conn, int userNo) {
 		
 		return m;
 	}
-
+	
+	public Member selectIdMember(Connection conn, String userId) {
+		
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectIdMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				
+				m = new Member(
+								  rset.getInt(1)
+								, rset.getString(2)
+								, rset.getString(3)
+								, rset.getString(4)
+								, rset.getString(5)
+								, rset.getString(6)
+								, rset.getString(7)
+								, rset.getString(8)
+								, rset.getString(9)
+								, rset.getString(10)
+								, rset.getString(11)
+								, rset.getInt(12)
+								, rset.getString(13)
+							  );
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
 
 	public int insertMember(Connection conn, Member m, String zodiacSign) {
 		
@@ -169,6 +214,51 @@ public Member loginMember(Connection conn, int userNo) {
 		
 		return result;
 	}
+
+	public int chargeEgg(Connection conn, int userNo, int sum) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("chargeEgg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sum);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int idCheck(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("idCheck");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return result;
+	}
+	
 
 
 	

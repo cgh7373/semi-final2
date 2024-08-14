@@ -11,16 +11,16 @@ import com.kh.member.model.service.MemberService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class MinglesChargeEggController
+ * Servlet implementation class EggUpdateController
  */
-@WebServlet("/chargeEgg.mi")
-public class MinglesChargeEggController extends HttpServlet {
+@WebServlet("/eggUpdate.mi")
+public class EggUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MinglesChargeEggController() {
+    public EggUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,20 +30,15 @@ public class MinglesChargeEggController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		int egg = Integer.parseInt(request.getParameter("egg"));
-		int price = Integer.parseInt(request.getParameter("price"));
-		int point = Integer.parseInt(request.getParameter("point"));
+		int sum = Integer.parseInt(request.getParameter("sum"));
 		
-		int sum = egg + point;
-
-		request.setAttribute("userNo", userNo);
-		request.setAttribute("sum", sum);
-		request.setAttribute("price", price);
-		request.setAttribute("point", point);
+		int result = new MemberService().chargeEgg(userNo, sum);
 		
-		request.getRequestDispatcher("views/shop/minglesChargeEgg.jsp").forward(request, response);
-	
-	
+		Member m = new MemberService().selectNoMember(userNo);
+		request.getSession().setAttribute("loginUser", m);
+		
+		request.getRequestDispatcher("views/shop/minglesChargeFinish.jsp").forward(request, response);
+		
 	}
 
 	/**
