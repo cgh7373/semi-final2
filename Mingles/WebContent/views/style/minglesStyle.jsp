@@ -1,5 +1,12 @@
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+Member m = (Member)session.getAttribute("loginUser");
+String contextPath = request.getContextPath();
+String alertMsg = (String)session.getAttribute("alertMsg");
+String errorMsg = (String)session.getAttribute("errorMsg");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +48,7 @@
                 <div class="float title">방꾸미기</div>
 
                 <!-- 클릭시 카테고리 바뀌기 -->
-                <span class="style-tag">가구</span>
+                <span class="style-tag">나만의 미니룸을 꾸며요</span>
 
                 <ul class="item-container">
                     <li class="items"><img src="../../resources/stylesources/eyes1.png" /></li>
@@ -76,12 +83,6 @@
 
                     <div class="style-shop">
 
-                        <div class="bal bal1">
-                            <div class="bal-skin">스킨</div>
-                            <div class="bal-font">폰트</div>
-                            <div class="bal-music">음악</div>
-                        </div>
-
                         <div class="bal bal2">
                             <div class="bal-wall">벽지</div>
                             <div class="bal-floor">바닥</div>
@@ -94,11 +95,9 @@
                             <div class="bal-outer">상의</div>
                             <div class="bal-pants">하의</div>
                             <div class="bal-shoes">신발</div>
-                            <div class="bal-accessary">악세사리</div>
                         </div>
 
                         <div class="catB">
-                            <div class="catTitle homepage">홈피</div>
                             <div class="catTitle roomDeco">방꾸미기</div>
                             <div class="catTitle avatar">아바타</div>
                         </div>
@@ -117,27 +116,27 @@
                             </div>
 
                             <!-- HAIR -->
-                            <div class="hair">
+                            <div class="hair" id="hairSave">
                                 <img  id = "hair" src="../../resources/stylesources/hair3.png" alt="hair">
                             </div>
 
-                            <!-- EYES -->
-                             <div class="eyes">
-                                <img id = "eyes" src="../../resources/stylesources/eyes3.png" alt="eyes">
+                            <!-- FACE -->
+                             <div class="face" id = "faceSave">
+                                <img id = "face" src="../../resources/stylesources/eyes3.png" alt="eyes">
                              </div>
 
                              <!-- BOTTOM -->
-                              <div class="bottom">
+                              <div class="bottom" id ="bottomSave">
                                  <img id ="bottom" src="../../resources/stylesources/bottom2.png" alt="bottom">
                               </div>
 
                             <!-- TOP -->
-                             <div class="top">
+                             <div class="top" id = "topSave">
                                 <img id= "top" src="../../resources/stylesources/top4.png" alt="top">
                              </div>
 
                             <!-- SHOES -->
-                             <div class="shoes">
+                             <div class="shoes" id = "shoesSave">
                                 <img id = "shoes" src="../../resources/stylesources/shoes13.png" alt="shoes">
                              </div>
 
@@ -162,9 +161,11 @@
 
                     <div class="bot-box">
                         <div class="btn btn1">mingleShop</div>
-                        <div class="btn btn2">저장하기</div>
+                       
+                        <div class="btn btn2" onclick = "saveAvatar()">저장하기</div>
+                       
                     </div>
-
+ 
                 </div>
 
             </div>
@@ -172,8 +173,85 @@
 
         </div>
 
-        
     </div>
+	
+	<script>
+	// getValues()에 선택된 값 담기
+	function getValues(){
+		return {
+			hair : document.getElementById('hairSave').querySelector('img').src,
+			face : document.getElementById('faceSave').querySelector('img').src,
+			top : document.getElementById('topSave').querySelector('img').src,
+			bottom : document.getElementById('bottomSave').querySelector('img').src,
+			shoes : document.getElementById('shoesSave').querySelector('img').src,
+		};
+	}
+	
+	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기
+	function saveAvatar(){
+		let selected = getValues();
+		const userId = <%= m.getMemNo()%>;
+		
+		// 사용자가 아바타가 있는지 없는지 확인하는 ajax문
+		$.ajax({
+			url: "hasAvatar.st",
+			data : {
+				memno : userId,
+			},
+			type :"post",
+			success : function(response){
+				let flag = response.flag;
+				console.log("hasAvatar여부 성공!");
+ 			// 사용자에게 아바타가 있을 경우 == hasAvatar의 flag가 true일 경우 == update문 쏘기
+				if(flag == true){
+				$.ajax({
+					url : "updateAvatar.st",
+					data :{
+						memno: userId,
+						hair: selected.hair,
+						face: selected.face,
+						top : selected.top,
+						bottom :selected.bottom,
+						shoes :selected.shoes,
+					},
+					type : "post",
+					success : function(){
+						console.log("ajax update avatar 통신 success");
+					},
+					error : function(){
+						console.log("ajax update avatar 통신 fail");
+					},
+				  });
+				}else{
+				// 사용자에게 아바타가 없을 경우 == hasAvatar의 flag가 false일 경우 == insert문 쏘기(최초 1번)
+				$.ajax({
+					url : "insertAvatar.st",
+					data :{
+						memno: userId,
+						hair: selected.hair,
+						face: selected.face,
+						top : selected.top,
+						bottom :selected.bottom,
+						shoes :selected.shoes,
+					},
+					type : "post",
+					success : function(){
+						console.log("ajax insert avatar 통신 success");
+					},
+					error : function(){
+						console.log("ajax insert avatar 통신 fail");
+					},
+				})
+			   }
+			},
+			error : function(){
+				console.log("hasAvatar여부 실패..");
+			},
+		})
+		
+	}
+	
+	</script>
 
 </body>
 

@@ -17,25 +17,10 @@ public class Member {
 	private String ABO;
 	private String MBTI;
 	
-	public String getABO() {
-		return ABO;
-	}
-
-	public void setABO(String aBO) {
-		ABO = aBO;
-	}
-
-	public String getMBTI() {
-		return MBTI;
-	}
-
-	public void setMBTI(String mBTI) {
-		MBTI = mBTI;
-	}
 
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
-			String gender, String enrollDate, String modifyDate, String status, String zodiac, String aBO,
-			String mBTI) {
+			String gender, String enrollDate, String modifyDate, String status, String zodiac, String ABO,
+			String MBTI) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -49,8 +34,8 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.status = status;
 		this.zodiac = zodiac;
-		ABO = aBO;
-		MBTI = mBTI;
+		this.ABO = ABO;
+		this.MBTI = MBTI;
 	}
 
 	public Member() {}
@@ -202,14 +187,31 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public String getABO() {
+		return ABO;
+	}
+
+	public void setABO(String ABO) {
+		this.ABO = ABO;
+	}
+
+	public String getMBTI() {
+		return MBTI;
+	}
+
+	public void setMBTI(String MBTI) {
+		this.MBTI = MBTI;
+	}
 
 	@Override
-	// 별자리는 아직 안넣음
 	public String toString() {
 		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", nickname=" + nickname
 				+ ", birthdate=" + birthdate + ", phone=" + phone + ", email=" + email + ", gender=" + gender
-				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + ", zodiac="
+				+ zodiac + ", ABO=" + ABO + ", MBTI=" + MBTI + "]";
 	}
+
 	
 	
 	

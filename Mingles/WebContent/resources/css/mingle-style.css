@@ -56,9 +56,8 @@ img {
     font-size: 50px;
     text-align: center;
     color: #7aecbc;
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #1d4d45;
     margin-bottom: 5%;
+    text-shadow: 5px 5px 10px rgb(215, 215, 215);
 }
 
 .style-tag {
@@ -184,24 +183,24 @@ footer .pagination-container {
 }
 
 .main-right .right-wrapper .style-shop .catB {
-    width: 38%;
+    width: 32%;
     height: 38%;
     position: absolute;
     bottom: 0;
     display: flex;
     align-items: center;
-    background-color: #e2ffb5;
-    border-top: 3px solid #08817d;
-    border-bottom: 3px solid #08817d;
+    background-color: #d2efff;
+    border-top: 3px solid #89c2ff;
+    border-bottom: 3px solid #89c2ff;
 }
 
 .main-right .right-wrapper .style-shop .catB .catTitle {
     font-family: 'Katuri';
     font-size: 35px;
-    margin-left: 20px;
+    margin: 20px;
     &:hover {
         cursor: pointer;
-        color: #08817d;
+        color:#0b77eb;
     }
     &:active {
         transform: translateX(.8px) translateY(.8px);
@@ -230,36 +229,27 @@ footer .pagination-container {
 }
 
 .bal {
-    height: 50%;
+    height: 48%;
 	position: relative;
-	padding: 10px 10px 10px 10px;
+	padding: 10px 20px 10px 20px;
 	background: #FFFFFF;
 	border-radius: 10px;
-	border: #64DFDF solid 3px;
+	border: #89c2ff solid 3px;
 	/* position: absolute; */
-	font-size: 16px;
+	font-size: 28px;
 	text-align: left;
     font-family: 'omyu_pretty';
-    font-size: 30px;
     align-items: center;
     display: flex;
 }
 
-.bal.bal1 {
-    display: none;
-    width: 25%;
-    &::after, 
-    &::before {
-        left: 28px;
-    }
-}
 
 .bal.bal2 {
     display: none;
-    width: 28%;
+    width: 33%;
     &::after, 
     &::before {
-        left: 135px;
+        left: 100px;
     }
 }
 
@@ -268,7 +258,7 @@ footer .pagination-container {
     width: 52%;
     &::after, 
     &::before {
-        left: 255px;
+        left: 220px;
     }
 }
 
@@ -289,7 +279,7 @@ footer .pagination-container {
 	position: absolute;
 	border-style: solid;
 	border-width: 20px 16px 0 17.5px;
-	border-color: #64DFDF transparent;
+	border-color: #89c2ff transparent;
 	display: block;
 	width: 0;
 	z-index: 0;
@@ -344,40 +334,43 @@ height:300px;
 z-index:91;
 }
 
-.hair img{
+.face img{
 position:absolute;
 width:300px;
 height:300px;
 z-index:92;
 }
 
-.eyes img{
+
+.hair img{
 position:absolute;
 width:300px;
 height:300px;
 z-index:93;
 }
 
-.bottom img{
+.shoes img{
 position:absolute;
 width:300px;
 height:300px;
 z-index:94;
 }
 
-.top img{
+
+.bottom img{
 position:absolute;
 width:300px;
 height:300px;
 z-index:95;
 }
 
-.shoes img{
+.top img{
 position:absolute;
 width:300px;
 height:300px;
 z-index:96;
 }
+
 
 .avatar-box{
 position:relative;

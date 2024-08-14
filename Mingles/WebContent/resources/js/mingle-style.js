@@ -11,18 +11,7 @@ function floatingObject(selector) {
 floatingObject('.float');
 
 // 클릭시 카테고리 바뀌기
-document.querySelector('.bal-skin').addEventListener('click',function() {
-    document.querySelector('.style-tag').innerHTML = '스킨'
-    updateCategory();
-})
-document.querySelector('.bal-font').addEventListener('click',function() {
-    document.querySelector('.style-tag').innerHTML = '폰트'
-    updateCategory();
-})
-document.querySelector('.bal-music').addEventListener('click',function() {
-    document.querySelector('.style-tag').innerHTML = '음악'
-    updateCategory();
-})
+
 document.querySelector('.bal-wall').addEventListener('click',function() {
     document.querySelector('.style-tag').innerHTML = '벽지'
     updateCategory();
@@ -53,10 +42,6 @@ document.querySelector('.bal-pants').addEventListener('click',function() {
 })
 document.querySelector('.bal-shoes').addEventListener('click',function() {
     document.querySelector('.style-tag').innerHTML = '신발'
-    updateCategory();
-})
-document.querySelector('.bal-accessary').addEventListener('click',function() {
-    document.querySelector('.style-tag').innerHTML = '악세사리'
     updateCategory();
 })
 
@@ -141,7 +126,7 @@ const shoesdata = [
 // count_per_page = boardLimit = 한 페이지에 보여질 개수
 const count_per_page = 6;
 
-let currentData = hairdata;
+let currentData = "";
 
 function updateCategory(){
     const category = document.querySelector('.style-tag').innerHTML;
@@ -292,21 +277,13 @@ nextButton.addEventListener('click', function () {
 
 
 // CATEGORY
-const bal1 = document.querySelector('.bal.bal1').classList;
+
 const bal2 = document.querySelector('.bal.bal2').classList;
 const bal3 = document.querySelector('.bal.bal3').classList;
 
-document.querySelector('.homepage').addEventListener('click',function() {
-
-    bal1.toggle('onoffTo')
-    bal2.remove('onoffTo')
-    bal3.remove('onoffTo')
-
-})
-
 document.querySelector('.roomDeco').addEventListener('click',function() {
 
-    bal1.remove('onoffTo')
+
     bal2.toggle('onoffTo')
     bal3.remove('onoffTo')
 
@@ -314,7 +291,6 @@ document.querySelector('.roomDeco').addEventListener('click',function() {
 
 document.querySelector('.avatar').addEventListener('click',function() {
 
-    bal1.remove('onoffTo')
     bal2.remove('onoffTo')
     bal3.toggle('onoffTo')
 
@@ -322,18 +298,165 @@ document.querySelector('.avatar').addEventListener('click',function() {
 
 
 // SELECT ITEMS WITH CLICK
-document.addEventListener("DOMContentLoaded", function(){
-    document.querySelector(".bal-hair").addEventListener("click", function(){
-        var hairOptions = document.querySelector(".item-container");
-        
-        hairOptions.addEventListener('click', function(event){
-            var target = event.target;
-            if(target.tagName === 'IMG'){
-                var characterHair = document.getElementById('hair');
-                characterHair.src = target.src;
-            }
-        });
-        initializePagination();
 
-        });
-});
+// document.addEventListener("DOMContentLoaded", function(){
+//     // Function to handle image selection
+
+//     // HAIR SELECT
+//     function handleImageClick(event) {
+//         const target = event.target;
+//         if (target.tagName === 'IMG') {
+//             const characterHair = document.getElementById('hair');
+//             characterHair.src = target.src;
+//         }
+//     };
+
+//     // HAIR CHANGE
+//     document.querySelector(".bal-hair").addEventListener("click", function() {
+//         const hairOptions = document.querySelector(".item-container");
+//         if (hairOptions) {
+//             hairOptions.addEventListener('click', handleImageClick);
+//         }
+//         initializePagination();
+//     });
+
+// });
+
+// document.addEventListener("DOMContentLoaded", function(){
+//     // FACE SELECT
+//     function handleImageClick(event) {
+//     const target = event.target;
+//     if (target.tagName === 'IMG') {
+//     const characterFace = document.getElementById('face');
+//     characterFace.src = target.src;
+//     }
+//     };
+
+//     // FACE CHANGE
+//     document.querySelector(".bal-face").addEventListener("click", function() {
+//     const eyeOptions = document.querySelector(".item-container");
+//     if (eyeOptions) {
+//     eyeOptions.addEventListener('click', handleImageClick);
+//     }
+//     initializePagination();
+//     });
+
+// });
+
+
+// document.addEventListener("DOMContentLoaded", function(){
+//     // BOTTOM SELECT
+//     function handleImageClick(event) {
+//     const target = event.target;
+//     if (target.tagName === 'IMG') {
+//     const characterBottom = document.getElementById('bottom');
+//     characterBottom.src = target.src;
+//     }
+//     };
+
+//     // BOTTOM CHANGE
+//     document.querySelector(".bal-pants").addEventListener("click", function() {
+//     const bottomOption = document.querySelector(".item-container");
+//     if (bottomOption) {
+//     bottomOption.addEventListener('click', handleImageClick);
+//     }
+//     initializePagination();
+//     });
+
+// });
+
+// document.addEventListener("DOMContentLoaded", function(){
+//     // TOP SELECT
+//     function handleImageClick(event) {
+//     const target = event.target;
+//     if (target.tagName === 'IMG') {
+//     const characterTop = document.getElementById('top');
+//     characterTop.src = target.src;
+//     }
+//     };
+
+//     // TOP CHANGE
+//     document.querySelector(".bal-outer").addEventListener("click", function() {
+//     const topOption = document.querySelector(".item-container");
+//     if (topOption) {
+//         topOption.addEventListener('click', handleImageClick);
+//     }
+//     initializePagination();
+//     });
+
+// });
+
+
+// document.addEventListener("DOMContentLoaded", function(){
+//     // SHOES SELECT
+//     function handleImageClick(event) {
+//     const target = event.target;
+//     if (target.tagName === 'IMG') {
+//     const characterShoes = document.getElementById('shoes');
+//     characterShoes.src = target.src;
+//     }
+//     };
+
+//     // SHOES CHANGE
+//     document.querySelector(".bal-shoes").addEventListener("click", function() {
+//     const shoesOption = document.querySelector(".item-container");
+//     if (shoesOption) {
+//         shoesOption.addEventListener('click', handleImageClick);
+//     }
+//     initializePagination();
+//     });
+
+// });
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    function handleImageClick(event) {
+      const target = event.target;
+      if (target.tagName === 'IMG') {
+        const selectedElementId = getSelectedElementId(); 
+        const elementToUpdate = document.getElementById(selectedElementId);
+        if (elementToUpdate) {
+          elementToUpdate.src = target.src;
+        }
+      }
+    }
+  
+    function getSelectedElementId() {
+      return localStorage.getItem('selectedElementId');
+    }
+  
+    function setSelectedElementId(elementId) {
+      localStorage.setItem('selectedElementId', elementId);
+    }
+  
+    function setupCategory(category, elementId) {
+      document.querySelector(`.bal-${category}`).addEventListener("click", function() {
+        const optionsContainer = document.querySelector(".item-container");
+        if (optionsContainer) {
+          optionsContainer.removeEventListener('click', handleImageClick); 
+          optionsContainer.addEventListener('click', handleImageClick); 
+        }
+  
+        setSelectedElementId(elementId); 
+        initializePagination();
+      });
+    }
+  
+    setupCategory('hair', 'hair');
+    setupCategory('face', 'face');
+    setupCategory('pants', 'bottom');
+    setupCategory('outer', 'top');
+    setupCategory('shoes', 'shoes');
+  
+
+    initializePagination();
+  
+    const previouslySelectedId = getSelectedElementId();
+    if (previouslySelectedId) {
+      const elementToUpdate = document.getElementById(previouslySelectedId);
+      if (elementToUpdate) {
+        handleImageClick({ target: elementToUpdate }); 
+      }
+    }
+  });
+  
