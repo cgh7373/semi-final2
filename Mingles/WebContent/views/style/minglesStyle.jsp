@@ -188,7 +188,28 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 			bottom : document.getElementById('bottomSave').querySelector('img').src,
 			shoes : document.getElementById('shoesSave').querySelector('img').src,
 		};
-	}
+	}// getValues()
+	
+	function selectAvatar(){
+		$.ajax({
+			url : "/Mingles/selectAvatar.st",
+			data : {memno : userId,},
+			type : "post",
+			success : function(result){
+				console.log("select ajax result 성공" +result);
+				if(result){
+					$('#hair img').attr('src', result.hair);
+					$('#face img').attr('src', result.face);
+					$('#top img').attr('src', result.top);
+					$('#bottom img').attr('src', result.bottom);
+					$('#shoes img').attr('src', result.shoes);
+				}
+			},
+			error : function(result){
+				console.log("select ajax result 실패..." + result);
+			},
+		})
+	}// selectAvatar()
 	
 	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기
 	function saveAvatar(){
@@ -202,8 +223,8 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 				memno : userId,
 			},
 			type :"post",
-			success : function(response){
-				let flag = response.flag;
+			success : function(result){
+				let flag = result.flag;
 				console.log("hasAvatar여부 성공!");
  			// 사용자에게 아바타가 있을 경우 == hasAvatar의 flag가 true일 경우 == update문 쏘기
 				if(flag == true){
@@ -238,10 +259,11 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 						shoes :selected.shoes,
 					},
 					type : "post",
-					success : function(){
-						console.log("ajax insert avatar 통신 success");
+					success : function(result){
+						// select문을 통해서 저장된 상태를 유지하기
+						selectAvatar();
 					},
-					error : function(){
+					error : function(result){
 						console.log("ajax insert avatar 통신 fail");
 					},
 				})

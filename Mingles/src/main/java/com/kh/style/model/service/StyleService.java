@@ -31,17 +31,18 @@ public class StyleService {
 	
 	public int insertStyle(Style st) {
 		Connection conn = getConnection();
-		
+
 		int result = new StyleDao().insertStyle(conn, st);
-	
+
 		if(result>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		close(conn);
+		
 		return result;
-
+		
 	}// insertStyle
 	
 }

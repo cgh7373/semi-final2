@@ -41,11 +41,14 @@ public class StyleInsertController extends HttpServlet {
 		
 		Style st = new Style(memNo, hair, face, top, bottom, shoes);
 		
-		int result = new StyleService().updateStyle(st);
-		
-		if(result>0) { // 성공했을 때 응답뷰
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(Collections.singletonMap("success", result > 0), response.getWriter());
+		int result = new StyleService().insertStyle(st);
+
+		if(result > 0) { 
+		    response.setContentType("application/json; charset=utf-8");
+		    new Gson().toJson(Collections.singletonMap("success", true), response.getWriter()); // 성공했을 때 응답뷰
+		} else {
+		    response.setContentType("application/json; charset=utf-8");
+		    new Gson().toJson(Collections.singletonMap("success", false), response.getWriter()); // 실패했을 때 응답뷰
 		}
 		
 		

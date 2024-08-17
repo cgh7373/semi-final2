@@ -71,22 +71,23 @@ public class StyleDao {
 			pstmt.setInt(6, st.getMemNo());
 			
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
 		}
-
+		
 		return result;
 	}// updateStyle
 	
 	public int insertStyle(Connection conn, Style st) {
+	
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertStyle");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -96,8 +97,8 @@ public class StyleDao {
 			pstmt.setString(4, st.getTop());
 			pstmt.setString(5, st.getBottom());
 			pstmt.setString(6, st.getShoes());
-			
-			result = pstmt.executeUpdate();
+
+			result = pstmt.executeUpdate();			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
