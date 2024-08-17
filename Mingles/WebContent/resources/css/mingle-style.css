@@ -175,7 +175,8 @@ footer .pagination-container {
 }
 
 .main-right .right-wrapper .style-shop .bal div {
-    margin: auto 10px;
+    margin: auto 15px;
+    /* text-align:center; */
     &:hover {
         color: #07BEB8;
         cursor: pointer;
@@ -255,7 +256,7 @@ footer .pagination-container {
 
 .bal.bal3 {
     display: none;
-    width: 52%;
+    width: 45%;
     &::after, 
     &::before {
         left: 220px;

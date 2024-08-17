@@ -1,3 +1,5 @@
+<%@page import="com.kh.style.model.service.StyleService"%>
+<%@page import="com.kh.member.model.service.MemberService"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -6,6 +8,7 @@ Member m = (Member)session.getAttribute("loginUser");
 String contextPath = request.getContextPath();
 String alertMsg = (String)session.getAttribute("alertMsg");
 String errorMsg = (String)session.getAttribute("errorMsg");
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -190,11 +193,11 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기
 	function saveAvatar(){
 		let selected = getValues();
-		const userId = <%= m.getMemNo()%>;
+		const userId = 1;
 		
 		// 사용자가 아바타가 있는지 없는지 확인하는 ajax문
 		$.ajax({
-			url: "hasAvatar.st",
+			url: "/Mingles/hasAvatar.st",
 			data : {
 				memno : userId,
 			},
@@ -205,7 +208,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
  			// 사용자에게 아바타가 있을 경우 == hasAvatar의 flag가 true일 경우 == update문 쏘기
 				if(flag == true){
 				$.ajax({
-					url : "updateAvatar.st",
+					url : "/Mingles/updateAvatar.st",
 					data :{
 						memno: userId,
 						hair: selected.hair,
@@ -225,7 +228,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 				}else{
 				// 사용자에게 아바타가 없을 경우 == hasAvatar의 flag가 false일 경우 == insert문 쏘기(최초 1번)
 				$.ajax({
-					url : "insertAvatar.st",
+					url : "/Mingles/insertAvatar.st",
 					data :{
 						memno: userId,
 						hair: selected.hair,

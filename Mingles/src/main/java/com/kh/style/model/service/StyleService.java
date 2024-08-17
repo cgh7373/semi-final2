@@ -33,7 +33,7 @@ public class StyleService {
 		Connection conn = getConnection();
 		
 		int result = new StyleDao().insertStyle(conn, st);
-		
+	
 		if(result>0) {
 			commit(conn);
 		}else {

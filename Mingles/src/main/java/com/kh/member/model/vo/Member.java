@@ -22,10 +22,6 @@ public class Member {
 	
 	public Member() {}
 	
-<<<<<<< HEAD
-
-=======
->>>>>>> dc1619705f5f8cf4e19f9b747dbf59cba3f6c6b9
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
 			String gender, String enrollDate, String modifyDate, String status, String zodiac, String ABO,
 			String MBTI) {
@@ -42,17 +38,12 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.status = status;
 		this.zodiac = zodiac;
-<<<<<<< HEAD
 		this.ABO = ABO;
 		this.MBTI = MBTI;
-=======
-		this.ABO = aBO;
-		this.MBTI = mBTI;
->>>>>>> dc1619705f5f8cf4e19f9b747dbf59cba3f6c6b9
 	}
 
 	public Member(String memId, String memPwd, String nickname, String birthdate, String phone, String email,
-			String gender, String aBO, String mBTI) {
+			String gender, String ABO, String MBTI) {
 		super();
 		this.memId = memId;
 		this.memPwd = memPwd;
@@ -61,12 +52,12 @@ public class Member {
 		this.phone = phone;
 		this.email = email;
 		this.gender = gender;
-		this.ABO = aBO;
-		this.MBTI = mBTI;
+		this.ABO = ABO;
+		this.MBTI = MBTI;
 	}
 
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
-			String gender, String enrollDate, String modifyDate, String status, String zodiac, String aBO, String mBTI,
+			String gender, String enrollDate, String modifyDate, String status, String zodiac, String ABO, String MBTI,
 			String profilePic, String statusMsg) {
 		super();
 		this.memNo = memNo;
@@ -81,8 +72,8 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.status = status;
 		this.zodiac = zodiac;
-		this.ABO = aBO;
-		this.MBTI = mBTI;
+		this.ABO = ABO;
+		this.MBTI = MBTI;
 		this.profilePic = profilePic;
 		this.statusMsg = statusMsg;
 	}
@@ -151,8 +142,8 @@ public class Member {
 	}
 	
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
-			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO,
-			String mBTI, String profilePic, String statusMsg) {
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String ABO,
+			String MBTI, String profilePic, String statusMsg) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -167,8 +158,8 @@ public class Member {
 		this.status = status;
 		this.egg = egg;
 		this.zodiac = zodiac;
-		ABO = aBO;
-		MBTI = mBTI;
+		this.ABO = ABO;
+		this.MBTI = MBTI;
 		this.profilePic = profilePic;
 		this.statusMsg = statusMsg;
 	}
@@ -307,23 +298,6 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-<<<<<<< HEAD
-	public String getABO() {
-		return ABO;
-	}
-
-	public void setABO(String ABO) {
-		this.ABO = ABO;
-	}
-
-	public String getMBTI() {
-		return MBTI;
-	}
-
-	public void setMBTI(String MBTI) {
-		this.MBTI = MBTI;
-=======
 
 	public int getEgg() {
 		return egg;
@@ -331,7 +305,7 @@ public class Member {
 
 	public void setEgg(int egg) {
 		this.egg = egg;
->>>>>>> dc1619705f5f8cf4e19f9b747dbf59cba3f6c6b9
+
 	}
 
 	@Override

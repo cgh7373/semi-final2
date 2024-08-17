@@ -128,8 +128,8 @@ body {
 }
 
 #con2__my_info > div {
-    width: 25%;
-    height: 40px;
+    width: 18%;
+    height: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -147,7 +147,7 @@ body {
 .post-box {
     border: 5px dotted #56CFE1;
     width: 100%;
-    margin: 10px 0;
+    margin: 8px 0;
 }
 
 /* Popular and Recent Posts */
