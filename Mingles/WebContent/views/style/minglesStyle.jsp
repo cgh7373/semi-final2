@@ -8,7 +8,6 @@ Member m = (Member)session.getAttribute("loginUser");
 String contextPath = request.getContextPath();
 String alertMsg = (String)session.getAttribute("alertMsg");
 String errorMsg = (String)session.getAttribute("errorMsg");
-
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,7 +105,6 @@ String errorMsg = (String)session.getAttribute("errorMsg");
                         </div>
 
                     </div>
-
                     <!-- MINIHOMPI ROOM-->
                     <div class="vis-room">
 
@@ -179,6 +177,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
     </div>
 	
 	<script>
+	const userN = <%= m.getMemNo()%>
 	// 페이지 로드 시 select됬던 요소 실행
 	window.onload= function(){
 		console.log("select 저장 성공");
@@ -188,7 +187,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 	// getValues()에 선택된 값 담기
 	function getValues(){
 		return {
-			userNo : 1,
+			userNo : userN,
 			hair : document.getElementById('hairSave').querySelector('img').src,
 			face : document.getElementById('faceSave').querySelector('img').src,
 			top : document.getElementById('topSave').querySelector('img').src,
@@ -204,7 +203,6 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 		var date = new Date();
 		date.setTime(date.getTime() + expire*24*60*60*1000);
 		document.cookie = name + "=" + encodeURIComponent(value) + ";expires =" + date.toUTCString() + ";path=/";
-		console.log("쿠키조합: ", name, "=", value);
 	}// setCookie
 	
 	function getCookie(name){
@@ -214,7 +212,6 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 			var c = ca[i];
 			while (c.charAt(0) === ' ') c = c.substring(1);
 			if(c.indexOf(nameEQ) === 0){
-				console.log("Found cookie:", name, "=", c.substring(nameEQ.length, c.length));
 				return decodeURIComponent(c.substring(nameEQ.length, c.length));	
 				}
 			}
@@ -259,6 +256,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 					type : "post",
 					success : function(){
 						console.log("ajax update avatar 통신 success");
+						console.log("userNo의 값" + selected.userNo);
 						selectAvatar();
 					},
 					error : function(){
@@ -299,6 +297,8 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 	function selectAvatar(){ // select문
 		console.log("selectAvatar시작");
 		let selected = getValues();
+		const userNo = <%= m.getMemNo()%>
+		console.log(userNo);
 
 		// url 형식 바꾸기
 		let changeURL = function(url){

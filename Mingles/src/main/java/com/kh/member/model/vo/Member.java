@@ -282,13 +282,19 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-<<<<<<< HEAD
-
-=======
 	
+	public int getEgg() {
+		return egg;
+	}
+
 	public String getABO() {
 		return ABO;
 	}
+
+	public void setEgg(int egg) {
+		this.egg = egg;
+	}
+	
 
 	public void setABO(String ABO) {
 		this.ABO = ABO;
@@ -298,22 +304,10 @@ public class Member {
 		return MBTI;
 	}
 
-	public void setMBTI(String MBTI) {
+	public void setMBTI(String mBTI) {
 		this.MBTI = MBTI;
 	}
-	
->>>>>>> 04a15b287cb81587fcd62fceb6a795356179e448
-	public int getEgg() {
-		return egg;
-	}
 
-	public void setEgg(int egg) {
-		this.egg = egg;
-<<<<<<< HEAD
-
-=======
->>>>>>> 04a15b287cb81587fcd62fceb6a795356179e448
-	}
 
 	@Override
 	public String toString() {

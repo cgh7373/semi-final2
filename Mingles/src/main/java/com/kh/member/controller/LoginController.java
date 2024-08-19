@@ -44,7 +44,7 @@ public class LoginController extends HttpServlet {
 		session.setAttribute("loginUser", m);
 		session.setAttribute("alertMsg", m.getNickname() + "님, 환영해요!");
 		response.sendRedirect(request.getContextPath());
-			}else {
+		}else {
 		session.setAttribute("errorMsg", "로그인 실패");
 		response.sendRedirect(request.getContextPath());
 		}
