@@ -179,59 +179,77 @@ String errorMsg = (String)session.getAttribute("errorMsg");
     </div>
 	
 	<script>
+	// 페이지 로드 시 select됬던 요소 실행
+	window.onload= function(){
+		console.log("select 저장 성공");
+		selectAvatar();
+	}
+	
 	// getValues()에 선택된 값 담기
 	function getValues(){
 		return {
+			userNo : 1,
 			hair : document.getElementById('hairSave').querySelector('img').src,
 			face : document.getElementById('faceSave').querySelector('img').src,
 			top : document.getElementById('topSave').querySelector('img').src,
 			bottom : document.getElementById('bottomSave').querySelector('img').src,
 			shoes : document.getElementById('shoesSave').querySelector('img').src,
 		};
+		
 	}// getValues()
+
+	// COOKIE 만들기 - cookie도 getter, setter이 있다.
 	
-	function selectAvatar(){
-		$.ajax({
-			url : "/Mingles/selectAvatar.st",
-			data : {memno : userId,},
-			type : "post",
-			success : function(result){
-				console.log("select ajax result 성공" +result);
-				if(result){
-					$('#hair img').attr('src', result.hair);
-					$('#face img').attr('src', result.face);
-					$('#top img').attr('src', result.top);
-					$('#bottom img').attr('src', result.bottom);
-					$('#shoes img').attr('src', result.shoes);
+	function setCookie(name, value, expire){
+		var date = new Date();
+		date.setTime(date.getTime() + expire*24*60*60*1000);
+		document.cookie = name + "=" + encodeURIComponent(value) + ";expires =" + date.toUTCString() + ";path=/";
+		console.log("쿠키조합: ", name, "=", value);
+	}// setCookie
+	
+	function getCookie(name){
+		var nameEQ  = name + "=";
+		var ca = document.cookie.split(';');
+		for(let i=0; i<ca.length; i++){
+			var c = ca[i];
+			while (c.charAt(0) === ' ') c = c.substring(1);
+			if(c.indexOf(nameEQ) === 0){
+				console.log("Found cookie:", name, "=", c.substring(nameEQ.length, c.length));
+				return decodeURIComponent(c.substring(nameEQ.length, c.length));	
 				}
-			},
-			error : function(result){
-				console.log("select ajax result 실패..." + result);
-			},
-		})
-	}// selectAvatar()
+			}
+			console.log("get 실패");
+		}// getCookie
+
 	
-	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기
+	// COOKIE 삭제
+	function deleteCookie(name){
+		document.cookie = name + '=; MAX-AGE = -99999999; path =/';
+	}
+	
+	
+	
+	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기 - insert, update문
 	function saveAvatar(){
 		let selected = getValues();
-		const userId = 1;
-		
+
 		// 사용자가 아바타가 있는지 없는지 확인하는 ajax문
 		$.ajax({
 			url: "/Mingles/hasAvatar.st",
 			data : {
-				memno : userId,
+				memno : selected.userNo,
 			},
 			type :"post",
 			success : function(result){
 				let flag = result.flag;
 				console.log("hasAvatar여부 성공!");
- 			// 사용자에게 아바타가 있을 경우 == hasAvatar의 flag가 true일 경우 == update문 쏘기
+ 			
+				// 사용자에게 아바타가 있을 경우 == hasAvatar의 flag가 true일 경우 == update문 쏘기
 				if(flag == true){
 				$.ajax({
 					url : "/Mingles/updateAvatar.st",
 					data :{
-						memno: userId,
+						memno: selected.userNo,
 						hair: selected.hair,
 						face: selected.face,
 						top : selected.top,
@@ -241,6 +259,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 					type : "post",
 					success : function(){
 						console.log("ajax update avatar 통신 success");
+						selectAvatar();
 					},
 					error : function(){
 						console.log("ajax update avatar 통신 fail");
@@ -251,7 +270,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 				$.ajax({
 					url : "/Mingles/insertAvatar.st",
 					data :{
-						memno: userId,
+						memno: selected.userNo,
 						hair: selected.hair,
 						face: selected.face,
 						top : selected.top,
@@ -261,6 +280,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 					type : "post",
 					success : function(result){
 						// select문을 통해서 저장된 상태를 유지하기
+						console.log("ajax insert avatar 통신 success");
 						selectAvatar();
 					},
 					error : function(result){
@@ -275,6 +295,63 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 		})
 		
 	}
+	
+	function selectAvatar(){ // select문
+		console.log("selectAvatar시작");
+		let selected = getValues();
+
+		// url 형식 바꾸기
+		let changeURL = function(url){
+			let originalURL = 'http://localhost:8254/Mingles/';
+			return url.replace(originalURL, '../../');
+		};
+
+		function getAvatarFromCookie(){
+			let avatarData = {
+				hair: getCookie('hair'),
+				face: getCookie('face'),
+				top : getCookie('top'),
+				bottom : getCookie('bottom'),
+				shoes: getCookie('shoes'),
+			};
+			console.log(getCookie('hair'));
+			return avatarData;
+		}// getAvatarFromCookies()
+		
+		let avatarData = getAvatarFromCookie();
+	
+		console.log("ajax call 시도");
+			
+		$.ajax({
+			url : "/Mingles/selectAvatar.st",
+			data : {memno : selected.userNo,},
+			type : "post",
+			success : function(result){
+				console.log("select ajax result 성공" );
+				if(result.hair || result.face || result.top || result.bottom || result.shoes){
+			
+					setCookie('hair',changeURL(result.hair), 365);
+	                setCookie('face', changeURL(result.face), 365);
+	                setCookie('top', changeURL(result.top), 365);
+	                setCookie('bottom', changeURL(result.bottom), 365);
+	                setCookie('shoes', changeURL(result.shoes), 365);
+				
+	            	$('#hair').attr('src', changeURL(result.hair));
+					$('#face').attr('src', changeURL(result.face));
+					$('#top').attr('src', changeURL(result.top));
+					$('#bottom').attr('src', changeURL(result.bottom));
+					$('#shoes').attr('src', changeURL(result.shoes));
+					
+					console.log("avatardata가 서버에 적용되고 쿠키에 저장됨");
+					
+				}
+			},
+			error : function(result){
+				console.log("select ajax result 실패...");
+			},
+		});
+		
+	}// selectAvatar();
 	
 	</script>
 

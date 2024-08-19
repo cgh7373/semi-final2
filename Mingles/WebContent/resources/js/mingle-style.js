@@ -240,17 +240,6 @@ function initializePagination(){
 currentPage = 1;
 initializePagination();
 
-
-// pageNumberBtn.forEach(function(numberBtn) {
-
-//     numberBtn.addEventListener('click', function (e) {
-//         setPage(e.target.innerHTML);
-//         currentPage = +e.target.innerHTML;
-//         moveSelectedPageHighlight();
-//     });
-
-// });
-
 // BUTTON ARROW
 const prevButton = document.querySelector('.prev-button');
 const nextButton = document.querySelector('.next-button');

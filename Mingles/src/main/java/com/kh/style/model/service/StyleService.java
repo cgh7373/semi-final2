@@ -10,6 +10,7 @@ public class StyleService {
 	public boolean hasStyle(int memNo) {
 		Connection conn = getConnection();
 		boolean flag = StyleDao.hasStyle(conn, memNo);
+		close(conn);
 		return flag;
 	}// hasStyle
 	
@@ -44,5 +45,18 @@ public class StyleService {
 		return result;
 		
 	}// insertStyle
+
+
+	public Style selectStyle(int userNo) {
+
+		Connection conn = getConnection();
+		
+		Style st = new StyleDao().selectStyle(conn, userNo);
+		
+		close(conn);
+		return st;
+	}// selectStyle
+	
+	
 	
 }

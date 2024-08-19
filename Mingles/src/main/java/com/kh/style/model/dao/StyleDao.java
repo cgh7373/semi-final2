@@ -29,7 +29,7 @@ public class StyleDao {
 	
 	// 아바타 유무 여부 판별 - hasStyle
 	public static boolean hasStyle(Connection conn, int memNo) {
-		
+		boolean flag = false;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = "SELECT COUNT(*) FROM STYLE WHERE MEM_NO = ?";
@@ -40,7 +40,7 @@ public class StyleDao {
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				return rset.getInt(1)>0; // true일 경우
+				flag = rset.getInt(1)>0; // true일 경우
 			}
 			
 		} catch (SQLException e) {
@@ -51,7 +51,7 @@ public class StyleDao {
 			close(pstmt);
 		}
 		
-		return false; // false일 경우
+		return flag; // false일 경우
 		
 	}// hasStyle
 	
@@ -108,5 +108,41 @@ public class StyleDao {
 		return result;
 		
 	}// insertStyle
+
+	public Style selectStyle(Connection conn, int userNo) {
+		Style st = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectStyle");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				st = new Style(
+						rset.getInt("mem_no"),
+						rset.getString("avatar_hair"),
+						rset.getString("avatar_face"),
+						rset.getString("avatar_top"),
+						rset.getString("avatar_bottom"),
+						rset.getString("avatar_shoes")
+						);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return st;
+	}// selectStyle
 
 }
