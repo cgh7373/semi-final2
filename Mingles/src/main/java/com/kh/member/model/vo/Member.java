@@ -195,22 +195,6 @@ public class Member {
 		this.memNo = memNo;
 	}
 	
-	public String getABO() {
-		return ABO;
-	}
-	
-	public void setABO(String aBO) {
-		this.ABO = aBO;
-	}
-	
-	public String getMBTI() {
-		return MBTI;
-	}
-	
-	public void setMBTI(String mBTI) {
-		this.MBTI = mBTI;
-	}
-
 	public String getMemId() {
 		return memId;
 	}
@@ -298,14 +282,37 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+<<<<<<< HEAD
 
+=======
+	
+	public String getABO() {
+		return ABO;
+	}
+
+	public void setABO(String ABO) {
+		this.ABO = ABO;
+	}
+
+	public String getMBTI() {
+		return MBTI;
+	}
+
+	public void setMBTI(String MBTI) {
+		this.MBTI = MBTI;
+	}
+	
+>>>>>>> 04a15b287cb81587fcd62fceb6a795356179e448
 	public int getEgg() {
 		return egg;
 	}
 
 	public void setEgg(int egg) {
 		this.egg = egg;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 04a15b287cb81587fcd62fceb6a795356179e448
 	}
 
 	@Override
