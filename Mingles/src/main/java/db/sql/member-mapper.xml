@@ -40,6 +40,10 @@
 				, STATUS
 				, EGG
 				, ZODIAC
+				, ABO
+				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
 		     FROM MEMBER
 			WHERE MEM_NO = ?
 			  AND STATUS = 'Y'
@@ -59,6 +63,10 @@
 				, STATUS
 				, EGG
 				, ZODIAC
+				, ABO
+				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
 		     FROM MEMBER
 			WHERE MEM_ID = ?
 			  AND STATUS = 'Y'
