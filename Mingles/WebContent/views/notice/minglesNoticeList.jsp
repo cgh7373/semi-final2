@@ -51,6 +51,7 @@
 		 });
 	</script>
 	
+     <% if (m != null) { %>
 	 <div id="wrap">
         <div id="container">
             <!-- Left Screen -->
@@ -59,15 +60,14 @@
                     <img src="./resources/images/Mingles아이콘-removebg-preview.png" alt="">
                 </div>
                 <div class="left__content" id="con2">
-                    <% if (m != null) { %>
                     <div id="con2__nickname"><%= m.getNickname() %></div>
                     <button id="mailIcon" class="material-icons">mail_outline</button>
-                    <div id="con2__my_text">제이름은 남도일 탐정입니다. 범인은 검은 쫄쫄이</div>
+                    <div id="con2__my_text"><%=m.getStatusMsg() %></div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
-                        <div id="my_info__2" data-toggle="tooltip" title="INTJ">MBTI</div>
+                        <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
                         <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리</div>
-                        <div id="my_info__4" data-toggle="tooltip" title="o형">혈액형</div>
+                        <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO() %>">혈액형</div>
                     </div>
                     
                 </div>
@@ -95,12 +95,19 @@
             <!-- Right Screen with Post Frame -->
             <div class="post-list" id="right">
                 <div id="post-right__title">
-                    <div id="right-title__text">여기에 이 파일 이름</div>
+                    <div id="right-title__text">공지사항</div>
                     <div id="right-title__btn">
                         <button><div>글쓰기</div></button>
-                        <button onclick="history.back()"><div>뒤로가기</div></button>
+                        <button onclick="goSettings();"><div>뒤로가기</div></button>
                     </div>
                 </div>
+                
+                <script>
+                	function goSettings() {
+                		location.href="views/settings/minglesSettings.jsp";
+                	}
+                </script>
+                
                 <div id="post-right__list">
                     <table class="right-list__content">
                     

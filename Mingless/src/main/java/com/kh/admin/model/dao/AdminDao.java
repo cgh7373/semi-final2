@@ -15,6 +15,8 @@ import com.kh.admin.model.vo.Attachment;
 import com.kh.admin.model.vo.Blacklist;
 import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
+import com.kh.common.model.vo.PageInfo;
+import com.kh.member.model.vo.Member;
 
 import static com.kh.common.JDBCTemplate.*;
 
@@ -219,6 +221,115 @@ public class AdminDao {
 		} finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public ArrayList<Member> selectMemberList(Connection conn, PageInfo pi) {
+		ArrayList<Member> list = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+		
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Member(rset.getInt("mem_no")
+						, rset.getString("mem_id")
+						, rset.getString("nickname")
+						, rset.getString("birthday")
+						, rset.getString("email")
+						, rset.getString("gender")
+						, rset.getString("enroll_date")
+						, rset.getInt("egg")
+						, rset.getString("status")));				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int memberCount(Connection conn) {
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("memberCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+	public int insertBlackList(Connection conn, int memNo) {
+		int result1 = 0;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("insertBlackList");
+		String sql2 = prop.getProperty("updateBlcokCount");
+		try {
+			// insert
+			pstmt1 = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
+			pstmt1.setInt(1, memNo);
+			
+			result1 = pstmt1.executeUpdate();
+			
+			rset = pstmt1.getGeneratedKeys();
+			if(rset.next()) {
+				int blackNo = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt1);
+		}
+		
+		
+		
+		return result1;
+	}
+
+	public int updateBlockCount(Connection conn) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBlockCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 	

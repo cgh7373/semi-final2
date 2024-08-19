@@ -8,6 +8,8 @@ import com.kh.admin.model.vo.Attachment;
 import com.kh.admin.model.vo.Blacklist;
 import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
+import com.kh.common.model.vo.PageInfo;
+import com.kh.member.model.vo.Member;
 
 import static com.kh.common.JDBCTemplate.*;
 
@@ -73,6 +75,42 @@ public class AdminService {
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		}else{
+			rollback(conn);
+		}
+		
+		return result1 * result2;
+	}
+
+	public ArrayList<Member> selectMemberList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new AdminDao().selectMemberList(conn, pi);
+				
+		close(conn);
+		
+		return list;
+	}
+
+	public int memberCount() {
+		Connection conn = getConnection();
+		
+		int count = new AdminDao().memberCount(conn);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public int insertBlackList(int memNo) {
+		Connection conn = getConnection();
+		
+		int result1 = new AdminDao().insertBlackList(conn, memNo);
+		
+		int result2 = new AdminDao().updateBlockCount(conn);
+				
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		}else {
 			rollback(conn);
 		}
 		

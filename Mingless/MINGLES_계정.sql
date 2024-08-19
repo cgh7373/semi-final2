@@ -21,7 +21,7 @@ INSERT INTO MEMBER (
     'password123', -- 비밀번호
     'BlackUser', -- 닉네임
     TO_DATE('1990-01-01', 'YYYY-MM-DD'), -- 생년월일
-    '010-1234-5678', -- 휴대폰번호
+    '01012345678', -- 휴대폰번호
     'blackuser@example.com', -- 이메일
     'M', -- 성별
     SYSDATE, -- 가입일자
@@ -55,7 +55,7 @@ INSERT INTO MEMBER (
     'pass456', -- 비밀번호
     'UserOne', -- 닉네임
     TO_DATE('1985-05-15', 'YYYY-MM-DD'), -- 생년월일
-    '010-2345-6789', -- 휴대폰번호
+    '01023456789', -- 휴대폰번호
     'userone@example.com', -- 이메일
     'F', -- 성별
     SYSDATE, -- 가입일자
@@ -89,7 +89,7 @@ INSERT INTO MEMBER (
     'password789', -- 비밀번호
     'UserTwo', -- 닉네임
     TO_DATE('1992-08-25', 'YYYY-MM-DD'), -- 생년월일
-    '010-3456-7890', -- 휴대폰번호
+    '01034567890', -- 휴대폰번호
     'usertwo@example.com', -- 이메일
     'M', -- 성별
     SYSDATE, -- 가입일자
@@ -123,7 +123,7 @@ INSERT INTO MEMBER (
     'securePass321', -- 비밀번호
     'UserThree', -- 닉네임
     TO_DATE('1998-12-30', 'YYYY-MM-DD'), -- 생년월일
-    '010-4567-8901', -- 휴대폰번호
+    '01045678901', -- 휴대폰번호
     'userthree@example.com', -- 이메일
     'F', -- 성별
     SYSDATE, -- 가입일자
@@ -138,57 +138,7 @@ INSERT INTO MEMBER (
 COMMIT;
 
 
--- CREATE BLACKLIST TABLE 
-DROP TABLE MEMBER_BLACKLIST;
 
-CREATE TABLE MEMBER_BLACKLIST (
-    BLACLIST_NO NUMBER NOT NULL, -- 블랙리스트 고유번호 (Primary Key)
-    MEM_NO NUMBER NOT NULL, -- 회원 고유번호 (Foreign Key)
-    REPORTMEM_NO NUMBER NOT NULL, -- 신고 회원 고유번호 (Foreign Key)
-    BLOCK_TYPE VARCHAR2(500) NOT NULL, -- 회원 블락 사유
-    BLOCK_DATE DATE DEFAULT SYSDATE NOT NULL , -- 회원 블락 설정 날짜
-    BLOCK_COUNT NUMBER DEFAULT 1 NOT NULL , -- 회원 블락 횟수
-    EXPIRY_DATE DATE NOT NULL, -- 블랙리스트 만료일
-
-    -- Primary Key 설정
-    CONSTRAINT PK_MEMBER_BLACKLIST PRIMARY KEY (BLACLIST_NO),
-    -- Foreign Key 설정
-    CONSTRAINT FK_MEMBER_BLACKLIST_MEMBER FOREIGN KEY (MEM_NO)
-        REFERENCES MEMBER (MEM_NO),
-    -- Foreign Key 설정 
-    CONSTRAINT FK_MEMBER_BLACKLIST_REPORTMEM FOREIGN KEY (REPORTMEM_NO)
-        REFERENCES MEMBER (MEM_NO)
-);
-
-CREATE SEQUENCE SEQ_BLACKLIST
-START WITH 2
-NOCACHE;
-
-INSERT INTO MEMBER_BLACKLIST (
-    BLACLIST_NO, MEM_NO, REPORTMEM_NO, BLOCK_TYPE, BLOCK_DATE, BLOCK_COUNT, EXPIRY_DATE
-) VALUES (
-    1,  -- BLACLIST_NO: 블랙리스트의 고유번호
-    1001,  -- MEM_NO: 블랙리스트에 등록된 회원의 고유번호
-    1,  -- REPORTMEM_NO: 신고한 회원의 고유번호 (예시로 1002로 설정)
-    '불법 행위로 인한 블랙리스트 등록',  -- BLOCK_TYPE: 블랙리스트에 등록된 이유
-    SYSDATE,  -- BLOCK_DATE: 현재 날짜로 블랙 설정 날짜
-    1,  -- BLOCK_COUNT: 블락 횟수 (기본값 1)
-    SYSDATE + INTERVAL '30' DAY  -- EXPIRY_DATE: 블랙리스트 만료일 (예: 30일 후 만료)
-);
-
-INSERT INTO MEMBER_BLACKLIST (
-    BLACLIST_NO, MEM_NO, REPORTMEM_NO, BLOCK_TYPE, BLOCK_DATE, BLOCK_COUNT, EXPIRY_DATE
-) VALUES (
-    SEQ_BLACKLIST.NEXTVAL,  -- BLACLIST_NO: 블랙리스트의 고유번호
-    1004,  -- MEM_NO: 블랙리스트에 등록된 회원의 고유번호
-    1,  -- REPORTMEM_NO: 신고한 회원의 고유번호 (예시로 1002로 설정)
-    '불법 행위로 인한 블랙리스트 등록',  -- BLOCK_TYPE: 블랙리스트에 등록된 이유
-    SYSDATE,  -- BLOCK_DATE: 현재 날짜로 블랙 설정 날짜
-    1,  -- BLOCK_COUNT: 블락 횟수 (기본값 1)
-    SYSDATE + INTERVAL '30' DAY  -- EXPIRY_DATE: 블랙리스트 만료일 (예: 30일 후 만료)
-);
-
-COMMIT;
 
 SELECT
         m.MEM_ID,
@@ -415,3 +365,165 @@ CREATE TABLE ATTACHMENT(
     FILE_POSITION NUMBER CONSTRAINT ATTACHMENT_FILE_POSITION_NN NOT NULL,
     FILE_STATUS VARCHAR2(1) DEFAULT 'Y' CONSTRAINT ATTACHMENT_FILE_STATUS_NN NOT NULL
 );
+
+/*
+회원번호 아이디 닉네임 생일 이메일 성별 회원가입일 보유거북알
+*/
+
+SELECT 
+		       MEM_NO
+		     , MEM_ID
+		     , NICKNAME
+		     , TO_CHAR(BIRTHDATE, 'MM/DD') AS BIRTHDAY
+		     , EMAIL
+		     , DECODE(GENDER, 'M', '남자', 'F', '여자') AS GENDER
+		     , ENROLL_DATE
+		     , EGG
+		 FROM 
+		       MEMBER
+		WHERE MEM_ID != 'admin'
+		ORDER
+		   BY MEM_NO ASC
+           ;
+
+SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		              SELECT 
+		                   BOARD_NO
+		                 , CATEGORY_NAME
+		                 , BOARD_TITLE
+		                 , USER_ID
+		                 , COUNT
+		                 , TO_CHAR(CREATE_DATE, 'YYYY/MM/DD') AS "CREATE_DATE"
+		             FROM BOARD B
+		             JOIN CATEGORY USING(CATEGORY_NO)
+		             JOIN MEMBER ON (BOARD_WRITER = USER_NO)
+		            WHERE BOARD_TYPE = 1
+		              AND B.STATUS = 'Y'
+		            ORDER 
+		               BY BOARD_NO DESC
+		               ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+;
+SELECT *
+  FROM (
+        SELECT ROWNUM RNUM, A.*
+          FROM (
+               SELECT 
+                      MEM_NO
+                    , MEM_ID
+                    , NICKNAME
+                    , TO_CHAR(BIRTHDATE, 'MM/DD') AS BIRTHDAY
+                    , EMAIL
+                    , DECODE(GENDER, 'M', '남자', 'F', '여자') AS GENDER
+                    , ENROLL_DATE
+                    , EGG
+                 FROM 
+                      MEMBER
+                WHERE MEM_ID != 'admin'
+                ORDER
+                   BY MEM_NO ASC
+               ) A
+       )
+       WHERE RNUM BETWEEN ? AND ?
+       ;
+commit;
+
+
+              
+              
+    
+		SELECT COUNT(MEM_NO) AS "COUNT"
+		  FROM MEMBER
+		 WHERE STATUS != 'N'
+	;
+    
+    
+INSERT
+  INTO MEMBER_BLACKLIST 
+       (
+         BLACLIST_NO
+       , MEM_NO
+       , REPORTMEM_NO
+       , BLOCK_TYPE
+       , BLOCK_DATE
+       , BLOCK_COUNT
+       , EXPIRY_DATE
+       ) 
+VALUES (
+       SEQ_BLACKLIST.NEXTVAL,  -- BLACLIST_NO: 블랙리스트의 고유번호
+       ?,  -- MEM_NO: 블랙리스트에 등록된 회원의 고유번호
+       '4',  -- REPORTMEM_NO: 신고한 회원의 고유번호 (예시로 1002로 설정)
+       '불법 행위로 인한 블랙리스트 등록',  -- BLOCK_TYPE: 블랙리스트에 등록된 이유
+       SYSDATE,  -- BLOCK_DATE: 현재 날짜로 블랙 설정 날짜
+       0,  -- BLOCK_COUNT: 블락 횟수 (기본값 0)
+       SYSDATE + INTERVAL '3' DAY  -- EXPIRY_DATE: 블랙리스트 만료일 (예: 30일 후 만료)
+)
+;
+
+-- CREATE BLACKLIST TABLE 
+DROP TABLE MEMBER_BLACKLIST;
+DROP SEQUENCE SEQ_BLACKLIST;
+
+CREATE TABLE MEMBER_BLACKLIST (
+    BLACKLIST_NO NUMBER NOT NULL, -- 블랙리스트 고유번호 (Primary Key)
+    MEM_NO NUMBER NOT NULL, -- 회원 고유번호 (Foreign Key)
+    REPORTMEM_NO NUMBER NOT NULL, -- 신고 회원 고유번호 (Foreign Key)
+    BLOCK_TYPE VARCHAR2(500) NOT NULL, -- 회원 블락 사유
+    BLOCK_DATE DATE DEFAULT SYSDATE NOT NULL , -- 회원 블락 설정 날짜
+    BLOCK_COUNT NUMBER DEFAULT 0 NOT NULL , -- 회원 블락 횟수
+    EXPIRY_DATE DATE NOT NULL, -- 블랙리스트 만료일
+
+    -- Primary Key 설정
+    CONSTRAINT PK_MEMBER_BLACKLIST PRIMARY KEY (BLACKLIST_NO),
+    -- Foreign Key 설정
+    CONSTRAINT FK_MEMBER_BLACKLIST_MEMBER FOREIGN KEY (MEM_NO)
+        REFERENCES MEMBER (MEM_NO),
+    -- Foreign Key 설정 
+    CONSTRAINT FK_MEMBER_BLACKLIST_REPORTMEM FOREIGN KEY (REPORTMEM_NO)
+        REFERENCES MEMBER (MEM_NO)
+);
+
+CREATE SEQUENCE SEQ_BLACKLIST
+START WITH 1
+NOCACHE;
+
+INSERT INTO MEMBER_BLACKLIST (
+    BLACKLIST_NO, MEM_NO, REPORTMEM_NO, BLOCK_TYPE, BLOCK_DATE, BLOCK_COUNT, EXPIRY_DATE
+) VALUES (
+    SEQ_BLACKLIST.NEXTVAL, 
+    1001,  
+    1,  
+    '불법 행위로 인한 블랙리스트 등록',  
+    SYSDATE, 
+    0, 
+    SYSDATE + INTERVAL '3' DAY 
+);
+
+UPDATE MEMBER_BLACKLIST
+   SET BLOCK_COUNT = BLOCK_COUNT + 1
+ WHERE BLACKLIST_NO = 1;
+ 
+INSERT INTO MEMBER_BLACKLIST (
+    BLACKLIST_NO, MEM_NO, REPORTMEM_NO, BLOCK_TYPE, BLOCK_DATE, BLOCK_COUNT, EXPIRY_DATE
+) VALUES (
+    SEQ_BLACKLIST.NEXTVAL,  -- BLACLIST_NO: 블랙리스트의 고유번호
+    1004,  -- MEM_NO: 블랙리스트에 등록된 회원의 고유번호
+    1,  -- REPORTMEM_NO: 신고한 회원의 고유번호 (예시로 1002로 설정)
+    '불법 행위로 인한 블랙리스트 등록',  -- BLOCK_TYPE: 블랙리스트에 등록된 이유
+    SYSDATE,  -- BLOCK_DATE: 현재 날짜로 블랙 설정 날짜
+    0,  -- BLOCK_COUNT: 블락 횟수 (기본값 1)
+    SYSDATE + INTERVAL '3' DAY  -- EXPIRY_DATE: 블랙리스트 만료일 (예: 30일 후 만료)
+);
+
+UPDATE MEMBER_BLACKLIST
+   SET BLOCK_COUNT = BLOCK_COUNT + 1
+ WHERE BLACKLIST_NO = 2;
+SELECT * 
+  FROM MEMBER_BLACKLIST;
+
+
+COMMIT;

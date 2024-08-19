@@ -14,10 +14,53 @@
 				, ENROLL_DATE
 				, MODIFY_DATE
 				, STATUS
+				, EGG
 				, ZODIAC
+				, ABO
+				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
 		     FROM MEMBER
 			WHERE MEM_ID = ?
 			  AND MEM_PWD = ?
+			  AND STATUS = 'Y'		  
+	</entry>
+	
+	<entry key="selectNoMember">
+		   SELECT MEM_NO
+		   		, MEM_ID
+				, MEM_PWD
+				, NICKNAME
+				, BIRTHDATE
+				, PHONE
+				, EMAIL
+				, GENDER
+				, ENROLL_DATE
+				, MODIFY_DATE
+				, STATUS
+				, EGG
+				, ZODIAC
+		     FROM MEMBER
+			WHERE MEM_NO = ?
+			  AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectIdMember">
+		   SELECT MEM_NO
+		   		, MEM_ID
+				, MEM_PWD
+				, NICKNAME
+				, BIRTHDATE
+				, PHONE
+				, EMAIL
+				, GENDER
+				, ENROLL_DATE
+				, MODIFY_DATE
+				, STATUS
+				, EGG
+				, ZODIAC
+		     FROM MEMBER
+			WHERE MEM_ID = ?
 			  AND STATUS = 'Y'
 	</entry>
 
@@ -34,10 +77,14 @@
 				  , EMAIL
 				  , GENDER
 				  , ZODIAC
+				  , ABO
+				  , MBTI
 				  )
 				    VALUES 
 				  (
 				  	SEQ_MEM.NEXTVAL
+				  , ?
+				  , ?
 				  , ?
 				  , ?
 				  , ?
@@ -58,7 +105,83 @@
 			   AND MEM_PWD =?
 	</entry>
 
+	<entry key="updateNick">
+			UPDATE MEMBER
+			   SET NICKNAME = ?
+			     , MODIFY_DATE = SYSDATE
+		     WHERE
+				   MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
 
+	<entry key="selectMember">
+		   SELECT MEM_NO
+		   		, MEM_ID
+				, MEM_PWD
+				, NICKNAME
+				, BIRTHDATE
+				, PHONE
+				, EMAIL
+				, GENDER
+				, ENROLL_DATE
+				, MODIFY_DATE
+				, STATUS
+				, ZODIAC
+				, ABO
+				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
+		     FROM MEMBER
+			WHERE MEM_ID = ?
+			  AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateEmail">
+			UPDATE MEMBER
+			   SET EMAIL = ?
+			     , MODIFY_DATE = SYSDATE
+		     WHERE
+				   MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
+	
+	<entry key="quitMember">
+			UPDATE MEMBER
+			   SET STATUS = 'N'
+			 WHERE MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
+	
+	<entry key="updateMBTI">
+			UPDATE MEMBER
+			   SET MBTI = ?
+			 WHERE MEM_ID = ?
+	</entry>
+	
+	<entry key="updateMsg">
+			UPDATE MEMBER
+			   SET STATUS_MSG = ?
+			 WHERE MEM_ID = ?
+	</entry>
 
+	<entry key="updatePic">
+			UPDATE MEMBER
+			   SET PROFILE_PIC = ?
+			 WHERE MEM_ID = ?
+	</entry>
 
+	<entry key="chargeEgg">
+		UPDATE MEMBER
+		   SET EGG = ?
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+
+	<entry key="idCheck">
+		SELECT
+		       COUNT(*) "COUNT"
+		  FROM MEMBER
+		 WHERE MEM_ID = ?
+		   AND STATUS = 'Y'
+	</entry>
 </properties>

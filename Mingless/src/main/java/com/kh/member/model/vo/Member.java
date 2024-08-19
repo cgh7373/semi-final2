@@ -13,9 +13,70 @@ public class Member {
 	private String enrollDate; 
 	private String modifyDate;
 	private String status;
+	private int egg;
 	private String zodiac;
+	private String ABO;
+	private String MBTI;
+	private String profilePic;
+	private String statusMsg;
 	
 	public Member() {}
+	
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, String zodiac, String ABO,
+			String MBTI) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.zodiac = zodiac;
+		this.ABO = ABO;
+		this.MBTI = MBTI;
+	}
+
+	public Member(String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String aBO, String mBTI) {
+		super();
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.ABO = aBO;
+		this.MBTI = mBTI;
+	}
+
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, String zodiac, String aBO, String mBTI,
+			String profilePic, String statusMsg) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.zodiac = zodiac;
+		this.ABO = aBO;
+		this.MBTI = mBTI;
+		this.profilePic = profilePic;
+		this.statusMsg = statusMsg;
+	}
 
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
 			String gender, String enrollDate, String modifyDate, String status) {
@@ -62,6 +123,86 @@ public class Member {
 		this.zodiac = zodiac;
 	}
 
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.egg = egg;
+		this.zodiac = zodiac;
+	}
+	
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO,
+			String mBTI, String profilePic, String statusMsg) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.egg = egg;
+		this.zodiac = zodiac;
+		ABO = aBO;
+		MBTI = mBTI;
+		this.profilePic = profilePic;
+		this.statusMsg = statusMsg;
+	}
+
+	public Member(String memId, String memPwd, String nickname) {
+		super();
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+	}
+	
+	
+	//	회원관리 조회
+	public Member(int memNo, String memId, String nickname, String birthdate, String email, String gender,
+			String enrollDate, int egg, String status) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.egg = egg;
+		this.status = status;
+	}
+
+	public String getProfilePic() {
+		return profilePic;
+	}
+
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
+
+	public String getStatusMsg() {
+		return statusMsg;
+	}
+
+	public void setStatusMsg(String statusMsg) {
+		this.statusMsg = statusMsg;
+	}
+
 	public int getMemNo() {
 		return memNo;
 	}
@@ -69,6 +210,7 @@ public class Member {
 	public void setMemNo(int memNo) {
 		this.memNo = memNo;
 	}
+	
 
 	public String getMemId() {
 		return memId;
@@ -157,14 +299,40 @@ public class Member {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+
+	public String getABO() {
+		return ABO;
+	}
+
+	public void setABO(String ABO) {
+		this.ABO = ABO;
+	}
+
+	public String getMBTI() {
+		return MBTI;
+	}
+
+	public void setMBTI(String MBTI) {
+		this.MBTI = MBTI;
+	}
+
+	public int getEgg() {
+		return egg;
+	}
+
+	public void setEgg(int egg) {
+		this.egg = egg;
+	}
 
 	@Override
-	// 별자리는 아직 안넣음
 	public String toString() {
 		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", nickname=" + nickname
 				+ ", birthdate=" + birthdate + ", phone=" + phone + ", email=" + email + ", gender=" + gender
-				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + "]";
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + ", zodiac="
+				+ zodiac + ", ABO=" + ABO + ", MBTI=" + MBTI + "]";
 	}
+
 	
 	
 	

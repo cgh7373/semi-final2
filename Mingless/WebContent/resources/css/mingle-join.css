@@ -50,6 +50,8 @@ div, img {
 /* 애니메이션 효과 */
 .animate__animated.animate__zoomInDown{
   --animate-duration:2s;
+  position:relative;
+  display:flex;
 }
 
 /* 회원가입 화면 */
@@ -59,42 +61,55 @@ form{
 }
 
 .form_area {
-  width:47%;
-  height:300px;
-  margin-left:500px;
-  margin-top:-10px;
+  width:45%;
+  height:280px;
+  margin-left:450px;
+  margin-top:-2%;
   padding:3%;
   position:absolute;
   flex-direction: column;
-  /* background-color:#cafff0;
-  border: 5px dotted #07BEB8; */
   border-radius: 20px;
   font-family: "omyu_pretty";
+}
+
+#basicInfoForm{
+  margin-top:25px;
+  padding:2px;
+}
+
+#basicInfoForm{
+  margin-left:180px;
+}
+
+#moreInfoForm{
+  position:relative;
+  margin-left:800px;
+  margin-top:120px;
 }
 
 .title {
   color: #6a08a2;
   font-weight: 400;
-  font-size: 45px;
-  text-align:center;
-  font-family:'Katuri';
+  font-size: 40px;
+  margin-left:25%;
+  font-family:Katuri;
+}
+
+#secondTitle{
+  margin-left:40%;
 }
 
 .sub_title {
   font-weight: 600;
-  margin: 2%;
+  margin: 10px;
   font-size:25px;
-  font-family:'omyu_pretty';
 }
 
 .form_group {
   display: flex;
-  position:relative;
   flex-direction: column;
   align-items: baseline;
-  margin: 5px;
   justify-content: center;
-  font-family:'omyu_pretty';
 }
 
 .form_style {
@@ -106,340 +121,240 @@ form{
   padding: 15px 8px;
   border-radius: 4px;
   font-size: 20px;
-  font-family:'omyu_pretty';
-}
-
-/* 본인인증 버튼 */
-.verification {
-  position:absolute;
-  left:415px;
-  border:0;
-  top:57px;
-  padding: 5px;
-  width: 90px;
-  height: 35px;
-  font-size: 20px;
-  background: #48BFE3 ;
-  border-radius: 10px;
-  font-weight: 800;
-  box-shadow: 3px 3px 0px 0px #5390D9;
-  font-family:'omyu_pretty';
- }
-
- .verification:hover {
-  opacity: .9;
-}
-
-.form_style:focus, .verification:focus {
-  transform: translateX(4px);
-  box-shadow: 1px 2px 0px 0px #5390D9;
-}
-
-
-/* 필수항목 입력 안했을 경우 */
-
-input::placeholder{
-  color:#264143;
-  font-family:'omyu_pretty';
-}
-
-input.error::placeholder{
-  color:red;
-  background-color: rgb(255, 233, 236);
-}
-
-.form_group.form_gender{
-  display: inline;
-  align-items: center;
-  justify-content: center;
-}
-
-.form_style_gender{
-  margin:20px;
-  margin-left:100px;
-  width:25px;
-  height:25px;
-}
-
-label{
-  font-size:18px;
-  font-weight:600;
-}
-
-.form_style:focus, .btn:focus {
-  transform: translateY(4px);
-  box-shadow: 1px 2px 0px 0px #5390D9;
-}
-
-.btn {
-  padding: 10px;
-  width: 325px;
-  height: 45px;
-  margin-left:17%;
-  font-size: 20px;
-  background: #48BFE3 ;
-  border-radius: 10px;
-  font-weight: 800;
-  box-shadow: 3px 3px 0px 0px #5390D9;
-}
-
-.btn:hover {
-  opacity: .9;
-}
-
-.link {
-  text-align:center;
-  font-weight: 800;
-  color: #264143;
-  padding: 5px;
-}
-
-.announcement{
-  text-align:center;
-}
-
-.btnLogin{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btnLogin button{
-  background-color:transparent;
-  border-radius:70px;
-  border: 1px solid #cafff0;
-}
-
-.btnLogin button img{
-  width:40px;
-  height:40px;
 }
 
 /* 추가정보 입력 화면 */
+
 .form_group_2{
-  display:flex;
-  position:relative;
-  flex-wrap: wrap;
-  margin:50px;
-  gap:1rem;
+display:flex;
+position:relative;
+flex-wrap: wrap;
+margin:25px;
+gap:1rem;
+left:15%;
 }
 
 label .sub_title{
-  position:absolute;
+position:absolute;
 }
 
-
 #zodiac, #mbti{
-  position: absolute;
-  left:240px;
-  width:130px;
-  height:45px;
-  padding:10px;
-  border: transparent;
-  border-radius:10px;
-  text-align:center;
-  font-size:23px;
-  background-color:transparent;
+position: absolute;
+left:240px;
+width:130px;
+height:45px;
+padding:10px;
+border: transparent;
+border-radius:10px;
+text-align:center;
+font-size:23px;
+background-color:transparent;
 }
 
 .select option{
- background-color: #cafff0;
- color:#08817d;
+background-color: #cafff0;
+color:#08817d;
 }
 
-.Radio {
-  width:50px;
-  height:50px;
-  display: flex;
-  align-items: center;      
-  margin-right: 2rem;      
+.Radio{
+width:50px;
+height:50px;
+display: flex;
+align-items: center;      
+margin-right: 2rem;      
 }
 
 .Radio input[type="radio"] {
-  position: absolute;
-  left: -9999px;
-  opacity: 0;
+position: absolute;
+left: -9999px;
+opacity: 0;
 }
+
 .Radio input[type="radio"] + label {
-  position: relative;
-  display: flex;
-  align-items:center;
-  padding-left:5rem;
-  line-height: 3rem;
-  cursor: pointer;
-  white-space: nowrap;
-  color: #212529;
-  font-size:25px;
+position: relative;
+display: flex;
+align-items:center;
+padding-left:5rem;
+line-height: 3rem;
+cursor: pointer;
+white-space: nowrap;
+color: #212529;
+font-size:25px;
+}
+
+.form_group.form_gender{
+  float:left;
+  flex-direction:row;
+  position:absolute;
+  left:25%;
+  top:70%;
 }
 
 .form_group_ABO{
-  display:flex;
-  width:550px;
+display:flex;
+width:550px;
+position:absolute;
+top:105%;
 }
 
 .Radio label{
-  float:left;
-  width:70px;
-  height:70px;
-  margin:30px;
+float:left;
+width:70px;
+height:70px;
+margin:30px;
 }
 
 .Radio input[type="radio"] + label::before,
 .Radio input[type="radio"] + label::after {
-  content: "";
-  display: flex;
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  transition: 0.5s;
+content: "";
+display: flex;
+position: absolute;
+top: 50%;
+left: 0;
+transform: translateY(-50%);
+transition: 0.5s;
 }
 
 .Radio input[type="radio"] + label {
-  padding-left: 2rem;
+padding-left: 2rem;
 }
 
+
 .Radio input[type="radio"] + label::before {
-  width: 2rem;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  background: #86bcff;
+width: 2rem;
+aspect-ratio: 1 / 1;
+border-radius: 50%;
+background: #86bcff;
 }
 
 .Radio input[type="radio"] + label::after {
-  left: 0.2rem;
-  width: 1.4rem;
-  transform: translateY(-50%) scale(0);
+left: 0.2rem;
+width: 1.4rem;
+transform: translateY(-50%) scale(0);
 }
 
 .Radio input[type="radio"]:not(:checked) + label::after {
-  animation: radio 0.5s linear;
+animation: radio 0.5s linear;
 }
 
 .Radio input[type="radio"]:checked + label::after {
-  transform: translateY(-50%) scale(1);
+transform: translateY(-50%) scale(1);
 }
 
 .Radio input[type="radio"] + label::after {
-  aspect-ratio: 1 / 1;
-  border: 0.1rem solid #fff;
-  border-radius: 50%;
-  background: radial-gradient(circle at 70% 30%, #fff, rgba(0, 0, 0, 0) 25%),
-    radial-gradient(
-      circle at 60% 55%,
-      rgba(0, 0, 0, 0) 60%,
-      rgba(255, 0, 255, 0.8) 100%
-    ),
-    radial-gradient(
-      circle at 50% 50%,
-      rgba(0, 0, 0, 0) 40%,
-      rgba(0, 255, 255, 0.2) 60%,
-      rgba(0, 0, 0, 0) 68%
-    ),
-    radial-gradient(
-      circle at 50% 55%,
-      rgba(0, 0, 0, 0) 35%,
-      rgba(255, 255, 0, 0.2) 45%,
-      rgba(0, 0, 0, 0) 55%
-    );
+aspect-ratio: 1 / 1;
+border: 0.1rem solid #fff;
+border-radius: 50%;
+background: radial-gradient(circle at 70% 30%, #fff, rgba(0, 0, 0, 0) 25%),
+  radial-gradient(
+    circle at 60% 55%,
+    rgba(0, 0, 0, 0) 60%,
+    rgba(255, 0, 255, 0.8) 100%
+  ),
+  radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 0, 0) 40%,
+    rgba(0, 255, 255, 0.2) 60%,
+    rgba(0, 0, 0, 0) 68%
+  ),
+  radial-gradient(
+    circle at 50% 55%,
+    rgba(0, 0, 0, 0) 35%,
+    rgba(255, 255, 0, 0.2) 45%,
+    rgba(0, 0, 0, 0) 55%
+  );
 }
 
 @keyframes radio {
-  0% {
-    transform: translateY(-50%) scale(1);
-  }
-  100% {
-    transform: translateY(-50%) scale(1.7);
-  }
+0% {
+  transform: translateY(-50%) scale(1);
+}
+100% {
+  transform: translateY(-50%) scale(1.7);
+}
 }
 
 /* Welcome버튼 */
-.welcome {
-  align-items: center;
-  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
-  border: 0;
-  border-radius: 8px;
-  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
-  box-sizing: border-box;
-  color: #FFFFFF;
-  display: flex;
-  font-family: Phantomsans, sans-serif;
-  font-size: 25px;
-  justify-content: center;
-  line-height: 1em;
-  width: 325px;
-  height: 45px;
-  text-decoration: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  white-space: nowrap;
-  cursor: pointer;
-  transition: all .3s;
-  padding: 3px;
- }
- .welcome:active,
- .welcome:hover {
-  outline: 0;
- }
- 
- .welcome span {
-  background-color: rgb(5, 6, 45);
-  padding: 16px 24px;
-  border-radius: 6px;
-  width: 100%;
-  height: 100%;
-  transition: 300ms;
-  font-family: 'omyu_pretty';
-  padding: 7px;
- }
- 
- .welcome:hover span {
-  background: none;
- }
- 
- .welcome:active {
-  transform: scale(0.9);
- }
-
-
-
-#homeKey {
-  width: 3%;
-  height: 6%;
-  position: absolute;
-  left: 96.3%;
-  top: 50%;
-  cursor: pointer;
-  border: 2px outset #07BEB8; /*색상 변경, 테두리 solid -> outset으로 변경, 테두리 1px -> 2px로 변경*/
-  box-shadow: 0 0 2px 1px #08817d; /*색상 변경(팔레트에 없는 색상)*/
-  z-index:2;
-}
-
-#menuBar {
-  width: 20%;
-  height: 100%;
-  /* border-top-right-radius: 20px; */
-  /* border-bottom-right-radius: 20px; */
-  border-radius: 20px;
-  border: 3px solid  #07BEB8; /*색상 변경, 테두리 1px -> 3px변경*/
-  box-shadow: 0 0 1px 1px #07BEB8 ; /*색상 변경*/
-  right: 0;
-  position: absolute;
-  background-color: white;
-  display: none;
-}
-
-#menuWrap {
-  width: 100%;
-  height: 100%;
+/* From Uiverse.io by mrhyddenn */ 
+.welcome{
   position: relative;
+  top:60%;
 }
 
-#mHead {
-  position: absolute;
-  left: 24%;
-  width: 54%;
-  height: 10%;
-  border-bottom: 2px solid #07BEB8; /*색상 변경*/
+#welcome {
+  position:absolute;
+  width:400px;
+  left:80px;
+  top: 40%;
+  padding: 10px 20px;
+  border-radius: 7px;
+  border: 1px solid rgb(61, 106, 255);
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: all 0.2s ease-in;
+  -moz-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
 }
+
+#welcome:hover {
+  background: rgb(61, 106, 255);
+  box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+  -webkit-transition: all 0.2s ease-out;
+  -moz-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+#welcome:hover::before {
+  -webkit-animation: sh02 0.5s 0s linear;
+  -moz-animation: sh02 0.5s 0s linear;
+  animation: sh02 0.5s 0s linear;
+}
+
+#welcome::before {
+  content: '';
+  display: block;
+  width: 0px;
+  height: 86%;
+  position: absolute;
+  top: 7%;
+  left: 0%;
+  opacity: 0;
+  background: #fff;
+  box-shadow: 0 0 50px 30px #fff;
+  -webkit-transform: skewX(-20deg);
+  -moz-transform: skewX(-20deg);
+  -ms-transform: skewX(-20deg);
+  -o-transform: skewX(-20deg);
+  transform: skewX(-20deg);
+}
+
+@keyframes sh02 {
+  from {
+    opacity: 0;
+    left: 0%;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+    left: 100%;
+  }
+}
+
+#welcome:active {
+  box-shadow: 0 0 0 0 transparent;
+  -webkit-transition: box-shadow 0.2s ease-in;
+  -moz-transition: box-shadow 0.2s ease-in;
+  transition: box-shadow 0.2s ease-in;
+}
+
+

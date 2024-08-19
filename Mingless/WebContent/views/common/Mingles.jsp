@@ -26,16 +26,14 @@
         integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- https://animate.style/ 웹사이트 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 	
     <!-- 내부파일 -->
-    
     <link rel="stylesheet" href="./resources/css/mingle.css">
-    <script defer src="<%=contextPath %>/resources/js/mingle.js"></script>
-    <!-- <link rel="icon" href="./resources/images/Mingles아이콘-removebg-preview.png"> -->
-    <!-- <link rel="stylesheet" href="../../resources/css/mingle.css"> -->
-    
+    <script defer src="./resources/js/mingle.js"></script>
+    <link rel="icon" href="./resources/images/Mingles아이콘-removebg-preview.png">
+
+    <!-- https://animate.style/ 웹사이트 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 </head>
 
 <body>
@@ -59,6 +57,12 @@
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
 		 });
+	
+	 	window.addEventListener('message', function(event) {
+	        if (event.data === 'membershipCanceled') {
+	            scrollToSection(0); 
+	        }
+	    });
 	</script>
 
     <!-- 바탕화면 -->
@@ -129,7 +133,6 @@
 
                     </div>
 					<% } else { %>
-                        <!-- 물방울 -->
 					<script>
 					document.addEventListener("DOMContentLoaded", function() {
 						
@@ -188,6 +191,7 @@
                 <iframe src="./views/style/minglesStyle.jsp" class="mgScreens iframe-style" frameborder="0"></iframe>
                 <iframe src="./views/chat/minglesChat.jsp" class="mgScreens iframe-chat" frameborder="0"></iframe>
                 <iframe src="./views/posts/minglesPosts.jsp" class="mgScreens iframe-posts" frameborder="0"></iframe>
+                <iframe class="mgScreens iframe-eta" src="https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1&loop=1" title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 
             </div>
 
@@ -222,10 +226,12 @@
             <!-- 게시글탭 -->
             <span class="material-icons postsTab" title="게시글">article</span>
 
-            <!-- 아무탭7 -->
+            <!-- 아무탭7, 관리자 -->
             <%if(loginUser != null) {%>
 				<%if(loginUser.getMemId().equals("admin")){ %>
-            <a href="<%=contextPath %>/main.am" class="material-icons anyTab7" style="text-decoration: none; color: black;">manage_accounts</a>
+            		<a href="<%=contextPath %>/main.am" class="material-icons anyTab7" style="text-decoration: none; color: black;">manage_accounts</a>
+                <%}else{ %>
+                	<span class="material-icons anyTab7">add_circle_outline</span>
                 <%} %>
             <%} %>
         

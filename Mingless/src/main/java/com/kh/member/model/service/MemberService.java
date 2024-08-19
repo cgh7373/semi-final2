@@ -22,6 +22,28 @@ public class MemberService {
 		
 		return m;
 	}
+	
+	public Member selectNoMember(int userNo) {
+
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().selectNoMember(conn, userNo);
+		
+		close(conn);
+		
+		return m;
+	}
+	
+	public Member selectIdMember(String userId) {
+
+		Connection conn = getConnection();
+		
+		Member m = new MemberDao().selectIdMember(conn, userId);
+		
+		close(conn);
+		
+		return m;
+	}
 
 	public int insertMember(Member m) {
 		
@@ -78,11 +100,65 @@ public class MemberService {
 		
 	}
 
-	public int updatePwd(String memId, String memPwd, String updatePwd) {
+	public Member updatePwd(String memId, String memPwd, String updatePwd) {
 		
 		Connection conn = getConnection();
 		
 		int result = new MemberDao().updatePwd(conn, memId, memPwd, updatePwd);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, memId);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updateNick(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateNick(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updateEmail(Member m) {
+
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateEmail(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public int quitMember(String memId, String memPwd) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().quitMember(conn, memId, memPwd);
 		
 		if (result > 0) {
 			commit(conn);
@@ -93,5 +169,94 @@ public class MemberService {
 		
 		return result;
 	}
+	
+	public int chargeEgg(int userNo, int sum) {
+		Connection conn = getConnection();
+		int result = new MemberDao().chargeEgg(conn, userNo, sum);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		return result;
+	}
+	
+	public int idCheck(String userId) {
+		Connection conn = getConnection();
+		int result = new MemberDao().idCheck(conn, userId);
+		
+		close(conn);
+		return result;
+	}
+	
+	
+
+	public Member updateMBTI(String userId, String mbti) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMBTI(conn, userId, mbti);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, userId);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updateMsg(String memId, String msg) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMsg(conn, memId, msg);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, memId);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updatePic(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updatePic(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+
 
 }
+
+
+
+
+
+
+
+
+
+
+

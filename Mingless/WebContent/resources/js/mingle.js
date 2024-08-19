@@ -9,13 +9,14 @@ const icons = document.querySelectorAll('.material-icons');
 const loginBtn = document.querySelector('.login-btn');
 const main = document.querySelector('.main-page');
 const iPosts = document.querySelector('.iframe-posts');
+const iEta = document.querySelector('.iframe-eta');
 
 function scrollToSection(index) {
     const sections = document.querySelectorAll('section');
     if (index >= 0 && index < sections.length) {
         sections[index].scrollIntoView({
             behavior: 'smooth',
-            block: 'start'
+            block: 'nearest'
         });
     }
 }
@@ -71,7 +72,7 @@ icons.forEach(icon => {
                 { transform: 'scale(1)' }
             ],
             {
-                duration: 300,
+                duration: 400,
                 fill: 'forwards',
                 easing: 'ease'
             }
@@ -94,13 +95,14 @@ icons.forEach(icon => {
 });
 
 const iframeSources = {
-    settings: "/Mingles/views/settings/minglesSettings.jsp",
-    main: "/Mingles/views/main/minglesMain.jsp",
-    shop: "/Mingles/views/shop/minglesShop.jsp",
-    style: "/Mingles/views/style/minglesStyle.jsp",
-    chat: "/Mingles/views/chat/minglesChat.jsp",
-    explore: "/Mingles/views/community/minglesCommunity.jsp",
-    posts: "/Mingles/views/posts/minglesPosts.jsp"
+    settings: "./Mingless/views/settings/minglesSettings.jsp",
+    main: "./views/main/minglesMain.jsp",
+    shop: "./views/shop/minglesShop.jsp",
+    style: "./views/style/minglesStyle.jsp",
+    chat: "./views/chat/minglesChat.jsp",
+    explore: "./views/community/minglesCommunity.jsp",
+    posts: "./views/posts/minglesPosts.jsp",
+    etas : "https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1&loop=1"
 };
 
 function handleIframeNavigation(iframe, source) {
@@ -157,6 +159,7 @@ document.querySelector('.styleTab').addEventListener('click', () => handleIframe
 document.querySelector('.chatTab').addEventListener('click', () => handleIframeNavigation(iChat, 'chat'));
 document.querySelector('.explore-tab').addEventListener('click', () => showExplore(iExplore));
 document.querySelector('.postsTab').addEventListener('click', () => handleIframeNavigation(iPosts, 'posts'));
+document.querySelector('.anyTab7').addEventListener('click', () => handleIframeNavigation(iEta, 'etas'));
 
 
 

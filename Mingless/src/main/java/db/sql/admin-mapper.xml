@@ -110,5 +110,63 @@
 					 )
 	</entry>
 	
+	<entry key="selectMemberList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		               SELECT 
+		                      MEM_NO
+		                    , MEM_ID
+		                    , NICKNAME
+		                    , TO_CHAR(BIRTHDATE, 'MM/DD') AS BIRTHDAY
+		                    , EMAIL
+		                    , DECODE(GENDER, 'M', '남자', 'F', '여자') AS GENDER
+		                    , ENROLL_DATE
+		                    , EGG
+		                    , STATUS
+		                 FROM 
+		                      MEMBER
+		                WHERE MEM_ID != 'admin'
+		                ORDER
+		                   BY MEM_NO ASC
+		               ) A
+		       )
+		       WHERE RNUM BETWEEN ? AND ?
+	</entry>	
 	
+	<entry key="memberCount">
+		SELECT COUNT(MEM_NO) AS "COUNT"
+		  FROM MEMBER
+		 WHERE STATUS != 'N'
+	</entry>
+	
+	<entry key="insertBlackList">
+		INSERT
+		  INTO MEMBER_BLACKLIST 
+		       (
+		         BLACKLIST_NO
+		       , MEM_NO
+		       , REPORTMEM_NO
+		       , BLOCK_TYPE
+		       , BLOCK_DATE
+		       , BLOCK_COUNT
+		       , EXPIRY_DATE
+		       ) 
+		VALUES (
+		       SEQ_BLACKLIST.NEXTVAL
+		       , ?
+		       , 4
+		       , '불법 행위로 인한 블랙리스트 등록'
+		       , SYSDATE
+		       , 0
+		       , SYSDATE + INTERVAL '3' DAY 
+		       )
+	</entry>
+	
+	<entry key="updateBlockCount">
+		UPDATE MEMBER_BLACKLIST
+		   SET BLOCK_COUNT = BLOCK_COUNT + 1
+		 WHERE BLACKLIST_NO = SEQ_BLACKLIST.CURRVAL
+	</entry>
 </properties>

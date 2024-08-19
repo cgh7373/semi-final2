@@ -19,10 +19,16 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
         integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
+   <!-- 보라색 부트스트랩 -->
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script> -->
+
     <!-- 내부파일 -->
     <link rel="stylesheet" href="../../resources/css/mingles-main.css">
     <script defer src="../../resources/js/mingles-main.js"></script>
@@ -52,24 +58,87 @@
     	 <% } %>
 		 });
 	</script>
+
+        <!-- PLAYLIST UPDATE MODAL-->
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h2 class="modal-title">플레이리스트 관리</h2>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                
+                    <div class ="music--update">
+                       <div>
+                            좋아하는 음악을 추가해보세요! (최대 10개 가능)
+                            <br><br>
+                            <ul class="music--list">
+                                
+                            </ul>
+                            <br><br>
+                            <table class="music--insert">
+                                <tr>
+                                    <td>
+                                        <label for="file">
+                                            <div class="material-icons" id="music--icon">
+                                                music_note
+                                            </div>
+                                            <input type="file" name="music" accept=".MP3" id="file">
+                                        </label>
+
+                                        <label for ="thumbnail">
+                                            <div class="material-icons" id ="music--thumbnail">
+                                                smart_display
+                                            </div>
+                                            <input type="file" name="musicThumbnail" id="thumbnail">
+                                        </label>
+                                    </td>
+                                    <td width="360px">
+                                        &nbsp;
+                                        제목 : <input type="text" name="title" id = "musicTitle"required />
+                                        가수 : <input type="text" name= "singer" id = "singer" required />
+                                        <br>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br><br>
+                            <div class="btn btn-sm btn-info" id = "music--add">
+                                추가
+                            </div>
+                            <div class="btn btn-sm btn-warning" id = "music--seq">
+                                순서변경
+                            </div>
+                            <div class="btn btn-sm btn-danger" id = "music--delete">
+                                삭제
+                             </div>
+                       </div> 
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </div>
 	
 	 <div id="wrap">
         <div id="container">
             <!-- Left Screen -->
+                    <% if (m != null) { %>
             <div class="post-list" id="left">
                 <div class="left__content" id="con1">
-                    <img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt="">
+                    <img src="<%=m.getProfilePic() %>" alt="">
                 </div>
                 <div class="left__content" id="con2">
-                    <% if (m != null) { %>
                     <div id="con2__nickname"><%= m.getNickname() %></div>
+                    <button id= "diary" class="material-icons">auto_stories</button> 
                     <button id="mailIcon" class="material-icons">mail_outline</button>
-                    <div id="con2__my_text">제이름은 남도일 탐정입니다. 범인은 검은 쫄쫄이</div>
+                    <div id="con2__my_text"><%=m.getStatusMsg() %></div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
-                        <div id="my_info__2" data-toggle="tooltip" title="INTJ">MBTI</div>
+                        <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
                         <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리</div>
-                        <div id="my_info__4" data-toggle="tooltip" title="o형">혈액형</div>
+                        <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO()%>">혈액형</div>
                     </div>
                     
                 </div>
@@ -125,14 +194,38 @@
                     </div>
                 </div><!--좋아요 div 끝-->
     
+            <!-- MP3 BUTTON-->
+            <div class="music">
+            <img src="../../resources/images/cd.png" alt="cd그림" id ="mp3Button">
+
+                <!-- img 클릭하면 이 창 뜸 -->
+                <div class ="popover-content" id = "show">
+                    <div class = "musicThumbnail" id="musicThumbnail">
+                        <!-- 여기에 썸네일 이미지 추가 -->
+                    </div>
+                    <div class = "music--info">
+                        <p class="music--title">ETA <!--여기에 jsp로 제목 입력할것--> </p>
+                        <p class="music--singer">뉴진스<!--여기에 jsp로 가수 입력할것--> </p>
+                    </div>
+                    <!-- PLAYLIST BUTTON -->
+                    <button class="material-icons">expand_less</button>
+                    <button class="material-icons">expand_more</button>
+                    <button class="material-icons" id="playlist" data-toggle="modal" data-target="#myModal">playlist_play</button>
+                </div>
+
+            </div>
+<<<<<<< HEAD
+
+=======
                  <!--mp3 음악 버튼-->
                    <div class="music">
                    <img src="../../resources/images/cd.png" alt="cd그림" id ="mp3Button">
     
                     <!-- img 클릭하면 이 창 뜸 -->
-                    <div class ="popover-content" id = "show">
+                    <div class ="popover-content" id ="show">
                         <div class = "iframe-container" id="player">
-                            <iframe src="https://www.youtube.com/embed/?autoplay=1&mute=1" allow="autoplay"></iframe>
+                            <!-- <iframe src="https://www.youtube.com/embed/?autoplay=1&mute=1" allow="autoplay"></iframe> -->
+                            <iframe width="1280" height="720" src="https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1" title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                         </div>
                         <div class = "music--info">
                             <p class="music--title">ETA</p>
@@ -145,6 +238,7 @@
                     </div>
     
                 </div>
+>>>>>>> dc1619705f5f8cf4e19f9b747dbf59cba3f6c6b9
                 
                 <script>
                 const show = document.getElementById("show");

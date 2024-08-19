@@ -8,12 +8,6 @@ html {
     /* Prevent scrolling */
     height: 100%;
 }
-/* a 태그 호버 스타일 */
-a{
-	text-decoration: none;
-	color: black;
-}
-
 
 @font-face {
     font-family: 'Katuri';
@@ -47,7 +41,7 @@ a{
 
 section {
     width: 100%;
-    height: 100vh;
+    height: calc(100% / 3);
     position: relative;
     display: flex;
     align-items: center;
@@ -64,7 +58,7 @@ iframe {
     transition: .4s;
 }
 
-/* 최상단 로그인화면 */
+
 .login-wrap {
     width: 80%;
     height: 90%;
@@ -89,7 +83,7 @@ iframe {
     border-radius: 20px;
 }
 
-/* 사라지는 로고 */
+
 .logo--disappear {
     margin-top: 280px;
     display: flex;
@@ -97,23 +91,21 @@ iframe {
     align-items: center;
 }
 
-/* 점차 생기는 로그인 화면 */
 #form {
     position: absolute;
     width: auto;
-    left: 35%;
-    top: 20%;
-    background-color: #cafff0;
+    left: 33%;
+    top: 18%;
+    
     border-radius: 20px;
 }
 
 .form_area {
     padding: 5%;
     flex-direction: column;
-    /* background-image: url("../resources/images/바다.gif"); */
+    /* background-image: url("../resources/images/諛붾떎.gif"); */
     height: 600px;
     width: 500px;
-    border: 5px dashed #41d2a9;
     border-radius: 20px;
     font-family: "omyu_pretty";
 }
@@ -162,7 +154,7 @@ iframe {
     width: 290px;
     height: 50px;
     font-size: 23px;
-    background: #48BFE3;
+    background-image: url(https://i.makeagif.com/media/6-26-2022/Kcv935.gif) ;
     border-radius: 10px;
     font-weight: 800;
     box-shadow: 3px 3px 0px 0px #5390D9;
@@ -208,7 +200,7 @@ iframe {
     height: 40px;
 }
 
-/* 가운데 탐색창 */
+/* 媛  대뜲  먯깋李  */
 .explore-wrap {
     width: 80%;
     height: 90%;
@@ -244,7 +236,7 @@ iframe {
     position: absolute;
 }
 
-/* 하단 메인화면 */
+/*  섎떒 硫붿씤 붾㈃ */
 
 .iframe-wrapper {
     width: 80%;
@@ -507,4 +499,3 @@ iframe {
                     text-shadow: 0 1px 0 #CCC, 0 2px 0 #CCC, 0 3px 0 #CCC, 0 4px 0 #CCC, 0 5px 0 #CCC, 0 6px 0 #CCC, 0 7px 0 #CCC, 0 8px 0 #CCC, 0 9px 0 #CCC, 0 50px 25px rgba(0, 0, 0, .2);
                 }
             }
-

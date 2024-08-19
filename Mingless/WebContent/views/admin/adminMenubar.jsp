@@ -100,7 +100,7 @@
 
             <!-- 네비게이션 항목 - 페이지 접기 메뉴 -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="<%=contextPath%>/member.am?cpage=1">
                     <i class="fas fa-fw fa-users"></i>
                     <span>회원 관리</span>
                 </a>

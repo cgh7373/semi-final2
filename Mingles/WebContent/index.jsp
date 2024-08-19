@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Mingles</title>
 </head>
 <body>
 
-	<%@ include file="views/common/Mingles.jsp" %>
+	<%@ include file="./views/common/Mingles.jsp" %>
 
 </body>
 </html>
