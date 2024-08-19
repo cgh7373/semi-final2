@@ -57,5 +57,43 @@
 		  , ?
 		  ) 
 	</entry>
+	
+	<entry key="selectSearchListCount">
+		SELECT 
+		       COUNT(*) COUNT 
+		  FROM EGGPAYMENT
+		 WHERE MEM_NO = ?
+           AND PAYDATE BETWEEN ?
+           AND ?
+		   AND PAYSTATUS = 'Y'
+	</entry>
+	
+	<entry key="selectSearchList">
+		SELECT *
+		  FROM (
+		
+		    SELECT ROWNUM RNUM, A.*
+		      FROM (
+		    
+		        SELECT
+		               PAY_NO
+		             , MEM_NO
+		             , PRICE
+		             , POINT
+		             , PAYOPTION
+		             , TO_CHAR(PAYDATE, 'YYYY-MM-DD') "PAYDATE"
+		             , CATEGORY
+		          FROM EGGPAYMENT
+		         WHERE MEM_NO = ?
+		           AND PAYSTATUS = 'Y'
+		           AND PAYDATE 
+		       BETWEEN ?
+		           AND ?
+		         ORDER
+		            BY PAY_NO DESC
+		            ) A
+		        )
+		 WHERE RNUM BETWEEN ? AND ?
+	</entry>
 
 </properties>
