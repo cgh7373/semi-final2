@@ -1,5 +1,15 @@
+<%@page import="java.util.LinkedHashSet"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.community.model.vo.Community"%>
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <% 
+    	Member m = (Member)session.getAttribute("loginUser");
+    	ArrayList<Community> list = (ArrayList<Community>)request.getAttribute("list"); 
+    	// 게시물번호, 게시글태그, 게시글작성자번호
+    %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +63,7 @@
                     <div class="tagList">
                         <div class="swiper">
                             <div class="swiper-wrapper" id="swiper-wrapper">
-                                
+           									
                             </div>
                         </div>
                     </div>
@@ -115,30 +125,37 @@
                 </section>
             </div>
         </div>
-        
-        <script>
-        	function taggingCommunity(){
-        		$.ajax({
-        			url:"Tag.co",
-        			method:"GET",
-        			dataType:"json",
-        			success:function(t){
-        				let tag = "";
-        				for(let i=0; i<t.length; i++){
-        					tag += "<div class='swiper-slide btn btn--tag color-7'>"
-        						  + t[i].tagging
-        						  + "</div>"
-        				}
-        				$("#swiper-wrapper").html(tag);
-        			},
-        			error:function(){
-        				console.log("태그용 ajax실패띠");
-        			},
-        		})
-        	}
-        </script>
 
     </body>
+    
+    <script>
+    	const mN = <%= m.getMemNo() %>
+    	$(function(){
+    		tagList();
+    	})
+    	
+    	// ajax로 태그리스트 조회용
+    	function tagList(){
+    		$.ajax({
+    			url:"tag.cmu",
+    			data:{
+    				memNo:mN
+    			},
+    			success:function(tags){
+    				let value = "";
+    				for(let i=0; i<tags.length; i++){
+    					value += "<div class='swiper-slide btn btn--tag color-7'>"
+    								+ tags[i].postTag
+    						   + "</div>";
+    				}
+    				$(".swiper-wrapper").html(value);
+    			},
+    			error:function(){
+    				console.log("태그리스트 조회용 ajax실패띠");
+    			},
+    		})
+    	}
+	</script>
 
 </html>
 

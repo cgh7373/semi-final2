@@ -43,5 +43,3 @@ friendLists.forEach(friendList => {
     });
 });
 });
-
-
