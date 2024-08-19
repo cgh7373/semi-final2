@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -449,6 +450,99 @@ public class MemberDao {
 			close(rset);
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public ArrayList<Member> findMember(Connection conn, String findMem, String memNo) {
+		
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		ArrayList<Member> list = new ArrayList<Member>();
+		String sql = prop.getProperty("findMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, findMem);
+			pstmt.setString(2, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				
+				list.add(new Member(
+										rset.getInt("MEM_NO")
+									  , rset.getString("NICKNAME")
+									  , rset.getString("PROFILE_PIC")
+									  , rset.getString("STATUS_MSG")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<Member> selectMemberByMBTI(Connection conn, String mbti, String memNo) {
+		
+		ArrayList<Member> list = new ArrayList<Member>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectMemberByMBTI");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, mbti);
+			pstmt.setString(2, memNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				
+				list.add(new Member(
+										rset.getInt("MEM_NO")
+									  , rset.getString("NICKNAME")
+									  , rset.getString("PROFILE_PIC")
+									  , rset.getString("STATUS_MSG")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int requestFriend(Connection conn, int sender, int receiver) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("requestFriend");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, sender);
+			pstmt.setInt(2, receiver);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
 		return result;
 	}
 

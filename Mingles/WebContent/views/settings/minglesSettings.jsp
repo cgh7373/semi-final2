@@ -1,8 +1,10 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	Member m = (Member)session.getAttribute("loginUser");
+	ArrayList<Member> list = (ArrayList<Member>)session.getAttribute("list");
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	String errorMsg = (String)session.getAttribute("errorMsg");
 %>
@@ -37,6 +39,8 @@
 
 <body>
 
+<% if (m != null) { %>
+
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 		// 성공메시지
@@ -55,10 +59,43 @@
         	 });
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
+    	 
+    	 
+ 		 $.ajax({
+ 			 url : "/Mingles/frFromMbti.mi",
+ 			 data : {myMBTI : "<%=m.getMBTI()%>",
+ 				 	 myMemNo : "<%=m.getMemNo()%>"},
+ 			 success : function(mbtiList) { 
+ 				 
+				   let value = "";
+				   
+				   if (mbtiList.length > 0) {
+					   
+				   for (let i in mbtiList) {
+					   
+					  value += "<tr>"
+                             + "<td rowspan='2' class='modal-img'><img src=" + mbtiList[i].profilePic + "></td>"                              		
+                             + "<td class='modal-nickname'>" + mbtiList[i].nickname + "</td>"               
+                             + "<td rowspan='2' class='btn-plus visitFriend'><button>놀러가기</button></td>"
+                             + "<td rowspan='2' class='btn-plus requestFriend'><button>친구신청</button></td>"
+                 		     + "</tr>"	
+                 		     + "<tr>"
+                 		     + "<td class='modal-statusMsg'>" + mbtiList[i].statusMsg + "</td>"
+                		     + "</tr>"
+                		 
+				   }
+				   
+                	  $(".modal-body2 table").html(value);	
+				 }
+			   },
+			   
+ 		 })
+    	 
+    	 
+    	 
 		 });
 	</script>
 
-<% if (m != null) { %>
     <div id="wrap">
 
         <!-- 메인 화면 -->
@@ -257,9 +294,10 @@
                             <span class="set-tag">상태메세지 변경</span>
                         </div>
 
-                        <div class="setbox">
-                            <span class="material-icons"></span>
-                            <span class="set-tag"></span>
+                        <div class="setbox" data-toggle="modal"
+                        data-target="#findMemberModal">
+                            <span class="material-icons">group</span>
+                            <span class="set-tag">회원 검색</span>
                         </div>
 
                         <div class="setbox">
@@ -414,22 +452,6 @@
                                            <button type="submit" class="btn btn-sm" onclick="return validatePwd();">닉네임 변경</button>
                                    
                                    </form>
-                                   
-                                   <script>
-                                   
-                                           function validatePwd() {
-                                               
-                                               if ($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
-                                                   swal({
-                                                    icon: 'error',
-                                                    title: '비밀번호가 일치하지 않아요',
-                                                    });
-                                                   return false;
-                                               }
-                                               
-                                           }
-                                   
-                                   </script>
                                    
                                         </div>
                                     </div>
@@ -624,6 +646,184 @@
                                     </div>
                                 </div>
                             </div>
+
+							<!-- 회원 검색용 Modal -->
+                            <div class="modal fade" id="findMemberModal">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                       <div class="modal-content">
+    
+                                       
+                                       <!-- Modal Header -->
+                                       <div class="modal-header">
+                                           <h4 class="modal-title" align="center"><input type="text" name="findMember" required placeholder="회원이름을 입력하세요">
+                                           <button id="findBtn" class="btn btn-sm" style="background-color: white;">검색</button>
+                                           <button id="resetBtn" class="btn btn-sm" style="background-color: white;">취소</button></h4>
+                                       	   <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+    
+                                    <!-- Modal body -->
+                                    <div class="modal-body2" align="center">
+                                        
+                                           <table>
+                                           
+                                            <tr>
+                                                <td rowspan="2" class="modal-img"><img src=<%=m.getProfilePic() %>></td>                               		
+                                                <td class="modal-nickname"><%=m.getNickname() %></td>                               	
+                                            </tr>	
+                                            <tr>
+                                            	<td class="modal-statusMsg"><%=m.getStatusMsg() %></td>
+                                            </tr>
+                                           
+                                           </table>
+                                           
+                                            <div class="paging-area" align="center">
+        
+									        </div>
+                                           
+                                   
+                                           <br>
+                                           
+                                           
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+				                    <script>
+                                   
+                                           function validatePwd() {
+                                               
+                                               if ($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
+                                                   swal({
+                                                    icon: 'error',
+                                                    title: '비밀번호가 일치하지 않아요',
+                                                    });
+                                                   return false;
+                                               }
+                                               
+                                           }
+                                           
+                                           $(function() {
+                                        	   
+                                        	   $("#findBtn").click(function() {
+                                        		   $.ajax({
+                                        			   url : '/Mingles/memberFind.mi',
+                                        			   data : {findMem : $("input[name=findMember]").val(),
+                                        				       myMemNo : "<%=m.getMemNo()%>"},
+                                        			   type : 'post',
+                                        			   success : function(result) { 
+                                        				   
+                                        				   let value = "";
+                                        				   
+                                        				   for (let i in result) {
+                                        					   
+                                        					  value += "<tr>"
+                                                                     + "<td rowspan='2' class='modal-img'><img src=" + result[i].profilePic + "></td>"                              		
+                                                                     + "<td class='modal-nickname'>" + result[i].nickname + "</td>"   
+                                                                     + "<td rowspan='2' class='btn-plus visitFriend'><button data-memno='" + result[i].memNo + "'>놀러가기</button></td>"
+                                                                     + "<td rowspan='2' class='btn-plus requestFriend'><button data-memno='" + result[i].memNo + "'>친구신청</button></td>"
+                                                           		     + "</tr>"	
+                                                           		     + "<tr>"
+                                                           		     + "<td class='modal-statusMsg'>" + result[i].statusMsg + "</td>"
+                                                          		     + "</tr>"
+                                                          		 
+                                        				   }
+                                        				   
+                                                          	  $(".modal-body2 table").html(value);	
+                                        				   
+                                        			   },
+                                        		   })
+                                        	   })
+                                        	   
+                                        	   $("#resetBtn").click(function() {
+                                        		   $("input[name=findMember]").val("");
+                                        	   })
+                                        	   
+                                        	   $(".modal-body2").on('click', '.requestFriend button', function() {
+                                        		   
+                                        		   const btn = $(this);
+                                        		   
+                                        		   $.ajax({
+                                        			   url : '/Mingles/requestFriend.mi',
+                                        			   data : {myMemNo : "<%=m.getMemNo()%>",
+                                        				       frMemNo : btn.data('memno')},
+                                        			   success : function(result) {
+                                        				   if (result > 0) {
+	                                        				   swal({
+	                                        			             icon: 'success',
+	                                        			             title: '신청을 보냈어요',
+	                                        			        	 });
+	                                        				   btn.attr('disabled',true);
+                                        				   } else {
+                                        					   swal({
+                                        				             icon: 'error',
+                                        				             title: '신청하지 못했어요',
+                                        				        	 });
+                                        					   btn.attr('disabled',true);
+                                        				   }
+                                        			   }, 
+                                        			   error : function() {
+                                        				   swal({
+                                  				             icon: 'error',
+                                  				             title: '신청하지 못했어요',
+                                  				        	 });
+                                  					       btn.attr('disabled',true);
+                                        			   },
+                                        		   })
+                                        	   })
+                                        	   
+                                           })
+                         
+											
+											$(document).ready(function() {
+											    let currentPage = 1;
+											    const pageSize = 10;
+
+											    function loadFriends(page) {
+											        $.ajax({
+											            url: `/api/friends`,
+											            method: 'GET',
+											            data: { page: page, size: pageSize },
+											            success: function(response) {
+											                $('#friend-list').empty();
+											                response.friends.forEach(friend => {
+											                    $('#friend-list').append(`<div>${friend.name}</div>`);
+											                });
+											                updatePaginationControls(response);
+											            },
+											            error: function() {
+											                $('#friend-list').html('<p>Error loading friends.</p>');
+											            }
+											        });
+											    }
+
+											    function updatePaginationControls(response) {
+											        $('#prev-page').prop('disabled', currentPage === 1);
+											        $('#next-page').prop('disabled', currentPage >= response.totalPages);
+											    }
+
+											    $('#prev-page').click(function() {
+											        if (currentPage > 1) {
+											            currentPage--;
+											            loadFriends(currentPage);
+											        }
+											    });
+
+											    $('#next-page').click(function() {
+											        if (currentPage < response.totalPages) {
+											            currentPage++;
+											            loadFriends(currentPage);
+											        }
+											    });
+
+											    // Initial load
+											    loadFriends(currentPage);
+											});
+                                   </script>
+                                   
 
         </div>
 

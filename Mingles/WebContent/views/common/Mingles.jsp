@@ -56,6 +56,8 @@
         	 });
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
+
+    	 
 		 });
 	
 	 	window.addEventListener('message', function(event) {
