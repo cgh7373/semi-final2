@@ -60,39 +60,355 @@
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
     	 
+    	 // 유저 검색함수
+    	 function loadData(type) {
+      	   
+      	   let url;
+      	   let data;
+      	   
+      	   switch (type) {
+      	   
+      	   case 'mbti' : 
+      		   url = '/Mingles/frFromMbti.mi';
+      		   data = {
+      			   myMBTI : "<%=m.getMBTI()%>",
+ 				   myMemNo : "<%=m.getMemNo()%>"
+ 				   };
+ 				   break;
+ 				   
+      	   case 'findMember' :
+      		   url = '/Mingles/memberFind.mi';
+      		   data = {
+     				   findMem : $("input[name=findMember]").val(),
+ 				       myMemNo : "<%=m.getMemNo()%>"   
+      		   };
+      		   break;
+      		  
+      	   default : 
+      		   console.error('Unknown type:', type);
+                 return;
+                 
+      	   }
+      	   
+      	 $.ajax({
+             url: url,
+             data: data,
+             type: 'post',
+             success: function(result) {
+            	 
+                 const itemsPerPage = 10;
+                 let currentPage = 1;
+                 const totalItems = result.length;
+                 const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                 function renderPage(page) {
+                	 
+                     const start = (page - 1) * itemsPerPage;
+                     const end = start + itemsPerPage;
+                     const pageItems = result.slice(start, end);
+
+                     let value = "";
+                     
+                     for (let i in pageItems) {
+                    	 
+                          value += "<tr>"
+	                             + "<td rowspan='2' class='modal-img'><img src='" + pageItems[i].profilePic + "'></td>"
+	                             + "<td class='modal-nickname'>" + pageItems[i].nickname + "</td>"
+	                             + "<td rowspan='2' class='btn-plus visitFriend'><button data-memno='" + pageItems[i].memNo + "'>놀러가기</button></td>"
+	                             + "<td rowspan='2' class='btn-plus requestFriend'><button data-memno='" + pageItems[i].memNo + "'>친구신청</button></td>"
+	                             + "</tr>"
+	                             + "<tr>"
+	                             + "<td class='modal-statusMsg'>" + pageItems[i].statusMsg + "</td>"
+	                             + "</tr>";
+                             
+                     }
+
+                     $("#findMemberModal .modal-body2 table").html(value);
+	                     updatePaginationControls();
+	                 }
+
+	                 function updatePaginationControls() {
+	                	 
+	                     const pageNumbers = $("#findMemberModal #pageNumbers");
+	                     pageNumbers.empty();
+	                     
+	                     for (let i = 1; i <= totalPages; i++) {
+	                    	 
+	                         const button = $("<button>")
+							                             .text(i)
+							                             .addClass('page-btn')
+							                             .data('page', i)
+							                             .on('click', function() {
+							                                 currentPage = $(this).data('page');
+							                                 renderPage(currentPage);
+							                                });
+	                         pageNumbers.append(button);
+	                     }
+	
+	                     $("#findMemberModal #prevPage").prop('disabled', currentPage === 1);
+	                     $("#findMemberModal #nextPage").prop('disabled', currentPage === totalPages);
+	                     
+	                 }
+
+                 $("#findMemberModal #prevPage").on('click', function() {
+                	 
+                     if (currentPage > 1) {
+                         currentPage--;
+                         renderPage(currentPage);
+                     }
+                     
+                 });
+
+                 $("#findMemberModal #nextPage").on('click', function() {
+                	 
+                     if (currentPage < totalPages) {
+                         currentPage++;
+                         renderPage(currentPage);
+                     }
+                     
+                 });
+
+                 renderPage(currentPage);
+                 
+	             },
+	         });
+         }
     	 
- 		 $.ajax({
- 			 url : "/Mingles/frFromMbti.mi",
- 			 data : {myMBTI : "<%=m.getMBTI()%>",
- 				 	 myMemNo : "<%=m.getMemNo()%>"},
- 			 success : function(mbtiList) { 
- 				 
-				   let value = "";
-				   
-				   if (mbtiList.length > 0) {
-					   
-				   for (let i in mbtiList) {
-					   
-					  value += "<tr>"
-                             + "<td rowspan='2' class='modal-img'><img src=" + mbtiList[i].profilePic + "></td>"                              		
-                             + "<td class='modal-nickname'>" + mbtiList[i].nickname + "</td>"               
-                             + "<td rowspan='2' class='btn-plus visitFriend'><button>놀러가기</button></td>"
-                             + "<td rowspan='2' class='btn-plus requestFriend'><button>친구신청</button></td>"
-                 		     + "</tr>"	
-                 		     + "<tr>"
-                 		     + "<td class='modal-statusMsg'>" + mbtiList[i].statusMsg + "</td>"
-                		     + "</tr>"
-                		 
-				   }
-				   
-                	  $(".modal-body2 table").html(value);	
-				 }
-			   },
-			   
- 		 })
+ 		 loadData('mbti');
     	 
+         $("#findBtn").click(function() {
+		        loadData('findMember');
+	     });
+ 	   
+         // 받은 친구요청목록 호출함수
+         function loadReceive() {
+        	   
+        	 $.ajax({
+               url: '/Mingles/frReceive.mi',
+               data: {
+            	      myMemNo : "<%=m.getMemNo()%>" 
+               },
+               type: 'post',
+               success: function(result) {
+              	 
+                   const itemsPerPage = 10;
+                   let currentPage = 1;
+                   const totalItems = result.length;
+                   const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                   function renderPage(page) {
+                  	 
+                       const start = (page - 1) * itemsPerPage;
+                       const end = start + itemsPerPage;
+                       const pageItems = result.slice(start, end);
+
+                       let value = "";
+                       
+                       for (let i in pageItems) {
+                      	 
+                            value += "<tr>"
+  	                             + "<td rowspan='2' class='modal-img'><img src='" + pageItems[i].profilePic + "'></td>"
+  	                             + "<td class='modal-nickname'>" + pageItems[i].nickname + "</td>"
+  	                             + "<td rowspan='2' class='btn-plus acceptRequest'><button data-memno='" + pageItems[i].memNo + "'>수락</button></td>"
+  	                             + "<td rowspan='2' class='btn-plus declineRequest'><button data-memno='" + pageItems[i].memNo + "'>거절</button></td>"
+  	                             + "</tr>"
+  	                             + "<tr>"
+  	                             + "<td class='modal-statusMsg'>" + pageItems[i].statusMsg + "</td>"
+  	                             + "</tr>";
+                               
+                       }
+
+                       $("#frReceiveModal .modal-body2 table").html(value);
+  	                     updatePaginationControls();
+  	                 }
+
+  	                 function updatePaginationControls() {
+  	                	 
+  	                     const pageNumbers = $("#frReceiveModal #pageNumbers");
+  	                     pageNumbers.empty();
+  	                     
+  	                     for (let i = 1; i <= totalPages; i++) {
+  	                    	 
+  	                         const button = $("<button>")
+  							                             .text(i)
+  							                             .addClass('page-btn')
+  							                             .data('page', i)
+  							                             .on('click', function() {
+  							                                 currentPage = $(this).data('page');
+  							                                 renderPage(currentPage);
+  							                                });
+  	                         pageNumbers.append(button);
+  	                     }
+  	
+  	                     $("#frReceiveModal #prevPage").prop('disabled', currentPage === 1);
+  	                     $("#frReceiveModal #nextPage").prop('disabled', currentPage === totalPages);
+  	                     
+  	                 }
+
+                   $("#frReceiveModal #prevPage").on('click', function() {
+                  	 
+                       if (currentPage > 1) {
+                           currentPage--;
+                           renderPage(currentPage);
+                       }
+                       
+                   });
+
+                   $("#frReceiveModal #nextPage").on('click', function() {
+                  	 
+                       if (currentPage < totalPages) {
+                           currentPage++;
+                           renderPage(currentPage);
+                       }
+                       
+                   });
+
+                   renderPage(currentPage);
+                   
+  	             },
+  	         });
+           };
+           
+           $("#frReceiveModal").on('click', '.acceptRequest button', function() {
+        	    handleRequest('accept', $(this));
+           });
+
+           $("#frReceiveModal").on('click', '.declineRequest button', function() {
+        	    handleRequest('decline', $(this));
+           });
+           
+           loadReceive();
+           setInterval(loadReceive, 10000);
     	 
-    	 
+           // 친구목록호출함수
+           function friendList() {
+          	   
+          	 $.ajax({
+                 url: '/Mingles/frList.mi',
+                 data: {
+                	memNo : "<%=m.getMemNo()%>" 
+                 },
+                 type: 'post',
+                 success: function(result) {
+                	 
+                     const itemsPerPage = 10;
+                     let currentPage = 1;
+                     const totalItems = result.length;
+                     const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                     function renderPage(page) {
+                    	 
+                         const start = (page - 1) * itemsPerPage;
+                         const end = start + itemsPerPage;
+                         const pageItems = result.slice(start, end);
+
+                         let value = "";
+                         
+                         for (let i in pageItems) {
+                        	 
+                               value += "<tr>"
+	                            	  + "<td rowspan='2' class='modal-img'><img src='" + pageItems[i].profilePic + "'></td>"
+	                                  + "<td class='modal-nickname'>" + pageItems[i].nickname + "</td>"
+	                                  + "<td rowspan='2' class='btn-plus visitFriend'><button data-memno='" + pageItems[i].memNo + "'>놀러가기</button></td>"
+	                                  + "<td rowspan='2' class='setFriendLevel'><select data-memno='" + pageItems[i].memNo + "'>"
+	                                  + "<option value=''>-선택-</option>"
+	                                  + "<option value='A'>짱친</option>"
+	                                  + "<option value='B'>좀친</option>"
+	                                  + "<option value='C'>걍친</option>"
+	                                  + "<option value='D'>지인</option>"
+	                                  + "<option value='F'>차단</option>"
+	                                  + "</select></td>"
+	                                  + "</tr>"
+	                                  + "<tr>"
+	                                  + "<td class='modal-statusMsg'>" + pageItems[i].statusMsg + "</td>"
+	                                  + "</tr>";
+                                 
+                         }
+
+                         $("#frListModal .modal-body2 table").html(value);
+    	                     updatePaginationControls();
+    	                 }
+
+    	                 function updatePaginationControls() {
+    	                	 
+    	                     const pageNumbers = $("#frListModal #pageNumbers");
+    	                     pageNumbers.empty();
+    	                     
+    	                     for (let i = 1; i <= totalPages; i++) {
+    	                    	 
+    	                         const button = $("<button>")
+    							                             .text(i)
+    							                             .addClass('page-btn')
+    							                             .data('page', i)
+    							                             .on('click', function() {
+    							                                 currentPage = $(this).data('page');
+    							                                 renderPage(currentPage);
+    							                                });
+    	                         pageNumbers.append(button);
+    	                     }
+    	
+    	                     $("#frListModal #prevPage").prop('disabled', currentPage === 1);
+    	                     $("#frListModal #nextPage").prop('disabled', currentPage === totalPages);
+    	                     
+    	                 }
+
+                     $("#frListModal #prevPage").on('click', function() {
+                    	 
+                         if (currentPage > 1) {
+                             currentPage--;
+                             renderPage(currentPage);
+                         }
+                         
+                     });
+
+                     $("#frListModal #nextPage").on('click', function() {
+                    	 
+                         if (currentPage < totalPages) {
+                             currentPage++;
+                             renderPage(currentPage);
+                         }
+                         
+                     });
+
+                     renderPage(currentPage);
+                     
+    	             },
+    	         });
+             }
+           
+             $("#frListModal").on('change', ".setFriendLevel select", function() {
+            	 
+            	 const memNo = $(this).data('memno');
+            	 const setLv = $(this).val();
+            	 
+            	 $.ajax({
+            		 url : '/Mingles/updateFriendLevel.mi',
+            		 data : {
+            			 memNo : memNo,
+            			 setLv : setLv,
+            		 },
+            		 success : function(r) {
+            			 
+            			 if (r > 0) {
+            			 swal({
+    			             icon: 'success',
+    			             title: '변경되었어요',
+    			        	 });
+            			 }
+            		 },
+            	 })
+            	 
+             });
+           
+             friendList();
+             setInterval(friendList, 10000);
+             
+             $(".modal").on('click', '.visitFriend button', function() {
+         	    
+            	 location.href="/Mingles/othersMain.mi?oMemNo=" + $(this).data('memno');
+	            	 
+             });
+           
 		 });
 	</script>
 
@@ -300,14 +616,16 @@
                             <span class="set-tag">회원 검색</span>
                         </div>
 
-                        <div class="setbox">
-                            <span class="material-icons"></span>
-                            <span class="set-tag"></span>
+                        <div class="setbox" data-toggle="modal"
+                        data-target="#frReceiveModal">
+                            <span class="material-icons">spatial_tracking</span>
+                            <span class="set-tag">받은 친구요청</span>
                         </div>
 
-                        <div class="setbox">
-                            <span class="material-icons"></span>
-                            <span class="set-tag"></span>
+                        <div class="setbox" data-toggle="modal"
+                        data-target="#frListModal">
+                            <span class="material-icons">catching_pokemon</span>
+                            <span class="set-tag">친구목록</span>
                         </div>
 
                         <div class="setbox">
@@ -659,10 +977,80 @@
                                            <button id="findBtn" class="btn btn-sm" style="background-color: white;">검색</button>
                                            <button id="resetBtn" class="btn btn-sm" style="background-color: white;">취소</button></h4>
                                        	   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
+                                       </div>
     
-                                    <!-- Modal body -->
-                                    <div class="modal-body2" align="center">
+	                                    <!-- Modal body -->
+	                                    <div class="modal-body2" align="center">
+                                        
+                                           <table>
+                                           
+                                           </table>
+                                           
+                                            <div class="pagination">
+										        <button id="prevPage">&lt;</button>
+										        <span id="pageNumbers"></span>
+										        <button id="nextPage">&gt;</button>
+										    </div>
+                                           
+                                   
+                                           <br>
+                                           
+                                           
+                                    </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+							<!-- 친구요청 수락용 Modal -->
+                            <div class="modal fade" id="frReceiveModal">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                       <div class="modal-content">
+    
+                                       
+                                       <!-- Modal Header -->
+                                       <div class="modal-header">
+                                           <h4 class="modal-title" align="center">받은 요청</h4>
+                                           <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                       </div>
+    
+	                                    <!-- Modal body -->
+	                                    <div class="modal-body2" align="center">
+                                        
+                                           <table>
+                                           
+                                           </table>
+                                           
+                                            <div class="pagination">
+										        <button id="prevPage">&lt;</button>
+										        <span id="pageNumbers"></span>
+										        <button id="nextPage">&gt;</button>
+										    </div>
+                                           
+                                   
+                                           <br>
+                                           
+                                           
+                                    </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+							<!-- 친구목록 Modal -->
+                            <div class="modal fade" id="frListModal">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                       <div class="modal-content">
+    
+                                       
+                                       <!-- Modal Header -->
+                                       <div class="modal-header">
+                                           <h4 class="modal-title" align="center">친구 목록</h4>
+                                           <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                       </div>
+    
+	                                    <!-- Modal body -->
+	                                    <div class="modal-body2" align="center">
                                         
                                            <table>
                                            
@@ -676,21 +1064,21 @@
                                            
                                            </table>
                                            
-                                            <div class="paging-area" align="center">
-        
-									        </div>
+                                            <div class="pagination">
+										        <button id="prevPage">&lt;</button>
+										        <span id="pageNumbers"></span>
+										        <button id="nextPage">&gt;</button>
+										    </div>
                                            
                                    
                                            <br>
                                            
                                            
-                                        </div>
+                                    </div>
                                         
                                     </div>
                                 </div>
                             </div>
-
-
 
 				                    <script>
                                    
@@ -706,122 +1094,82 @@
                                                
                                            }
                                            
-                                           $(function() {
-                                        	   
-                                        	   $("#findBtn").click(function() {
-                                        		   $.ajax({
-                                        			   url : '/Mingles/memberFind.mi',
-                                        			   data : {findMem : $("input[name=findMember]").val(),
-                                        				       myMemNo : "<%=m.getMemNo()%>"},
-                                        			   type : 'post',
-                                        			   success : function(result) { 
-                                        				   
-                                        				   let value = "";
-                                        				   
-                                        				   for (let i in result) {
-                                        					   
-                                        					  value += "<tr>"
-                                                                     + "<td rowspan='2' class='modal-img'><img src=" + result[i].profilePic + "></td>"                              		
-                                                                     + "<td class='modal-nickname'>" + result[i].nickname + "</td>"   
-                                                                     + "<td rowspan='2' class='btn-plus visitFriend'><button data-memno='" + result[i].memNo + "'>놀러가기</button></td>"
-                                                                     + "<td rowspan='2' class='btn-plus requestFriend'><button data-memno='" + result[i].memNo + "'>친구신청</button></td>"
-                                                           		     + "</tr>"	
-                                                           		     + "<tr>"
-                                                           		     + "<td class='modal-statusMsg'>" + result[i].statusMsg + "</td>"
-                                                          		     + "</tr>"
-                                                          		 
-                                        				   }
-                                        				   
-                                                          	  $(".modal-body2 table").html(value);	
-                                        				   
-                                        			   },
-                                        		   })
-                                        	   })
-                                        	   
-                                        	   $("#resetBtn").click(function() {
-                                        		   $("input[name=findMember]").val("");
-                                        	   })
-                                        	   
-                                        	   $(".modal-body2").on('click', '.requestFriend button', function() {
-                                        		   
-                                        		   const btn = $(this);
-                                        		   
-                                        		   $.ajax({
-                                        			   url : '/Mingles/requestFriend.mi',
-                                        			   data : {myMemNo : "<%=m.getMemNo()%>",
-                                        				       frMemNo : btn.data('memno')},
-                                        			   success : function(result) {
-                                        				   if (result > 0) {
-	                                        				   swal({
-	                                        			             icon: 'success',
-	                                        			             title: '신청을 보냈어요',
-	                                        			        	 });
-	                                        				   btn.attr('disabled',true);
-                                        				   } else {
-                                        					   swal({
-                                        				             icon: 'error',
-                                        				             title: '신청하지 못했어요',
-                                        				        	 });
-                                        					   btn.attr('disabled',true);
-                                        				   }
-                                        			   }, 
-                                        			   error : function() {
+                                       	   $("#resetBtn").click(function() {
+                                       		   $("input[name=findMember]").val("");
+                                       		   $(".modal-body2 table").html("");
+                                       		   $("#pageNumbers").empty();
+                                       	   })
+                                       	   
+                                       	   $(".modal-body2").on('click', '.requestFriend button', function() {
+                                       		   
+                                       		   const btn = $(this);
+                                       		   
+                                       		   $.ajax({
+                                       			   url : '/Mingles/requestFriend.mi',
+                                       			   data : {myMemNo : "<%=m.getMemNo()%>",
+                                       				       frMemNo : btn.data('memno')},
+                                       			   success : function(result) {
+                                       				   if (result > 0) {
                                         				   swal({
-                                  				             icon: 'error',
-                                  				             title: '신청하지 못했어요',
-                                  				        	 });
-                                  					       btn.attr('disabled',true);
-                                        			   },
-                                        		   })
-                                        	   })
+                                        			             icon: 'success',
+                                        			             title: '신청을 보냈어요',
+                                        			        	 });
+                                        				   btn.attr('disabled',true);
+                                       				   } else {
+                                       					   swal({
+                                       				             icon: 'error',
+                                       				             title: '신청하지 못했어요',
+                                       				        	 });
+                                       					   btn.attr('disabled',true);
+                                       				   }
+                                       			   }, 
+                                       			   error : function() {
+                                       				   swal({
+                                 				             icon: 'error',
+                                 				             title: '신청하지 못했어요',
+                                 				        	 });
+                                 					       btn.attr('disabled',true);
+                                       			   },
+                                       		   })
+                                       	   })
                                         	   
-                                           })
-                         
-											
-											$(document).ready(function() {
-											    let currentPage = 1;
-											    const pageSize = 10;
-
-											    function loadFriends(page) {
-											        $.ajax({
-											            url: `/api/friends`,
-											            method: 'GET',
-											            data: { page: page, size: pageSize },
-											            success: function(response) {
-											                $('#friend-list').empty();
-											                response.friends.forEach(friend => {
-											                    $('#friend-list').append(`<div>${friend.name}</div>`);
+                         				   function handleRequest(action, btn) {
+                                       		   
+											    let url = '/Mingles/frRequests.mi';
+											    let data = {
+											        myMemNo: "<%=m.getMemNo()%>",
+											        frMemNo: btn.data('memno'),
+											        action : action,
+											    };
+				
+											    $.ajax({
+											        url: url,
+											        data: data,
+											        type: 'post',
+											        success: function(result) {
+											            if (result > 0) {
+											                swal({
+											                    icon: 'success',
+											                    title: action === 'accept' ? '신청을 수락했어요' : '신청을 거절했어요',
 											                });
-											                updatePaginationControls(response);
-											            },
-											            error: function() {
-											                $('#friend-list').html('<p>Error loading friends.</p>');
+											                loadReceive();
+											            } else {
+											                swal({
+											                    icon: 'error',
+											                    title: action === 'accept' ? '신청 수락에 실패했어요' : '신청 거절에 실패했어요',
+											                });
+											                loadReceive();
 											            }
-											        });
-											    }
-
-											    function updatePaginationControls(response) {
-											        $('#prev-page').prop('disabled', currentPage === 1);
-											        $('#next-page').prop('disabled', currentPage >= response.totalPages);
-											    }
-
-											    $('#prev-page').click(function() {
-											        if (currentPage > 1) {
-											            currentPage--;
-											            loadFriends(currentPage);
-											        }
+											        },
+											        error: function() {
+											            swal({
+											                icon: 'error',
+											                title: '처리 중 오류가 발생했어요',
+											            });
+											        },
 											    });
-
-											    $('#next-page').click(function() {
-											        if (currentPage < response.totalPages) {
-											            currentPage++;
-											            loadFriends(currentPage);
-											        }
-											    });
-
-											    // Initial load
-											    loadFriends(currentPage);
-											});
+											}
+											
                                    </script>
                                    
 

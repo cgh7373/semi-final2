@@ -40,6 +40,10 @@
 				, STATUS
 				, EGG
 				, ZODIAC
+				, ABO
+				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
 		     FROM MEMBER
 			WHERE MEM_NO = ?
 			  AND STATUS = 'Y'
@@ -192,7 +196,7 @@
 			     , A.STATUS_MSG
 			  FROM MEMBER A
 		 LEFT JOIN FRIEND B
-		        ON (A.MEM_NO = B.FRIEND_MEM_NO)
+		        ON (A.MEM_NO = B.SENDER_NO)
 			 WHERE A.STATUS = 'Y'
 			   AND A.NICKNAME = ?
 			   AND A.MEM_NO != ?
@@ -206,7 +210,7 @@
 			     , A.STATUS_MSG
 			  FROM MEMBER A
 		 LEFT JOIN FRIEND B
-		        ON (A.MEM_NO = B.FRIEND_MEM_NO)
+		        ON (A.MEM_NO = B.SENDER_NO)
 			 WHERE A.STATUS = 'Y'
 			   AND A.MBTI = ?
 			   AND A.MEM_NO != ?
@@ -215,7 +219,7 @@
 	
 	<entry key="requestFriend">
 			INSERT 
-			  INTO FRIEND_REQUEST
+			  INTO FRIEND
 			     (
 			       SENDER_NO
 			     , RECEIVER_NO
@@ -227,5 +231,81 @@
 			     )
 	</entry>
 	
+	<entry key="selectRequests">
+			SELECT A.MEM_NO
+			     , A.NICKNAME
+			     , A.PROFILE_PIC
+			     , A.STATUS_MSG
+			  FROM MEMBER A
+			  JOIN FRIEND B
+			    ON (A.MEM_NO = B.SENDER_NO)
+			 WHERE B.RECEIVER_NO = ?
+			   AND B.REQUEST_STATUS = 'P'
+	</entry>
+	
+	<entry key="acceptRequest">
+			UPDATE FRIEND
+			   SET REQUEST_STATUS = 'A'
+			     , FRIEND_LEVEL = 'D'
+			 WHERE SENDER_NO = ?
+			   AND RECEIVER_NO = ?
+	</entry>
+		
+	<entry key="declineRequest">
+			UPDATE FRIEND
+			   SET REQUEST_STATUS = 'R'
+			 WHERE SENDER_NO = ?
+			   AND RECEIVER_NO = ?
+	</entry>
+	
+	<entry key="enrollFriend">
+			INSERT 
+			  INTO FRIEND
+			     (
+			       SENDER_NO
+			     , RECEIVER_NO
+			     , REQUEST_STATUS
+			     , FRIEND_LEVEL
+			     )
+			       VALUES
+			     (
+			       ?
+			     , ?
+			     , 'A'
+			     , 'D'
+			     )  
+	</entry>
+	
+	<entry key="selectFriendList">
+			SELECT A.MEM_NO
+			     , A.NICKNAME
+			     , A.PROFILE_PIC
+			     , A.STATUS_MSG
+			  FROM MEMBER A
+			  JOIN FRIEND B
+			    ON (A.MEM_NO = B.RECEIVER_NO)
+			 WHERE B.SENDER_NO = ?
+			   AND B.RECEIVER_NO != ?
+			   AND B.REQUEST_STATUS = 'A'
+			   AND B.FRIEND_LEVEL <![CDATA[<]]> 'E'
+		     ORDER
+		        BY B.FRIEND_LEVEL
+	</entry>
+	
+	<entry key="updateFriendLevel">
+			BEGIN
+	
+			UPDATE FRIEND
+			   SET FRIEND_LEVEL = ?
+			 WHERE REQUEST_STATUS = 'A'
+			   AND SENDER_NO = ?;
+			   
+			UPDATE FRIEND
+			   SET FRIEND_LEVEL = ?
+			 WHERE REQUEST_STATUS = 'A'
+			   AND RECEIVER_NO = ?;   
+			   
+			END;
+	</entry>
 	
 </properties>
