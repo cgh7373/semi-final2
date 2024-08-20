@@ -319,7 +319,7 @@
                     <canvas id="jsCanvas" class="canvas"></canvas>
                     <div class="chatting ch1">
                         <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">안녕하세요~ 김서경입니당ㅎㅎgitgit</div>
+                        <div class="textbox">안녕하세요~ 김서경입니당ㅎㅎ</div>
                     </div>
                     <div class="chatting ch2">
                         <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
