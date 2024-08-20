@@ -55,14 +55,14 @@ img {
     font-family: 'Katuri';
     font-size: 50px;
     text-align: center;
-    color: #07BEB8;
+    color: #7aecbc;
     margin-bottom: 5%;
     text-shadow: 5px 5px 10px rgb(215, 215, 215);
 }
 
 .style-tag {
     font-family: 'omyu_pretty';
-    color: #07BEB8;
+    color: #64DFDF;
     font-size: 33px;
     margin-left: 10%;
 }
@@ -72,10 +72,10 @@ img {
 	height : 60%;
     display: flex;
     flex-wrap: wrap;
-    margin: 3%;
+    margin: 5%;
     margin-left:10%;
-    border-top: 5px solid #07BEB8;
-    border-bottom: 5px solid #07BEB8;
+    border-top: 5px solid #80ffdb;
+    border-bottom: 5px solid #80ffdb;
     padding-bottom: 10%;
 }
 
@@ -178,7 +178,7 @@ footer .pagination-container {
     margin: auto 15px;
     /* text-align:center; */
     &:hover {
-        color: #0185ae;
+        color: #07BEB8;
         cursor: pointer;
     }
 }
@@ -191,18 +191,17 @@ footer .pagination-container {
     display: flex;
     align-items: center;
     background-color: #d2efff;
-    border-top: 3px solid #48BFE3;
-    border-bottom: 3px solid #48BFE3;
+    border-top: 3px solid #89c2ff;
+    border-bottom: 3px solid #89c2ff;
 }
 
 .main-right .right-wrapper .style-shop .catB .catTitle {
     font-family: 'Katuri';
-    font-weight:200;
     font-size: 35px;
     margin: 20px;
     &:hover {
         cursor: pointer;
-        color:#006989;
+        color:#0b77eb;
     }
     &:active {
         transform: translateX(.8px) translateY(.8px);
@@ -236,7 +235,7 @@ footer .pagination-container {
 	padding: 10px 20px 10px 20px;
 	background: #FFFFFF;
 	border-radius: 10px;
-	border:#48BFE3 solid 3px;
+	border: #89c2ff solid 3px;
 	/* position: absolute; */
 	font-size: 28px;
 	text-align: left;
@@ -281,7 +280,7 @@ footer .pagination-container {
 	position: absolute;
 	border-style: solid;
 	border-width: 20px 16px 0 17.5px;
-	border-color: #48BFE3 transparent;
+	border-color: #89c2ff transparent;
 	display: block;
 	width: 0;
 	z-index: 0;
@@ -301,28 +300,10 @@ footer .pagination-container {
 }
 
 .btn {
-    width:110px;
-    height:40px;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-    transition: all 1s;
-    cursor:pointer;
-    font-family: 'omyu_pretty';
-    font-size: 20px;
-    color: #48BFE3;
-    border-radius:20px;
-    border: 2px solid #48BFE3;
-    &:hover {
-    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition-duration:.3s;
-    background-color: #48BFE3;
-    color:white;
-    }
-    &:active {
-        transform: translateX(1.6px) translateY(1.6px);
-        transition: .3s;
-    }
+    width:60px;
+    height:30px;
+    margin:3px;
+    float:left;
 }
 
 /* MINIHOMPI BOX */

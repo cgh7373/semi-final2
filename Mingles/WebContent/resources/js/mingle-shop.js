@@ -19,6 +19,42 @@ $(function () {
 
 })
 
+document.getElementById('2-1').addEventListener('click', function() {
+    tag.innerHTML = '';
+    tag.innerHTML = '내방 꾸미기 - 벽지';
+})
+document.getElementById('2-2').addEventListener('click', function() {
+    tag.innerHTML = '';
+    tag.innerHTML = '내방 꾸미기 - 바닥';
+})
+document.getElementById('2-3').addEventListener('click', function() {
+    tag.innerHTML = '';
+    tag.innerHTML = '내방 꾸미기 - 아이템';
+})
+
+document.getElementById('3-1').addEventListener('click', function() {
+    tag.innerHTML = '';
+    tag.innerHTML = '아바타 꾸미기 - 헤어';
+})
+document.getElementById('3-2').addEventListener('click', function() {
+    tag.innerHTML = '';
+    tag.innerHTML = '아바타 꾸미기 - 표정';
+})
+document.getElementById('3-3').addEventListener('click', function() {
+    tag.innerHTML = '';
+    tag.innerHTML = '아바타 꾸미기 - 상의';
+})
+document.getElementById('3-4').addEventListener('click', function() {
+    tag.innerHTML = '';
+    tag.innerHTML = '아바타 꾸미기 - 하의';
+})
+document.getElementById('3-5').addEventListener('click', function() {
+    tag.innerHTML = '';
+    tag.innerHTML = '아바타 꾸미기 - 신발';
+})
+
+
+
 const data = [
     {
         itemName: '백설공주의 유혹',
@@ -365,57 +401,6 @@ nextButton.addEventListener('click', function () {
     }
     
 });
-
-document.getElementById('1-1').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '홈피 꾸미기 - 스킨';
-})
-document.getElementById('1-2').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '홈피 꾸미기 - 폰트';
-})
-document.getElementById('1-3').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '홈피 꾸미기 - 주크박스';
-})
-
-document.getElementById('2-1').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '내방 꾸미기 - 벽지';
-})
-document.getElementById('2-2').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '내방 꾸미기 - 바닥';
-})
-document.getElementById('2-3').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '내방 꾸미기 - 아이템';
-})
-
-document.getElementById('3-1').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '아바타 꾸미기 - 헤어';
-})
-document.getElementById('3-2').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '아바타 꾸미기 - 표정';
-})
-document.getElementById('3-3').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '아바타 꾸미기 - 상의';
-})
-document.getElementById('3-4').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '아바타 꾸미기 - 하의';
-})
-document.getElementById('3-5').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '아바타 꾸미기 - 신발';
-})
-document.getElementById('3-6').addEventListener('click', function() {
-    tag.innerHTML = '';
-    tag.innerHTML = '아바타 꾸미기 - 악세사리';
-})
 
 
 

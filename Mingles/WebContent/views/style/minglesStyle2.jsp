@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-Member m = (Member)session.getAttribute("loginUser");
+Member mem = (Member)session.getAttribute("loginUser");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,21 +13,10 @@ Member m = (Member)session.getAttribute("loginUser");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mingles Frame</title>
-
-    <!-- 외부파일 -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    
     <!-- 내부파일 -->
-    <link rel="stylesheet" href="../../resources/css/mingle-style.css">
+    <link rel="stylesheet" href="../../resources/css/mingle-style2.css">
     <script defer src="../../resources/js/mingle-style.js"></script>
-    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="icon" href="../../resources/images/Mingles아이콘-removebg-preview.png">
 
 </head>
@@ -37,10 +26,10 @@ Member m = (Member)session.getAttribute("loginUser");
     <div id="wrap">
 
         <!-- 메인 화면 -->
-        <div id="container">
+        <div id="container"> 
 
             <!-- ELEMENTS -->
-            <div class="main-left">
+            <div class="main-left" style = "display:none;">
 
                 <img src="../../resources/images/Mingles로고-움직임-짤.gif" alt="" class="logo" />
 
@@ -80,7 +69,7 @@ Member m = (Member)session.getAttribute("loginUser");
 
                 <div class="right-wrapper">
 
-                    <div class="style-shop">
+                    <div class="style-shop" style = "display:none;">
 
                         <div class="bal bal2">
                             <div class="bal-wall">벽지</div>
@@ -158,7 +147,7 @@ Member m = (Member)session.getAttribute("loginUser");
                     </div> <!-- MINIHOMPI ROOM-->
 
                     <div class="bot-box">
-                        <div class="btn btn1" onclick="location.href='../../views/shop/minglesShop.jsp';">mingleShop</div>
+                        <div class="btn btn1">mingleShop</div>
                        
                         <div class="btn btn2" onclick = "saveAvatar()">저장하기</div>
                        
@@ -174,8 +163,9 @@ Member m = (Member)session.getAttribute("loginUser");
     </div>
 	
 	<script>
-	const memNo = <%= m.getMemNo()%>
+	const memNo = <%= mem.getMemNo()%>
 	console.log(memNo);
+	<% System.out.println("m값 있나:" + mem.getMemNo());%> 
 	
 	// 페이지 로드 시 select됬던 요소 실행
 	window.onload= function(){

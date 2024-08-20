@@ -49,21 +49,13 @@
 
                         <div class="menubar">
 
-                            <div>홈피 꾸미기</div>
+                            <div>내 홈피 꾸미기</div>
 
-                            <div>내방 꾸미기</div>
-
-                            <div>아바타 꾸미기</div>
+                            <div>내 아바타 꾸미기</div>
 
                         </div>
 
                         <div class="menu-content">
-
-                            <ul>
-                                <li id="1-1">스킨</li>
-                                <li id="1-2">폰트</li>
-                                <li id="1-3">주크박스</li>
-                            </ul>
 
                             <ul>
                                 <li id="2-1">벽지</li>
@@ -77,7 +69,6 @@
                                 <li id="3-3">상의</li>
                                 <li id="3-4">하의</li>
                                 <li id="3-5">신발</li>
-                                <li id="3-6">악세사리</li>
                             </ul>
 
                         </div>
@@ -91,7 +82,7 @@
 
                     <div class="content-top">
                         <span class="tag-wrapper">
-                            <div id="tag">홈피 꾸미기 - 스킨</div>
+                            <div id="tag">카테고리를 선택해서 아이템을 모아보아요!</div>
                         </span>
                     </div>
 
@@ -171,5 +162,11 @@
     </div>
 
 </body>
+
+<script>
+
+
+
+</script>
 
 </html>

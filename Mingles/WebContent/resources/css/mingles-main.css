@@ -125,29 +125,29 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
     color: #07BEB8;
+    gap: 5px;
 }
 
 #con2__my_info > div {
-    width: 18%;
-    height: 20px;
+    width: auto;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5px 0;
+    margin-bottom:15px;
     border-radius: 20px;
     transition: box-shadow 0.3s;
     font-size: 20px;
     cursor: pointer;
-}
-
-#con2__my_info > div:hover {
-    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+    margin: 0; 
+    padding: 0; 
+    flex: 1 1;
 }
 
 .post-box {
     border: 5px dotted #56CFE1;
     width: 100%;
-    margin: 8px 0;
+    margin: 5px 0;
 }
 
 /* Popular and Recent Posts */
@@ -155,7 +155,7 @@ body {
     font-family: 'Katuri', sans-serif;
     font-size: 20px;
     color: #5390D9;
-    margin-bottom: 10px;
+    margin: 10px;
 }
 
 #con3 ul {
@@ -182,7 +182,7 @@ body {
     width:67%;
     height:77%;
     bottom: 10%;
-    border: 2px solid #07BEB8;
+    /* border: 2px solid #07BEB8; */
     border-radius: 20px;
     position:absolute;
     margin-left:31%;
@@ -213,9 +213,9 @@ body {
     background: linear-gradient(60deg, #965df2 , #48BFE3 , #64DFDF, #80FFDB);
     background-size: 300%;
     border-radius: 50px;
-    z-index: 1;
-    left: 31.5%;
-    bottom: 4%;
+    z-index: 20;
+    left: 37%;
+    bottom: 7%;
 }
   
 #decorate:hover {
@@ -256,14 +256,15 @@ body {
   }
 
   /* 좋아요 버튼*/
-.heart-container {
+  .heart-container {
     --heart-color: rgb(255, 91, 137);
     position: absolute;
     width: 50px;
     height: 50px;
     transition: .3s;
-    right: 2%;
-    bottom:4%;
+    right: 5%;
+    bottom:7%;
+    z-index: 20;
   }
   
   .heart-container .checkbox {
@@ -343,7 +344,6 @@ body {
       display: none;
     }
   }
-
   /* mp3음악 버튼 */
 
  .music{
@@ -402,7 +402,7 @@ body {
     position:absolute;
     
   }
-  
+
   .music--info{
     position:relative;
     display:inline-block;
@@ -423,6 +423,7 @@ body {
     font-size:18px;
     font-family:'omyu_pretty';
   }
+
 
   /* 플리 버튼 */
 .popover-content button{
@@ -445,8 +446,8 @@ body {
     background-color: #fff !important;
     color: #08817d !important;
     border: 2px dotted #3DCCC7 !important;
-    width: 120px;
-    height: 40px;
+    width: auto;
+    height: auto;
     border-radius: 20px !important;
     font-size: 20px;
     font-family: 'omyu_pretty';
@@ -455,7 +456,8 @@ body {
 .custom-tooltip .tooltip-inner {
     font-size: 15px !important;
     width: 200px !important;
-    height: 30px !important;
+    height: 25px !important;
+
 }
 
 .tooltip .arrow::before, .tooltip .arrow::after {
