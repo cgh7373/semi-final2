@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	Member m = (Member)session.getAttribute("loginUser");
+	Member o = (Member)session.getAttribute("otherUser");
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	String errorMsg = (String)session.getAttribute("errorMsg");
@@ -124,21 +124,21 @@
 	 <div id="wrap">
         <div id="container">
             <!-- Left Screen -->
-                    <% if (m != null) { %>
+                    <% if (o != null) { %>
             <div class="post-list" id="left">
                 <div class="left__content" id="con1">
-                    <img src="<%=m.getProfilePic() %>" alt="">
+                    <img src="<%=o.getProfilePic() %>" alt="">
                 </div>
                 <div class="left__content" id="con2">
-                    <div id="con2__nickname"><%= m.getNickname() %></div>
+                    <div id="con2__nickname"><%= o.getNickname() %></div>
                     <button id= "diary" class="material-icons">auto_stories</button> 
                     <button id="mailIcon" class="material-icons">mail_outline</button>
-                    <div id="con2__my_text"><%=m.getStatusMsg() %></div>
+                    <div id="con2__my_text"><%=o.getStatusMsg() %></div>
                     <div id="con2__my_info">
-                        <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
-                        <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
-                        <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리</div>
-                        <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO()%>">혈액형</div>
+                        <div id="my_info__1" data-toggle="tooltip" title="<%= o.getEmail() %>">이메일</div>
+                        <div id="my_info__2" data-toggle="tooltip" title="<%= o.getMBTI() %>">MBTI</div>
+                        <div id="my_info__3" data-toggle="tooltip" title="<%= o.getZodiac() %>">별자리</div>
+                        <div id="my_info__4" data-toggle="tooltip" title="<%= o.getABO()%>">혈액형</div>
                     </div>
                     
                 </div>

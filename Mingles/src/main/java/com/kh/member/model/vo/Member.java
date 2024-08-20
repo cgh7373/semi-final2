@@ -40,6 +40,8 @@ public class Member {
 		this.zodiac = zodiac;
 		this.ABO = ABO;
 		this.MBTI = MBTI;
+		this.ABO = ABO;
+		this.MBTI = MBTI;
 	}
 
 	public Member(String memId, String memPwd, String nickname, String birthdate, String phone, String email,
@@ -158,8 +160,8 @@ public class Member {
 		this.status = status;
 		this.egg = egg;
 		this.zodiac = zodiac;
-		ABO = aBO;
-		MBTI = mBTI;
+		this.ABO = aBO;
+		this.MBTI = mBTI;
 		this.profilePic = profilePic;
 		this.statusMsg = statusMsg;
 	}
@@ -170,6 +172,15 @@ public class Member {
 		this.memPwd = memPwd;
 		this.nickname = nickname;
 	}
+	
+	public Member(int memNo, String nickname, String profilePic, String statusMsg) {
+		super();
+		this.memNo = memNo;
+		this.nickname = nickname;
+		this.profilePic = profilePic;
+		this.statusMsg = statusMsg;
+	}
+
 
 	public String getProfilePic() {
 		return profilePic;
@@ -195,6 +206,22 @@ public class Member {
 		this.memNo = memNo;
 	}
 	
+	public String getABO() {
+		return ABO;
+	}
+	
+	public void setABO(String ABO) {
+		this.ABO = ABO;
+	}
+	
+	public String getMBTI() {
+		return MBTI;
+	}
+	
+	public void setMBTI(String MBTI) {
+		this.MBTI = MBTI;
+	}
+
 	public String getMemId() {
 		return memId;
 	}
@@ -281,22 +308,6 @@ public class Member {
 
 	public void setStatus(String status) {
 		this.status = status;
-	}
-	
-	public String getABO() {
-		return ABO;
-	}
-
-	public void setABO(String ABO) {
-		this.ABO = ABO;
-	}
-
-	public String getMBTI() {
-		return MBTI;
-	}
-
-	public void setMBTI(String MBTI) {
-		this.MBTI = MBTI;
 	}
 	
 	public int getEgg() {

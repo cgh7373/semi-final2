@@ -5,6 +5,7 @@ import static com.kh.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.kh.member.model.dao.MemberDao;
@@ -244,6 +245,98 @@ public class MemberService {
 		close(conn);
 		
 		return updateMem;
+	}
+
+	public ArrayList<Member> findMember(String findMem, String memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().findMember(conn, findMem, memNo);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Member> selectMemberByMBTI(String mbti, String memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectMemberByMBTI(conn, mbti, memNo);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int requestFriend(int sender, int receiver) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().requestFriend(conn, sender, receiver);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<Member> selectRequests(int memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectRequests(conn, memNo);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int handleRequest(int myMemNo, int frMemNo, String action) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().handleRequest(conn, myMemNo, frMemNo, action);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<Member> selectFriendList(int memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectFriendList(conn, memNo);
+		
+		close(conn);
+				
+		return list;
+	}
+
+	public int updateFriendLevel(int memNo, String setLv) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateFriendLevel(conn, memNo, setLv);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+				
+		return result;
 	}
 
 

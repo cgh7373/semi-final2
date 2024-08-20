@@ -360,8 +360,62 @@ div, img {
     }
 }
 
+#findMemberModal *, #frReceiveModal * , #frListModal * {
+    vertical-align: middle;
+}
 
+.modal-body2 .modal-img {
+    width: 10%;
+}
 
+.modal-body2 tr {
+    width: 50%;
+    height: 10%;
+    margin: auto;
+}
+
+.modal-body2 td {
+    width: auto;
+}
+
+.modal-body2 button, #findMemberModal button {
+    border-radius: 10px;
+    background-color: #fff;
+    transition: .8s;
+    &:hover {
+        box-shadow: 0 0 4px 2px #07BEB8;
+    }
+}
+
+.modal-body2 img {
+    width: 70%;
+    aspect-ratio: 1;
+    height: auto;
+    text-align: center;
+    border-radius: 50%;
+    overflow: hidden;
+    margin:auto;
+}
+
+.modal-body2 .modal-nickname {
+    font-family: 'Katuri';
+}
+
+.modal-body2 .modal-statusMsg {
+    opacity: .7;
+}
+
+.modal-body2 .btn-plus {
+    width: 12%;
+    &>button {
+        font-size: 22px;
+    }
+}
+
+.modal-body2 .pagination {
+	display: flex;
+	justify-content: center;
+}
 
 
 
