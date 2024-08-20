@@ -2,6 +2,8 @@ package com.kh.shop.model.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +24,7 @@ private Properties prop = new Properties();
 	public ShopDao() {
 		
 		String filePath = MemberDao.class.getResource("/db/sql/shop-mapper.xml").getPath();
+		filePath = URLDecoder.decode(filePath, StandardCharsets.UTF_8);
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
