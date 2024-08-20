@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	
+	<entry key="tagList">
+		SELECT
+		    REGEXP_SUBSTR(POST_TAG, '[^#]+', 1, LEVEL) AS tag
+		  FROM
+		     (
+		       SELECT POST_NUM, POST_TAG
+		         FROM POST P, MEMBER M
+		        WHERE P.POST_WRITER = M.MEM_NO
+		          AND MEM_NO = ?
+		     )
+		CONNECT BY
+		    REGEXP_SUBSTR(post_tag, '[^#]+', 1, LEVEL) IS NOT NULL
+		    AND PRIOR post_tag = post_tag
+		    AND PRIOR SYS_GUID() IS NOT NULL
+		  ORDER BY POST_NUM DESC
+	</entry>
+	
+	<entry key="postList">
+		SELECT
+		       MEM_ID 
+		     , POST_TITLE
+		     , POST_COUNT
+		  FROM POST P , MEMBER M
+		 WHERE P.POST_WRITER = M.MEM_NO
+		   AND POST_STATUS = 'Y'
+		   AND POST_SCOPE = 'P'
+		 ORDER BY
+		       P.POST_COUNT DESC;
+	</entry>
+
+
+
+
+
+
+
+
+
+
+
+</properties>
