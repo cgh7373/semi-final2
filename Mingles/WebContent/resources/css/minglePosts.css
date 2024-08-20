@@ -402,11 +402,15 @@ div, ul, li, a, button{
 }
 
 .modal-title {
+    width: 95%;
 	font-family: 'Katuri';
-    margin-left: 36%;
+    text-align: center;  
     font-size: 25px;
 }
-
+.modal-header .close
+{
+    width: 5%;
+}
 .modal-body table * {
     margin: 5%;
 }
@@ -415,8 +419,5 @@ div, ul, li, a, button{
     border-radius: 10px;
     background-color: #dbfffd;
     transition: .8s;
-    &:hover {
-        box-shadow: 0 0 4px 2px #07BEB8;
-        background-color: #c3f8f5;
-    }
+
 }

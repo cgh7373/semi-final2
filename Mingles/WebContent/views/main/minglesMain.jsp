@@ -214,9 +214,6 @@
                 </div>
 
             </div>
-<<<<<<< HEAD
-
-=======
                  <!--mp3 음악 버튼-->
                    <div class="music">
                    <img src="../../resources/images/cd.png" alt="cd그림" id ="mp3Button">
@@ -238,7 +235,6 @@
                     </div>
     
                 </div>
->>>>>>> dc1619705f5f8cf4e19f9b747dbf59cba3f6c6b9
                 
                 <script>
                 const show = document.getElementById("show");

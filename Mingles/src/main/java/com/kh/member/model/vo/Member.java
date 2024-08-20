@@ -21,11 +21,6 @@ public class Member {
 	private String statusMsg;
 	
 	public Member() {}
-	
-<<<<<<< HEAD
-
-=======
->>>>>>> dc1619705f5f8cf4e19f9b747dbf59cba3f6c6b9
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
 			String gender, String enrollDate, String modifyDate, String status, String zodiac, String ABO,
 			String MBTI) {
@@ -42,13 +37,10 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.status = status;
 		this.zodiac = zodiac;
-<<<<<<< HEAD
 		this.ABO = ABO;
 		this.MBTI = MBTI;
-=======
-		this.ABO = aBO;
-		this.MBTI = mBTI;
->>>>>>> dc1619705f5f8cf4e19f9b747dbf59cba3f6c6b9
+		this.ABO = ABO;
+		this.MBTI = MBTI;
 	}
 
 	public Member(String memId, String memPwd, String nickname, String birthdate, String phone, String email,
@@ -64,7 +56,6 @@ public class Member {
 		this.ABO = aBO;
 		this.MBTI = mBTI;
 	}
-
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
 			String gender, String enrollDate, String modifyDate, String status, String zodiac, String aBO, String mBTI,
 			String profilePic, String statusMsg) {
@@ -203,23 +194,6 @@ public class Member {
 	public void setMemNo(int memNo) {
 		this.memNo = memNo;
 	}
-	
-	public String getABO() {
-		return ABO;
-	}
-	
-	public void setABO(String aBO) {
-		this.ABO = aBO;
-	}
-	
-	public String getMBTI() {
-		return MBTI;
-	}
-	
-	public void setMBTI(String mBTI) {
-		this.MBTI = mBTI;
-	}
-
 	public String getMemId() {
 		return memId;
 	}
@@ -308,7 +282,6 @@ public class Member {
 		this.status = status;
 	}
 	
-<<<<<<< HEAD
 	public String getABO() {
 		return ABO;
 	}
@@ -323,15 +296,13 @@ public class Member {
 
 	public void setMBTI(String MBTI) {
 		this.MBTI = MBTI;
-=======
-
+	}
 	public int getEgg() {
 		return egg;
 	}
 
 	public void setEgg(int egg) {
 		this.egg = egg;
->>>>>>> dc1619705f5f8cf4e19f9b747dbf59cba3f6c6b9
 	}
 
 	@Override

@@ -1,11 +1,15 @@
+<%@page import="com.kh.posts.model.vo.Post"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	ArrayList<Post> list =(ArrayList<Post>)request.getAttribute("list");
 	Member m = (Member)session.getAttribute("loginUser");
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	String errorMsg = (String)session.getAttribute("errorMsg");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -20,16 +24,16 @@
     <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="crossorigin="anonymous" referrerpolicy="no-referrer">
+    </script>
     <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="../../resources/css/commonBoard.css">
-    <script defer src="../../resources/js/commonBoard.js"></script>
+    <link rel="stylesheet" href="./resources/css/commonBoard.css">
+    <script defer src="./resources/js/commonBoard.js"></script>
 </head>
 <body>
-
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
+	
+			document.addEventListener("DOMContentLoaded", function() {
 		// 성공메시지
 		 <% if (alertMsg != null) { %>
        		 swal({
@@ -38,7 +42,6 @@
         	 });
          <% session.removeAttribute("alertMsg"); %>
    		 <% } %>
-
    		 <% if (errorMsg != null) { %>
        		 swal({
              icon: 'error',
@@ -46,20 +49,10 @@
         	 });
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
+    		location.href="<%=contextPath %>/list.po";
 		 });
-		/*
-		$(function() {
-			showPostList();
-		})
-		
-		function showPostList() {
-			$.ajax({
-				url : '',
-				
-			})
-		}*/
 	</script>
-	
+
      <% if (m != null) { %>
 	 <div id="wrap">
         <div id="container">
@@ -104,10 +97,9 @@
             <!-- Right Screen with Post Frame -->
             <div class="post-list" id="right">
                 <div id="post-right__title">
-                    <div id="right-title__text">여기에 이 파일 이름</div>
+                    <div id="right-title__text">게시글 목록</div>
                     <div id="right-title__btn">
-                        <button data-toggle="modal"
-                        data-target="#writePostModal"><div>글쓰기</div></button>
+                        <button id="modalOpenButton">글쓰기</button>
                     </div>
                 </div>
                 <div id="post-right__list">
@@ -127,13 +119,26 @@
                         
                         <!-- 여기다가 게시글 동적으로 만들면됨 -->
                         <tbody>
-                            <tr>
-                                <td>내용1</td>
-                                <td>내용2</td>
-                                <td>내용3</td>
-                                <td>내용4</td>
-                                <td>내용5</td>
-                            </tr>
+                        <% if(list == null || list.isEmpty()) 
+            		  {%>
+                 <tr>
+                    <td colspan="5">존재하는 공지사항이 없습니다.</td>
+                 </tr>
+            		<%}
+            	 else
+            	     {%>
+                <!-- case2 공지글이 있을 경우-->
+                		<%for(Post n : list)
+                     		{%>
+                				<tr>
+                    			<td><%=n.getPostNum()%></td>
+                    			<td><%=n.getPostTag()%></td>
+                    			<td><%=n.getPostTitle()%></td>
+                    			<td><%=n.getCount() %></td>
+                    			<td><%=n.getPostRegdate()%></td>
+                 				</tr>
+                   		  <%}%>
+                  	<%}%>
                         </tbody>
                         
                     </table>
@@ -141,52 +146,69 @@
             </div>
      
     						<!-- 글쓰기용 Modal -->
-                            <div class="modal fade" id="writePostModal">
-                                <div class="modal-dialog modal-dialog-centered modal-xl">
-                                       <div class="modal-content">
-    
-                                       <!-- Modal Header -->
-                                       <div class="modal-header">
-                                           <h4 class="modal-title" align="center">회원 탈퇴</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    </div>
-    
-                                    <!-- Modal body -->
-                                    <div class="modal-body" align="center">
-                                   
-                                    <form action="/Mingles/memberQuit.mi" method="post">
-                                   
-                                           <input type="hidden" name="userId" value="<%= m.getMemId() %>">
-                                           <table>
-                                           
-                                            <tr>
-                                                <td>"탈퇴하겠습니다"를 입력해주세요</td>                               		
-                                                <td><input type="text" name="quitMent" required></td>                               	
-                                            </tr>	
-                                           
-                                            <tr>
-                                                <td>비밀번호</td>                               		
-                                                <td><input type="password" name="updatePwd" required></td>                               	
-                                            </tr>	
-                                           
-                                            <tr>
-                                                <td>비밀번호 확인</td>                               		
-                                                <td><input type="password" name="checkPwd" required></td>                               	
-                                            </tr>	
-                                           
-                                           </table>
-                                   
-                                           <br>
-                                           
-                                           <button type="submit" class="btn btn-sm" onclick="return validatePwd();">회원 탈퇴</button>
-                                  		 </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                               </div>
-    </div>
+            <div id="modalContainer" class="hidden">
+                <div id="modalContent">
+                    <div class="modal_header">
+                        <div class="modal_header_button">
+                            <button id="modalCloseButton">X</button>
+                        </div>
+                        <div class="modal_header_title">
+                            <p>게시글작성</p>
+                        </div>
+                    </div>
+                    <form id="enroll-form" action="" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="userNo" value="">
+                        <div class="modal_body">
+                            <table align="center">
+                                <tr style="height: 5%;">
+                                    <th>제목</th>
+                                    <td colspan="3"><input type="text" name="title" required></td>
+                                </tr>
+                                <tr style="height: 5%;">
+                                    <th>태그</th>
+                                    <td  style="width:75%;"><input type="text" name="tag" required></td>
+                                    <th>공개범위</th>
+                                    <td>
+                                        <select name="scop">
+                                            <!-- Category 테이블로부터 조회해둘꺼임-->
+                                            <option value="p">전체</option>
+                                            <option value="f">친구만</option>
+                                            <option value="m">나만보기</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr style="height: 85%;">
+                                    <th>내용</th>
+                                    <td colspan="3"><textarea rows="10" name="content" style="resize: none;" required></textarea></td>
+                                </tr>
+                                <tr style="height: 5%; ">
+                                    <th>첨부파일</th>
+                                    <td colspan="3"><input style="margin-top: 2px;" type="file" name="upfile"></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="modal_footer">
+                            <button type="submit">작성하기</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+         </div>
+     </div>
 	<% } %>
+<script>
 
+    const modalOpenButton = document.getElementById('modalOpenButton');
+    const modalCloseButton = document.getElementById('modalCloseButton');
+    const modal = document.getElementById('modalContainer');
+
+    modalOpenButton.addEventListener('click', () => {
+    modal.classList.remove('hidden');
+    });
+
+    modalCloseButton.addEventListener('click', () => {
+    modal.classList.add('hidden');
+    });
+</script>
 </body>
 </html>

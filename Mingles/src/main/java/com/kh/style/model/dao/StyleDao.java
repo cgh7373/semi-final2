@@ -26,7 +26,6 @@ public class StyleDao {
 		}
 		
 	}
-	
 	// 아바타 유무 여부 판별 - hasStyle
 	public static boolean hasStyle(Connection conn, int memNo) {
 		
@@ -107,5 +106,5 @@ public class StyleDao {
 		return result;
 		
 	}// insertStyle
-
+	
 }

@@ -253,56 +253,129 @@ thead th {
     text-align: center;
 }
 
-tbody {
+.post-list tbody {
     text-align: center;
     font-size: 30px;
 }
 
-tbody tr {
+.post-list tbody tr {
     transition: .4s;
 }
 
-tbody tr:hover {
+.post-list tbody tr:hover {
     background-color: #defcfb;
     border: 1px solid #48BFE3;
     border-radius: 5%;
     cursor: pointer;
 }
+/*모달창*/
+#modalContainer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+  }
+  #modalContent {
+    position: absolute;
+    background-color: #ffffff;
+    width: 800px;
+    height: 800px;
+    padding: 5px;
+  }
+  #modalContainer.hidden {
+    display: none;
+  }
+  .modal_header
+  {
+    position: relative;
+    width: 100%;
+    height: 6%;
+  }
+  .modal_header .modal_header_title
+  {
+    position: relative;
+    width: 100%;
+    height: 70%;
+  }
+  .modal_header .modal_header_title p
+  {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 47.5%;
+    font-size: x-large;
+    font-weight: 700;
+  }
+  .modal_header .modal_header_button
+  {
+    position: relative;
+    width: 100%;
+    height: 30%;
+  }
+  .modal_header .modal_header_button #modalCloseButton
+  {
+    position: absolute;
+    right: 0;
+  }
+  #modalContent form
+  {
+    width: 100%;
+    height: 94%;
+  }
+  #modalContent form .modal_body
+  {
+    width: 100%;
+    height: 95%;
+    margin: auto;
+  }
+  #modalContent #enroll-form .modal_body table
+  {
+    width: 100%;
+    height: 100%;
 
-#writePostModal {
-	width : 80%;
-}
+  }
+  #modalContent #enroll-form .modal_body table tr 
+  { 
+    width: 100%;
+    text-align: center;
 
-.modal * {
-	font-family: 'omyu_pretty';
-	font-size : 20px;
-}
+    font-size: larger;
 
-.modal-content {
-    border-radius: 15px;
-    overflow: hidden;
-}
-
-.modal-header {
-    background-color: #dbfffd;
-}
-
-.modal-title {
-	font-family: 'Katuri';
-    margin-left: 36%;
-    font-size: 25px;
-}
-
-.modal-body table * {
-    margin: 5%;
-}
-
-.modal .modal-body button {
-    border-radius: 10px;
-    background-color: #dbfffd;
-    transition: .8s;
-    &:hover {
-        box-shadow: 0 0 4px 2px #07BEB8;
-        background-color: #c3f8f5;
-    }
-}
+  }
+  #modalContent #enroll-form .modal_body table tr th,td
+  {
+    padding: 5px;
+    vertical-align: middle;
+  }
+  #modalContent #enroll-form .modal_body table tr th
+  {
+    vertical-align: middle;
+    width: 10%;
+  }
+  #modalContent #enroll-form .modal_body table tr td
+  {
+    width: 90%;
+  }
+  #modalContent #enroll-form .modal_footer
+  {
+    position: relative;
+    width: 100%;
+    height: 5%;
+  }
+  #modalContent #enroll-form .modal_footer button
+  {
+    position: absolute;
+    top: 20%;
+    right: 1%;
+  }
+  #enroll-form input, #enroll-form textarea
+  {
+    width: 100%; 
+    height: 100%;
+    box-sizing: border-box;
+  }

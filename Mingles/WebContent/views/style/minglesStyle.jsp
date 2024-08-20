@@ -2,10 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-Member m = (Member)session.getAttribute("loginUser");
-String contextPath = request.getContextPath();
-String alertMsg = (String)session.getAttribute("alertMsg");
-String errorMsg = (String)session.getAttribute("errorMsg");
+	Member m = (Member)session.getAttribute("loginUser");
+	String contextPath = request.getContextPath();
+	String alertMsg = (String)session.getAttribute("alertMsg");
+	String errorMsg = (String)session.getAttribute("errorMsg");
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -190,7 +191,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기
 	function saveAvatar(){
 		let selected = getValues();
-		const userId = <%= m.getMemNo()%>;
+		const userId = 1;
 		
 		// 사용자가 아바타가 있는지 없는지 확인하는 ajax문
 		$.ajax({
