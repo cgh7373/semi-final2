@@ -53,7 +53,7 @@
     </head>
 
     <body>
-
+    
         <div id="wrap">
 
             <!-- 메인 화면 -->
@@ -63,7 +63,8 @@
                     <div class="tagList">
                         <div class="swiper">
                             <div class="swiper-wrapper" id="swiper-wrapper">
-           									
+           						<!-- 여기에 값이 들어가야함 -->
+                                   <div class='swiper-slide btn btn--tag color-7'>#강아지</div>
                             </div>
                         </div>
                     </div>
@@ -110,11 +111,19 @@
                         <div class="swiper">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide"><img src="../../resources/images/게시글사진.webp"/></div>
-                                <div class="swiper-slide"><div class="text--post--title">게시글1</div><div class="text--post--content">내용</div></div>
+                                <div class="swiper-slide">
+                                    <!-- 다시생각해보기 -->
+                                    <ul>
+                                       <td>제목</td>
+                                       <td>글쓴이</td> 
+                                       <td>count</td>
+                                    </ul>
+
+                                </div>
                                 <div class="swiper-slide"><img src="../../resources/images/게시글사진.webp"/></div>
-                                <div class="swiper-slide"><div class="text--post">게시글2</div><div class="text--post--content">내용</div></div>
+                                <div class="swiper-slide"></div>
                                 <div class="swiper-slide"><img src="../../resources/images/게시글사진.webp"/></div>
-                                <div class="swiper-slide"><div class="text--post">게시글3</div><div class="text--post--content">내용</div></div>
+                                <div class="swiper-slide"></div>
                                 <div class="swiper-slide"><img src="../../resources/images/게시글사진.webp"/></div>
                             </div>
                             <div class="swiper-button-next"></div>
@@ -129,17 +138,13 @@
     </body>
     
     <script>
-    	const mN = <%= m.getMemNo() %>
-    	$(function(){
-    		tagList();
-    	})
     	
     	// ajax로 태그리스트 조회용
     	function tagList(){
     		$.ajax({
-    			url:"tag.cmu",
+    			url:"/tag.cmu",
     			data:{
-    				memNo:mN
+    				memNo:memNo
     			},
     			success:function(tags){
     				let value = "";
@@ -152,6 +157,26 @@
     			},
     			error:function(){
     				console.log("태그리스트 조회용 ajax실패띠");
+    			},
+    		})
+    	}
+    	
+    	/* 게시글 리스트조회용 */
+    	function postList(){
+    		$.ajax({
+    			url:"/pList.cmt",
+    			success:function(c){
+    				let value = "";
+    				for(Community cmt : list ){
+    					value += '<div class="text--post--title">
+    							+ cmt[i].postTitle
+    							+ '</div><div class="text--post--content">'
+    							+ cmt[i].postWirter
+    							+ '</div>'
+    				}
+    			},
+    			error:function(c){
+    				console.log("게시글 조회용 ajax실패띠");
     			},
     		})
     	}

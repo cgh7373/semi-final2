@@ -16,6 +16,13 @@ public class CommunityService {
 		return list;
 	}
 	
+	public ArrayList<Community> postList(String memId){
+		Connection conn = getConnection();
+		ArrayList<Community> list = new CommunityDao().postList(conn, memId);
+		close(conn);
+		return list;
+	}
+	
 	
 
 }

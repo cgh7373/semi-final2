@@ -57,6 +57,30 @@ public class CommunityDao {
 		}return list;
 	}
 	
+	public ArrayList<Community> postList(Connection conn, String memId){
+		ArrayList<Community> list = new ArrayList<Community>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("postList");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Community cmt = new Community();
+				cmt.setPostWriter(Integer.parseInt(memId));
+				cmt.setPostTitle(rset.getString("post_title"));
+				cmt.setPostCount(rset.getInt("post_count"));
+				list.add(cmt);
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}return list;
+	}
 	
 	
 	

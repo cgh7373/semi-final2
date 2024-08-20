@@ -34,6 +34,13 @@ public class Community {
 		this.postBlock = postBlock;
 	}
 
+	public Community(String postTitle, int postWriter, int postCount) {
+		super();
+		this.postTitle = postTitle;
+		this.postWriter = postWriter;
+		this.postCount = postCount;
+	}
+
 	public int getPostNum() {
 		return postNum;
 	}
