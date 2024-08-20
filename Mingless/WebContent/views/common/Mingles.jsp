@@ -104,14 +104,14 @@
                                         <!-- 아이디 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="name">ID</label>
-                                            <input placeholder="아이디를 입력하세요." class="form_style" type="text" name="userId" required>
+                                            <input placeholder="아이디를 입력하세요." value="admin" class="form_style" type="text" name="userId" required>
                                         </div>
 
                                         <!-- 비밀번호 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="password">Password</label>
                                             <input placeholder="비밀번호를 입력하세요" id="password" class="form_style"
-                                                type="password" name="userPwd" required>
+                                                type="password" name="userPwd" required value="123">
                                         </div>
                                         <!-- 로그인 area -->
                                         <div class="login-area">

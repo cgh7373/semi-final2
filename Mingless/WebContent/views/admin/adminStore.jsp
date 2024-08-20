@@ -73,7 +73,8 @@
                                         <div class="modal-body">
                                             <div class="addProduct">
                                                 <h2 class="modal-header">상품 등록</h2>
-                                                <form action="insertItem.am" method="post" enctype="multipart/form-data">
+                                                <!--  <form action="insertItem.am" method="post" enctype="multipart/form-data">  -->
+                                                    <div id="insertform">
                                                     <div id="productImage"></div>
                                                     <label class="input-file-button" for="input-file">
                                                         사진 업로드
@@ -97,8 +98,9 @@
                                                         </div>
                                                         <div class="openTag btn">태그작성</div>
                                                     </div>
-                                                    <button class="submit btn btn-sm btn-primary">상품등록</button>
-                                                </form>
+                                                    <button type="button" id="insertItem" class="submit btn btn-sm btn-primary" onclick="insertItems();">상품등록</button>
+                                                </div>
+                                                <!--  </form> -->
                                             </div>
                                         </div>
                                     </div>
@@ -106,18 +108,61 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 폼태그내의 값들 보내기 -->
+					<script>
+                        // 태그
+                        var input = document.querySelector('input[name=basic]')
+                        var tagify = new Tagify(input, {
+                            maxtag: 3,
+                        });
 					
+					// 등록 버튼 눌렀을때
+                    function insertItems(){
+                        	// alert("dddddd")
+                        	// 태그값 저장
+							var tags = tagify.value;
+                            var tagString = JSON.stringify(tags);
+							
+                        	// formdata 저장
+                            var formData = new FormData(this);
+                            formData.append('tags', tagString);
+                            
+                            $.ajax({
+                                type: 'POST',
+                                url: "<%= contextPath %>/insertItem.am",
+                                enctype: 'multipart/form-data',
+                                data: formData,
+                                processData: false,
+                                contentType: false, 
+                                cache: false,
+                                success:function(){
+                                    alert("상품 등록 성공");
+                                },
+                                error:function(){
+                                    console.log("Ajax insertItem error");
+                                    
+                                },
+                            });
+
+                    }
+					
+                    </script>
+                    
 					
                     <!-- 페이지 콘텐츠 -->
                     <div class="row">
                         <%for(Item i : item) {%>
-                            <div class="card" style="width:200px; height: auto; margin-left: 20px; margin-bottom: 20px">
+                            <div class="card" id="itemCard" style="width:200px; margin-left: 20px; margin-bottom: 20px">
                                 <img class="card-img-top" src=".<%=i.getSaveFile() %>" alt="item image1" style="width:100%">
                                     <div class="card-body">
                                         <h4 class="card-title"><%=i.getItemName() %></h4>
                                         <p class="price"><%=i.getPrice() %> <i class="fas fa-solid fa-egg" style="color: lightblue"></i></p>
                                         <p class="card-text" style="font-size:18px" height:60px><%=i.getItemExplan() %></p>
-                                        <br>
+                                        <%if(i.getItemTag() == null){ %>
+                                            <p class="itemTag">#태그없음</p>
+                                        <%}else{ %>
+                                            <p class="itemTag"><%=i.getItemTag() %></p>
+                                        <%} %>
                                         <button class="dropdown-menu btn-primary" id="itemSetting">상품관리</button>
                                         <div class="dropdown">
                                             <button type="button" class="btn btn-item dropdown-toggle btn-primary" data-toggle="dropdown">
@@ -155,7 +200,7 @@
                                                 <p class="price">\${a[i].price} <i class="fas fa-egg" style="color: lightblue"></i></p>
                                                     
                                                 <p class="card-text" style="font-size:18px">\${a[i].itemExplan}</p>
-                                                <br>
+                                                <p class="itemTag">\${a[i].itemTag ? a[i].itemTag : '#태그없음'}</p>
                                                 <button class="dropdown-menu btn-primary" id="itemSetting">상품관리</button>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn btn-item dropdown-toggle btn-primary" data-toggle="dropdown">

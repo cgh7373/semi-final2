@@ -590,7 +590,7 @@ h1 span:nth-child(7) {
   height: 350px;
 }
 
-.addProduct form {
+.addProduct #insertform{
   position: relative;
 }
 
@@ -765,4 +765,12 @@ h1 span:nth-child(7) {
 
 #memberTable tbody .fas:hover{
   cursor: pointer;
+}
+
+.row #itemcard{
+	max-height: 430px;
+}
+
+.row .card .itemTag{
+	font-size: 18px;
 }

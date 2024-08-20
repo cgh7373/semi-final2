@@ -12,11 +12,12 @@ public class Item {
 	private Date itemUpdate;
 	private String itemStatus;
 	private String saveFile;
+	private String itemTag;
 	
 	public Item () {}
 
 	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
-			Date itemUpdate, String itemStatus, String saveFile) {
+			Date itemUpdate, String itemStatus, String saveFile, String itemTag) {
 		super();
 		this.itemNo = itemNo;
 		this.itemCategory = itemCategory;
@@ -27,12 +28,13 @@ public class Item {
 		this.itemUpdate = itemUpdate;
 		this.itemStatus = itemStatus;
 		this.saveFile = saveFile;
+		this.itemTag = itemTag;
 	}
 	
 	
 
 	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
-			String itemStatus, String saveFile) {
+			String itemStatus, String saveFile, String itemTag) {
 		super();
 		this.itemNo = itemNo;
 		this.itemCategory = itemCategory;
@@ -42,6 +44,7 @@ public class Item {
 		this.itemEnrollDate = itemEnrollDate;
 		this.itemStatus = itemStatus;
 		this.saveFile = saveFile;
+		this.itemTag = itemTag;
 	}
 	
 	public String getSaveFile() {
@@ -115,13 +118,24 @@ public class Item {
 	public void setItemStatus(String itemStatus) {
 		this.itemStatus = itemStatus;
 	}
+	
+	
+	public String getItemTag() {
+		return itemTag;
+	}
+
+	public void setItemTag(String itemTag) {
+		this.itemTag = itemTag;
+	}
 
 	@Override
 	public String toString() {
 		return "Item [itemNo=" + itemNo + ", itemCategory=" + itemCategory + ", itemName=" + itemName + ", price="
 				+ price + ", itemExplan=" + itemExplan + ", itemEnrollDate=" + itemEnrollDate + ", itemUpdate="
-				+ itemUpdate + ", itemStatus=" + itemStatus + ", saveFile=" + saveFile + "]";
+				+ itemUpdate + ", itemStatus=" + itemStatus + ", saveFile=" + saveFile + ", itemTag=" + itemTag + "]";
 	}
+
+	
 
 	
 	

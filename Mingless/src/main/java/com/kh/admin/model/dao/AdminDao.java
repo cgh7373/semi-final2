@@ -113,6 +113,7 @@ public class AdminDao {
 								, rset.getDate("item_date")
 								, rset.getString("item_status")
 								, rset.getString("save_file")
+								, rset.getString("item_tag")
 								));
 			}
 		} catch (SQLException e) {
@@ -170,6 +171,7 @@ public class AdminDao {
 									, rset.getDate("item_date")
 									, rset.getString("item_status")
 									, rset.getString("SAVE_FILE")
+									, rset.getString("item_tag")
 									));
 						}
 		} catch (SQLException e) {
@@ -214,6 +216,7 @@ public class AdminDao {
 			pstmt.setString(2, i.getItemName());
 			pstmt.setInt(3, i.getPrice());
 			pstmt.setString(4, i.getItemExplan());
+			pstmt.setString(5,i.getItemTag());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
