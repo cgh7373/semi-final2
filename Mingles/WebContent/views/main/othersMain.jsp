@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	Member m = (Member)session.getAttribute("loginUser");
 	Member o = (Member)session.getAttribute("otherUser");
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
@@ -120,6 +121,35 @@
             </div>
             </div>
         </div>
+        
+        <!-- 캘린더 Modal -->
+		<div class="modal fade" id="calendarModal">
+    		<div class="modal-dialog modal-dialog-centered">
+       			<div class="modal-content">
+       			
+				<div class="modal-body" align="center">
+           		<div class="calendar-container">
+			        <div class="calendar-header">
+			          <a id="prevBtn" class="btn">이전</a>
+			          <h2 id="currentMonth"></h2>
+			          <a id="nextBtn" class="btn">다음</a>
+			        </div>
+			        <div class="calendar-days">
+			          <div class="day">일</div>
+			          <div class="day">월</div>
+			          <div class="day">화</div>
+			          <div class="day">수</div>
+			          <div class="day">목</div>
+			          <div class="day">금</div>
+			          <div class="day">토</div>
+			        </div>
+			        <div class="calendar-dates" id="calendarDates"></div>
+			   </div>
+           		
+           		</div>
+                </div>
+            </div>
+        </div>
 	
 	 <div id="wrap">
         <div id="container">
@@ -131,8 +161,11 @@
                 </div>
                 <div class="left__content" id="con2">
                     <div id="con2__nickname"><%= o.getNickname() %></div>
+                    
                     <button id= "diary" class="material-icons">auto_stories</button> 
                     <button id="mailIcon" class="material-icons">mail_outline</button>
+                    <button id="calendarIcon" class="material-icons" data-toggle="modal" data-target="#calendarModal">calendar_month</button>
+                    
                     <div id="con2__my_text"><%=o.getStatusMsg() %></div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= o.getEmail() %>">이메일</div>
