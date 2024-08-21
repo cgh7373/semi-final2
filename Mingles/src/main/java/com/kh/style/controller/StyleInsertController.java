@@ -38,8 +38,11 @@ public class StyleInsertController extends HttpServlet {
 		String top =  request.getParameter("top");
 		String bottom = request.getParameter("bottom");
 		String shoes = request.getParameter("shoes");
+		String wall = request.getParameter("wall");
+		String floor = request.getParameter("floor");
+		String theme = request.getParameter("theme");
 		
-		Style st = new Style(memNo, hair, face, top, bottom, shoes);
+		Style st = new Style(memNo, hair, face, top, bottom, shoes, wall, floor, theme);
 		
 		int result = new StyleService().insertStyle(st);
 

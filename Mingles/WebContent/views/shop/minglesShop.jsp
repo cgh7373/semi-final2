@@ -1,5 +1,11 @@
+<%@page import="com.kh.admin.model.vo.Item"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.shop.model.vo.Shop"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% ArrayList<Item> list = (ArrayList<Item>)session.getAttribute("list"); %>
+<% out.println(list); %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,12 +80,9 @@
                         </div>
 
                     </div>
-
-
                 </header>
-
+                
                 <content>
-
                     <div class="content-top">
                         <span class="tag-wrapper">
                             <div id="tag">카테고리를 선택해서 아이템을 모아보아요!</div>
@@ -87,57 +90,24 @@
                     </div>
 
                     <div class="content-main">
-
                         <ul> <!-- 여기 안에 아이템 데이터목록 -->
-
+						  <% for(Item it: list){%>
                             <!-- 이게 template -->
                             <li>
-
                                 <div class="item-container">
-
-                                    <div class="img-box"><img src="../../resources/images/Mingles-움직임.gif" alt=""></div>
-
+                                    <div class="img-box"><img src="<%= it.getItemTag()%>"></div>
                                     <div class="item-detail">
-                                        <p class="item-name">백설공주의 유혹</p>
-                                        <p class="item-desc">후후.. 너도 나처럼.... Lorem ipsum dolor sit amet consectetur
-                                            adipisicing elit. Labore ex aliquid incidunt itaque similique ab, maxime
-                                            consequuntur consequatur minima? Sed deleniti quisquam aspernatur,
-                                            temporibus minus similique rem accusamus iure perspiciatis?</p>
-                                        <p class="item-maker"><span>만든이 : </span>김응애(kimbaby)</p>
-                                        <p class="item-date"><span>출시일 : </span>2024/06/04</p>
+                                        <p class="item-name"><%= it.getItemName()%></p>
+                                        <p class="item-desc"><%= it.getItemExplan()%></p>
+                                        <p class="item-maker"><span>만든이 : </span><%=it.getItemName() %></p>
+                                        <p class="item-date"><span>출시일 : </span><%=it.getItemUpdate() %></p>
                                     </div>
-
-
                                 </div>
-
                             </li>
-
-                            <li>
-
-                                <div class="item-container">
-                                    
-                                    <div class="img-box"><img src="../../resources/images/차은우.jpg" alt=""></div>
-
-                                    <div class="item-detail">
-                                        <p class="item-name">공주의물약</p>
-                                        <p class="item-desc">Lorem ipsum dolor sit amet consectetur
-                                            adipisicing elit. Labore ex aliquid incidunt itaque similique ab, maxime
-                                            consequuntur consequatur minima? Sed deleniti quisquam aspernatur,
-                                            temporibus minus similique rem accusamus iure perspiciatis?</p>
-                                        <p class="item-maker"><span>만든이 : </span>김야옹(kimbaby)</p>
-                                        <p class="item-date"><span>출시일 : </span>2024/07/04</p>
-                                    </div>
-
-                                </div>
-
-                            </li>
-
+						  <%} %>
                         </ul>
-
                     </div>
-
                 </content>
-
                 <footer>
 
                     <div class="pagination-container">
@@ -164,7 +134,7 @@
 </body>
 
 <script>
-
+console.log(<%= list%>);
 
 
 </script>

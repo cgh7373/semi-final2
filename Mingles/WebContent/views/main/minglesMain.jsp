@@ -173,14 +173,32 @@
                     </div>
                 </div>
             </div>
+            <!-- MP3 BUTTON-->
+            <div class="music">
+                <img src="../../resources/images/cd.png" alt="cd그림" id ="mp3Button">
+    
+                    <!-- img 클릭하면 이 창 뜸 -->
+                    <div class ="popover-content" id = "show">
+                        <div class = "musicThumbnail" id="musicThumbnail">
+                            <!-- 여기에 썸네일 이미지 추가 -->
+                        </div>
+                        <div class = "music--info">
+                            <p class="music--title">ETA <!--여기에 jsp로 제목 입력할것--> </p>
+                            <p class="music--singer">뉴진스<!--여기에 jsp로 가수 입력할것--> </p>
+                        </div>
+                        <!-- PLAYLIST BUTTON -->
+                        <button class="material-icons">expand_less</button>
+                        <button class="material-icons">expand_more</button>
+                        <button class="material-icons" id="playlist" data-toggle="modal" data-target="#myModal">playlist_play</button>
+                    </div>
+    
+                </div>
 
             <!-- 오른쪽 화면 - 미니홈피 -->
             <div class = "minihompi">
                 <%@ include file = "../style/minglesStyle2.jsp"%> 
             </div><!--미니홈피 div 끝-->
-    
-                <!-- 꾸미기 버튼 -->
-                <button id="decorate">나도 꾸미기</button>
+
     
                 <!-- 좋아요 표시 -->
                 <div class="heart-container" title="Like">
@@ -204,27 +222,6 @@
                         </svg>
                     </div>
                 </div><!--좋아요 div 끝-->
-    
-            <!-- MP3 BUTTON-->
-            <div class="music">
-            <img src="../../resources/images/cd.png" alt="cd그림" id ="mp3Button">
-
-                <!-- img 클릭하면 이 창 뜸 -->
-                <div class ="popover-content" id = "show">
-                    <div class = "musicThumbnail" id="musicThumbnail">
-                        <!-- 여기에 썸네일 이미지 추가 -->
-                    </div>
-                    <div class = "music--info">
-                        <p class="music--title">ETA <!--여기에 jsp로 제목 입력할것--> </p>
-                        <p class="music--singer">뉴진스<!--여기에 jsp로 가수 입력할것--> </p>
-                    </div>
-                    <!-- PLAYLIST BUTTON -->
-                    <button class="material-icons">expand_less</button>
-                    <button class="material-icons">expand_more</button>
-                    <button class="material-icons" id="playlist" data-toggle="modal" data-target="#myModal">playlist_play</button>
-                </div>
-
-            </div>
                 
                 <script>
                 const show = document.getElementById("show");

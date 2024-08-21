@@ -210,7 +210,7 @@
             </span>
 
             <!-- 상점탭 -->
-            <span class="material-icons shopTab" title="상점">
+            <span class="material-icons shopTab" title="상점" onclick="window.location.href='<%=contextPath%>/list.it'">
                 storefront
             </span>
 

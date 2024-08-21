@@ -380,11 +380,25 @@ left:20%;
 top:30%;
 }
 
-/* FLOOR : Z-INDEX 70s */
+/* ROOM : Z-INDEX 80s */
 
-.floor-skin img{
+.floor img{
 position:absolute;
 width:100%;
 height:100%;
-z-index:71;
+z-index:81;
+}
+
+.wall img{
+position:absolute;
+width:100%;
+height:100%;
+z-index:81;
+}
+
+.theme img{
+position:absolute;
+width:100%;
+height:100%;
+z-index:81;
 }

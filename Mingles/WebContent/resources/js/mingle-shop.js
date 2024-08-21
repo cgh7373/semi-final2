@@ -29,7 +29,7 @@ document.getElementById('2-2').addEventListener('click', function() {
 })
 document.getElementById('2-3').addEventListener('click', function() {
     tag.innerHTML = '';
-    tag.innerHTML = '내방 꾸미기 - 아이템';
+    tag.innerHTML = '내방 꾸미기 - 테마';
 })
 
 document.getElementById('3-1').addEventListener('click', function() {

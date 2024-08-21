@@ -1,5 +1,5 @@
 package com.kh.style.model.service;
-
+import static com.kh.common.JDBCTemplate.*;
 import java.sql.Connection;
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.style.model.dao.StyleDao;
