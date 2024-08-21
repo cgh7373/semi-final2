@@ -99,25 +99,21 @@ public class AdminInsertItemController extends HttpServlet {
 //		}
 		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			
-			//String[] arr1 = request.getParameterValues("arrValue");
-			//System.out.println(arr1[0]);
-			
+	
 			try {
 				DiskFileItemFactory factory = new DiskFileItemFactory();
 				factory.setSizeThreshold(10 * 1024 * 1024);
 				String savePath = request.getSession().getServletContext().getRealPath("/resources/item_upfiles/");
-
-				MultipartRequest multiRequest = new MultipartRequest(request, savePath);
-				
-				String[] arr = multiRequest.getParameterValues("arrValue");
-				System.out.println(arr[0]);
 				
 				File uploadDir = new File(savePath);
-                if (!uploadDir.exists()) {
-                	System.out.println("ddd");
-                    uploadDir.mkdirs(); // 디렉토리가 존재하지 않으면 생성
-                }
+				if (!uploadDir.exists()) {
+				    boolean dirCreated = uploadDir.mkdirs();
+				    if (dirCreated) {
+				        System.out.println("Directory created successfully.");
+				    } else {
+				        System.out.println("Failed to create directory.");
+				    }
+				}
                 
 				factory.setRepository(uploadDir);
 				ServletFileUpload upload = new ServletFileUpload(factory);
@@ -133,10 +129,9 @@ public class AdminInsertItemController extends HttpServlet {
 				for(FileItem item : items) {
 					// 사진
 					if("itemImg".equals(item.getFieldName())) {
-						String originName = item.getString("utf-8");
-						
-						System.out.println(savePath);
-						String changeName = newFileName(originName);
+						//String originName = item.getName("utf-8");
+						String originName = item.getName();
+						String changeName = newFileName(originName);					
 						File file = new File(savePath, changeName);
 						
 						item.write(file);
@@ -169,7 +164,7 @@ public class AdminInsertItemController extends HttpServlet {
                            itemTags.add(tag.getValue()); 
                         }
                         
-                       itemTag = String.join(", ", itemTags); 
+                       itemTag = String.join(",", itemTags); 
 					}	
 									
 				}
@@ -185,10 +180,10 @@ public class AdminInsertItemController extends HttpServlet {
 				
 				if(result > 0) {
 					request.getSession().setAttribute("alertMsg", "아이템등록 성공");
-					response.sendRedirect("/store.am");
+					response.sendRedirect(request.getContextPath() + "/store.am");
 				}else {
 					request.getSession().setAttribute("alertMsg", "아이템등록 실패");
-					response.sendRedirect("/main.am");
+					response.sendRedirect(request.getContextPath() + "/main.am");
 				}
 				
 			} catch (FileUploadException e) {

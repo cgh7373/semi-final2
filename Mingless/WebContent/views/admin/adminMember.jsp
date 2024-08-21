@@ -3,11 +3,14 @@
     pageEncoding="UTF-8"%>
 <%
 	ArrayList<Member> memList = (ArrayList<Member>)request.getAttribute("memList");
+	// 전체 회원 리스트
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
+	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -16,6 +19,8 @@
 <title>Member Admin</title>
 </head>
 <body id="page-top">
+	
+	
 	
     <!-- 페이지 래퍼 -->
     <div id="wrapper">

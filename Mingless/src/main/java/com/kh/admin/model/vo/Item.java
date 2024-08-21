@@ -12,12 +12,13 @@ public class Item {
 	private Date itemUpdate;
 	private String itemStatus;
 	private String saveFile;
+	private String changeName;
 	private String itemTag;
 	
 	public Item () {}
 
 	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
-			Date itemUpdate, String itemStatus, String saveFile, String itemTag) {
+			Date itemUpdate, String itemStatus, String saveFile, String changeName,String itemTag) {
 		super();
 		this.itemNo = itemNo;
 		this.itemCategory = itemCategory;
@@ -28,11 +29,27 @@ public class Item {
 		this.itemUpdate = itemUpdate;
 		this.itemStatus = itemStatus;
 		this.saveFile = saveFile;
+		this.changeName = changeName;
 		this.itemTag = itemTag;
 	}
 	
 	
 
+	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
+			String itemStatus, String saveFile, String changeName , String itemTag) {
+		super();
+		this.itemNo = itemNo;
+		this.itemCategory = itemCategory;
+		this.itemName = itemName;
+		this.price = price;
+		this.itemExplan = itemExplan;
+		this.itemEnrollDate = itemEnrollDate;
+		this.itemStatus = itemStatus;
+		this.saveFile = saveFile;
+		this.changeName = changeName;
+		this.itemTag = itemTag;
+	}
+	
 	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
 			String itemStatus, String saveFile, String itemTag) {
 		super();
@@ -46,6 +63,7 @@ public class Item {
 		this.saveFile = saveFile;
 		this.itemTag = itemTag;
 	}
+	
 	
 	public String getSaveFile() {
 		return saveFile;
@@ -120,6 +138,14 @@ public class Item {
 	}
 	
 	
+	public String getChangeName() {
+		return changeName;
+	}
+
+	public void setChangeName(String changeName) {
+		this.changeName = changeName;
+	}
+
 	public String getItemTag() {
 		return itemTag;
 	}
@@ -132,11 +158,9 @@ public class Item {
 	public String toString() {
 		return "Item [itemNo=" + itemNo + ", itemCategory=" + itemCategory + ", itemName=" + itemName + ", price="
 				+ price + ", itemExplan=" + itemExplan + ", itemEnrollDate=" + itemEnrollDate + ", itemUpdate="
-				+ itemUpdate + ", itemStatus=" + itemStatus + ", saveFile=" + saveFile + ", itemTag=" + itemTag + "]";
+				+ itemUpdate + ", itemStatus=" + itemStatus + ", saveFile=" + saveFile + ", changeName=" + changeName
+				+ ", itemTag=" + itemTag + "]";
 	}
 
-	
-
-	
 	
 }

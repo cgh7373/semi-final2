@@ -9,6 +9,9 @@
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	ArrayList<Blacklist> blacklist = (ArrayList<Blacklist>)request.getAttribute("blacklist");
 	ArrayList<Integer> memberCount = (ArrayList<Integer>)request.getAttribute("memberCount");
+	
+	String alertMsg = (String)session.getAttribute("alertMsg");
+	String errorMsg = (String)session.getAttribute("errorMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -41,6 +44,8 @@
             href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css"
             rel="stylesheet"
             type="text/css"/>
+        <!-- sweetalert -->
+        <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- reset -->
         <link
         href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
@@ -51,7 +56,32 @@
         <script src="./views/admin/resources/adminJq.js" defer></script>
 </head>
 <body id="page-top">
+	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		// 성공메시지
+		 <% if (alertMsg != null) { %>
+       		 swal({
+             icon: 'success',
+             title: '<%=alertMsg%>',
+        	 });
+         <% session.removeAttribute("alertMsg"); %>
+   		 <% } %>
 
+   		 <% if (errorMsg != null) { %>
+       		 swal({
+             icon: 'error',
+             title: '<%=errorMsg%>',
+        	 });
+         <% session.removeAttribute("errorMsg"); %>
+    	 <% } %>
+		 });
+	
+	 	window.addEventListener('message', function(event) {
+	        if (event.data === 'membershipCanceled') {
+	            scrollToSection(0); 
+	        }
+	    });
+	</script>
     <!-- 페이지 래퍼 -->
     <div id="wrapper">
 

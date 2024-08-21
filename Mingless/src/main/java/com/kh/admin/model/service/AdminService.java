@@ -78,6 +78,8 @@ public class AdminService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result1 * result2;
 	}
 
@@ -114,7 +116,73 @@ public class AdminService {
 			rollback(conn);
 		}
 		
+		close(conn);
+		
 		return result1 * result2;
+	}
+
+	public int deleteItem(int itemNo) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().deleteItem(conn, itemNo);
+				
+		if(result > 0 ) {
+			commit(null);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int updatePrice(int itemNo, int price) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().updatePrice(conn, itemNo, price);
+		
+		if(result > 0) { 
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int updateItemImg(Attachment at, int itemNo) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().updateItemImg(conn, at, itemNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteImg(String originFileName) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().deleteImg(conn, originFileName);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+			
+		return 0;
 	}
 
 }

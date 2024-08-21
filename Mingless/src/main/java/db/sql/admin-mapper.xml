@@ -36,6 +36,7 @@
 		     , ITEM_STATUS
 		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
 		     , ITEM_TAG
+		     , CHANGE_NAME
 		  FROM ITEM
 		  JOIN ITEMCATEGORY USING(ITEM_CATEGORY)
 		  JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
@@ -173,5 +174,34 @@
 		UPDATE MEMBER_BLACKLIST
 		   SET BLOCK_COUNT = BLOCK_COUNT + 1
 		 WHERE BLACKLIST_NO = SEQ_BLACKLIST.CURRVAL
+	</entry>
+	
+	<entry key="deleteItem">
+		UPDATE ITEM
+		   SET ITEM_STATUS = 'N'
+		 WHERE ITEM_NUM = ?
+	</entry>
+	
+	<entry key="updatePrice">
+		UPDATE ITEM
+		   SET PRICE = ?
+		 WHERE ITEM_NUM = ?
+	</entry>
+	
+	<entry key="updateItemImg">
+		UPDATE ATTACHMENT
+		   SET ORIGIN_NAME = ?,
+      	   	   CHANGE_NAME = ?
+		 WHERE FILE_NO = (SELECT 
+		                         ATTACHMENT_NO
+		                    FROM ITEM
+		                   WHERE ITEM_NUM = ?
+		                 )
+	</entry>
+	
+	<entry key="deleteImg">
+		DELETE 
+		  FROM ATTACHMENT
+		 WHERE CHANGE_NAME = ?
 	</entry>
 </properties>

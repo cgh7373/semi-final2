@@ -113,6 +113,7 @@ public class AdminDao {
 								, rset.getDate("item_date")
 								, rset.getString("item_status")
 								, rset.getString("save_file")
+								, rset.getString("change_name")
 								, rset.getString("item_tag")
 								));
 			}
@@ -326,6 +327,87 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteItem(Connection conn, int itemNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteItem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, itemNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updatePrice(Connection conn, int itemNo, int price) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePrice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, price);
+			pstmt.setInt(2, itemNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateItemImg(Connection conn, Attachment at, int itemNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateItemImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setInt(3, itemNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteImg(Connection conn, String originFileName) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, originFileName);
+			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

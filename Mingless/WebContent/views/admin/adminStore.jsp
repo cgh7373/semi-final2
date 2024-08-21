@@ -5,10 +5,9 @@
 
 <%
 	ArrayList<Item> item = (ArrayList<Item>)request.getAttribute("item");
-	// 아이템번호, 카테고리이름, 아이템이름, 가격, 아이템설명, 아이템등록일, 아이템 판매상태
+	// 아이템번호, 카테고리이름, 아이템파일번호 ,아이템이름, 가격, 아이템설명, 아이템등록일, 아이템 판매상태, 태그
 	ArrayList<ItemCategory> itemCategory = (ArrayList<ItemCategory>)request.getAttribute("itemCategory");
 	// 아이템카테고리번호, 카테고리 이름
-	String alertMsg = (String)session.getAttribute("alertMsg");
 %>
 <!DOCTYPE html>
 <html>
@@ -18,12 +17,6 @@
         
 </head>
 <body id="page-top">
-	<% if(alertMsg != null){ %>
-		<script>
-			alert("<%=alertMsg %>");				
-		</script>
-		<% session.removeAttribute("alertMsg"); %>
-	<% } %>
     <!-- 페이지 래퍼 -->
     <div id="wrapper">
 
@@ -73,8 +66,8 @@
                                         <div class="modal-body">
                                             <div class="addProduct">
                                                 <h2 class="modal-header">상품 등록</h2>
-                                                <!--  <form action="insertItem.am" method="post" enctype="multipart/form-data">  -->
-                                                    <div id="insertform">
+                                                    <form action="insertItem.am" method="post" enctype="multipart/form-data">
+                                                    <!-- <div id="insertform"> -->
                                                     <div id="productImage"></div>
                                                     <label class="input-file-button" for="input-file">
                                                         사진 업로드
@@ -96,11 +89,11 @@
                                                         <div class="detailCategory">
                                                             <input name="basic" id="tag"/>
                                                         </div>
-                                                        <div class="openTag btn">태그작성</div>
+                                                        <div class="openTag btn tagify--hasMaxTags">태그작성</div>
                                                     </div>
-                                                    <button type="button" id="insertItem" class="submit btn btn-sm btn-primary" onclick="insertItems();">상품등록</button>
-                                                </div>
-                                                <!--  </form> -->
+                                                    <button id="insertItem" class="submit btn btn-sm btn-primary" onclick="insertItems();">상품등록</button>
+                                                <!--  </div> -->
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
@@ -113,30 +106,30 @@
                         // 태그
                         var input = document.querySelector('input[name=basic]')
                         var tagify = new Tagify(input, {
-                            maxtag: 3,
+                            maxTags: 3,
                         });
 					
 					// 등록 버튼 눌렀을때
-                    function insertItems(){
+                    $('#insertItem').on('submit', function(event) {
                         	// alert("dddddd")
+                            event.preventDefault();
                         	// 태그값 저장
 							var tags = tagify.value;
                             var tagString = JSON.stringify(tags);
-							
                         	// formdata 저장
                             var formData = new FormData(this);
-                            formData.append('tags', tagString);
+                            formData.append('tags', tagString)
                             
+                            console.log(formData);
                             $.ajax({
                                 type: 'POST',
                                 url: "<%= contextPath %>/insertItem.am",
-                                enctype: 'multipart/form-data',
                                 data: formData,
                                 processData: false,
                                 contentType: false, 
                                 cache: false,
                                 success:function(){
-                                    alert("상품 등록 성공");
+                                    consloe.log("Ajax insertItem success")
                                 },
                                 error:function(){
                                     console.log("Ajax insertItem error");
@@ -144,7 +137,7 @@
                                 },
                             });
 
-                    }
+                    });
 					
                     </script>
                     
@@ -152,37 +145,64 @@
                     <!-- 페이지 콘텐츠 -->
                     <div class="row">
                         <%for(Item i : item) {%>
-                            <div class="card" id="itemCard" style="width:200px; margin-left: 20px; margin-bottom: 20px">
+                            <div class="card itemCard" style="width:200px; margin-left: 20px; margin-bottom: 20px">
                                 <img class="card-img-top" src=".<%=i.getSaveFile() %>" alt="item image1" style="width:100%">
-                                    <div class="card-body">
-                                        <h4 class="card-title"><%=i.getItemName() %></h4>
-                                        <p class="price"><%=i.getPrice() %> <i class="fas fa-solid fa-egg" style="color: lightblue"></i></p>
-                                        <p class="card-text" style="font-size:18px" height:60px><%=i.getItemExplan() %></p>
-                                        <%if(i.getItemTag() == null){ %>
-                                            <p class="itemTag">#태그없음</p>
-                                        <%}else{ %>
-                                            <p class="itemTag"><%=i.getItemTag() %></p>
-                                        <%} %>
-                                        <button class="dropdown-menu btn-primary" id="itemSetting">상품관리</button>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-item dropdown-toggle btn-primary" data-toggle="dropdown">
-                                            상품관리
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <button class="dropdown-item" id="deleteItem">상품삭제</button>
-                                                <button class="dropdown-item" id="resetItem">가격설정</button>
-                                                <button class="dropdown-item" id="settingPhoto">상품사진관리</button>
-                                            </div>
+                                <div class="card-body">
+                                    <h4 class="card-title"><%=i.getItemName() %></h4>
+                                    <p class="price"><%=i.getPrice() %> <i class="fas fa-solid fa-egg" style="color: lightblue"></i></p>
+                                    <p class="card-text"><%=i.getItemExplan() %></p>
+                                    <%if(i.getItemTag() == null){ %>
+                                        <p class="itemTag">#태그없음</p>
+                                    <%}else{ %>
+                                        <p class="itemTag"><%=i.getItemTag().replaceAll("[,]", " ") %></p>
+                                    <%} %>
+                                    <button class="dropdown-menu btn-primary" id="itemSetting">상품관리</button>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn btn-item dropdown-toggle btn-primary" data-toggle="dropdown">
+                                        상품관리
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <button class="dropdown-item" id="deleteItem" name="<%=i.getItemNo() %>" onclick="deleteItem(this);">상품삭제</button>
+                                            <button class="dropdown-item" id="resetItem" name="<%=i.getItemNo() %>"  onclick="updatePrice(this);">가격설정</button>
+                                            <button class="dropdown-item" id="settingPhoto" name="<%=i.getItemNo() %>,<%=i.getChangeName() %>" onclick="changePicture(this);">상품사진변경</button>
                                         </div>
                                     </div>
+                                </div>
                             </div>
                         <% } %>
                     </div>   
                 </div>
-				<script>
+                
+                <!-- 사진 수정 modal -->
+                <div class="modal fade" id="changePictureModal" tabindex="-1" role="dialog" aria-labelledby="changePictureModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="changePictureModalLabel">사진 변경</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="changePictureForm" action="changePicture.am" method="post" enctype="multipart/form-data">
+                                    <div id="productImages"></div>
+                                    <div align="center">
+                                    <label class="btn btn-info" for="input-files" >
+                                        사진 업로드
+                                    </label>
+                                    <input type="file" id="input-files" name="changeImg" accept="image/*" style="display: none;" required>
+                                    <input type="hidden" id="itemNum" name="itemNo">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">사진 변경</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+				<script defer>
 						// 카테고리별로 뜨는 아이템 변화주는 ajax
-						// 카테고리에서 선택시 아이템 목록 조회 다시해서 카테고리별로 띄우기
-						// 백틱사용해서 html문 만들기
 						function selectIC(el){	
 							
 							$.ajax({
@@ -192,23 +212,25 @@
 									let value = "";
 									$(".row").html("");
 									for(let i=0;i<a.length; i++){
-										value += `
-											<div class="card" style="width:200px; height: auto; margin-left: 20px; margin-bottom: 20px">
+                                        let itemTags = (a[i].itemTag || '').replaceAll(',', ' ');
+                                        let itemNo = a[i].itemNo;
+                                            value += `
+											<div class="card itemCard" style="width:200px; height: auto; margin-left: 20px; margin-bottom: 20px">
                                                 <img class="card-img-top" src=".\${a[i].saveFile}" alt="item image1" style="width:100%">
                                                 <div class="card-body">
                                                 <h4 class="card-title">\${a[i].itemName}</h4>
                                                 <p class="price">\${a[i].price} <i class="fas fa-egg" style="color: lightblue"></i></p>
                                                     
-                                                <p class="card-text" style="font-size:18px">\${a[i].itemExplan}</p>
-                                                <p class="itemTag">\${a[i].itemTag ? a[i].itemTag : '#태그없음'}</p>
+                                                <p class="card-text">\${a[i].itemExplan}</p>
+                                                <p class="itemTag">\${itemTags ? itemTags : '#태그없음'}</p>
                                                 <button class="dropdown-menu btn-primary" id="itemSetting">상품관리</button>
                                                 <div class="dropdown">
                                                     <button type="button" class="btn btn-item dropdown-toggle btn-primary" data-toggle="dropdown">
                                                         상품관리
                                                     </button>
                                                     <div class="dropdown-menu ">
-                                                        <button class="dropdown-item" id="deleteItem">상품삭제</button>
-                                                        <button class="dropdown-item" id="resetItem">가격설정</button>
+                                                        <button class="dropdown-item" id="deleteItem" name="\${itemNo}" onclick="deleteItem(this);">상품삭제</button>
+                                                        <button class="dropdown-item" id="resetItem" name="\${itemNo}" onclick="updatePrice(this);">가격설정</button>
                                                         <button class="dropdown-item" id="settingPhoto">상품사진관리</button>
                                                     </div>
                                                 </div>
@@ -224,6 +246,43 @@
 								},
 							})							
 						}
+						
+                        // 상품 삭제
+                        function deleteItem(el){
+                            console.log(el.name);
+
+                            location.href = "deleteItem.am?itemNo=" + el.name;						
+                        }
+
+                        // 상품 가격 설정
+                        function updatePrice(el){
+                            console.log(el.name);
+
+                            setPrice = Number(window.prompt("변경할 가격",{
+                                title: '가격 변경',
+                            }));
+                            location.href = "updatePrice.am?itemNo=" + el.name + "&price=" + setPrice;
+                        }
+
+                        // 사진 변경
+                        function changePicture(el){
+                            console.log(el.name);
+                         // 아이템 번호 가져오기
+                            var itemNo = el.name;
+                            
+                         	
+                            // 모달의 hidden input에 아이템 번호 설정
+                            document.getElementById('itemNum').value = itemNo;
+                            
+                            // 모달 띄우기
+                            $('#changePictureModal').modal('show');
+                            
+                        }
+
+                        function submitPictureForm() {
+	                        // 폼 제출
+	                        document.getElementById('changePictureForm').submit();
+                        }
 				</script>
             </div>
 
@@ -255,17 +314,5 @@
             </div>
         </div>
     </div>
-    <script>
-        window.onload = function() {
-            const url = window.location.href;
-            const urlWithoutQueryString = window.location.origin + window.location.pathname;
-	
-	        // 현재 URL이 쿼리 문자열을 포함하고 있는지 확인합니다.
-            if (url !== urlWithoutQueryString) {
-	            // 쿼리 문자열이 제거된 URL로 브라우저의 URL을 업데이트합니다.
-                window.history.replaceState({}, document.title, urlWithoutQueryString);
-            }
-        };
-    </script>
 </body>
 </html>

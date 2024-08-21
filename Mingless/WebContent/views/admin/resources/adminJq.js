@@ -16,11 +16,25 @@ $(function(){
         console.log(event);
     });
 
+    $("#input-files").change(function (event) {
+        var reader = new FileReader();
 
+        reader.onload = function (event) {
+            var img = $("#productImages img");
+
+            if(img.length === 0){
+                var img = $("<img>");
+                $("#productImages").append(img);
+            }
+            img.attr("src", event.target.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+        console.log(event);
+    });
     
     // 태그가 추가되면 이벤트 발생
-    $("#insertItem").on('click', function() {
-        console.log(tagify.value);
+    $("#tag").on('change', function() {
+        console.log(tagify.detail.value);
     });
 
     $(".openTag").click(function(){
