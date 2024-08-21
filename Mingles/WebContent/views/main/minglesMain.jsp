@@ -39,6 +39,138 @@
 	<!-- 게시글 관련 파일 만들때 이거 통으로 복붙한다음에 만들어요 절대 이파일은 수정하지 말것 -->
 
 	<script>
+
+	function parseCustomDate(dateStr) {
+		
+		    const [datePart, timePart] = dateStr.split(' ');
+		    const [year, month, day] = datePart.split('/').map(num => parseInt(num, 10));
+		    const [hours, minutes, seconds] = timePart.split(':').map(num => parseInt(num, 10));
+
+		    const fullYear = year + 2000;
+
+		    return new Date(fullYear, month - 1, day, hours, minutes, seconds);
+	}
+
+	function selectMemoList(date) {
+		 
+        $.ajax({
+        	url : "/Mingles/calendarMemo.mi",
+        	data : {
+        		date : date,
+        		memNo : "<%=m.getMemNo()%>"
+        	},
+        	success : function(result) {
+        		
+        		const itemsPerPage = 10;
+                let currentPage = 1;
+                const totalItems = result.length;
+                const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                function renderPage(page) {
+               	 
+                    const start = (page - 1) * itemsPerPage;
+                    const end = start + itemsPerPage;
+                    const pageItems = result.slice(start, end);
+
+                    let value = "";
+                    
+                    const now = new Date();
+                    
+                    for (let i in pageItems) {
+                    	
+                    	const memoStatusStr = pageItems[i].memoStatus; 
+                        const memoStatus = parseCustomDate(memoStatusStr);  
+                        const timeDiff = now - memoStatus; 
+                        
+                        let timeAgo = "";
+                        
+                        const seconds = Math.floor(timeDiff / 1000);
+                        const minutes = Math.floor(seconds / 60);
+                        const hours = Math.floor(minutes / 60);
+                        const days = Math.floor(hours / 24);
+                        const months = Math.floor(days / 30);
+                        const years = Math.floor(days / 365);
+                        
+                        if (years > 0) {
+                            timeAgo = years + "년 전";
+                        } else if (months > 0) {
+                            timeAgo = months + "달 전";
+                        } else if (days > 0) {
+                            timeAgo = days + "일 전";
+                        } else if (hours > 0) {
+                            timeAgo = hours + "시간 전";
+                        } else if (minutes > 0) {
+                            timeAgo = minutes + "분 전";
+                        } else if (seconds > 0){
+                            timeAgo = seconds + "초 전";
+                        } else {
+                        	timeAgo = "방금 전";
+                        }
+                   	 
+                              value += "<tr>"
+      	                             + "<td rowspan='2' class='memo-img'><img src='" + pageItems[i].profilePic + "'></td>"
+      	                             + "<td rowspan='2' class='memo-content'>" + pageItems[i].memoContent + "</td>"
+      	                             + "<td class='memo-nickname memo-else'>" + pageItems[i].nickname + "</td>"
+      	                             + "</tr>"
+      	                             + "<tr class='memo-dist'>"
+      	                             + "<td class='memo-statusMsg memo-else'>" + timeAgo + "</td>"
+      	                             + "</tr>";
+                            
+                    }
+
+                    $("#bulletinModal .modal-body table").html(value);
+	                     updatePaginationControls();
+	                 }
+
+	                 function updatePaginationControls() {
+	                	 
+	                     const pageNumbers = $("#bulletinModal #pageNumbers");
+	                     pageNumbers.empty();
+	                     
+	                     for (let i = 1; i <= totalPages; i++) {
+	                    	 
+	                         const button = $("<button>")
+							                             .text(i)
+							                             .addClass('page-btn')
+							                             .data('page', i)
+							                             .on('click', function() {
+							                                 currentPage = $(this).data('page');
+							                                 renderPage(currentPage);
+							                                });
+	                         pageNumbers.append(button);
+	                     }
+	
+	                     $("#bulletinModal #prevPage").prop('disabled', currentPage === 1);
+	                     $("#bulletinModal #nextPage").prop('disabled', currentPage === totalPages);
+	                     
+	                 }
+
+                $("#bulletinModal #prevPage").on('click', function() {
+               	 
+                    if (currentPage > 1) {
+                        currentPage--;
+                        renderPage(currentPage);
+                    }
+                    
+                });
+
+                $("#bulletinModal #nextPage").on('click', function() {
+               	 
+                    if (currentPage < totalPages) {
+                        currentPage++;
+                        renderPage(currentPage);
+                    }
+                    
+                });
+
+                renderPage(currentPage);
+        		
+        		
+        	}
+        })
+		 
+	 }
+	
 		document.addEventListener("DOMContentLoaded", function() {
 		// 성공메시지
 		 <% if (alertMsg != null) { %>
@@ -56,6 +188,23 @@
         	 });
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
+		
+    	 
+    	 
+         $(document).ready(function() {
+        	
+            $("#calendarDates").on("click", ".date", function() {
+            	
+                const date = $(this).data("date");
+                $("#bulletinModalLabel").text(date);
+                
+                selectMemoList(date);
+                
+                $('#bulletinModal').modal('show');
+            });
+         });
+        
+		
 		 });
 	</script>
 
@@ -269,6 +418,65 @@
     
                 </div>
                 
+                <!-- Bulletin Board Modal -->
+                <div class="modal fade" id="bulletinModal" tabindex="-1" aria-labelledby="bulletinModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-dialog-centered">
+				        <div class="modal-content">
+				        
+				            <div class="modal-header">
+				                <h5 class="modal-title" id="bulletinModalLabel">Bulletin Board</h5>
+				                <button type="button" class="close" data-dismiss="modal">&times;</button>
+				            </div>
+				            
+				            <div class="modal-body" id="bulletinModalBody">
+				                
+				                <table class="modal-table">
+                                           
+                                <tr>
+                                    <td rowspan="2" class="modal-img"><img src=<%=m.getProfilePic() %>></td>                               		
+                                    <td class="modal-nickname"><%=m.getNickname() %></td>     
+                                    <td rowspan='2' class='memo-content'>Content</td>                         	
+                                </tr>	
+                                <tr>
+                                	<td class="modal-statusMsg"><%=m.getStatusMsg() %></td>
+                                </tr>
+                               
+                                </table>
+				                
+				                <div class="pagination">
+							        <button id="prevPage">&lt;</button>
+							        <span id="pageNumbers"></span>
+							        <button id="nextPage">&gt;</button>
+							    </div>
+				            </div>
+				            
+				            <div class="modal-footer">
+				            	<table>
+				            		<tr>
+										<th>
+											<img src=<%=m.getProfilePic() %>>
+										</th>
+										<td id="writeMemo">
+											<input id="replyContent" maxlength="100" type="text">
+										</td>
+										<td>
+											<select id="memoScopeSelect">
+												<option value='P'>전체공개</option>
+												<option value='F'>친구공개</option>
+												<option value='M'>비공개</option>
+											</select>
+										</td>
+										<td>
+											<button onclick="insertReply();">메모작성</button>
+										</td>
+									</tr>
+				            	</table>
+				            </div>
+				            
+				        </div>
+				    </div>
+			    </div>
+                
                 <script>
                 const show = document.getElementById("show");
                 const mp3button = document.getElementById("mp3Button");
@@ -285,6 +493,40 @@
     
                 });
                 
+                function insertReply() {
+                	
+                    const replyContent = $("#replyContent").val().trim();
+                    const memoScope = $("#memoScopeSelect").val();
+                    
+                    if (!replyContent) {
+                        swal({
+                        icon: 'error',
+                        title: '아무것도 적지 않았어요',
+                        });
+                        return;
+                    }
+
+					$.ajax({
+						url : '/Mingles/memoInsert.mi',
+						data : {
+							content : $("#replyContent").val(),
+							date : $("#bulletinModalLabel").text(),
+							owner : <%=m.getMemNo()%>,
+							writer : <%=m.getMemNo()%>,
+							scope : memoScope,
+						},
+						type : 'post',
+						success : function(result) {
+							if (result > 0) {
+								selectMemoList($("#bulletinModalLabel").text());
+								$("#replyContent").val("");
+							}
+						},
+						error : function() {
+							console.log("댓글작성용 ajax 통신실패");
+						},
+					})
+				}
                 </script>
     
             </div> <!--메인화면 div 끝-->

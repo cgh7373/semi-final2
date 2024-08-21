@@ -596,3 +596,114 @@ table input[type="text"]{
 	background-color : transparent;
 	position : relative;
 }
+
+#bulletinModal {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#bulletinModal .modal-dialog {
+  max-width: 800px;
+}
+
+#bulletinModal * {
+  vertical-align: middle;
+}
+
+#bulletinModalLabel {
+  padding-left: 4%;
+  color: #333;
+}
+
+#bulletinModal .modal-content {
+  width: 800px;
+	border-radius: 10px;
+}
+
+#bulletinModal .memo-img {
+  width: 8%;
+}
+
+#bulletinModal .memo-content {
+  width: 80%;
+}
+
+#bulletinModal .memo-else {
+  text-align: right;
+  width: 12%;
+}
+
+#bulletinModal .memo-dist {
+}
+
+#bulletinModal img {
+  width: 90%;
+  aspect-ratio: 1;
+  height: auto;
+  text-align: center;
+  border-radius: 50%;
+  overflow: hidden;
+  margin:auto;
+  border: 2px solid #ddd; 
+}
+
+#bulletinModal .modal-content .modal-header {
+  font-family: 'Katuri';
+  font-size: 40px;
+  background-color: #72EFDD;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  align-items: center;
+}
+
+#bulletinModal .modal-content .modal-body {
+  font-family: 'omyu_pretty';
+  font-size: 20px;
+  padding: 8px;
+}
+
+#bulletinModal .modal-content .modal-body td {
+  height: 10px;
+} 
+
+#bulletinModal .pagination {
+	display: flex;
+	justify-content: center;
+}
+
+#bulletinModal .pagination * {
+  border-radius: 50%;
+  margin: 0 1px;
+  background-color: #e4f7fd;
+}
+
+#bulletinModal .modal-footer {
+  padding: 5px;
+}
+
+#bulletinModal .modal-footer * {
+  box-sizing: border-box;
+}
+
+#bulletinModal .modal-footer th {
+  width: 8%;
+}
+
+#bulletinModal .modal-footer select {
+  margin-left: 25%;
+}
+
+#bulletinModal .modal-footer button {
+  float: right;  
+}
+
+#bulletinModal .modal-footer #writeMemo {
+  width: 70%;
+}
+
+#bulletinModal .modal-footer #writeMemo #replyContent {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+

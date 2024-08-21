@@ -1,26 +1,29 @@
-package com.kh.member.controller;
+package com.kh.board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.google.gson.Gson;
+import com.kh.board.model.service.BoardService;
+import com.kh.board.model.vo.Memo;
 
 /**
- * Servlet implementation class OthersMainController
+ * Servlet implementation class VisMemoController
  */
-@WebServlet("/othersMain.mi")
-public class OthersMainController extends HttpServlet {
+@WebServlet("/visCalendarMemo.mi")
+public class VisMemoController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OthersMainController() {
+    public VisMemoController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,13 +33,15 @@ public class OthersMainController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int memNo = Integer.parseInt(request.getParameter("oMemNo"));
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		int visNo = Integer.parseInt(request.getParameter("visNo"));
+		String date = request.getParameter("date");
 		
-		Member m = new MemberService().selectNoMember(memNo);
+		ArrayList<Memo> list = new BoardService().selectVisMemoList(memNo, visNo, date);
 		
-		request.setAttribute("otherUser", m);
+		response.setContentType("json/application; charset=utf-8;");
 		
-		request.getRequestDispatcher("views/main/othersMain.jsp").forward(request, response);
+		new Gson().toJson(list, response.getWriter());
 		
 	}
 

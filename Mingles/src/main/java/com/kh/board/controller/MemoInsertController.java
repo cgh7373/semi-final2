@@ -1,4 +1,4 @@
-package com.kh.member.controller;
+package com.kh.board.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.google.gson.Gson;
+import com.kh.board.model.service.BoardService;
+import com.kh.board.model.vo.Memo;
 
 /**
- * Servlet implementation class OthersMainController
+ * Servlet implementation class MemoInsertController
  */
-@WebServlet("/othersMain.mi")
-public class OthersMainController extends HttpServlet {
+@WebServlet("/memoInsert.mi")
+public class MemoInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OthersMainController() {
+    public MemoInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,13 +31,25 @@ public class OthersMainController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int memNo = Integer.parseInt(request.getParameter("oMemNo"));
+		String content = request.getParameter("content");
+		String date = request.getParameter("date");
+		int writer = Integer.parseInt(request.getParameter("writer"));
+		int owner = Integer.parseInt(request.getParameter("owner"));
+		String scope = request.getParameter("scope");
 		
-		Member m = new MemberService().selectNoMember(memNo);
+		Memo m = new Memo();
 		
-		request.setAttribute("otherUser", m);
+		m.setMemoOwner(owner);
+		m.setMemoWriter(writer);
+		m.setMemoContent(content);
+		m.setMemoDate(date);
+		m.setMemoScope(scope);
 		
-		request.getRequestDispatcher("views/main/othersMain.jsp").forward(request, response);
+		int result = new BoardService().insertMemo(m);
+		
+		response.setContentType("json/application; charset=utf-8;");
+		
+		new Gson().toJson(result, response.getWriter());
 		
 	}
 

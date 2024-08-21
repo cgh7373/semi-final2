@@ -174,10 +174,3 @@ nextBtn.addEventListener("click", () => {
     }
     renderCalendar();
 });
-
-$(document).ready(function() {
-    $("#calendarDates").on("click", ".date", function() {
-        const date = $(this).data("date");
-        console.log(date);
-    });
-});
