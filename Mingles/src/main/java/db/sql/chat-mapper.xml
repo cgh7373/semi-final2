@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="allMemberList">
+		SELECT 
+		       MEM_NO
+		     , MEM_ID
+		     , NICKNAME
+		     , PROFILE_PIC
+		  FROM MEMBER
+	</entry>
+	
+	<entry key="chatList">
+		SELECT
+		       CHAT_ID
+		     , FROM_NICKNAME
+		     , TO_NICKNAME
+		     , CHAT_CONTENT
+		     , CHAT_TIME
+		  FROM CHAT
+		 WHERE CHAT_TIME > ?
+		 ORDER
+		    BY CHAT_TIME
+	</entry>
+	
+	<entry key="chatSubmit">
+		INSERT
+		  INTO CHAT
+		  (
+		    CHAT_ID
+		  , FROM_NICKNAME
+		  , TO_NICKNAME
+		  , CHAT_CONTENT
+		  , CHAT_TIME
+		  )
+		  VALUES
+		  (
+		    seq_chat.nextval
+		  , ?
+		  , ?
+		  , ?
+		  , SYSDATE
+		  )
+	</entry>
+
+
+
+
+
+
+
+
+
+</properties>

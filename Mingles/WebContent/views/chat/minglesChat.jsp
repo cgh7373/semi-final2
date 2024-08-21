@@ -1,5 +1,11 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.chat.model.vo.Chat"%>
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	ArrayList<Member> list = (ArrayList<Member>)request.getAttribute("list");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -237,7 +243,7 @@
          <section class="chat">
             
              <!-- 친구리스트 -->
-             <a href="http://127.0.0.1:5500/chat/chat.html" class="chat-logo"><img src="../../resources/images/Mingles로고-움직임-짤.gif" alt="mingles"></a>
+             <a href="../main/minglesMain.jsp" class="chat-logo"><img src="../../resources/images/Mingles로고-움직임-짤.gif" alt="mingles"></a>
              <div class="chat-left">
 
               <div class="group">
@@ -251,23 +257,26 @@
                 <input class="inputSearch" type="search" placeholder="Search" />
               </div>
 
-                <!-- 로고 누르면 home창 만들고 싶어. 안예쁠것 같아서 고민중.! -->
-
                 <ul class="chat-friend">
+                	<%
+                		for(Member mem : list){
+                	%>
+                
                     <li class="friendList">
-                        <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
+                        <div class="friend__icon"><img src="<%= mem.getProfilePic() %>" alt=""></div>
                         <div class="friend-info">
-                            <span class="friend__name">김서경</span>
-                            <span class="friend__text">1</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
+                            <span class="friend__name"><%= mem.getNickname() %></span>
+                            <span class="friend__text">20</span>
                         </div>
                     </li>
-                    <li class="friendList">
+                    
+                    <% } %>
+               
+                   <!--  <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">이주영</span>
                             <span class="friend__text">20</span>
-                            <!-- <span class="friend__text">반짝반짝 작은별 아름답게 비치네</span> -->
                         </div>
                     </li>
                     <li class="friendList">
@@ -275,7 +284,6 @@
                         <div>
                             <span class="friend__name">유현동</span>
                             <span class="friend__text">99+</span>
-                            <!-- <span class="friend__text"> 동쪽하늘에서도 서쪽하늘에서도</span> -->
                         </div>
                     </li>
                     <li class="friendList">
@@ -283,7 +291,6 @@
                         <div>
                             <span class="friend__name">김상우</span>
                             <span class="friend__text">20</span>
-                            <!-- <span class="friend__text">반짝반짝 작은별 아름답게 비치네 짝!</span> -->
                         </div>
                     </li>
                     <li class="friendList">
@@ -291,7 +298,6 @@
                         <div>
                             <span class="friend__name">정택은</span>
                             <span class="friend__text">3</span>
-                            <!-- <span class="friend__text"></span> -->
                         </div>
                     </li>
                     <li class="friendList">
@@ -299,7 +305,6 @@
                         <div>
                             <span class="friend__name">최규호</span>
                             <span class="friend__text">50</span>
-                            <!-- <span class="friend__text">그냥.. 복붙만 하니까 이상해서 아무거나 써봤어요;;</span> -->
                         </div>
                     </li>
                     <li class="friendList">
@@ -307,7 +312,6 @@
                         <div>
                             <span class="friend__name">김서경</span>
                             <span class="friend__text">89</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
                         </div>
                     </li>
                     <li class="friendList">
@@ -315,7 +319,6 @@
                         <div>
                             <span class="friend__name">김서경</span>
                             <span class="friend__text">99+</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
                         </div>
                     </li>
                     <li class="friendList">
@@ -323,30 +326,26 @@
                         <div>
                             <span class="friend__name">김서경</span>
                             <span class="friend__text">10</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
                         </div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
 
 
             <!-- 대화창 -->
             <div class="chat-right">
-                <!-- <div class="chatting-head">
-                    <div class="icon"><img src="../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                </div> -->
                 <div class="chatRoom">
                     <canvas id="jsCanvas" class="canvas"></canvas>
                     <div class="chatting ch1">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
+                        <div href="#" class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
                         <div class="textbox">안녕하세요~ 김서경입니당ㅎㅎ</div>
                     </div>
                     <div class="chatting ch2">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
+                        <div href="#" class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
                         <div class="textbox">안녕하세요. 홈페이지 주인입니다.</div>
                     </div>
                     <div class="chatting ch1">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
+                        <div href="#" class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
                         <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
                     </div>
                     <div class="chatting ch2">
@@ -404,9 +403,13 @@
                 </form>
             </div>
          </section>
-         
-
     </div>
+    
+    <script>
+
+    </script>
+    
+    
 
 </body>
 
