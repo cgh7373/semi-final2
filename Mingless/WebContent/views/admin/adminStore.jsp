@@ -214,6 +214,7 @@
 									for(let i=0;i<a.length; i++){
                                         let itemTags = (a[i].itemTag || '').replaceAll(',', ' ');
                                         let itemNo = a[i].itemNo;
+                                        let originFileName = a[i].changeName
                                             value += `
 											<div class="card itemCard" style="width:200px; height: auto; margin-left: 20px; margin-bottom: 20px">
                                                 <img class="card-img-top" src=".\${a[i].saveFile}" alt="item image1" style="width:100%">
@@ -231,7 +232,7 @@
                                                     <div class="dropdown-menu ">
                                                         <button class="dropdown-item" id="deleteItem" name="\${itemNo}" onclick="deleteItem(this);">상품삭제</button>
                                                         <button class="dropdown-item" id="resetItem" name="\${itemNo}" onclick="updatePrice(this);">가격설정</button>
-                                                        <button class="dropdown-item" id="settingPhoto">상품사진관리</button>
+                                                        <button class="dropdown-item" id="settingPhoto" name="\${itemNo}, \${originFileName}" onclick="changePicture(this);">상품사진변경</button>
                                                     </div>
                                                 </div>
                                             </div>

@@ -558,9 +558,32 @@ UPDATE ITEM
  ;
 
 UPDATE ATTACHMENT
-   SET ORIGINGNAME = ?
+   SET ORIGIN_NAME = ?,
+       CHANGE_NAME = ?
  WHERE FILE_NO = (SELECT 
                          ATTACHMENT_NO
                     FROM ITEM
-                   WHERE ITEM_NUM = 34
+                   WHERE ITEM_NUM = ?
                  )
+;
+DELETE FROM ATTACHMENT
+ WHERE ORIGIN_NAME = ?
+ ;
+ 
+ SELECT ITEM_NUM
+		     , CATEGORYNAME
+		     , ITEM_NAME
+		     , PRICE
+		     , ITEM_INTRO
+		     , ITEM_DATE
+		     , ITEM_STATUS
+		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
+		     , ITEM_TAG
+		     , CHANGE_NAME
+		  FROM ITEM
+		  JOIN ITEMCATEGORY USING(ITEM_CATEGORY)
+		  JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
+		 WHERE ITEM_STATUS = 'Y'
+		 ORDER
+		    BY ITEM_NUM DESC 
+            ;
