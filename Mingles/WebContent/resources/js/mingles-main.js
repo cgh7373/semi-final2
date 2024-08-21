@@ -150,6 +150,7 @@ function renderCalendar() {
         const dateElement = document.createElement("div");
         dateElement.classList.add("date");
         dateElement.textContent = i;
+        dateElement.setAttribute("data-date", currentYear + '-' + (currentMonth + 1) + '-' + i);
         calendarDates.appendChild(dateElement);
     }
 }
@@ -172,4 +173,11 @@ nextBtn.addEventListener("click", () => {
         currentYear++;
     }
     renderCalendar();
+});
+
+$(document).ready(function() {
+    $("#calendarDates").on("click", ".date", function() {
+        const date = $(this).data("date");
+        console.log(date);
+    });
 });

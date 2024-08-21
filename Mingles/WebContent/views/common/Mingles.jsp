@@ -254,6 +254,42 @@
             			  }
             			});
             	}
+            	
+            	function handleIframeNavigation(iframe, source) {
+            		
+            	    screens.forEach(a => {
+            	        a.style.opacity = 0;
+            	        a.style.transition = '.6s';
+            	        a.style.visibility = 'hidden';
+            	    });
+
+            	    document.querySelector('.iframe-wrapper').animate(
+            	        [
+            	            { transform: 'scale(1)' },
+            	            { transform: 'scale(1.007)' },
+            	            { transform: 'scale(1)' }
+            	        ],
+            	        {
+            	            duration: 700,
+            	            fill: 'forwards',
+            	            easing: 'ease'
+            	        }
+            	    );
+
+            	    const url = "/Mingles/iframeShow.mi?iSrc=" + source;
+            	    
+            	    $.ajax({
+            	    	url : url,
+            	    	success : function(page) {
+            	    		setTimeout(() => {
+                    	        iframe.src = page;
+                    	        iframe.style.opacity = 1;
+                    	        iframe.style.visibility = 'visible';
+                    	    }, 100);
+            	    	}
+            	    })
+            	    
+            	}
             </script>
 
         
