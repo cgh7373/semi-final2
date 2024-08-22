@@ -345,6 +345,18 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	
+	public int UpdateKakaoNo(int userNo, String kakaoNo) {
+		Connection conn = getConnection();
+		int result = new MemberDao().UpdateKakaoNo(conn, userNo, kakaoNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 
 
 }

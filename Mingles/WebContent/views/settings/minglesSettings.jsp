@@ -7,6 +7,7 @@
 	ArrayList<Member> list = (ArrayList<Member>)session.getAttribute("list");
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	String errorMsg = (String)session.getAttribute("errorMsg");
+	String contextPath = request.getContextPath();
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +29,8 @@
     <script src="https://unpkg.com/swiper@6.8.4/swiper-bundle.min.js"></script>
     <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+	<!-- kakao login연동 developer-->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
     <!-- 내부파일 -->
     <link rel="stylesheet" href="../../resources/css/mingle-settings.css">
@@ -646,10 +649,12 @@
                             <span class="set-tag">친구목록</span>
                         </div>
 
-                        <div class="setbox">
-                            <span class="material-icons"></span>
-                            <span class="set-tag"></span>
+                        <div class="setbox" data-toggle="modal"
+                        data-target="#kakaoLink">
+                            <span class="material-icons">phone_iphone</span>
+                            <span class="set-tag">카카오톡 연동</span>
                         </div>
+                       
 
                         <script>
 							function toEgg() {
@@ -1098,97 +1103,160 @@
                                 </div>
                             </div>
 
-				                    <script>
-                                   
-                                           function validatePwd() {
-                                               
-                                               if ($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
-                                                   swal({
+                             
+                            <!-- 카카오톡연동 Modal -->
+                            <div class="modal fade" id="kakaoLink">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                <div class="modal-content">
+                            
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">카카오톡 연동</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                            
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <div id="kakao__btn" align="center">
+                                            <img src="../../resources/images/kakao_login_large_wide (1).png" alt="카카오톡 로그인" onclick="kakaoLink()" style="cursor: pointer;">
+                                        </div>					                  
+                                    </div>
+                                    
+                                    
+                                </div>
+                                </div>
+                            </div>
+
+                            <script>
+
+                                window.Kakao.init('9379dc5e745ff90c58be373c9bbaaa72');
+                                console.log(Kakao.isInitialized()); 
+							
+                                function kakaoLink() {
+                                	console.log("됨?")
+                                    Kakao.Auth.login({
+                                        success: function (authObj) {
+                                            Kakao.Auth.setAccessToken(authObj.access_token); 
+                                            Kakao.API.request({
+                                                url: '/v2/user/me',
+                                                success: function (res) {
+                                                    var id = res.id;
+                                                    $.ajax({
+                                                        url:'<%=contextPath%>/kakaoLink.mi',
+                                                        data:{id:id, userNo:<%= m.getMemNo() %>},
+                                                        success:function(resp){
+                                                            if(resp === "success"){
+																alert("성공")
+                                                            } else {
+          														alert("연동 실패")
+                                                            }
+                                                        },
+                                                        error:function(r){
+                                                            alert("연결 실패")
+                                                        },
+                                                    })
+                                                    
+                                                },
+                                                fail: function (error) {
+                                                    alert('카카오 로그인에 실패했습니다. 관리자에게 문의하세요.' + JSON.stringify(error));
+                                                }
+                                            });
+                                                },
+                                        fail: function (err) {
+                                            console.log(err);
+                                        }
+                                    });
+                                }
+                            
+                                function validatePwd() {
+                                    
+                                    if ($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {
+                                        swal({
+                                        icon: 'error',
+                                        title: '비밀번호가 일치하지 않아요',
+                                        });
+                                        return false;
+                                    }
+                                    
+                                }
+                                
+                                $("#resetBtn").click(function() {
+                                    $("input[name=findMember]").val("");
+                                    $(".modal-body2 table").html("");
+                                    $("#pageNumbers").empty();
+                                })
+                                
+                                $(".modal-body2").on('click', '.requestFriend button', function() {
+                                    
+                                    const btn = $(this);
+                                    
+                                    $.ajax({
+                                        url : '/Mingles/requestFriend.mi',
+                                        data : {myMemNo : "<%=m.getMemNo()%>",
+                                                frMemNo : btn.data('memno')},
+                                        success : function(result) {
+                                            if (result > 0) {
+                                                swal({
+                                                        icon: 'success',
+                                                        title: '신청을 보냈어요',
+                                                        });
+                                                btn.attr('disabled',true);
+                                            } else {
+                                                swal({
+                                                        icon: 'error',
+                                                        title: '신청하지 못했어요',
+                                                        });
+                                                btn.attr('disabled',true);
+                                            }
+                                        }, 
+                                        error : function() {
+                                            swal({
                                                     icon: 'error',
-                                                    title: '비밀번호가 일치하지 않아요',
+                                                    title: '신청하지 못했어요',
                                                     });
-                                                   return false;
-                                               }
-                                               
-                                           }
-                                           
-                                       	   $("#resetBtn").click(function() {
-                                       		   $("input[name=findMember]").val("");
-                                       		   $(".modal-body2 table").html("");
-                                       		   $("#pageNumbers").empty();
-                                       	   })
-                                       	   
-                                       	   $(".modal-body2").on('click', '.requestFriend button', function() {
-                                       		   
-                                       		   const btn = $(this);
-                                       		   
-                                       		   $.ajax({
-                                       			   url : '/Mingles/requestFriend.mi',
-                                       			   data : {myMemNo : "<%=m.getMemNo()%>",
-                                       				       frMemNo : btn.data('memno')},
-                                       			   success : function(result) {
-                                       				   if (result > 0) {
-                                        				   swal({
-                                        			             icon: 'success',
-                                        			             title: '신청을 보냈어요',
-                                        			        	 });
-                                        				   btn.attr('disabled',true);
-                                       				   } else {
-                                       					   swal({
-                                       				             icon: 'error',
-                                       				             title: '신청하지 못했어요',
-                                       				        	 });
-                                       					   btn.attr('disabled',true);
-                                       				   }
-                                       			   }, 
-                                       			   error : function() {
-                                       				   swal({
-                                 				             icon: 'error',
-                                 				             title: '신청하지 못했어요',
-                                 				        	 });
-                                 					       btn.attr('disabled',true);
-                                       			   },
-                                       		   })
-                                       	   })
-                                        	   
-                         				   function handleRequest(action, btn) {
-                                       		   
-											    let url = '/Mingles/frRequests.mi';
-											    let data = {
-											        myMemNo: "<%=m.getMemNo()%>",
-											        frMemNo: btn.data('memno'),
-											        action : action,
-											    };
-				
-											    $.ajax({
-											        url: url,
-											        data: data,
-											        type: 'post',
-											        success: function(result) {
-											            if (result > 0) {
-											                swal({
-											                    icon: 'success',
-											                    title: action === 'accept' ? '신청을 수락했어요' : '신청을 거절했어요',
-											                });
-											                loadReceive();
-											            } else {
-											                swal({
-											                    icon: 'error',
-											                    title: action === 'accept' ? '신청 수락에 실패했어요' : '신청 거절에 실패했어요',
-											                });
-											                loadReceive();
-											            }
-											        },
-											        error: function() {
-											            swal({
-											                icon: 'error',
-											                title: '처리 중 오류가 발생했어요',
-											            });
-											        },
-											    });
-											}
-											
-                                   </script>
+                                                btn.attr('disabled',true);
+                                        },
+                                    })
+                                })
+                                    
+                                function handleRequest(action, btn) {
+                                    
+                                    let url = '/Mingles/frRequests.mi';
+                                    let data = {
+                                        myMemNo: "<%=m.getMemNo()%>",
+                                        frMemNo: btn.data('memno'),
+                                        action : action,
+                                    };
+    
+                                    $.ajax({
+                                        url: url,
+                                        data: data,
+                                        type: 'post',
+                                        success: function(result) {
+                                            if (result > 0) {
+                                                swal({
+                                                    icon: 'success',
+                                                    title: action === 'accept' ? '신청을 수락했어요' : '신청을 거절했어요',
+                                                });
+                                                loadReceive();
+                                            } else {
+                                                swal({
+                                                    icon: 'error',
+                                                    title: action === 'accept' ? '신청 수락에 실패했어요' : '신청 거절에 실패했어요',
+                                                });
+                                                loadReceive();
+                                            }
+                                        },
+                                        error: function() {
+                                            swal({
+                                                icon: 'error',
+                                                title: '처리 중 오류가 발생했어요',
+                                            });
+                                        },
+                                    });
+                                }
+                                    
+                            </script>
                                    
 
         </div>

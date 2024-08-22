@@ -768,8 +768,25 @@ public class MemberDao {
 		return m;
 	}
 
-
-
+	public int UpdateKakaoNo(Connection conn, int userNo, String kakaoNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("UpdateKakaoNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, kakaoNo);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	
 	
 	

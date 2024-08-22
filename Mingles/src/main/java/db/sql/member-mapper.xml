@@ -338,4 +338,11 @@
 	       AND STATUS = 'Y'
 	</entry>
 	
+	<entry key="UpdateKakaoNo">
+		UPDATE MEMBER
+		   SET KAKAO_NO = ?
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+	
 </properties>
