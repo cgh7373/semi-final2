@@ -61,6 +61,8 @@ public class EggController extends HttpServlet {
 		
 		ArrayList<EggPayMent> list = new ShopService().selectList(pi, userNo);
 		
+		int selectType = 0;
+		request.setAttribute("selectType", selectType);
 		request.setAttribute("pi", pi); // 페이징바를 만들 때 필요한 객체
 	    request.setAttribute("list", list);
 		
