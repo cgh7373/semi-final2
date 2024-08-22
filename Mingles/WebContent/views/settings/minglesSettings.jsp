@@ -1112,7 +1112,7 @@
                                     <!-- Modal Header -->
                                     <div class="modal-header">
                                         <h4 class="modal-title">카카오톡 연동</h4>
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <button type="button" class="close" data-dismiss="modal" id="kakaoModalClose">&times;</button>
                                     </div>
                             
                                     <!-- Modal body -->
@@ -1133,7 +1133,6 @@
                                 console.log(Kakao.isInitialized()); 
 							
                                 function kakaoLink() {
-                                	console.log("됨?")
                                     Kakao.Auth.login({
                                         success: function (authObj) {
                                             Kakao.Auth.setAccessToken(authObj.access_token); 
@@ -1146,9 +1145,10 @@
                                                         data:{id:id, userNo:<%= m.getMemNo() %>},
                                                         success:function(resp){
                                                             if(resp === "success"){
-																alert("성공")
+                                                                $('#kakaoModalClose').click();
+                                                                alert("카카오 연동에 성공했습니다.");
                                                             } else {
-          														alert("연동 실패")
+                                                                alert("연동 실패")
                                                             }
                                                         },
                                                         error:function(r){
@@ -1161,7 +1161,7 @@
                                                     alert('카카오 로그인에 실패했습니다. 관리자에게 문의하세요.' + JSON.stringify(error));
                                                 }
                                             });
-                                                },
+                                        },
                                         fail: function (err) {
                                             console.log(err);
                                         }
