@@ -1,10 +1,17 @@
+<%@page import="com.kh.common.model.vo.PageInfo"%>
 <%@page import="com.kh.admin.model.vo.Item"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.shop.model.vo.Shop"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% ArrayList<Item> list = (ArrayList<Item>)session.getAttribute("list"); %>
-<% out.println(list); %>
+<% String contextPath = request.getContextPath(); %>
+<% ArrayList<Item> list = (ArrayList<Item>)request.getAttribute("list"); 
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	int currentPage = pi.getCurrentPage();
+	int startPage = pi.getStartPage();
+	int endPage =  pi.getEndPage();
+	int maxPage = pi.getMaxPage();
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -23,12 +30,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
     integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
     <!-- 내부파일 -->
-    <link rel="stylesheet" href="../../resources/css/mingle-shop.css">
-    <script defer src="../../resources/js/mingle-shop.js"></script>
+    <link rel="stylesheet" href="<%= contextPath %>/resources/css/mingle-shop.css">
+    <script defer src="<%= contextPath %>/resources/js/mingle-shop.js"></script>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="icon" href="../../resources/images/Mingles아이콘-removebg-preview.png">
+    <link rel="icon" href="<%= contextPath %>/resources/images/Mingles아이콘-removebg-preview.png">
 
 </head>
 
@@ -45,7 +55,7 @@
 
                     <div class="hd-logos">
 
-                        <div class="logo"><img src="../../resources/images/Mingles로고-움직임-짤.gif" alt=""></div>
+                        <div class="logo"><img src="<%= contextPath %>/resources/images/Mingles로고-움직임-짤.gif" alt=""></div>
 
                         <div class="hd-title delay1">상점</div>
 
@@ -88,14 +98,19 @@
                             <div id="tag">카테고리를 선택해서 아이템을 모아보아요!</div>
                         </span>
                     </div>
-
+						
+					
                     <div class="content-main">
-                        <ul> <!-- 여기 안에 아이템 데이터목록 -->
+                        <ul> 
 						  <% for(Item it: list){%>
                             <!-- 이게 template -->
-                            <li>
+                           <li>
                                 <div class="item-container">
-                                    <div class="img-box"><img src="<%= it.getItemTag()%>"></div>
+                                    <div class="img-box"><img src="<%= contextPath %><%= it.getSaveFile()%>"></div>
+                                    <div class="basket">
+                                        <button class="material-icons" id ="cart">add_shopping_cart</button>
+                                        <button class="material-icons" id="jjimkong">auto_awesome</button>
+                                    </div>
                                     <div class="item-detail">
                                         <p class="item-name"><%= it.getItemName()%></p>
                                         <p class="item-desc"><%= it.getItemExplan()%></p>
@@ -104,25 +119,31 @@
                                     </div>
                                 </div>
                             </li>
-						  <%} %>
+						  	<%} %>
                         </ul>
                     </div>
                 </content>
                 <footer>
 
-                    <div class="pagination-container">
+                    <div class="paging-area" align="center">
 
-                        <div class="prev-button"><</div>
-
-                        <div class="btn-wrapper">
-
-                            <span class="number-btn">1</span>
-
-                        </div>
-
-                        <div class="next-button">></div>
-
+						<%if(currentPage != 1){ %>
+							<a href ="<%=contextPath %>/list.it?cpage=<%=currentPage-1%>" class="page-button">&lt;</a>
+						<%} %>
+						
+						<% for(int p=startPage; p<=endPage; p++){ %>
+						<% if(p==currentPage){ %>
+							<span><%=p%></span>
+                        	<%}else{ %>
+                        	<a href="<%=contextPath %>/list.it?cpage=<%=p %>"class="page-button"><%=p %></a>
+                        	<%} %>
+                          <%} %>
+                          
+                          <%if(currentPage != maxPage){ %>
+                          <a href='<%=contextPath%>/list.it?cpage=<%=currentPage +1%>' class="page-button">&gt;</a>
+                          <%}%>
                     </div>
+					
 
                 </footer>
 
@@ -133,10 +154,4 @@
 
 </body>
 
-<script>
-console.log(<%= list%>);
 
-
-</script>
-
-</html>

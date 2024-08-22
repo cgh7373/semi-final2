@@ -27,6 +27,7 @@ img {
     display: flex;
     box-sizing: border-box;
     z-index: 2;
+    overflow:hidden;
 }
 
 #container {
@@ -62,7 +63,8 @@ header .hd-logos {
 
 header .hd-logos .logo>img {
     width: 400px;
-    margin-left:5%;
+    margin-left:6.5%;
+    margin-bottom:3%;
 }
 
 header .hd-logos .hd-title {
@@ -143,6 +145,16 @@ header .hd-menus .menu-content ul li {
     }
 }
 
+#tag{
+    position:relative;
+    font-family: 'omyu_pretty';
+    font-size: 30px;
+    font-weight:600;
+    margin-left:3%;
+    margin-top:3%;
+    color:#48BFE3;
+}
+
 content {
     width: 100%;
     height: 60%;
@@ -151,7 +163,7 @@ content {
 
 content .content-top {
     width: 100%;
-    height: 15%;
+    height: 7%;
 }
 
 content .content-main {
@@ -246,54 +258,63 @@ content .content-main .item-container .item-date {
     right: 0;
 }
 
+.basket{
+    margin-top:10%;
+}
+
+#cart, #jjimkong{
+    color: rgb(138, 170, 181);
+    font-size:30px;
+    cursor: pointer;
+    border: none;
+    background-color: aliceblue;
+    border-radius: 50px;
+    border: 2px solid rgb(134, 173, 187);
+    transition: box-shadow 0.3s;
+}
+
+#cart:hover, #jjimkong:hover{
+    color: #fff86f;
+    background-color: rgb(17, 44, 54);
+    box-shadow: 0 0 5px #fff86f, 0 0 10px #fffbb0, 0 0 15px #fffdd8;
+}
+
+
 footer {
     width: 100%;
-    height: 8%;
-    margin: auto;;
+    height: 10%;
+    margin: auto;
 }
 
-footer .pagination-container {
-    display: flex;
-    justify-content: center;
-    font-family: 'omyu_pretty';
-    font-size: 30px;
-    line-height: 100px;
-    &>div{
-        margin: 0 5px;
-        cursor: pointer;
-    }
-    &>div>span{
-        margin: 0 5px;
-        cursor: pointer;
-    }
-    &>div>span:hover {
-        font-weight: 700;
-    }
-    & .prev-button:hover {
-        font-weight: 700;
-    }
-    & .next-button:hover {
-        font-weight: 700;
-    }
-    & * {
-        color: #07BEB8;
-    }
+.paging-area{
+    position:relative;
+    margin:3%;
+    height:30px;
 }
 
-.number-btn.selected {
-    font-weight: 700;
-    font-size: 33px;
+.paging-area span{
+    font-family :'omyu_pretty';
+    font-weight:600;
+    font-size:30px;
+    color: #087da1;
 }
 
-content .content-top .tag-wrapper * {
-    font-family: 'Katuri';
-    font-weight:200;
-    font-size: 25px;
-    display: flex;
-    line-height: 100px;
-    margin-left: 30px;
-    color: black;
+.page-button{
+    position:relative;
+    top:70;
+    font-size:30px;
+    font-weight:600;
+    font-family :'omyu_pretty';
+    color: #48BFE3;
 }
 
+.page-button:hover{
+    position:relative;
+    top:70;
+    font-size:30px;
+    font-weight:600;
+    font-family :'omyu_pretty';
+    color: #4cf1cd;
+}
 
 

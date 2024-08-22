@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key = "selectListCount">
+SELECT 
+       COUNT(*) AS "COUNT"
+  FROM ITEM
+ WHERE ITEM_STATUS = 'Y'
+</entry>
+
+<entry key = "selectItemList">
+SELECT * 
+  FROM (
+SELECT ROWNUM RNUM, A.*
+  FROM (
+  SELECT ITEM_NUM
+     , CATEGORYNAME
+     , ITEM_NAME
+     , PRICE
+     , ITEM_INTRO
+     , ITEM_DATE
+     , ITEM_STATUS
+     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
+  FROM ITEM
+  JOIN ITEMCATEGORY USING(ITEM_CATEGORY)
+  JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
+ WHERE ITEM_STATUS = 'Y'
+ ORDER
+    BY ITEM_NUM DESC  
+    )A
+  )
+WHERE RNUM BETWEEN ? AND ?
+</entry>
+
+
+</properties>

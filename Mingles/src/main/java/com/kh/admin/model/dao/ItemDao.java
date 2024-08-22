@@ -11,12 +11,14 @@ import java.util.Properties;
 import static com.kh.common.JDBCTemplate.*;
 
 import com.kh.admin.model.vo.Item;
+import com.kh.common.model.vo.PageInfo;
 
 public class ItemDao {
 
 	private Properties prop = new Properties();
+	
 	public ItemDao() {
-		String filePath = ItemDao.class.getResource("db/sql/Item-mapper.xml").getPath();
+		String filePath = ItemDao.class.getResource("/db/sql/item-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
@@ -26,7 +28,32 @@ public class ItemDao {
 		
 	}// ItemDao-db연결
 	
-	public ArrayList<Item> selectItemList(Connection conn){
+	public int selectListCount(Connection conn) {
+		int listCount =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return listCount;
+	}// 총 게시글수 출력 메소드 - selectListCount()
+	
+	// 아이템list 출력
+	public ArrayList<Item> selectItemList(Connection conn, PageInfo pi){
 		ArrayList<Item> list = new ArrayList<Item>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -35,19 +62,24 @@ public class ItemDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				list.add(new Item(
 						rset.getInt("item_num"),
-						rset.getString("item_category"),
+						rset.getString("categoryname"),
 						rset.getString("item_name"),
 						rset.getInt("price"),
 						rset.getString("item_intro"),
 						rset.getDate("item_date"),
-						rset.getDate("item_update"),
 						rset.getString("item_status"),
-						rset.getString("attachment_no")
+						rset.getString("save_file")
 						));
 			}
 			
@@ -57,7 +89,7 @@ public class ItemDao {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println(list);
+
 		return list;
 	}
 	

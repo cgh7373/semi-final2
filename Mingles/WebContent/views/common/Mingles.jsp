@@ -28,7 +28,7 @@
     <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
     <!-- 내부파일 -->
-    <link rel="stylesheet" href="./resources/css/mingle.css">
+    <link rel="stylesheet" href="./resources/css/mingle.css">    
     <script defer src="<%=contextPath %>/resources/js/mingle.js"></script>
     <link rel="icon" href="./resources/images/Mingles아이콘-removebg-preview.png">
 
@@ -37,6 +37,7 @@
 </head>
 
 <body>
+
 
 	<script>
 	document.addEventListener("DOMContentLoaded", function() {
@@ -104,14 +105,14 @@
                                         <!-- 아이디 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="name">ID</label>
-                                            <input placeholder="아이디를 입력하세요." class="form_style" type="text" name="userId" required>
+                                            <input placeholder="아이디를 입력하세요." class="form_style" type="text" name="userId" value="user01" required>
                                         </div>
 
                                         <!-- 비밀번호 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="password">Password</label>
                                             <input placeholder="비밀번호를 입력하세요" id="password" class="form_style"
-                                                type="password" name="userPwd" required>
+                                                type="password" name="userPwd" value = "123" required>
                                         </div>
                                         <!-- 로그인 area -->
                                         <div class="login-area">
@@ -210,7 +211,7 @@
             </span>
 
             <!-- 상점탭 -->
-            <span class="material-icons shopTab" title="상점" onclick="window.location.href='<%=contextPath%>/list.it'">
+            <span class="material-icons shopTab" title="상점">
                 storefront
             </span>
 
@@ -233,6 +234,7 @@
             <span class="material-icons logoutTab" onclick="logout()" title="로그아웃">logout</span>
             
             <script>
+  
             	function logout() {
             		swal({
             			  title: "로그아웃 하시겠어요?",
@@ -252,6 +254,43 @@
             			  }
             			});
             	}
+            	
+        	    function handleIframeNavigation(iframe, source) {
+            	    
+            	    screens.forEach(a => {
+            	        a.style.opacity = 0;
+            	        a.style.transition = '.6s';
+            	        a.style.visibility = 'hidden';
+            	    });
+
+            	    document.querySelector('.iframe-wrapper').animate(
+            	        [
+            	            { transform: 'scale(1)' },
+            	            { transform: 'scale(1.007)' },
+            	            { transform: 'scale(1)' }
+            	        ],
+            	        {
+            	            duration: 700,
+            	            fill: 'forwards',
+            	            easing: 'ease'
+            	        }
+            	    );
+
+            	    const url = "/Mingles/iframeShow.mi?iSrc=" + source;
+            	    $.ajax({
+            	    	url : url,
+            	    	success : function(page) {
+            	    		setTimeout(() => {
+                    	        iframe.src = page;
+                    	        iframe.style.opacity = 1;
+                    	        iframe.style.visibility = 'visible';
+                    	    }, 100);
+            	    	}
+            	    })
+
+            	}
+
+        	   
             </script>
 
         
