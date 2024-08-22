@@ -24,8 +24,8 @@ html {
 }
 
 #wrapper {
-     background-image: url('../images/bgi1.png');
-     /* background-image: url(../images/bgi2.jpg); */
+     /* background-image: url('../images/bgi1.png'); */
+     background-image: url(../images/bgi2.jpg);
      /* background-image: url(../images/bgi4\ \(1\)\ \(1\).jpg); */
      /* background-image: url(../images/bgi4.jfif); */
      /* background-image: url(../images/bgi6.jfif); */

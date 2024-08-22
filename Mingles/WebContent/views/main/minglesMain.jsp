@@ -319,8 +319,6 @@
                 <div class="left__content" id="con2">
                     <div id="con2__nickname"><%= m.getNickname() %></div>
                     
-                    <button id= "diary" class="material-icons">auto_stories</button> 
-                    <button id="mailIcon" class="material-icons">mail_outline</button>
                     <button id="calendarIcon" class="material-icons" data-toggle="modal" data-target="#calendarModal">calendar_month</button>
                     
                     <div id="con2__my_text"><%=m.getStatusMsg() %></div>
