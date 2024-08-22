@@ -42,8 +42,9 @@ public class MemberInsertController extends HttpServlet {
 		String gender = request.getParameter("gender");
 		String abo = request.getParameter("bloodType");
 		String mbti = request.getParameter("MBTI");
+		String kakaoNo = request.getParameter("kakaoNo");
 		
-		Member m = new Member(enrollId, enrollPwd, enrollNickname, enrollBirthdate, enrollPhone, enrollEmail, gender, abo, mbti);
+		Member m = new Member(enrollId, enrollPwd, enrollNickname, enrollBirthdate, enrollPhone, enrollEmail, gender, abo, mbti, kakaoNo);
 		
 		int result = new MemberService().insertMember(m);
 		

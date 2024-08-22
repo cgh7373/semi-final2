@@ -7,6 +7,7 @@
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	String errorMsg = (String)session.getAttribute("errorMsg");
+	String type = (String)request.getAttribute("type");
 %>
 
 <!DOCTYPE html>
@@ -23,6 +24,10 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
+
+  <!-- 카카오 api -->
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script><!-- kakao login연동 developer-->
+  <!-- <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script> -->
 
   <!-- 보라색 부트스트랩 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -166,6 +171,9 @@
                   <label for="radioO"> O형</label>
                 </div>
             </div>
+            
+            <!-- 카카오 로그인시 받을 고유 카카오아이디(숫자) -->
+            <input type="hidden" name="kakaoNo" id="kakaoNo">
   
             <!-- 회원가입버튼 -->
             <br><br>
@@ -173,8 +181,77 @@
               <button class="text" type="submit" id="welcome">Welcome!</button>
             </div>
             
+            <!-- 회원가입 종류(일반, 카카오 등..) -->
+            <input type="hidden" id="type" value="<%= type %>">
+            
           </div> 
         </form>
+        
+        <!-- 간편 회원가입 -->
+        <div class="btnLink" style="display: none;">
+          <button><a href="javascript:kakaoLogin();"> <img src="./resources/images/카톡로고.png" alt="카톡간편연동"></a> </button>
+        </div>
+        
+        <script>
+          window.Kakao.init('9379dc5e745ff90c58be373c9bbaaa72');
+          console.log(Kakao.isInitialized());
+          var type = document.getElementById('type').value;
+          
+          $(function(){
+            if(type === 'kakao'){
+              console.log("자동입력")
+              kakaoLogin();
+            }else{
+            	console.log("안됨")
+            }
+          })
+      
+          function kakaoLogin() {
+            Kakao.Auth.login({
+                success: function (authObj) {
+                    console.log(authObj); // access토큰 값
+                    Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
+
+                    Kakao.API.request({
+                        url: '/v2/user/me',
+                        success: function (res) {
+                            console.log(res);
+                            
+                            var id = res.id;
+                            var email = res.kakao_account.email;
+                            var gender = res.kakao_account.gender;
+                            var name = res.kakao_account.name;
+                            var phone = '0'+res.kakao_account.phone_number.substr(4);
+                            var birthday = res.kakao_account.birthday;
+                            var birthyear = res.kakao_account.birthyear;
+                            
+                            var str = birthyear+'-'+birthday.substr(0,2)+'-'+birthday.substr(2)
+                            
+                            $('input#email').val(email);
+                            $('input#name').val(name);
+                            if(gender == 'male'){
+                              $(":radio[name='gender'][value='M']").attr('checked', true);
+                            }else{
+                              $(":radio[name='gender'][value='F']").attr('checked', true);
+                            }
+                            $('input#phone').val(phone);
+                            $('input#birthdate').val(str);
+                            $('input#kakaoNo').val(id);
+                          },
+                        fail: function (error) {
+                            alert('카카오 로그인에 실패했습니다. 관리자에게 문의하세요.' + JSON.stringify(error));
+                        }
+                    });
+                        },
+                fail: function (err) {
+                    console.log(err);
+                }
+            });
+      
+          }
+
+        </script>
+        
 
 	
      </div>

@@ -27,6 +27,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
+	<!-- kakao login연동 developer-->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script> -->
+	
     <!-- 내부파일 -->
     <link rel="stylesheet" href="./resources/css/mingle.css">
     <script defer src="<%=contextPath %>/resources/js/mingle.js"></script>
@@ -106,7 +110,7 @@
                                         <!-- 아이디 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="name">ID</label>
-                                            <input placeholder="아이디를 입력하세요." class="form_style" type="text" name="userId" required>
+                                            <input placeholder="아이디를 입력하세요." id="id" class="form_style" type="text" name="userId" required>
                                         </div>
 
                                         <!-- 비밀번호 버튼 -->
@@ -119,19 +123,70 @@
                                         <div class="login-area">
                                             <button class="btn">LOG IN</button>
                                             <!-- 회원가입 버튼 -->
-                                            <p class="announcement">처음이신가요? <a class="link" href="<%=contextPath%>/enroll.mi">회원가입하기!</a></p>
+                                            <p class="announcement">처음이신가요? <a class="link" href="<%=contextPath%>/enroll.mi?type=nomal">회원가입하기!</a></p>
                                         </div>
                                     </form>
                                     <!-- 간편로그인 버튼 -->
                                     <div class="btnLogin">
                                         <p class="announcement login-btn">간편로그인</p>
                                         <button> <img src="./resources/images/구글로고.png" alt="구글간편로그인"> </button>
-                                        <button> <img src="./resources/images/카톡로고.png" alt="카톡간편로그인"> </button>
+                                        <button onclick="kakaoLogin()"> <img src="./resources/images/카톡로고.png" alt="카톡간편로그인"> </button>
                                         <button> <img src="./resources/images/네이버로고.png" alt="네이버간편로그인"> </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
+                        <script>
+                            window.Kakao.init('9379dc5e745ff90c58be373c9bbaaa72');
+                            console.log(Kakao.isInitialized()); 
+							
+                            function kakaoLogin() {
+                                Kakao.Auth.login({
+                                    success: function (authObj) {
+                                        
+                                        Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
+
+                                        Kakao.API.request({
+                                            url: '/v2/user/me',
+                                            success: function (res) {
+                                                var id = res.id;
+                                                
+                                                $.ajax({
+                                                    url:'<%=contextPath%>/selectKakaoNo.mi',
+                                                    data:{id:id},
+                                                    success:function(resp){
+                                                        var m = JSON.parse(resp)
+                                                        console.log(m)
+                                                        if(m === null){
+                                                        	console.log('회원가입해야함')
+                                                            location.href = "<%=contextPath%>/enroll.mi?type=kakao"
+                                                        } else {
+                                                            console.log("회원 있음")
+                                                            $("input#id").val(m.memId);
+                                                            $("input#password").val(m.memPwd);
+                                                            $('button#loginBtn').click();
+                                                        }
+                                                    },
+                                                    error:function(r){
+														alert("실패")
+                                                    },
+                                                })
+                                                
+                                            },
+                                            fail: function (error) {
+                                                alert('카카오 로그인에 실패했습니다. 관리자에게 문의하세요.' + JSON.stringify(error));
+                                            }
+                                        });
+                                            },
+                                    fail: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                            }
+
+
+                        </script>
 
                     </div>
 					<% } else { %>

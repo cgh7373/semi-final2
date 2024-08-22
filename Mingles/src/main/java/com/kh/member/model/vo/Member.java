@@ -19,6 +19,7 @@ public class Member {
 	private String MBTI;
 	private String profilePic;
 	private String statusMsg;
+	private String kakaoNo;
 	
 	public Member() {}
 	
@@ -45,7 +46,7 @@ public class Member {
 	}
 
 	public Member(String memId, String memPwd, String nickname, String birthdate, String phone, String email,
-			String gender, String aBO, String mBTI) {
+			String gender, String aBO, String mBTI, String kakaoNo) {
 		super();
 		this.memId = memId;
 		this.memPwd = memPwd;
@@ -56,6 +57,7 @@ public class Member {
 		this.gender = gender;
 		this.ABO = aBO;
 		this.MBTI = mBTI;
+		this.kakaoNo = kakaoNo;
 	}
 
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
@@ -180,7 +182,30 @@ public class Member {
 		this.profilePic = profilePic;
 		this.statusMsg = statusMsg;
 	}
-
+	
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO,
+			String mBTI, String profilePic, String statusMsg, String kakaoNo) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.egg = egg;
+		this.zodiac = zodiac;
+		ABO = aBO;
+		MBTI = mBTI;
+		this.profilePic = profilePic;
+		this.statusMsg = statusMsg;
+		this.kakaoNo = kakaoNo;
+	}
 
 	public String getProfilePic() {
 		return profilePic;
@@ -316,6 +341,14 @@ public class Member {
 
 	public void setEgg(int egg) {
 		this.egg = egg;
+	}
+
+	public String getKakaoNo() {
+		return kakaoNo;
+	}
+
+	public void setKakaoNo(String kakaoNo) {
+		this.kakaoNo = kakaoNo;
 	}
 
 	@Override

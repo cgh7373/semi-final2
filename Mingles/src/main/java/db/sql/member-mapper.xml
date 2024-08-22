@@ -87,10 +87,12 @@
 				  , ZODIAC
 				  , ABO
 				  , MBTI
+				  , KAKAO_NO
 				  )
 				    VALUES 
 				  (
 				  	SEQ_MEM.NEXTVAL
+				  , ?
 				  , ?
 				  , ?
 				  , ?
@@ -310,6 +312,30 @@
 			   AND RECEIVER_NO = ?;   
 			   
 			END;
+	</entry>
+	
+	<entry key="selectKakaoNo">
+		SELECT MEM_NO
+	         , MEM_ID
+	         , MEM_PWD
+	         , NICKNAME
+	         , BIRTHDATE
+	         , PHONE
+	         , EMAIL
+	         , GENDER
+	         , ENROLL_DATE
+	         , MODIFY_DATE
+	         , STATUS
+	         , EGG
+	         , ZODIAC
+	         , ABO
+	         , MBTI
+	         , PROFILE_PIC
+	         , STATUS_MSG
+	         , KAKAO_NO
+	      FROM MEMBER
+	     WHERE KAKAO_NO = ?
+	       AND STATUS = 'Y'
 	</entry>
 	
 </properties>
