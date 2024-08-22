@@ -444,7 +444,7 @@
                                 </tr>
                                
                                 </table>
-				                
+				                <span id="owner" data-owner="<%= o.getMemNo() %>"></span>
 				                <div class="pagination">
 							        <button id="prevPage">&lt;</button>
 							        <span id="pageNumbers"></span>

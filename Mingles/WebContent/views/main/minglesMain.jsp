@@ -201,6 +201,7 @@
                 selectMemoList(date);
                 
                 $('#bulletinModal').modal('show');
+                
             });
          });
         
@@ -442,7 +443,7 @@
                                 </tr>
                                
                                 </table>
-				                
+				                <span id="owner" data-owner="<%= m.getMemNo() %>"></span>
 				                <div class="pagination">
 							        <button id="prevPage">&lt;</button>
 							        <span id="pageNumbers"></span>

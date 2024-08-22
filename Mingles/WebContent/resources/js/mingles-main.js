@@ -153,6 +153,42 @@ function renderCalendar() {
         dateElement.setAttribute("data-date", currentYear + '-' + (currentMonth + 1) + '-' + i);
         calendarDates.appendChild(dateElement);
     }
+
+    updateMemoCounts();
+
+}
+
+function updateMemoCounts() {
+
+  const owner = document.getElementById("owner").getAttribute("data-owner");
+  const dateEls = document.querySelectorAll("#calendarDates .date");
+
+  dateEls.forEach(dateEl => {
+
+    const date = dateEl.getAttribute("data-date");
+    const countElement = document.createElement("span");
+    countElement.classList.add("memoCount");
+
+    $.ajax({
+      url : "/Mingles/memoCount.mi",
+      data : {
+        owner : owner,
+        date : date,
+      },
+      success : function(result) {
+
+        countElement.textContent = `메모 : ${result}개`
+
+        if (result > 0) {
+          dateEl.appendChild(countElement);
+        }
+
+      },
+    })
+
+  })
+
+
 }
 
 renderCalendar();

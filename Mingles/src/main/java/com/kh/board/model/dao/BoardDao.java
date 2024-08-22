@@ -133,5 +133,34 @@ private Properties prop = new Properties();
 		
 		return list;
 	}
+
+	public int countMemo(Connection conn, int owner, String date) {
+		
+		int count = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countMemo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, owner);
+			pstmt.setString(2, date);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				count = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
 	
 }

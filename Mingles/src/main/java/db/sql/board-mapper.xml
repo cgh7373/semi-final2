@@ -67,7 +67,12 @@
 			    BY A.MEMO_CREATE_DATE DESC
 	</entry>
 
-
+	<entry key="countMemo">
+			SELECT COUNT(MEMO_NO)
+			  FROM MEMO
+			 WHERE MEMO_OWNER = ?
+			   AND MEMO_DATE = ?
+	</entry>
 
 
 

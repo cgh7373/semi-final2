@@ -47,6 +47,17 @@ public class BoardService {
 		return list;
 	}
 
+	public int countMemo(int owner, String date) {
+		
+		Connection conn = getConnection();
+		
+		int count = new BoardDao().countMemo(conn, owner, date);
+		
+		close(conn);
+		
+		return count;
+	}
+
 	
 	
 }

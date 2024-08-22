@@ -707,3 +707,15 @@ table input[type="text"]{
   box-sizing: border-box;
 }
 
+.date {
+  padding: 5%;
+}
+
+.memoCount {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin: 0 20%;
+}
