@@ -168,7 +168,7 @@ function updateMemoCounts() {
     const date = dateEl.getAttribute("data-date");
     const countElement = document.createElement("span");
     countElement.classList.add("memoCount");
-
+    
     $.ajax({
       url : "/Mingles/memoCount.mi",
       data : {
@@ -176,10 +176,9 @@ function updateMemoCounts() {
         date : date,
       },
       success : function(result) {
-
-        countElement.textContent = `메모 : ${result}개`
-
+        
         if (result > 0) {
+          countElement.textContent = `메모 : ${result}개`
           dateEl.appendChild(countElement);
         }
 

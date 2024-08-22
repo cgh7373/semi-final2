@@ -521,6 +521,7 @@
 							if (result > 0) {
 								selectMemoList($("#bulletinModalLabel").text());
 								$("#replyContent").val("");
+                                renderCalendar();
 							}
 						},
 						error : function() {
