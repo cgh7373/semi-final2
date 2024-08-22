@@ -46,18 +46,15 @@
         	 });
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
-		 });
-		/*
-		$(function() {
-			showPostList();
-		})
 		
-		function showPostList() {
-			$.ajax({
-				url : '',
-				
+			$(function() {
+				showPostList();
 			})
-		}*/
+			
+			function showPostList() {
+				console.log("sdfsdfsdfsdf");
+			}
+		});
 	</script>
 	
      <% if (m != null) { %>
