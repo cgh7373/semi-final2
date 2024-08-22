@@ -30,14 +30,20 @@ public class MemberAjaxIdCheckController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String userId = request.getParameter("userId");
-		int result = new MemberService().idCheck(userId);
+		String memId = request.getParameter("memId");
 		
-		if(result > 0) { // 값이 나와서 성공
-			response.getWriter().print("success");
+		if(userId.equals(memId)) {
+			response.getWriter().print("error");
+		}else {
+			int result = new MemberService().idCheck(userId);
 			
-		}else { // 값이 없어서 해당 아이디 유저 없음
-			response.getWriter().print("fail");
-			
+			if(result > 0) { // 값이 나와서 성공
+				response.getWriter().print("success");
+				
+			}else { // 값이 없어서 해당 아이디 유저 없음
+				response.getWriter().print("fail");
+				
+			}
 		}
 		
 	}

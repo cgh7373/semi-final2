@@ -105,7 +105,6 @@ private Properties prop = new Properties();
 			pstmt.setInt(3, ep.getPoint());
 			pstmt.setString(4, ep.getPayOption());
 			pstmt.setString(5, ep.getCategory());
-			System.out.println(result);
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

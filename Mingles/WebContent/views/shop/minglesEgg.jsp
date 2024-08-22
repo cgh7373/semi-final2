@@ -265,13 +265,16 @@
                     <button type="button" onclick="ajaxIdCheck();">확인</button>
                 </form>
             </div>
+            <input type="hidden" id="memId" value="<%= m.getMemId()%>">
             <script>    
                 function ajaxIdCheck(){
 					var userId = document.getElementById("input-userId").value;
-                    
+                    var memId = document.getElementById('memId').value;
+                    console.log(memId);
+                    console.log("dmd")
                     $.ajax({
                         url:'ajaxIdCheck.mi',
-                        data:{userId:userId},
+                        data:{userId:userId, memId:memId},
                         success:function(result){
 							if(result === "success"){
 								alert("선물할 금액을 선택하세요.")
@@ -280,9 +283,10 @@
 								gift1.style.display = "block"
 								gift2.style.display = "block"
                                 $('.gift-form input[name=userId]').attr("readonly", true);
-							}else{
+							}else if(result === "fail"){
 								alert("존재하지 않은 아이디 입니다.")
-								console.log(userId);
+							}else{
+								alert("본인계정에 선물하기는 할 수 없습니다.")
 							}
                         },
                     })
