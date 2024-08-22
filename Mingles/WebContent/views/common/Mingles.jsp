@@ -106,14 +106,14 @@
                                         <!-- 아이디 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="name">ID</label>
-                                            <input placeholder="아이디를 입력하세요." class="form_style" type="text" name="userId" required>
+                                            <input placeholder="아이디를 입력하세요." class="form_style" type="text" name="userId" value="user01" required>
                                         </div>
 
                                         <!-- 비밀번호 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="password">Password</label>
                                             <input placeholder="비밀번호를 입력하세요" id="password" class="form_style"
-                                                type="password" name="userPwd" required>
+                                                type="password" name="userPwd" value="1234" required>
                                         </div>
                                         <!-- 로그인 area -->
                                         <div class="login-area">
@@ -223,7 +223,8 @@
             <span class="material-icons styleTab" title="꾸미기">accessibility</span>
 
             <!-- 채팅탭 -->
-            <span class="material-icons chatTab" title="채팅">question_answer</span>
+            <span class="material-icons chatTab" title="채팅" id="chatTab">question_answer</span>
+            
 
             <!-- 게시글탭 -->
             <span class="material-icons postsTab" title="게시글">article</span>
@@ -253,6 +254,49 @@
             			    swal("돌아가요");
             			  }
             			});
+            	}
+            	
+            	function handleIframeNavigation(iframe, source) {
+            	    
+            	    screens.forEach(a => {
+            	        a.style.opacity = 0;
+            	        a.style.transition = '.6s';
+            	        a.style.visibility = 'hidden';
+            	    });
+
+            	    document.querySelector('.iframe-wrapper').animate(
+            	        [
+            	            { transform: 'scale(1)' },
+            	            { transform: 'scale(1.007)' },
+            	            { transform: 'scale(1)' }
+            	        ],
+            	        {
+            	            duration: 700,
+            	            fill: 'forwards',
+            	            easing: 'ease'
+            	        }
+            	    );
+					
+            	    
+					
+	            	const url = "/Mingles/iframeShow.mi?iSrc=" + source;        	    	
+            	    
+
+            	    	console.log(url)
+            	    $.ajax({
+            	    	url : url,
+            	    	success : function(page) {
+            	    		setTimeout(() => {
+                    	        iframe.src = page;
+                    	        iframe.style.opacity = 1;
+                    	        iframe.style.visibility = 'visible';
+                    	    }, 100);
+		           	    	console.log(page);
+            	    	},
+            	    	error: function(){
+            	    		console.log("암됨")
+            	    	},
+            	    })
             	}
             </script>
 

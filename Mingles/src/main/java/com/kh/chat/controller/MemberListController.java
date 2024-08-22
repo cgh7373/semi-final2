@@ -31,9 +31,9 @@ public class MemberListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<Member> list = new ChatService().allMemberList();
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("views/chat/minglesChat.jsp").forward(request, response);
+		//ArrayList<Member> list = new ChatService().allMemberList();
+		//request.setAttribute("list", list);
+		//request.getRequestDispatcher("views/chat/minglesChat.jsp").forward(request, response);
 		
 	}
 

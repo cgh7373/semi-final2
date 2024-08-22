@@ -188,7 +188,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 	}
 	
 	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기
-	function saveAvatar(){
+	<%-- function saveAvatar(){
 		let selected = getValues();
 		const userId = <%= m.getMemNo()%>;
 		
@@ -247,7 +247,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 			error : function(){
 				console.log("hasAvatar여부 실패..");
 			},
-		})
+		}) --%>
 		
 	}
 	

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.chat.model.vo.Chat;
+import com.kh.chat.model.vo.Friend;
 import com.kh.member.model.vo.Member;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -27,29 +28,36 @@ public class ChatDao {
 		}
 	}
 	
-	public ArrayList<Member> allMemberList(Connection conn){
-		ArrayList<Member> list = new ArrayList<Member>();
+	public ArrayList<Friend> friendList(Connection conn, int memNo){
+		ArrayList<Friend> friend = new ArrayList<Friend>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("allMemberList");
+		String sql = prop.getProperty("friendList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			
 			rset = pstmt.executeQuery();
 			
+			
 			while(rset.next()) {
-				list.add(new Member (rset.getInt("mem_no"),
-									 rset.getString("mem_id"),
-									 rset.getString("nickname"),
-									 rset.getString("profile_pic")));
+				
+				friend.add(new Friend(rset.getInt("sender_no"),
+									  rset.getInt("receiver_no"),
+									  rset.getString("nickname"),
+									  rset.getString("profile_pic")));
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(rset);
 			close(pstmt);
-		} return list;	
+		}
+		return friend;
 	}
 
 	

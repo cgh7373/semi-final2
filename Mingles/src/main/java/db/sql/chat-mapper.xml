@@ -2,13 +2,16 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-	<entry key="allMemberList">
-		SELECT 
-		       MEM_NO
-		     , MEM_ID
+	<entry key="friendList">
+		 SELECT 
+		       SENDER_NO
+		     , RECEIVER_NO
 		     , NICKNAME
 		     , PROFILE_PIC
-		  FROM MEMBER
+		  FROM FRIEND 
+		  JOIN MEMBER ON (RECEIVER_NO = MEM_NO)
+		 WHERE SENDER_NO = ?
+		   AND REQUEST_STATUS = 'A'
 	</entry>
 	
 	<entry key="chatList">
