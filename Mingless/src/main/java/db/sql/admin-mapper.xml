@@ -173,7 +173,14 @@
 	<entry key="updateBlockCount">
 		UPDATE MEMBER_BLACKLIST
 		   SET BLOCK_COUNT = BLOCK_COUNT + 1
-		 WHERE BLACKLIST_NO = SEQ_BLACKLIST.CURRVAL
+		 WHERE BLACKLIST_NO = ?
+	</entry>
+	
+	<entry key="updateBkStatus">
+		UPDATE MEMBER
+		   SET STATUS = 'B'
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'Y'
 	</entry>
 	
 	<entry key="deleteItem">
@@ -203,5 +210,32 @@
 		DELETE 
 		  FROM ATTACHMENT
 		 WHERE CHANGE_NAME = ?
+	</entry>
+	
+	<entry key="searchMember">
+		SELECT   MEM_NO
+               , MEM_ID
+               , NICKNAME
+               , TO_CHAR(BIRTHDATE, 'MM/DD') AS BIRTHDAY
+               , EMAIL
+               , DECODE(GENDER, 'M', '남자', 'F', '여자') AS GENDER
+               , ENROLL_DATE
+               , EGG
+               , STATUS
+		  FROM MEMBER
+		 WHERE MEM_ID like ?
+		    OR NICKNAME like ?
+	</entry>
+	
+	<entry key="deleteBlack">
+		DELETE FROM MEMBER_BLACKLIST
+	 	 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="updateBkStatusY">
+		UPDATE MEMBER
+		   SET STATUS = 'Y'
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'B'
 	</entry>
 </properties>

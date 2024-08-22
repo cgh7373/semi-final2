@@ -587,3 +587,18 @@ DELETE FROM ATTACHMENT
 		 ORDER
 		    BY ITEM_NUM DESC 
             ;
+
+SELECT MEM_ID
+  FROM MEMBER
+ WHERE MEM_ID like ?
+    OR NICKNAME like ?
+ ;
+ 
+UPDATE MEMBER
+   SET STATUS = 'B'
+ WHERE MEM_NO = ?
+   AND STATUS = 'Y'
+ ;
+ 
+ 
+ 

@@ -9,6 +9,7 @@ import com.kh.admin.model.vo.Blacklist;
 import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
 import com.kh.common.model.vo.PageInfo;
+import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
 
 import static com.kh.common.JDBCTemplate.*;
@@ -106,11 +107,11 @@ public class AdminService {
 	public int insertBlackList(int memNo) {
 		Connection conn = getConnection();
 		
-		int result1 = new AdminDao().insertBlackList(conn, memNo);
+		int result = new AdminDao().insertBlackList(conn, memNo);
 		
-		int result2 = new AdminDao().updateBlockCount(conn);
+		int result2 = new AdminDao().updateBkStatus(conn, memNo);
 				
-		if(result1 > 0 && result2 > 0) {
+		if(result > 0 && result2 > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -118,7 +119,7 @@ public class AdminService {
 		
 		close(conn);
 		
-		return result1 * result2;
+		return result * result2;
 	}
 
 	public int deleteItem(int itemNo) {
@@ -183,6 +184,30 @@ public class AdminService {
 		close(conn);
 			
 		return 0;
+	}
+
+	public ArrayList<Member> searchMember(String keyWord) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> scMember = new AdminDao().searchMember(conn, keyWord);
+		
+		close(conn);
+		
+		return scMember;
+	}
+
+	public int deleteBlack(int memNo) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().deleteBlack(conn, memNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
 	}
 
 }

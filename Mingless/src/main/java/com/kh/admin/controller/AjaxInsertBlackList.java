@@ -31,11 +31,10 @@ public class AjaxInsertBlackList extends HttpServlet {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
 		int result = new AdminService().insertBlackList(memNo);
-		
 		if(result > 0) {
-			response.sendRedirect("member.am");
+			response.sendRedirect("member.am?cpage=1");
 		}else {
-			request.getSession().setAttribute("alertMsg", "업데이트 실패");
+			request.getSession().setAttribute("errorMsg", "블랙 전송실패");
 			request.getRequestDispatcher("views/admin/adminMain.jsp").forward(request, response);
 		}
 	}

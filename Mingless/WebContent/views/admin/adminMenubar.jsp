@@ -138,7 +138,7 @@
 
             <!-- 네비게이션 항목 - 차트 -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="<%=contextPath%>/post.am">
                     <i class="fas fa-fw fa-list"></i>
                     <span>게시글 관리</span></a>
             </li>

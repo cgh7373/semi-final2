@@ -1,27 +1,30 @@
-package com.kh.member.controller;
+package com.kh.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.member.model.service.MemberService;
+import com.google.gson.Gson;
+import com.kh.admin.model.service.AdminService;
+import com.kh.common.model.vo.PageInfo;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class AjaxSearchMemberController
  */
-@WebServlet("/login.me")
-public class LoginController extends HttpServlet {
+@WebServlet("/searchMember.am")
+public class AjaxSearchMemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public AjaxSearchMemberController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,21 +34,17 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		String keyWord = request.getParameter("keyWord");
 		
-		System.out.println("Asdf");
-		Member m = new MemberService().loginMember(userId, userPwd);
-		
-		HttpSession session = request.getSession();
-		
-		if (m != null) {
-			session.setAttribute("loginUser", m);
-			session.setAttribute("alertMsg", m.getNickname() + "님, 환영해요!");
-			response.sendRedirect(request.getContextPath());
-		} else {
-			session.setAttribute("errorMsg", "로그인 실패");
-			response.sendRedirect(request.getContextPath());
+		ArrayList<Member> scMember = new AdminService().searchMember(keyWord);
+			
+		if(scMember.isEmpty()) {
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(scMember, response.getWriter());
+		}else {
+			response.setContentType("application/json; charset=utf-8");
+			new Gson().toJson(scMember, response.getWriter());
+			
 		}
 	}
 

@@ -291,33 +291,47 @@ public class AdminDao {
 
 	public int insertBlackList(Connection conn, int memNo) {
 		int result1 = 0;
-		PreparedStatement pstmt1 = null;
-		PreparedStatement pstmt2 = null;
+		int result2 = 0;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("insertBlackList");
-		String sql2 = prop.getProperty("updateBlcokCount");
+		String sql2 = prop.getProperty("updateBlockCount");
+		String getSeqSql = "SELECT SEQ_BLACKLIST.CURRVAL AS BLACKLIST_NO FROM DUAL";
 		try {
 			// insert
-			pstmt1 = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-			pstmt1.setInt(1, memNo);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
 			
-			result1 = pstmt1.executeUpdate();
+			result1 = pstmt.executeUpdate();
 			
-			rset = pstmt1.getGeneratedKeys();
+			// 시퀀스 가져오기
+			pstmt = conn.prepareStatement(getSeqSql);
+			int blackListNo = 0;
+			
+			rset = pstmt.executeQuery();
+			
 			if(rset.next()) {
-				int blackNo = rset.getInt(1);
+				blackListNo = rset.getInt("BLACKLIST_NO");
+			}
+			
+			// count update
+			if(blackListNo > 0) {
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setInt(1, blackListNo);
+				
+				result2 = pstmt.executeUpdate();
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(pstmt1);
+			close(pstmt);
 		}
 		
 		
 		
-		return result1;
+		return result1 * result2;
 	}
 
 	public int updateBlockCount(Connection conn) {
@@ -336,6 +350,27 @@ public class AdminDao {
 		
 		return result;
 	}
+	
+	public int updateBkStatus(Connection conn, int memNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBkStatus");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 
 	public int deleteItem(Connection conn, int itemNo) {
 		int result = 0;
@@ -417,5 +452,71 @@ public class AdminDao {
 		
 		return result;
 	}
+
+	public ArrayList<Member> searchMember(Connection conn, String keyWord) {
+		ArrayList<Member> scMember = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, "%" + keyWord +"%");
+			pstmt.setString(2, "%" + keyWord +"%");
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				scMember.add(new Member(rset.getInt("mem_no")
+									  , rset.getString("mem_id")
+									  , rset.getString("nickname")
+ 									  , rset.getString("birthday")
+									  , rset.getString("email")
+ 									  , rset.getString("gender")
+									  , rset.getString("enroll_date")
+ 									  , rset.getInt("egg")
+									  , rset.getString("status")));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return scMember;
+	}
+
+	public int deleteBlack(Connection conn, int memNo) {
+		int result1 = 0;
+		int result2 = 0;
+		PreparedStatement pstmt = null;
+		String sql1 = prop.getProperty("deleteBlack");
+		String sql2 = prop.getProperty("updateBkStatusY");
+		
+		try {
+			// 블랙리스트 테이블에서 삭제
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setInt(1, memNo);
+			
+			result1 = pstmt.executeUpdate();
+			
+			// MEMBER STATUS B => Y
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, memNo);
+			
+			result2 = pstmt.executeUpdate();
+					
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result1 * result2;
+	}
+
 	
 }

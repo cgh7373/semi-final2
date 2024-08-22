@@ -1,4 +1,4 @@
-package com.kh.member.controller;
+package com.kh.admin.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,22 +6,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.kh.admin.model.service.AdminService;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class AjaxDeleteBlackController
  */
-@WebServlet("/login.me")
-public class LoginController extends HttpServlet {
+@WebServlet("/deleteBk.am")
+public class AjaxDeleteBlackController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public AjaxDeleteBlackController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +29,19 @@ public class LoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		int memNo = Integer.parseInt(request.getParameter("memNo"));
 		
-		System.out.println("Asdf");
-		Member m = new MemberService().loginMember(userId, userPwd);
+		int result = new AdminService().deleteBlack(memNo);
 		
-		HttpSession session = request.getSession();
+		System.out.println(result);
 		
-		if (m != null) {
-			session.setAttribute("loginUser", m);
-			session.setAttribute("alertMsg", m.getNickname() + "님, 환영해요!");
-			response.sendRedirect(request.getContextPath());
-		} else {
-			session.setAttribute("errorMsg", "로그인 실패");
-			response.sendRedirect(request.getContextPath());
+		if(result > 0) {
+			response.sendRedirect("member.am?cpage=1");
+		}else {
+			request.getSession().setAttribute("errorMsg", "블락 해제실패");
+			request.getRequestDispatcher("views/admin/adminMain.jsp").forward(request, response);
 		}
+		
 	}
 
 	/**
