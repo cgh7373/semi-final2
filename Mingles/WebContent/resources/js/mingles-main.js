@@ -209,3 +209,15 @@ nextBtn.addEventListener("click", () => {
     }
     renderCalendar();
 });
+
+$("#my_info__3").on("click", function() {
+
+  const zodiac = document.getElementById("zodiac").getAttribute("data-zodiac");
+
+  const encodedZodiac = encodeURIComponent(zodiac);
+    
+  const searchUrl = `https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&qvt=0&query=${encodedZodiac}%20%EC%9A%B4%EC%84%B8`;
+
+  window.open(searchUrl, '_blank');
+
+})

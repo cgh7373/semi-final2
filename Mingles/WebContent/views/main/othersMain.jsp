@@ -120,14 +120,22 @@
                             
                     }
 
-                    $("#bulletinModal .modal-body table").html(value);
-	                     updatePaginationControls();
-	                 }
+                    	$("#bulletinModal .modal-body table").html(value);
+                    
+	                	updatePaginationControls();
+	                     
+	                }
 
 	                 function updatePaginationControls() {
 	                	 
 	                     const pageNumbers = $("#bulletinModal #pageNumbers");
 	                     pageNumbers.empty();
+	                     
+	                     if (totalPages === 0) {
+	                         $("#bulletinModal #prevPage").prop('disabled', true);
+	                         $("#bulletinModal #nextPage").prop('disabled', true);
+	                         return;
+	                     }
 	                     
 	                     for (let i = 1; i <= totalPages; i++) {
 	                    	 
@@ -136,14 +144,14 @@
 							                             .addClass('page-btn')
 							                             .data('page', i)
 							                             .on('click', function() {
-							                                 currentPage = $(this).data('page');
-							                                 renderPage(currentPage);
+							                                	currentPage = $(this).data('page');
+							                                    renderPage(currentPage);
 							                                });
 	                         pageNumbers.append(button);
 	                     }
 	
 	                     $("#bulletinModal #prevPage").prop('disabled', currentPage === 1);
-	                     $("#bulletinModal #nextPage").prop('disabled', currentPage === totalPages);
+	                     $("#bulletinModal #nextPage").prop('disabled', currentPage === totalPages || totalPages === 0);
 	                     
 	                 }
 
@@ -312,7 +320,7 @@
                 <div class="left__content" id="con2">
                     <div id="con2__nickname"><%= o.getNickname() %></div>
                     
-                    <button id= "diary" class="material-icons">auto_stories</button> 
+                    <!-- 이거는 놀러가기 -> 그담에 누르면 그사람이랑 나의 채팅창이 열리게 -->
                     <button id="mailIcon" class="material-icons">mail_outline</button>
                     <button id="calendarIcon" class="material-icons" data-toggle="modal" data-target="#calendarModal">calendar_month</button>
                     
@@ -321,6 +329,7 @@
                         <div id="my_info__1" data-toggle="tooltip" title="<%= o.getEmail() %>">이메일</div>
                         <div id="my_info__2" data-toggle="tooltip" title="<%= o.getMBTI() %>">MBTI</div>
                         <div id="my_info__3" data-toggle="tooltip" title="<%= o.getZodiac() %>">별자리</div>
+                        <span id="zodiac" data-zodiac="<%= o.getZodiac() %>"></span>
                         <div id="my_info__4" data-toggle="tooltip" title="<%= o.getABO()%>">혈액형</div>
                     </div>
                     
