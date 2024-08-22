@@ -121,7 +121,7 @@
                                         </div>
                                         <!-- 로그인 area -->
                                         <div class="login-area">
-                                            <button class="btn">LOG IN</button>
+                                            <button class="btn" id="loginBtn">LOG IN</button>
                                             <!-- 회원가입 버튼 -->
                                             <p class="announcement">처음이신가요? <a class="link" href="<%=contextPath%>/enroll.mi?type=nomal">회원가입하기!</a></p>
                                         </div>
