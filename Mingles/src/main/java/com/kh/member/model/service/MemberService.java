@@ -5,6 +5,7 @@ import static com.kh.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.kh.member.model.dao.MemberDao;
@@ -100,11 +101,65 @@ public class MemberService {
 		
 	}
 
-	public int updatePwd(String memId, String memPwd, String updatePwd) {
+	public Member updatePwd(String memId, String memPwd, String updatePwd) {
 		
 		Connection conn = getConnection();
 		
 		int result = new MemberDao().updatePwd(conn, memId, memPwd, updatePwd);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, memId);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updateNick(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateNick(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updateEmail(Member m) {
+
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateEmail(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public int quitMember(String memId, String memPwd) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().quitMember(conn, memId, memPwd);
 		
 		if (result > 0) {
 			commit(conn);
@@ -137,6 +192,154 @@ public class MemberService {
 	}
 	
 	
+
+	public Member updateMBTI(String userId, String mbti) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMBTI(conn, userId, mbti);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, userId);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updateMsg(String memId, String msg) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateMsg(conn, memId, msg);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, memId);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public Member updatePic(Member m) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updatePic(conn, m);
+		
+		Member updateMem = null;
+		if (result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, m.getMemId());
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return updateMem;
+	}
+
+	public ArrayList<Member> findMember(String findMem, String memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().findMember(conn, findMem, memNo);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Member> selectMemberByMBTI(String mbti, String memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectMemberByMBTI(conn, mbti, memNo);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int requestFriend(int sender, int receiver) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().requestFriend(conn, sender, receiver);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<Member> selectRequests(int memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectRequests(conn, memNo);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int handleRequest(int myMemNo, int frMemNo, String action) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().handleRequest(conn, myMemNo, frMemNo, action);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<Member> selectFriendList(int memNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDao().selectFriendList(conn, memNo);
+		
+		close(conn);
+				
+		return list;
+	}
+
+	public int updateFriendLevel(int memNo, String setLv) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().updateFriendLevel(conn, memNo, setLv);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+				
+		return result;
+	}
+
+
 
 }
 

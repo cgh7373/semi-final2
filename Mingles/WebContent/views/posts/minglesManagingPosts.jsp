@@ -34,10 +34,10 @@
                 <div id="post-right__title">
                     <div id="right-title__text">게시글 관리</div>
                     <div id="right-title__btn">
-                        <button class="btn-set" id="b1"><span>게시글 삭제</span></button>
-                        <button class="btn-set" id="b2"><span>메세지 보내기</span></button>
-                        <button class="btn-set" id="b3"><span>블랙리스트</span></button>
-                        <button class="btn-set" id="b4"><span>공지사항 작성</span></button>
+                        <button class="btn-set" id="b1"><span>게시글 수정</span></button>
+                        <button class="btn-set" id="b2"><span>게시글 삭제</span></button>
+                        <button class="btn-set" id="b3"><span></span></button>
+                        <button class="btn-set" id="b4"><span></span></button>
                         <button class="btn-set" id="b5" onclick="history.back()"><span>뒤로가기</span></button>
                     </div>
                 </div>

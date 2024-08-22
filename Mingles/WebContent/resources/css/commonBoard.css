@@ -1,4 +1,5 @@
-/* General Styling */div, img {
+/* General Styling */
+div, img {
     box-sizing: border-box;
 }
 
@@ -56,16 +57,19 @@ body {
 }
 
 #con1 {
-    height: 35%;
-    border-bottom: 5px solid #80FFDB;
+    width: 70%;
+    aspect-ratio: 1;
+    height: auto;
     text-align: center;
+    border-radius: 50%;
+    overflow: hidden;
+    margin:auto;
 }
 
 #con1 img {
-    width: 60%;
-    max-width: 300px;
-    height: auto;
-    margin: 20px auto;
+   width: 100%;
+    height: 100%;
+    margin: auto;
 }
 
 #con2 {
@@ -108,6 +112,7 @@ body {
     font-size: 20px;
     line-height: 1.5;
     margin: 10px 0;
+    height: 40%;
 }
 
 #con2__my_info {
@@ -140,7 +145,8 @@ body {
     margin: 10px 0;
 }
 
-/* Popular and Recent Posts */#con3 .sub-title {
+/* Popular and Recent Posts */
+#con3 .sub-title {
     font-family: 'Katuri', sans-serif;
     font-size: 20px;
     color: #5390D9;
@@ -167,7 +173,8 @@ body {
     border-radius: 20px;
 }
 
-/* Right Screen */#post-right__title {
+/* Right Screen */
+#post-right__title {
     width: 100%;
     height: 18%;
     display: flex;
@@ -207,7 +214,8 @@ body {
     color: #ffffff;
 }
 
-/* Tooltip */.tooltip-inner {
+/* Tooltip */
+.tooltip-inner {
     background-color: #fff !important;
     color: #08817d !important;
     border: 2px dotted #3DCCC7 !important;
@@ -232,34 +240,69 @@ body {
     border: transparent !important;
 }
 
-.right-list__content ul{
-    display: flex;
-    text-align: center;
-    align-items: center;
-    transition: .3s;
-}
-
-.right-list__content ul:hover{
-    border-radius:20px;
-    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition-duration:.3s;
-    background-color:#e9ffff ;
-}
-
-.right-list__content ul:first-child{
-    background-color: aliceblue;
-}
-
-.right-list__content ul:first-child:hover{
-    border-radius:0;
-    box-shadow: 0;
-    transition-duration:600s;
-}
-
-.right-list__content ul li{
+.right-list__content {
     width: 100%;
-    height: 62px;
-    line-height: 4;
-    border-bottom: 1px solid #e5e5e5;
-    font-size: 16px;
+    border-collapse: separate;
+    transition: 0.3s;
+    border-spacing: 0 10px;
+}
+
+thead th {
+    font-family: 'Katuri';
+    font-size: 35px;
+    text-align: center;
+}
+
+tbody {
+    text-align: center;
+    font-size: 30px;
+}
+
+tbody tr {
+    transition: .4s;
+}
+
+tbody tr:hover {
+    background-color: #defcfb;
+    border: 1px solid #48BFE3;
+    border-radius: 5%;
+    cursor: pointer;
+}
+
+#writePostModal {
+	width : 80%;
+}
+
+.modal * {
+	font-family: 'omyu_pretty';
+	font-size : 20px;
+}
+
+.modal-content {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background-color: #dbfffd;
+}
+
+.modal-title {
+	font-family: 'Katuri';
+    margin-left: 36%;
+    font-size: 25px;
+}
+
+.modal-body table * {
+    margin: 5%;
+}
+
+.modal .modal-body button {
+    border-radius: 10px;
+    background-color: #dbfffd;
+    transition: .8s;
+    &:hover {
+        box-shadow: 0 0 4px 2px #07BEB8;
+        background-color: #c3f8f5;
+    }
 }

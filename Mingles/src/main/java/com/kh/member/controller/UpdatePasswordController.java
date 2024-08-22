@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.kh.member.model.service.MemberService;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class UpdatePasswordController
@@ -34,13 +35,14 @@ public class UpdatePasswordController extends HttpServlet {
 		String memPwd = request.getParameter("userPwd");
 		String updatePwd = request.getParameter("updatePwd");
 		
-		int result = new MemberService().updatePwd(memId, memPwd, updatePwd);
+		Member updateMem = new MemberService().updatePwd(memId, memPwd, updatePwd);
 		
 		HttpSession session = request.getSession();
-		if (result > 0) {
-			session.setAttribute("alertMsg", "비밀번호가 변경됐어요");
-		} else {
+		if (updateMem == null) {
 			session.setAttribute("errorMsg", "비밀번호가 변경되지 않았어요");
+		} else {
+			session.setAttribute("loginUser", updateMem);
+			session.setAttribute("alertMsg", "비밀번호가 변경됐어요");
 		}
 		
 		response.sendRedirect("views/settings/minglesSettings.jsp");

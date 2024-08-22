@@ -28,8 +28,6 @@
 </head>
 <body>
 
-	<!-- 게시글 관련 파일 만들때 이거 통으로 복붙한다음에 만들어요 절대 이파일은 수정하지 말것 -->
-
 	<script>
 		document.addEventListener("DOMContentLoaded", function() {
 		// 성공메시지
@@ -49,25 +47,36 @@
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
 		 });
+		/*
+		$(function() {
+			showPostList();
+		})
+		
+		function showPostList() {
+			$.ajax({
+				url : '',
+				
+			})
+		}*/
 	</script>
 	
+     <% if (m != null) { %>
 	 <div id="wrap">
         <div id="container">
             <!-- Left Screen -->
             <div class="post-list" id="left">
                 <div class="left__content" id="con1">
-                    <img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt="">
+                    <img src="<%=m.getProfilePic() %>" alt="">
                 </div>
                 <div class="left__content" id="con2">
-                    <% if (m != null) { %>
                     <div id="con2__nickname"><%= m.getNickname() %></div>
                     <button id="mailIcon" class="material-icons">mail_outline</button>
-                    <div id="con2__my_text">제이름은 남도일 탐정입니다. 범인은 검은 쫄쫄이</div>
+                    <div id="con2__my_text"><%=m.getStatusMsg() %></div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
-                        <div id="my_info__2" data-toggle="tooltip" title="INTJ">MBTI</div>
+                        <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
                         <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리</div>
-                        <div id="my_info__4" data-toggle="tooltip" title="o형">혈액형</div>
+                        <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO() %>">혈액형</div>
                     </div>
                     
                 </div>
@@ -97,39 +106,85 @@
                 <div id="post-right__title">
                     <div id="right-title__text">여기에 이 파일 이름</div>
                     <div id="right-title__btn">
-                        <button><div>글쓰기</div></button>
-                        <button onclick="history.back()"><div>뒤로가기</div></button>
+                        <button data-toggle="modal"
+                        data-target="#writePostModal"><div>글쓰기</div></button>
                     </div>
                 </div>
                 <div id="post-right__list">
-                    <section class="right-list__content">
+                    <table class="right-list__content">
                     
                         <!-- 여기가 제목칸들 -->
-                        <ul>
-                            <li>내용1</li>
-                            <li>내용2</li>
-                            <li>내용3</li>
-                            <li>내용4</li>
-                            <li>내용5</li>
-                            <li>내용6</li>
-                            <li>내용7</li>
-                        </ul>
+                        <thead>
+                            <tr>
+                                <th width="12%">게시번호</th>
+                                <th width="10%">태그</th>
+                                <th width="40%">제목</th>
+                                <th width="8%">조회수</th>
+                                <th width="30%">작성일</th>
+                            </tr>
+                        </thead> 
+                        
                         
                         <!-- 여기다가 게시글 동적으로 만들면됨 -->
-                        <ul>
-                            <li>내용1</li>
-                            <li>내용2</li>
-                            <li>내용3</li>
-                            <li>내용4</li>
-                            <li>내용5</li>
-                            <li>내용6</li>
-                            <li>내용7</li>
-                        </ul>
+                        <tbody>
+                            <tr>
+                                <td>내용1</td>
+                                <td>내용2</td>
+                                <td>내용3</td>
+                                <td>내용4</td>
+                                <td>내용5</td>
+                            </tr>
+                        </tbody>
                         
-                    </section>
+                    </table>
                 </div>
             </div>
-        </div>
+     
+    						<!-- 글쓰기용 Modal -->
+                            <div class="modal fade" id="writePostModal">
+                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                       <div class="modal-content">
+    
+                                       <!-- Modal Header -->
+                                       <div class="modal-header">
+                                           <h4 class="modal-title" align="center">회원 탈퇴</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+    
+                                    <!-- Modal body -->
+                                    <div class="modal-body" align="center">
+                                   
+                                    <form action="/Mingles/memberQuit.mi" method="post">
+                                   
+                                           <input type="hidden" name="userId" value="<%= m.getMemId() %>">
+                                           <table>
+                                           
+                                            <tr>
+                                                <td>"탈퇴하겠습니다"를 입력해주세요</td>                               		
+                                                <td><input type="text" name="quitMent" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호</td>                               		
+                                                <td><input type="password" name="updatePwd" required></td>                               	
+                                            </tr>	
+                                           
+                                            <tr>
+                                                <td>비밀번호 확인</td>                               		
+                                                <td><input type="password" name="checkPwd" required></td>                               	
+                                            </tr>	
+                                           
+                                           </table>
+                                   
+                                           <br>
+                                           
+                                           <button type="submit" class="btn btn-sm" onclick="return validatePwd();">회원 탈퇴</button>
+                                  		 </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                               </div>
     </div>
 	<% } %>
 

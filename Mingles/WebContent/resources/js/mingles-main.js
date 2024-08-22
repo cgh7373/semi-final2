@@ -1,30 +1,3 @@
-
-$(function() {
-
-    $('#homeKey').click(function() {
-        $('#menuBar').css('display','block');
-        gsap.to('#menuBar',{
-            duration: 1,
-            right : 0,
-            ease : 'power1.out',
-        });
-    });
-
-    $('#menuBack').click(function() {
-        gsap.to('#menuBar',{
-            duration: 1,
-            right:'-20%',
-            ease : 'power1.in',
-            onComplete: function(){
-            setTimeout(function(){
-                $('#menuBar').css('display','none');
-            },200)
-            }
-        })
-    })
-
-})
-
 $(function(){
 
     let bounce;
@@ -77,3 +50,163 @@ $(document).ready(function(){
 
   });
 
+  $(document).ready(function() {
+    // MP3 FILE INSERT -> COLOR CHANGE
+    $('#file').change(function() {
+      if (this.files && this.files[0].type === 'audio/mpeg') {
+        $('#music--icon').css('color', '#68D8D6');
+      } else {
+        $('#music--icon').css('color', 'black');
+      }
+    });
+  
+    // THUMBNAIL FILE INSERT -> COLOR CHANGE
+    $('#thumbnail').change(function() {
+      if (this.files && this.files[0]) {
+        let fileExt = this.files[0].name.split('.').pop().toLowerCase();
+        let allowedExt = ['jpg', 'jpeg', 'png'];
+  
+        if (allowedExt.includes(fileExt)) {
+          $('#music--thumbnail').css('color', '#68D8D6');
+        } else {
+          $('#music--thumbnail').css('color', 'black');
+        }
+      }
+    });
+  
+    // MUSIC PLAYLIST ADD
+    $('#music--add').click(function() {
+      let title = $('#musicTitle').val().trim();
+      let singer = $('#singer').val().trim();
+  
+      // Check for maximum limit of 10 songs
+      if ($('.music--list li').length >= 10) {
+        alert('최대 10개까지 추가 가능합니다.');
+        return;
+      }
+  
+      $('.music--list').append(`
+        <li class = "song">
+        <div class="material-icons" style ="color:#07BEB8; font-size:18px; cursor:pointer;">play_arrow</div>
+             ${title} - ${singer} 
+                <div class="material-icons trashcan" style ="color:#dc3545; font-size:16px; visibility:hidden; cursor:pointer;">delete_outline</div>
+            </button>
+        </li>
+    `);
+
+      // Clear input fields
+      $('#musicTitle').val('');
+      $('#singer').val('');
+
+    });
+  
+    let flag = false;
+    // MUSIC PLAYLIST DELETE
+    $('#music--delete').click(function(){
+      if(flag){
+      $('.trashcan').css('visibility','hidden');
+      }else{
+        $('.trashcan').css('visibility','visible');
+      }
+      flag = !flag;
+    })
+
+    $('.music--list').on('click', '.trashcan', function(){
+      $(this).parent().remove();
+    })
+
+    // <div class="material-icons" style ="color:#07BEB8; font-size:18px; cursor:pointer;">play_arrow</div> 클릭하면 음악 재생하게 하기
+
+
+
+  });
+  
+const calendarDates = document.getElementById("calendarDates");
+const currentMonthElement = document.getElementById("currentMonth");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+const today = new Date();
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+
+function renderCalendar() {
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const startDayOfWeek = firstDayOfMonth.getDay();
+    currentMonthElement.textContent = `${currentYear}년 ${currentMonth + 1}월`;
+
+    calendarDates.innerHTML = "";
+
+    // 빈 날짜(이전 달)
+    for (let i = 0; i < startDayOfWeek; i++) {
+        const emptyDate = document.createElement("div");
+        emptyDate.classList.add("date", "empty");
+        calendarDates.appendChild(emptyDate);
+    }
+
+    // 현재 달의 날짜
+    for (let i = 1; i <= daysInMonth; i++) {
+        const dateElement = document.createElement("div");
+        dateElement.classList.add("date");
+        dateElement.textContent = i;
+        dateElement.setAttribute("data-date", currentYear + '-' + (currentMonth + 1) + '-' + i);
+        calendarDates.appendChild(dateElement);
+    }
+
+    updateMemoCounts();
+
+}
+
+function updateMemoCounts() {
+
+  const owner = document.getElementById("owner").getAttribute("data-owner");
+  const dateEls = document.querySelectorAll("#calendarDates .date");
+
+  dateEls.forEach(dateEl => {
+
+    const date = dateEl.getAttribute("data-date");
+    const countElement = document.createElement("span");
+    countElement.classList.add("memoCount");
+
+    $.ajax({
+      url : "/Mingles/memoCount.mi",
+      data : {
+        owner : owner,
+        date : date,
+      },
+      success : function(result) {
+
+        countElement.textContent = `메모 : ${result}개`
+
+        if (result > 0) {
+          dateEl.appendChild(countElement);
+        }
+
+      },
+    })
+
+  })
+
+
+}
+
+renderCalendar();
+
+prevBtn.addEventListener("click", () => {
+    currentMonth--;
+    if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+    }
+    renderCalendar();
+});
+
+nextBtn.addEventListener("click", () => {
+    currentMonth++;
+    if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+    }
+    renderCalendar();
+});
