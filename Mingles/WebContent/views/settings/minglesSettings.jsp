@@ -132,6 +132,12 @@
 	                     const pageNumbers = $("#findMemberModal #pageNumbers");
 	                     pageNumbers.empty();
 	                     
+	                     if (totalPages === 0) {
+	                         $("#bulletinModal #prevPage").prop('disabled', true);
+	                         $("#bulletinModal #nextPage").prop('disabled', true);
+	                         return;
+	                     }
+	                     
 	                     for (let i = 1; i <= totalPages; i++) {
 	                    	 
 	                         const button = $("<button>")
@@ -146,7 +152,7 @@
 	                     }
 	
 	                     $("#findMemberModal #prevPage").prop('disabled', currentPage === 1);
-	                     $("#findMemberModal #nextPage").prop('disabled', currentPage === totalPages);
+	                     $("#findMemberModal #nextPage").prop('disabled', currentPage === totalPages || totalPages === 0);
 	                     
 	                 }
 
@@ -227,6 +233,12 @@
   	                     const pageNumbers = $("#frReceiveModal #pageNumbers");
   	                     pageNumbers.empty();
   	                     
+  	                   	 if (totalPages === 0) {
+	                         $("#bulletinModal #prevPage").prop('disabled', true);
+	                         $("#bulletinModal #nextPage").prop('disabled', true);
+	                         return;
+	                     }
+  	                     
   	                     for (let i = 1; i <= totalPages; i++) {
   	                    	 
   	                         const button = $("<button>")
@@ -241,7 +253,7 @@
   	                     }
   	
   	                     $("#frReceiveModal #prevPage").prop('disabled', currentPage === 1);
-  	                     $("#frReceiveModal #nextPage").prop('disabled', currentPage === totalPages);
+  	                     $("#frReceiveModal #nextPage").prop('disabled', currentPage === totalPages || totalPages === 0);
   	                     
   	                 }
 
@@ -334,6 +346,12 @@
     	                     const pageNumbers = $("#frListModal #pageNumbers");
     	                     pageNumbers.empty();
     	                     
+    	                     if (totalPages === 0) {
+    	                         $("#bulletinModal #prevPage").prop('disabled', true);
+    	                         $("#bulletinModal #nextPage").prop('disabled', true);
+    	                         return;
+    	                     }
+    	                     
     	                     for (let i = 1; i <= totalPages; i++) {
     	                    	 
     	                         const button = $("<button>")
@@ -348,7 +366,7 @@
     	                     }
     	
     	                     $("#frListModal #prevPage").prop('disabled', currentPage === 1);
-    	                     $("#frListModal #nextPage").prop('disabled', currentPage === totalPages);
+    	                     $("#frListModal #nextPage").prop('disabled', currentPage === totalPages || totalPages === 0);
     	                     
     	                 }
 

@@ -120,14 +120,22 @@
                             
                     }
 
-                    $("#bulletinModal .modal-body table").html(value);
-	                     updatePaginationControls();
-	                 }
+                    	$("#bulletinModal .modal-body table").html(value);
+                    
+	                	updatePaginationControls();
+	                     
+	                }
 
 	                 function updatePaginationControls() {
 	                	 
 	                     const pageNumbers = $("#bulletinModal #pageNumbers");
 	                     pageNumbers.empty();
+	                     
+	                     if (totalPages === 0) {
+	                         $("#bulletinModal #prevPage").prop('disabled', true);
+	                         $("#bulletinModal #nextPage").prop('disabled', true);
+	                         return;
+	                     }
 	                     
 	                     for (let i = 1; i <= totalPages; i++) {
 	                    	 
@@ -136,14 +144,14 @@
 							                             .addClass('page-btn')
 							                             .data('page', i)
 							                             .on('click', function() {
-							                                 currentPage = $(this).data('page');
-							                                 renderPage(currentPage);
+							                                	currentPage = $(this).data('page');
+							                                    renderPage(currentPage);
 							                                });
 	                         pageNumbers.append(button);
 	                     }
 	
 	                     $("#bulletinModal #prevPage").prop('disabled', currentPage === 1);
-	                     $("#bulletinModal #nextPage").prop('disabled', currentPage === totalPages);
+	                     $("#bulletinModal #nextPage").prop('disabled', currentPage === totalPages || totalPages === 0);
 	                     
 	                 }
 
