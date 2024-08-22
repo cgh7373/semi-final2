@@ -194,6 +194,7 @@ public class MemberDao {
 			pstmt.setString(8, zodiacSign);
 			pstmt.setString(9, m.getABO());
 			pstmt.setString(10, m.getMBTI());
+			pstmt.setString(11, m.getKakaoNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -717,6 +718,54 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+	
+	public Member selectKakaoNo(Connection conn, String kakaoNo) {
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectKakaoNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, kakaoNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				
+				m = new Member(
+								  rset.getInt(1)
+								, rset.getString(2)
+								, rset.getString(3)
+								, rset.getString(4)
+								, rset.getString(5)
+								, rset.getString(6)
+								, rset.getString(7)
+								, rset.getString(8)
+								, rset.getString(9)
+								, rset.getString(10)
+								, rset.getString(11)
+								, rset.getInt(12)
+								, rset.getString(13)
+								, rset.getString(14)
+								, rset.getString(15)
+								, rset.getString(16)
+								, rset.getString(17)
+								, rset.getString(18)
+							  );
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
 	}
 
 

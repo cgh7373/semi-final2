@@ -339,6 +339,12 @@ public class MemberService {
 		return result;
 	}
 
+	public Member selectKakaoNo(String kakaoNo) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().selectKakaoNo(conn, kakaoNo);
+		close(conn);
+		return m;
+	}
 
 
 }
