@@ -1,8 +1,6 @@
 package com.kh.chat.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +11,16 @@ import com.kh.chat.model.service.ChatService;
 import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class MemberListController
+ * Servlet implementation class ChattingController
  */
-@WebServlet("/mem.ch")
-public class MemberListController extends HttpServlet {
+@WebServlet("/chatting.ch")
+public class ChattingController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MemberListController() {
+    public ChattingController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,9 +29,13 @@ public class MemberListController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//ArrayList<Member> list = new ChatService().allMemberList();
-		//request.setAttribute("list", list);
-		//request.getRequestDispatcher("views/chat/minglesChat.jsp").forward(request, response);
+		
+		String chatContent = request.getParameter("Content");
+		int fNo = Integer.parseInt(request.getParameter("fNo"));
+//		int chatNo = Integer.parseInt(request.getParameter("chatNo"));
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		int chatNo = new ChatService().chatNo(m);
+		
 		
 	}
 

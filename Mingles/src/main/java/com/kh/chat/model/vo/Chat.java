@@ -4,9 +4,9 @@ import java.sql.Date;
 
 public class Chat {
 	
-	private int chatId;
-	private String fromNickname;
-	private String toNickname;
+	private int chatId; // 채팅방번호
+	private String fromNickname; // 로그인한 사람의 회원번호
+	private String toNickname; // 상대방의 회원번호
 	private String chatContent;
 	private String chatTime;
 	

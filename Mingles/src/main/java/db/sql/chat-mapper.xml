@@ -3,50 +3,30 @@
 <properties>
 
 	<entry key="friendList">
-		 SELECT 
+		SELECT 
 		       SENDER_NO
 		     , RECEIVER_NO
+		     , MEM_NO
 		     , NICKNAME
 		     , PROFILE_PIC
 		  FROM FRIEND 
 		  JOIN MEMBER ON (RECEIVER_NO = MEM_NO)
 		 WHERE SENDER_NO = ?
 		   AND REQUEST_STATUS = 'A'
+		UNION
+		SELECT 
+		       SENDER_NO
+		     , RECEIVER_NO
+		     , MEM_NO
+		     , NICKNAME
+		     , PROFILE_PIC
+		  FROM FRIEND 
+		  JOIN MEMBER ON (SENDER_NO = MEM_NO)
+		 WHERE RECEIVER_NO = ?
+		   AND REQUEST_STATUS = 'A';
 	</entry>
 	
-	<entry key="chatList">
-		SELECT
-		       CHAT_ID
-		     , FROM_NICKNAME
-		     , TO_NICKNAME
-		     , CHAT_CONTENT
-		     , CHAT_TIME
-		  FROM CHAT
-		 WHERE CHAT_TIME > ?
-		 ORDER
-		    BY CHAT_TIME
-	</entry>
 	
-	<entry key="chatSubmit">
-		INSERT
-		  INTO CHAT
-		  (
-		    CHAT_ID
-		  , FROM_NICKNAME
-		  , TO_NICKNAME
-		  , CHAT_CONTENT
-		  , CHAT_TIME
-		  )
-		  VALUES
-		  (
-		    seq_chat.nextval
-		  , ?
-		  , ?
-		  , ?
-		  , SYSDATE
-		  )
-	</entry>
-
 
 
 

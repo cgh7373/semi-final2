@@ -6,26 +6,29 @@ public class Friend {
 	private int receiverNo;
 	private String requestStatus;
 	private String friendLevel;
+	private int fMemNo;
 	private String nickName;
 	private String profilePic;
 	
 	public Friend() {}
 
-	public Friend(int senderNo, int receiverNo, String requestStatus, String friendLevel, String nickName,
+	public Friend(int senderNo, int receiverNo, String requestStatus, String friendLevel, int fMemNo, String nickName,
 			String profilePic) {
 		super();
 		this.senderNo = senderNo;
 		this.receiverNo = receiverNo;
 		this.requestStatus = requestStatus;
 		this.friendLevel = friendLevel;
+		this.fMemNo = fMemNo;
 		this.nickName = nickName;
 		this.profilePic = profilePic;
 	}
-	
-	public Friend(int senderNo, int receiverNo, String nickName, String profilePic) {
+
+	public Friend(int senderNo, int receiverNo, int fMemNo, String nickName, String profilePic) {
 		super();
 		this.senderNo = senderNo;
 		this.receiverNo = receiverNo;
+		this.fMemNo = fMemNo;
 		this.nickName = nickName;
 		this.profilePic = profilePic;
 	}
@@ -62,6 +65,14 @@ public class Friend {
 		this.friendLevel = friendLevel;
 	}
 
+	public int getfMemNo() {
+		return fMemNo;
+	}
+
+	public void setfMemNo(int fMemNo) {
+		this.fMemNo = fMemNo;
+	}
+
 	public String getNickName() {
 		return nickName;
 	}
@@ -81,9 +92,8 @@ public class Friend {
 	@Override
 	public String toString() {
 		return "Friend [senderNo=" + senderNo + ", receiverNo=" + receiverNo + ", requestStatus=" + requestStatus
-				+ ", friendLevel=" + friendLevel + ", nickName=" + nickName + ", profilePic=" + profilePic + "]";
+				+ ", friendLevel=" + friendLevel + ", fMemNo=" + fMemNo + ", nickName=" + nickName + ", profilePic="
+				+ profilePic + "]";
 	}
-
-	
 
 }

@@ -28,6 +28,7 @@ public class ChatDao {
 		}
 	}
 	
+//	친구 리스트 조회
 	public ArrayList<Friend> friendList(Connection conn, int memNo){
 		ArrayList<Friend> friend = new ArrayList<Friend>();
 		PreparedStatement pstmt = null;
@@ -39,6 +40,7 @@ public class ChatDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, memNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -47,10 +49,10 @@ public class ChatDao {
 				
 				friend.add(new Friend(rset.getInt("sender_no"),
 									  rset.getInt("receiver_no"),
+									  rset.getInt("mem_no"),
 									  rset.getString("nickname"),
 									  rset.getString("profile_pic")));
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -59,59 +61,6 @@ public class ChatDao {
 		}
 		return friend;
 	}
-
-	
-	public ArrayList<Chat> chatList(Connection conn, String chatTime){
-		ArrayList<Chat> list = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("chatList");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, chatTime);
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				Chat chat = new Chat();
-				chat.setChatId(rset.getInt("chat_id"));
-				chat.setFromNickname(rset.getString("from_nickname"));
-				chat.setToNickname(rset.getString("to_nickname"));
-				chat.setChatContent(rset.getString("chat-content"));
-				chat.setChatTime(rset.getString("chat_time"));
-				list.add(chat);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-	
-	public int chatSubmit(Connection conn, String fromNickname, String toNickname, String chatContent) {
-		int result = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("chatSubmit");
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, fromNickname);
-			pstmt.setString(2, toNickname);
-			pstmt.setString(3, chatContent);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-		}
-		return result;
-	}
-	
 	
 	
 	

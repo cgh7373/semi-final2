@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.chat.model.service.ChatService;
 import com.kh.chat.model.vo.Friend;
+import com.kh.member.model.vo.Member;
 
 /**
  * Servlet implementation class FriendListController
@@ -33,11 +34,12 @@ public class FriendListController extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-
-		ArrayList<Friend> friend = new ChatService().friendList(memNo);
+		String contextPath = (String)request.getSession().getAttribute("contextPath");
+		Member m = (Member)request.getSession().getAttribute("loginUser");
+		ArrayList<Friend> friend = new ChatService().friendList(m.getMemNo());
 		
-		 request.setAttribute("friend", friend);
-		 request.getRequestDispatcher("views/chat/minglesChats.jsp").forward(request, response);
+		request.setAttribute("friend", friend); 
+		request.getRequestDispatcher("views/chat/minglesChats.jsp").forward(request, response);
 
 	}
 

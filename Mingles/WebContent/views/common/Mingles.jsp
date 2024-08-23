@@ -282,7 +282,7 @@
 	            	const url = "/Mingles/iframeShow.mi?iSrc=" + source;        	    	
             	    
 
-            	    	console.log(url)
+            	    	
             	    $.ajax({
             	    	url : url,
             	    	success : function(page) {
@@ -291,10 +291,6 @@
                     	        iframe.style.opacity = 1;
                     	        iframe.style.visibility = 'visible';
                     	    }, 100);
-		           	    	console.log(page);
-            	    	},
-            	    	error: function(){
-            	    		console.log("암됨")
             	    	},
             	    })
             	}

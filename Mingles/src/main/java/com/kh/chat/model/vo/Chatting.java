@@ -4,8 +4,8 @@ public class Chatting {
 	
 	private int chattingNo; // 채팅방번호
 	private String chCreateDate; // 채팅방 생성일
-	private int openMember; // 개설자 회원번호
-	private int participant; // 참여자 회원번호
+	private int openMember; // 로그인한사람의 회원번호
+	private int participant; // 친구의 회원번호
 	
 	public Chatting () {}
 

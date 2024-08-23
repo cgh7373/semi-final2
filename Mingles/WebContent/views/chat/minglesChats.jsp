@@ -5,8 +5,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% 
+	String contextPath = (String)request.getSession().getAttribute("contextPath");
 	Member m = (Member)session.getAttribute("loginUser");
 	ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
+	
+	
+	System.out.println(contextPath);
 	System.out.println(m);
 	System.out.println(friend);
 %>
@@ -36,7 +40,6 @@
 
     <!-- 마우스 이펙트 포인터 -->
     <script type="text/javascript">
-        // <![CDATA[
         var colours=new Array("#80FFDB", "#48BFE3", "#5E60CE", "#7400B8", "#72EFDD"); // colours for top, right, bottom and left borders and background of bubbles
         var bubbles=66; // maximum number of bubbles on screen
         var over_or_under="over"; // set to "over" for bubbles to always be on top, or "under" to allow them to float behind other objects
@@ -49,8 +52,7 @@
         var bubbx=new Array();
         var bubby=new Array();
         var bubbs=new Array();
-        var sploosh=false;
-        
+        var sploosh=false; 
         function addLoadEvent(funky) {
           var oldonload=window.onload;
           if (typeof(oldonload)!='function') window.onload=funky;
@@ -59,16 +61,13 @@
             funky();
           }
         }
-        
         addLoadEvent(buble);
-        
         function buble() { if (document.getElementById) {
           var i, rats, div;
           for (i=0; i<bubbles; i++) {
             rats=createDiv("3px", "3px");
             rats.style.visibility="hidden";
             rats.style.zIndex=(over_or_under=="over")?"1001":"0";
-        
             div=createDiv("auto", "auto");
             rats.appendChild(div);
             div=div.style;
@@ -78,7 +77,6 @@
             div.right="0px";
             div.borderLeft="1px solid "+colours[3];
             div.borderRight="1px solid "+colours[1];
-        
             div=createDiv("auto", "auto");
             rats.appendChild(div);
             div=div.style;
@@ -88,7 +86,6 @@
             div.bottom="0px"
             div.borderTop="1px solid "+colours[0];
             div.borderBottom="1px solid "+colours[2];
-        
             div=createDiv("auto", "auto");
             rats.appendChild(div);
             div=div.style;
@@ -106,7 +103,6 @@
           set_width();
           bubble();
         }}
-        
         function bubble() {
           var c;
           if (Math.abs(x-ox)>1 || Math.abs(y-oy)>1) {
@@ -125,16 +121,13 @@
           for (c=0; c<bubbles; c++) if (bubby[c]) update_bubb(c);
           setTimeout("bubble()", 40);
         }
-        
         document.onmousedown=splash;
         document.onmouseup=function(){clearTimeout(sploosh);};
-        
         function splash() {
           ox=-1;
           oy=-1;
           sploosh=setTimeout('splash()', 100);
         }
-        
         function update_bubb(i) {
           if (bubby[i]) {
             bubby[i]-=bubbs[i]/2+i%2;
@@ -154,7 +147,6 @@
             }
           }
         }
-        
         document.onmousemove=mouse;
         function mouse(e) {
           if (e) {
@@ -167,7 +159,6 @@
             x=event.x+sleft;
           }
         }
-        
         window.onresize=set_width;
         function set_width() {
           var sw_min=999999;
@@ -191,7 +182,6 @@
           swide=sw_min;
           shigh=sh_min;
         }
-        
         window.onscroll=set_scroll;
         function set_scroll() {
           if (typeof(self.pageYOffset)=='number') {
@@ -236,204 +226,140 @@
 
     <div id="wrap">
         <!-- 배경화면 -->
-        
         <div id="container"></div>
         
-
-
         <!-- 채팅창 -->
-        
          <section class="chat">
-            <input type="hidden"  id="memNO" name="memNo" value="<%= m.getMemNo() %>">
+            
              <!-- 친구리스트 -->
-             <a href="./main/minglesMain.jsp" class="chat-logo"><img src="./resources/images/Mingles로고-움직임-짤.gif" alt="mingles"></a>
+             <a href="/mingles.jsp" class="chat-logo"><img src="./resources/images/Mingles로고-움직임-짤.gif" alt="mingles"></a>
              <div class="chat-left">
 
               <div class="group">
                 <svg viewBox="0 0 24 24" aria-hidden="true" class="Searchicon">
                   <g>
-                    <path
-                      d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
-                    ></path>
+                    <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
                   </g>
                 </svg>
-                <input class="inputSearch" type="search" placeholder="Search" />
+                <input class="inputSearch" type="search" id="searchInput" placeholder="입력후 enter를 누르세요 :)" />
               </div>
 
                 <ul class="chat-friend">
                	<% for(Friend f : friend){ %>
                     <li class="friendList">
-                        <div class="friend__icon"><img src="<%= f.getProfilePic() %>" alt=""></div>
+                        <div class="friend__icon"><img src="<%= f.getProfilePic() %>" alt="친구프로필"></div>
                         <div class="friend-info">
-                            <span class="friend__name"><%= f.getNickName() %>></span>
+                            <span class="friend__name"><%= f.getNickName() %></span>
                             <span class="friend__text">20</span>
                         </div>
                     </li>
 				<% } %> 
- 
-                   <!--  <li class="friendList">
-                        <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
-                        <div>
-                            <span class="friend__name">이주영</span>
-                            <span class="friend__text">20</span>
-                        </div>
-                    </li>
-                    <li class="friendList">
-                        <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
-                        <div>
-                            <span class="friend__name">유현동</span>
-                            <span class="friend__text">99+</span>
-                        </div>
-                    </li>
-                    <li class="friendList">
-                        <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
-                        <div>
-                            <span class="friend__name">김상우</span>
-                            <span class="friend__text">20</span>
-                        </div>
-                    </li>
-                    <li class="friendList">
-                        <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
-                        <div>
-                            <span class="friend__name">정택은</span>
-                            <span class="friend__text">3</span>
-                        </div>
-                    </li>
-                    <li class="friendList">
-                        <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
-                        <div>
-                            <span class="friend__name">최규호</span>
-                            <span class="friend__text">50</span>
-                        </div>
-                    </li>
-                    <li class="friendList">
-                        <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
-                        <div>
-                            <span class="friend__name">김서경</span>
-                            <span class="friend__text">89</span>
-                        </div>
-                    </li>
-                    <li class="friendList">
-                        <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
-                        <div>
-                            <span class="friend__name">김서경</span>
-                            <span class="friend__text">99+</span>
-                        </div>
-                    </li>
-                    <li class="friendList">
-                        <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
-                        <div>
-                            <span class="friend__name">김서경</span>
-                            <span class="friend__text">10</span>
-                        </div>
-                    </li> -->
                 </ul>
             </div>
 
-
             <!-- 대화창 -->
-            <div class="chat-right">
-                <div class="chatRoom">
-                    <canvas id="jsCanvas" class="canvas"></canvas>
-                    <div class="chatting ch1">
-                        <div href="#" class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">안녕하세요~ 김서경입니당ㅎㅎ</div>
-                    </div>
-                    <div class="chatting ch2">
-                        <div href="#" class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">안녕하세요. 홈페이지 주인입니다.</div>
-                    </div>
-                    <div class="chatting ch1">
-                        <div href="#" class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
-                    </div>
-                    <div class="chatting ch2">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">예쁘게 봐주셔서 감사합니다. 자주 소통해요ㅎㅎ</div>
-                    </div>
-                    <div class="chatting ch1">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
-                    </div>
-                    <div class="chatting ch2">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">예쁘게 봐주셔서 감사합니다. 자주 소통해요ㅎㅎ</div>
-                    </div><div class="chatting ch1">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
-                    </div>
-                    <div class="chatting ch2">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">예쁘게 봐주셔서 감사합니다. 자주 소통해요ㅎㅎ</div>
-                    </div><div class="chatting ch1">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
-                    </div>
-                    <div class="chatting ch2">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">예쁘게 봐주셔서 감사합니다. 자주 소통해요ㅎㅎ</div>
-                    </div>
-                    <div class="chatting ch1">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
-                    </div>
-                    <div class="chatting ch2">
-                        <div class="icon"><img src="../../resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
-                        <div class="textbox">예쁘게 봐주셔서 감사합니다. 자주 소통해요ㅎㅎ</div>
-                    </div>
-                    
-                </div>
-                
-                <form action="/" class="chat-form"> 
-                  <div class="inputContainer">
-                    <input type="text" id="messageInput" placeholder="메세지를 입력하세요 :)"/>
-                    <label for="input-file">
-                      <div class="material-icons">attach_file</div>
-                    </label>
-                    <input type="file" id="input-file" style="display: none;" accept="image/*" onchange="setThumbnail(event);"/>
-                    <span class="material-icons draw">draw</span>
-                    <button type="submit" class="send_btn">
-                      send
-                      <div class="hoverEffect">
-                        <div></div>
-                      </div>
-                    </button>
-                  </div>
+	            <div class="chat-right">
+	                <div class="chatRoom">
+	                    <canvas id="jsCanvas" class="canvas" name="canvas"></canvas>
+	                    
+	                    <div class="chatting ch1">
+	                        <div class="icon"><img src="<%= friend %>" alt="친구프로필"></div>
+	                        <div class="textbox">안녕하세요~ 김서경입니당ㅎㅎ</div>
+	                    </div>
+	                    
+	                    <div class="chatting ch2">
+	                        <div href="#" class="icon"><img src="<%= m.getProfilePic() %>" alt="내프로필"></div>
+	                        <div class="textbox">안녕하세요. 홈페이지 주인입니다.</div>
+	                        <span>2024-08-23</span>
+	                    </div>
+	                    <div class="chatting ch1">
+	                        <div href="#" class="icon"><img src="" alt=""></div>
+	                        <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
+	                    </div>
+	                    <div class="chatting ch2">
+	                        <div class="icon"><img src="" alt=""></div>
+	                        <div class="textbox">예쁘게 봐주셔서 감사합니다. 자주 소통해요ㅎㅎ</div>
+	                    </div>
+	                    <div class="chatting ch1">
+	                        <div class="icon"><img src="" alt=""></div>
+	                        <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
+	                    </div>
+	                    <div class="chatting ch2">
+	                        <div class="icon"><img src="./resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
+	                        <div class="textbox">예쁘게 봐주셔서 감사합니다. 자주 소통해요ㅎㅎ</div>
+	                    </div><div class="chatting ch1">
+	                        <div class="icon"><img src="./resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
+	                        <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
+	                    </div>
+	                    <div class="chatting ch2">
+	                        <div class="icon"><img src="./resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
+	                        <div class="textbox">예쁘게 봐주셔서 감사합니다. 자주 소통해요ㅎㅎ</div>
+	                    </div><div class="chatting ch1">
+	                        <div class="icon"><img src="./resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
+	                        <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
+	                    </div>
+	                    <div class="chatting ch2">
+	                        <div class="icon"><img src="./resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
+	                        <div class="textbox">예쁘게 봐주셔서 감사합니다. 자주 소통해요ㅎㅎ</div>
+	                    </div>
+	                    <div class="chatting ch1">
+	                        <div class="icon"><img src="./resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
+	                        <div class="textbox">홈페이지가 너무 예뻐서 친하게 지내고 싶어요~~</div>
+	                    </div>
+	                    <div class="chatting ch2">
+	                        <div class="icon"><img src="./resources/images/Mingles아이콘-removebg-preview.png" alt=""></div>
+	                        <div class="textbox">예쁘게 봐주셔서 감사합니다. 자주 소통해요ㅎㅎ</div>
+	                    </div>
+
+	                </div>
+	                
+	                
+		         <form action="<%= contextPath %>/chatting.ch" class="chat-form" enctype="multipart/form-data"> 
+	                 <div class="inputContainer">
+	                    <input type="text" id="chatContent" name="inMess" value="" placeholder="메세지를 입력하세요 :)" />
+	                    <label for="input-file">
+	                      <div class="material-icons">attach_file</div>
+	                    </label>
+	                    <input type="file" id="input-file" name="originFileNo" value="" style="display: none;" accept="image/*"/>
+	                    <span class="material-icons draw">draw</span>
+	                    <button type="submit" class="send_btn" id="subBtn">send
+	                      <div class="hoverEffect">
+	                        <div><!-- 이펙트공간 --></div>
+	                      </div>
+	                    </button>
+	                  </div>
                 </form>
             </div>
          </section>
     </div>
     
     <script> 
-	   $(function(){
-	    	friendList();
-	    })
-	    
-	    // ajax로 친구 리스트 조회용
-	    function friendList(){    	
-	    	$.ajax({
-	    		url:"friend.ch",
-	    		data:{memNo:$("#memNo").val()},
-	    		type : "get",
-	    		success : function(f){
-	    			let value = ""
-	    			
-	    			for(let i in friend){
-	    				value += "<li class='friendList'>"
-	    						+ "<div class='friend__icon'><img src='" + f[i].profilePic + "'></div>"
-	    							+ " <div class='friend-info'>"
-	    								+ " <span class='friend__name'>" + f[i].nickName + "</span>"
-	    								+ "<span class='friend__text'>20</span>"
-	    							+ "</div>"
-	    				        + "</li>";
-	    			}
-	    		},
-	    		error:function(){
-	    			console.log("친구리스트 조회용 실패띠");
-	    		},
-	    	})
-	    	$(".chat-friend").html(value);
-	    }
+    
+    	$(function(){
+    		selectChatList();
+    		setInterval(selectChatList,20000);
+    	})
+    	
+    	// ajax로 해당 게시글에 댓글 작성하는 함수
+    	function insertChat(){
+    		$.ajax({
+    			url:"chatting.ch",
+    			data:{
+    				content:$("#chatContent").val(),
+    				chatNo:<%=  %>
+    			},
+    			success:function(result){ // 채팅성공 = > 갱신된 채팅 리스트 조회
+    				if(result>0){
+    					selectChatList();
+    					$("#chatContent").val("");
+    				}
+    			},
+    			error:function(){
+    				console.log("응 코딩 잘못했어~ 다시해");
+    			},
+    		})
+    	}
+	  
     </script>
     
 
