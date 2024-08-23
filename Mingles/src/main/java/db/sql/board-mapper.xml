@@ -74,11 +74,44 @@
 			   AND MEMO_DATE = ?
 	</entry>
 
+	<entry key="selectReadStatuses">
+			SELECT READ_NO
+				 , READ_DATE
+			     , READ_STATUS
+			  FROM READSTATUS
+			 WHERE READ_OWNER_NO = ?
+			   AND READ_YEAR = ?
+			   AND READ_MONTH = ?
+			 ORDER 
+			    BY READ_DATE
+	</entry>
 
+	<entry key="updateReadStatus">
+			UPDATE READSTATUS
+			   SET READ_STATUS = 'T'
+			 WHERE READ_OWNER_NO = ?
+			   AND READ_DATE = ?
+	</entry>
 
-
-
-
+	<entry key="insertReadStatus">
+			INSERT 
+			  INTO READSTATUS
+			     (
+			       READ_NO
+			     , READ_OWNER_NO
+			     , READ_YEAR
+			     , READ_MONTH
+			     , READ_DATE
+			     )
+			      VALUES
+			     (
+			       SEQ_READ.NEXTVAL
+			     , ?
+			     , ?
+			     , ?
+			     , ?
+			     )
+	</entry>
 
 
 

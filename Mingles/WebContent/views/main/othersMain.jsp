@@ -32,7 +32,7 @@
 
     <!-- 내부파일 -->
     <link rel="stylesheet" href="./resources/css/mingles-main.css">
-    <script defer src="./resources/js/mingles-main.js"></script>
+    <script defer src="./resources/js/others-main.js"></script>
     <link rel="icon" href="./resources/images/Mingles아이콘-removebg-preview.png">
 </head>
 <body>
@@ -518,12 +518,15 @@
 							owner : <%=o.getMemNo()%>,
 							writer : <%=m.getMemNo()%>,
 							scope : 'P',
+                            year : currentYear,
+			                month : currentMonth + 1,
 						},
 						type : 'post',
 						success : function(result) {
 							if (result > 0) {
 								selectMemoList($("#bulletinModalLabel").text());
 								$("#replyContent").val("");
+                                renderCalendar();
 							}
 						},
 						error : function() {
