@@ -50,6 +50,9 @@
 	<!-- 게시글 관련 파일 만들때 이거 통으로 복붙한다음에 만들어요 절대 이파일은 수정하지 말것 -->
 
 	<script>
+
+	
+	
 		document.addEventListener("DOMContentLoaded", function() {
 		// 성공메시지
 		 <% if (alertMsg != null) { %>
@@ -67,6 +70,7 @@
         	 });
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
+		
 		 });
 	</script>
 
@@ -131,6 +135,35 @@
             </div>
             </div>
         </div>
+        
+        <!-- 캘린더 Modal -->
+		<div class="modal fade" id="calendarModal">
+    		<div class="modal-dialog modal-dialog-centered">
+       			<div class="modal-content">
+       			
+				<div class="modal-body" align="center">
+           		<div class="calendar-container">
+			        <div class="calendar-header">
+			          <a id="prevBtn" class="btn">이전</a>
+			          <h2 id="currentMonth"></h2>
+			          <a id="nextBtn" class="btn">다음</a>
+			        </div>
+			        <div class="calendar-days">
+			          <div class="day">일</div>
+			          <div class="day">월</div>
+			          <div class="day">화</div>
+			          <div class="day">수</div>
+			          <div class="day">목</div>
+			          <div class="day">금</div>
+			          <div class="day">토</div>
+			        </div>
+			        <div class="calendar-dates" id="calendarDates"></div>
+			   </div>
+           		
+           		</div>
+                </div>
+            </div>
+        </div>
 	
 	 <div id="wrap">
         <div id="container">
@@ -142,13 +175,15 @@
                 </div>
                 <div class="left__content" id="con2">
                     <div id="con2__nickname"><%= m.getNickname() %></div>
-                    <button id= "diary" class="material-icons">auto_stories</button> 
-                    <button id="mailIcon" class="material-icons">mail_outline</button>
+                    
+                    <button id="calendarIcon" class="material-icons" data-toggle="modal" data-target="#calendarModal">calendar_month</button>
+                    
                     <div id="con2__my_text"><%=m.getStatusMsg() %></div>
                     <div id="con2__my_info">
                         <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
                         <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
                         <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리</div>
+                        <span id="zodiac" data-zodiac="<%= m.getZodiac() %>"></span>
                         <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO()%>">혈액형</div>
                     </div>
                     
@@ -225,6 +260,87 @@
                 </div>
 
             </div>
+
+                 <!--mp3 음악 버튼-->
+                   <div class="music">
+                   <img src="../../resources/images/cd.png" alt="cd그림" id ="mp3Button">
+    
+                    <!-- img 클릭하면 이 창 뜸 -->
+                    <div class ="popover-content" id ="show">
+                        <div class = "iframe-container" id="player">
+                            <!-- <iframe src="https://www.youtube.com/embed/?autoplay=1&mute=1" allow="autoplay"></iframe> -->
+                            <iframe width="1280" height="720" src="https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1" title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                        <div class = "music--info">
+                            <p class="music--title">ETA</p>
+                            <p class="music--singer">뉴진스</p>
+                        </div>
+                        <!-- 플리 버튼 -->
+                        <button class="material-icons">expand_less</button>
+                        <button class="material-icons">expand_more</button>
+                        <button class="material-icons" id="playlist">playlist_play</button>
+                    </div>
+    
+                </div>
+                
+                <!-- Bulletin Board Modal -->
+                <div class="modal fade" id="bulletinModal" tabindex="-1" aria-labelledby="bulletinModalLabel" aria-hidden="true">
+				    <div class="modal-dialog modal-dialog-centered">
+				        <div class="modal-content">
+				        
+				            <div class="modal-header">
+				                <h5 class="modal-title" id="bulletinModalLabel">Bulletin Board</h5>
+				                <button type="button" class="close" data-dismiss="modal">&times;</button>
+				            </div>
+				            
+				            <div class="modal-body" id="bulletinModalBody">
+				                
+				                <table class="modal-table">
+                                           
+                                <tr>
+                                    <td rowspan="2" class="modal-img"><img src=<%=m.getProfilePic() %>></td>                               		
+                                    <td class="modal-nickname"><%=m.getNickname() %></td>     
+                                    <td rowspan='2' class='memo-content'>Content</td>                         	
+                                </tr>	
+                                <tr>
+                                	<td class="modal-statusMsg"><%=m.getStatusMsg() %></td>
+                                </tr>
+                               
+                                </table>
+				                <span id="owner" data-owner="<%= m.getMemNo() %>"></span>
+				                <div class="pagination">
+							        <button id="prevPage">&lt;</button>
+							        <span id="pageNumbers"></span>
+							        <button id="nextPage">&gt;</button>
+							    </div>
+				            </div>
+				            
+				            <div class="modal-footer">
+				            	<table>
+				            		<tr>
+										<th>
+											<img src=<%=m.getProfilePic() %>>
+										</th>
+										<td id="writeMemo">
+											<input id="replyContent" maxlength="100" type="text">
+										</td>
+										<td>
+											<select id="memoScopeSelect">
+												<option value='P'>전체공개</option>
+												<option value='F'>친구공개</option>
+												<option value='M'>비공개</option>
+											</select>
+										</td>
+										<td>
+											<button onclick="insertReply();">메모작성</button>
+										</td>
+									</tr>
+				            	</table>
+				            </div>
+				            
+				        </div>
+				    </div>
+			    </div>
                 
                 <script>
                 const show = document.getElementById("show");
@@ -241,6 +357,12 @@
                     }
     
                 });
+                
+                
+                
+                
+	                
+                
                 </script>
     
             </div> <!--메인화면 div 끝-->

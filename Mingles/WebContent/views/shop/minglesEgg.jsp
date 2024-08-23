@@ -10,6 +10,9 @@
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<EggPayMent> list = (ArrayList<EggPayMent>)request.getAttribute("list");
 	String contextPath = request.getContextPath();
+	int selectType = (int)request.getAttribute("selectType");
+	String startDate = (String)request.getAttribute("startDate");
+	String endDate = (String)request.getAttribute("endDate");
 
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -72,14 +75,15 @@
                 <div id="charge-list">
                     <div id="charge-list__top">
                         <div id="list-top__text">결제 내역</div>
-                        <form action="">
-                          <input type="date" id="datepicker">
+                        <form action="<%= contextPath %>/eggChargeListSearch.mi">
+                          <input type="hidden" id="input1" name="cpage" value="1">
+                          <input type="hidden" id="input2" name="userNo" value="<%= m.getMemNo() %>">
+                          <input type="date" name="startDate" id="input3">
                           <span>~</span>
-                          <input type="date" id="datepicker">
+                          <input type="date" name="endDate" id="input4">
                           <button type="submit">조회</button>
                         </form>
                     </div>
-                    
 
                     <div id="charge-list__bot">
                         <table class="table table-hover" >
@@ -100,6 +104,7 @@
 			                    <td colspan="5">조회된 결제내역이 없습니다..</td>
 			                </tr>
 			                <% } else { %>
+                                <div id="listContent">
 			                	<% for(EggPayMent ep : list) { %>
 		                              <tr>
 		                                <td><%= ep.getPoint() %>개</td>
@@ -109,28 +114,50 @@
 		                                <td><%= ep.getCategory() %></td>
 		                              </tr>
                               	<% } %>
+                                </div>
+					        <% } %>
                              
                             </tbody>
                           </table>
                           <div class="pageWrap">
                             <div class="pagination">
-                                
-                                <% if(currentPage != 1){ %>
-					               <a href="<%= contextPath %>/eggForm.mi?cpage=<%= currentPage -1 %>&userNo=<%= m.getMemNo() %>">&laquo;</a>
-					            <%} %>
-					            
-					            <% for(int p = startPage; p <= endPage; p++) { %>
-					               <% if(p == currentPage){ %>
-					                  <a href="#" class="active"><%= p %></a>
-					               <% } else { %>
-					               	  <a href="<%= contextPath %>/eggForm.mi?cpage=<%= p %>&userNo=<%= m.getMemNo() %>"><%= p %></a>
-					               <% } %>
-					         	<% } %>
-					            
-					            <% if(currentPage != maxPage) {%>
-					               <a href="<%= contextPath %>/eggForm.mi?cpage=<%= currentPage +1 %>&userNo=<%= m.getMemNo() %>">&raquo;</a>
+                            	
+                            	<% if(selectType == 1) { %>
+                            		<!-- 날짜별 조회 -->
+                            		<% if(currentPage != 1){ %>
+						               <a href="<%= contextPath %>/eggChargeListSearch.mi?cpage=<%= currentPage -1 %>&userNo=<%= m.getMemNo() %>&startDate=<%= startDate %>&endDate=<%= endDate %>">&laquo;</a>
+						            <%} %>
+						            
+						            <% for(int p = startPage; p <= endPage; p++) { %>
+						               <% if(p == currentPage){ %>
+						                  <a href="#" class="active"><%= p %></a>
+						               <% } else { %>
+						               	  <a href="<%= contextPath %>/eggChargeListSearch.mi?cpage=<%= p %>&userNo=<%= m.getMemNo() %>&startDate=<%= startDate %>&endDate=<%= endDate %>"><%= p %></a>
+						               <% } %>
+						         	<% } %>
+						            
+						            <% if(currentPage != maxPage) {%>
+						               <a href="<%= contextPath %>/eggChargeListSearch.mi?cpage=<%= currentPage +1 %>&userNo=<%= m.getMemNo() %>&startDate=<%= startDate %>&endDate=<%= endDate %>">&raquo;</a>
+						            <% } %>
+                            	
+                            	<% } else { %>
+                                	<!-- 전체 조회 -->
+	                                <% if(currentPage != 1){ %>
+						               <a href="<%= contextPath %>/eggForm.mi?cpage=<%= currentPage -1 %>&userNo=<%= m.getMemNo() %>">&laquo;</a>
+						            <%} %>
+						            
+						            <% for(int p = startPage; p <= endPage; p++) { %>
+						               <% if(p == currentPage){ %>
+						                  <a href="#" class="active"><%= p %></a>
+						               <% } else { %>
+						               	  <a href="<%= contextPath %>/eggForm.mi?cpage=<%= p %>&userNo=<%= m.getMemNo() %>"><%= p %></a>
+						               <% } %>
+						         	<% } %>
+						            
+						            <% if(currentPage != maxPage) {%>
+						               <a href="<%= contextPath %>/eggForm.mi?cpage=<%= currentPage +1 %>&userNo=<%= m.getMemNo() %>">&raquo;</a>
+						            <% } %>
 					            <% } %>
-					           <% } %>
                             </div>
                          </div>
                     </div>
@@ -138,7 +165,9 @@
                 
             </section>
         </div>
-        
+        <script>
+           
+        </script>
         
         
 
@@ -236,13 +265,16 @@
                     <button type="button" onclick="ajaxIdCheck();">확인</button>
                 </form>
             </div>
+            <input type="hidden" id="memId" value="<%= m.getMemId()%>">
             <script>    
                 function ajaxIdCheck(){
 					var userId = document.getElementById("input-userId").value;
-                    
+                    var memId = document.getElementById('memId').value;
+                    console.log(memId);
+                    console.log("dmd")
                     $.ajax({
                         url:'ajaxIdCheck.mi',
-                        data:{userId:userId},
+                        data:{userId:userId, memId:memId},
                         success:function(result){
 							if(result === "success"){
 								alert("선물할 금액을 선택하세요.")
@@ -251,9 +283,10 @@
 								gift1.style.display = "block"
 								gift2.style.display = "block"
                                 $('.gift-form input[name=userId]').attr("readonly", true);
-							}else{
+							}else if(result === "fail"){
 								alert("존재하지 않은 아이디 입니다.")
-								console.log(userId);
+							}else{
+								alert("본인계정에 선물하기는 할 수 없습니다.")
 							}
                         },
                     })

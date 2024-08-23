@@ -4,6 +4,11 @@
     <wb-module deploy-name="Mingles">
                         
         
+            
+    
+    <wb-module deploy-name="Mingless">
+                        
+        
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
                         
         

@@ -27,6 +27,10 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	
+	<!-- kakao login연동 developer-->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script> -->
+	
     <!-- 내부파일 -->
     <link rel="stylesheet" href="./resources/css/mingle.css">
     <script defer src="<%=contextPath %>/resources/js/mingle.js"></script>
@@ -56,6 +60,8 @@
         	 });
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
+
+    	 
 		 });
 	
 	 	window.addEventListener('message', function(event) {
@@ -104,7 +110,7 @@
                                         <!-- 아이디 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="name">ID</label>
-                                            <input placeholder="아이디를 입력하세요." class="form_style" type="text" name="userId" required>
+                                            <input placeholder="아이디를 입력하세요." id="id" class="form_style" type="text" name="userId" required>
                                         </div>
 
                                         <!-- 비밀번호 버튼 -->
@@ -115,21 +121,72 @@
                                         </div>
                                         <!-- 로그인 area -->
                                         <div class="login-area">
-                                            <button class="btn">LOG IN</button>
+                                            <button class="btn" id="loginBtn">LOG IN</button>
                                             <!-- 회원가입 버튼 -->
-                                            <p class="announcement">처음이신가요? <a class="link" href="<%=contextPath%>/enroll.mi">회원가입하기!</a></p>
+                                            <p class="announcement">처음이신가요? <a class="link" href="<%=contextPath%>/enroll.mi?type=nomal">회원가입하기!</a></p>
                                         </div>
                                     </form>
                                     <!-- 간편로그인 버튼 -->
                                     <div class="btnLogin">
                                         <p class="announcement login-btn">간편로그인</p>
                                         <button> <img src="./resources/images/구글로고.png" alt="구글간편로그인"> </button>
-                                        <button> <img src="./resources/images/카톡로고.png" alt="카톡간편로그인"> </button>
+                                        <button onclick="kakaoLogin()"> <img src="./resources/images/카톡로고.png" alt="카톡간편로그인"> </button>
                                         <button> <img src="./resources/images/네이버로고.png" alt="네이버간편로그인"> </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        
+                        <script>
+                            window.Kakao.init('9379dc5e745ff90c58be373c9bbaaa72');
+                            console.log(Kakao.isInitialized()); 
+							
+                            function kakaoLogin() {
+                                Kakao.Auth.login({
+                                    success: function (authObj) {
+                                        
+                                        Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
+
+                                        Kakao.API.request({
+                                            url: '/v2/user/me',
+                                            success: function (res) {
+                                                var id = res.id;
+                                                
+                                                $.ajax({
+                                                    url:'<%=contextPath%>/selectKakaoNo.mi',
+                                                    data:{id:id},
+                                                    success:function(resp){
+                                                        var m = JSON.parse(resp)
+                                                        console.log(m)
+                                                        if(m === null){
+                                                        	console.log('회원가입해야함')
+                                                            location.href = "<%=contextPath%>/enroll.mi?type=kakao"
+                                                        } else {
+                                                            console.log("회원 있음")
+                                                            $("input#id").val(m.memId);
+                                                            $("input#password").val(m.memPwd);
+                                                            $('button#loginBtn').click();
+                                                        }
+                                                    },
+                                                    error:function(r){
+														alert("실패")
+                                                    },
+                                                })
+                                                
+                                            },
+                                            fail: function (error) {
+                                                alert('카카오 로그인에 실패했습니다. 관리자에게 문의하세요.' + JSON.stringify(error));
+                                            }
+                                        });
+                                            },
+                                    fail: function (err) {
+                                        console.log(err);
+                                    }
+                                });
+                            }
+
+
+                        </script>
 
                     </div>
 					<% } else { %>
@@ -185,13 +242,13 @@
 
                 <iframe src="./views/main/minglesMain.jsp" class="mgScreens iframe-main"
                     frameborder="0"></iframe>
-                <iframe src="./views/settings/minglesSettings.jsp" class="mgScreens iframe-settings"
+                <iframe src="" class="mgScreens iframe-settings"
                     frameborder="0"></iframe>
-                <iframe src="./views/shop/minglesShop.jsp" class="mgScreens iframe-shop" frameborder="0"></iframe>
-                <iframe src="./views/style/minglesStyle.jsp" class="mgScreens iframe-style" frameborder="0"></iframe>
-                <iframe src="./views/chat/minglesChat.jsp" class="mgScreens iframe-chat" frameborder="0"></iframe>
-                <iframe src="./views/posts/minglesPosts.jsp" class="mgScreens iframe-posts" frameborder="0"></iframe>
-                <iframe class="mgScreens iframe-eta" src="https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1&loop=1" title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe src="" class="mgScreens iframe-shop" frameborder="0"></iframe>
+                <iframe src="" class="mgScreens iframe-style" frameborder="0"></iframe>
+                <iframe src="" class="mgScreens iframe-chat" frameborder="0"></iframe>
+                <iframe src="" class="mgScreens iframe-posts" frameborder="0"></iframe>
+                <iframe class="mgScreens iframe-eta" src="" title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 
             </div>
 
@@ -251,6 +308,43 @@
             			    swal("돌아가요");
             			  }
             			});
+            	}
+            	
+            	function handleIframeNavigation(iframe, source) {
+            		
+            	    screens.forEach(a => {
+            	        a.style.opacity = 0;
+            	        a.style.transition = '.6s';
+            	        a.style.visibility = 'hidden';
+            	    });
+
+            	    document.querySelector('.iframe-wrapper').animate(
+            	        [
+            	            { transform: 'scale(1)' },
+            	            { transform: 'scale(1.007)' },
+            	            { transform: 'scale(1)' }
+            	        ],
+            	        {
+            	            duration: 700,
+            	            fill: 'forwards',
+            	            easing: 'ease'
+            	        }
+            	    );
+
+            	    const url = "/Mingles/iframeShow.mi?iSrc=" + source;
+                    
+            	    $.ajax({
+            	    	url : url,
+            	    	success : function(page) {
+            	    		setTimeout(() => {
+                                $(".mgScreens").src = "";
+                    	        iframe.src = page;
+                    	        iframe.style.opacity = 1;
+                    	        iframe.style.visibility = 'visible';
+                    	    }, 100);
+            	    	}
+            	    })
+            	    
             	}
             </script>
 

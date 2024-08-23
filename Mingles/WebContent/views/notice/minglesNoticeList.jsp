@@ -57,7 +57,7 @@
             <!-- Left Screen -->
             <div class="post-list" id="left">
                 <div class="left__content" id="con1">
-                    <img src="./resources/images/Mingles아이콘-removebg-preview.png" alt="">
+                    <img src=<%=m.getProfilePic().substring(4) %> alt="">
                 </div>
                 <div class="left__content" id="con2">
                     <div id="con2__nickname"><%= m.getNickname() %></div>

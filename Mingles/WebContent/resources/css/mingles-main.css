@@ -85,7 +85,7 @@ body {
     font-family: 'Katuri', sans-serif;
 }
 
-#mailIcon, #diary{
+#mailIcon, #diary, #calendarIcon {
     font-size: 40px;
     color: #34c299;
     position: absolute;
@@ -99,15 +99,19 @@ body {
 }
 
 #diary{
-  right: 70px;
+  right: 26%;
+}
+
+#mailIcon {
+	right : 14%;
 }
 
 
-#mailIcon:hover, #diary:hover {
+#mailIcon:hover, #diary:hover, #calendarIcon:hover {
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
 }
 
-#mailIcon:active, #diary:active {
+#mailIcon:active, #diary:active, #calendarIcon:active {
     color: #C4FFF9;
     background-color: #34c299;
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
@@ -117,7 +121,7 @@ body {
     font-size: 20px;
     line-height: 1.5;
     margin: 10px 0;
-    height: 40%;
+    height: 35%;
 }
 
 #con2__my_info {
@@ -507,4 +511,235 @@ input[type="file"]{
 table input[type="text"]{
   width: 130px;
   margin:4px;
+}
+
+.btn {
+    width: 80px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 1s;
+    cursor: pointer;
+    margin: 0 40px;
+    font-size: 20px;
+
+    &:hover {
+        border-radius: 20px;
+        box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+        transition-duration: 1s;
+    }
+}
+
+.calendar-container {
+    width: 1000px;
+    height : auto;
+    border: 2px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 5%;
+    margin : auto;
+    background-color: #f2fffb;
+    border-radius: 20px;
+    position : absolute;
+    top : -850%;
+    right : -50%;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5%;
+    font-size: 25px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    /* 
+    grid-template-columns : CSS의 Grid 레이아웃에서 사용되는 속성(property) 중 하나로, 
+    그리드 컨테이너(grid container)의 열(column) 크기를 지정하는 것을 말한다.
+    repeat(7, 1fr) : 1행에 7개의 열이 있으며, 
+    각 열의 크기를 동일하게 1분의 1(fractional unit, fr)로 설정하라는 의미한다. */
+    font-weight: bold;
+    border-bottom: 2px solid #ccc;
+    padding-bottom: 15px;
+    font-size: 20px;
+    text-align: left;
+}
+
+.day {
+    width: 130px;
+    padding-left: 15px;
+}
+
+.calendar-dates {
+    padding-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-gap: 15px;
+    text-align: left;
+}
+
+.date {
+    font-size: 18px;
+    height: 60px;
+    cursor: pointer;
+    padding: 15px;
+}
+
+.date:hover {
+    border-radius: 10px;
+    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+    transition-duration: 1s;
+}
+
+#calendar {
+	background-color : transparent;
+	position : relative;
+}
+
+#bulletinModal {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#bulletinModal .modal-dialog {
+  max-width: 800px;
+}
+
+#bulletinModal * {
+  vertical-align: middle;
+}
+
+#bulletinModalLabel {
+  padding-left: 4%;
+  color: #333;
+}
+
+#bulletinModal .modal-content {
+  width: 800px;
+	border-radius: 10px;
+}
+
+#bulletinModal .memo-img {
+  width: 8%;
+}
+
+#bulletinModal .memo-content {
+  width: 80%;
+}
+
+#bulletinModal .memo-else {
+  text-align: right;
+  width: 12%;
+}
+
+#bulletinModal .memo-dist {
+}
+
+#bulletinModal img {
+  width: 90%;
+  aspect-ratio: 1;
+  height: auto;
+  text-align: center;
+  border-radius: 50%;
+  overflow: hidden;
+  margin:auto;
+  border: 2px solid #ddd; 
+}
+
+#bulletinModal .modal-content .modal-header {
+  font-family: 'Katuri';
+  font-size: 40px;
+  background-color: #72EFDD;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  align-items: center;
+}
+
+#bulletinModal .modal-content .modal-body {
+  font-family: 'omyu_pretty';
+  font-size: 20px;
+  padding: 8px;
+}
+
+#bulletinModal .modal-content .modal-body td {
+  height: 10px;
+} 
+
+#bulletinModal .pagination {
+	display: flex;
+	justify-content: center;
+}
+
+#bulletinModal .pagination * {
+  border-radius: 50%;
+  margin: 0 1px;
+  background-color: #e4f7fd;
+}
+
+#bulletinModal .modal-footer {
+  padding: 5px;
+}
+
+#bulletinModal .modal-footer * {
+  box-sizing: border-box;
+}
+
+#bulletinModal .modal-footer th {
+  width: 8%;
+}
+
+#bulletinModal .modal-footer select {
+  margin-left: 25%;
+}
+
+#bulletinModal .modal-footer button {
+  float: right;  
+}
+
+#bulletinModal .modal-footer #writeMemo {
+  width: 70%;
+}
+
+#bulletinModal .modal-footer #writeMemo #replyContent {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.date {
+  padding: 5%;
+  position : relative;
+}
+
+.memoCount {
+  width: 100%;
+  height: auto;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  margin: 0 35%;
+}
+
+.date.unread::after {
+    content: '💬';
+    position : absolute;
+    top : 12%;
+    left : 52%;
+}
+
+.today {
+	font-size : 20px;
+ 	font-weight: bold;
+}
+
+.center-text {
+	display:flex;
+    width: auto;
+	height : 70% !important;
+	position : absolute;
+	left : 40%;
+	background-color : white;
 }

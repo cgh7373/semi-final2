@@ -26,6 +26,8 @@ public class MinglesEnrollController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String type = request.getParameter("type");
+		request.setAttribute("type", type);
 		request.getRequestDispatcher("views/member/minglesEnroll.jsp").forward(request, response);
 	}
 
