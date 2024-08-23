@@ -18,7 +18,7 @@ public class ItemDao {
 	private Properties prop = new Properties();
 	
 	public ItemDao() {
-		String filePath = ItemDao.class.getResource("/db/sql/item-mapper.xml").getPath();
+		String filePath = ItemDao.class.getResource("/db/sql/shop-mapper.xml").getPath();
 		
 		try {
 			prop.loadFromXML(new FileInputStream(filePath));
@@ -28,11 +28,14 @@ public class ItemDao {
 		
 	}// ItemDao-db연결
 	
+	
+	// category 값을 안받았을 경우 - 전체 select문
+	
 	public int selectListCount(Connection conn) {
 		int listCount =0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("selectListCount");
+		String sql = prop.getProperty("selectItemListCount");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -91,6 +94,80 @@ public class ItemDao {
 		}
 
 		return list;
-	}
+	}//selectItemList
+	
+	
+	// category 값을 받았을 경우 - 일부 select문
+	
+	public int selectListWithCategoryCount(Connection conn, String category) {
+		int listCount =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListWithCategoryCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, category);
+			
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				listCount = rset.getInt("COUNT");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		System.out.println("카테고리 뭐냐 : " + category);
+		
+		return listCount;
+	}//selectListWithCategoryCount
+
+	public ArrayList<Item> selectListWithCategory(Connection conn, PageInfo pi, String category) {
+		ArrayList<Item> list = new ArrayList<Item>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectListWithCategory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			
+			pstmt.setString(1, category);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Item(
+						rset.getInt("item_num"),
+						rset.getString("categoryname"),
+						rset.getString("item_name"),
+						rset.getInt("price"),
+						rset.getString("item_intro"),
+						rset.getDate("item_date"),
+						rset.getString("item_status"),
+						rset.getString("save_file")
+						));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+
+	}// selectListWithCategory
+
+
 	
 }

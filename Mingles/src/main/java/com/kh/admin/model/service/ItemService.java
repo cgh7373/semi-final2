@@ -28,5 +28,24 @@ public class ItemService {
 		return list;
 	}// selectItemList()
 	
+	public int selectListWithCategoryCount(String category) {
+		Connection conn = getConnection();
+		
+		int listcount = new ItemDao().selectListWithCategoryCount(conn, category); 
+		
+		close(conn);
+		return listcount;
+	}//selectListWithCategoryCount
+	
+
+	public ArrayList<Item> selectListWithCategory(PageInfo pi, String category) {
+		
+		Connection conn = getConnection();
+		ArrayList<Item> list = new ItemDao().selectListWithCategory(conn, pi, category);
+		
+		close(conn);
+		return list;
+	}// selectListWithCategory
+
 	
 }
