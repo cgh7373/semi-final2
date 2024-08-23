@@ -74,7 +74,7 @@ Member mem = (Member)session.getAttribute("loginUser");
                         <div class="bal bal2">
                             <div class="bal-wall">벽지</div>
                             <div class="bal-floor">바닥</div>
-                            <div class="bal-item">아이템</div>
+                            <div class="bal-theme">테마</div>
                         </div>
 
                         <div class="bal bal3">
@@ -91,7 +91,7 @@ Member mem = (Member)session.getAttribute("loginUser");
                         </div>
 
                     </div>
-                    <!-- MINIHOMPI ROOM-->
+                       <!-- MINIHOMPI ROOM-->
                     <div class="vis-room">
 
                         <!-- AVATAR : 90-->
@@ -123,33 +123,36 @@ Member mem = (Member)session.getAttribute("loginUser");
                              </div>
 
                             <!-- SHOES -->
-                             <div class="shoes" id = "shoesSave">
+                            <div class="shoes" id = "shoesSave">
                                 <img id = "shoes" src="../../resources/stylesources/shoes13.png" alt="shoes">
                              </div>
 
                         </div> <!--AVATAR-->
 
-                        <!-- FLOOR SKIN -->
-                         <div class="floor-box">
-                            <!-- FLOOR관련 ACCESSORIES 배치할 것 -->    
+						<!-- ROOM : 80 -->
+						<div class="room-box">
 
-                            <div class="floor-skin">
-                                <img id = "floor-skin" src="../../resources/stylesources/floor10.png" alt="floor">
-                            </div>
+							<!-- WALL-->
+							<div class="wall" id = "wallSave">
+								<img id = "wall" src="../../resources/stylesources/wall1.png" alt="wall">
+							</div> <!--WALL-->
 
-                         </div> <!-- FLOOR -->
+                       		<!-- FLOOR-->
+                            <div class="floor" id = "floorSave">
+                                <img id = "floor" src="../../resources/stylesources/floor10.png" alt="floor">
+                            </div> <!-- FLOOR -->
+							
+							<!-- THEME -->
+							<div class="theme" id ="themeSave">
+								<img id = "theme" src="../../resources/stylesources/theme1.png" alt="theme">
+							</div>
 
-                        <!-- WALL SKIN -->
-                         <div class="wall-box">
-                            <!-- WALL관련 ACCESSORIES 배치할 것 -->
-                         </div> <!--WALL-->
-
-                    </div> <!-- MINIHOMPI ROOM-->
+						</div><!-- ROOM -->
 
                     <div class="bot-box">
                         <div class="btn btn1">mingleShop</div>
                        
-                        <div class="btn btn2" onclick = "saveAvatar()">저장하기</div>
+                        <div class="btn btn2"onclick = "saveAvatar()">저장하기</div>
                        
                     </div>
  
@@ -163,9 +166,7 @@ Member mem = (Member)session.getAttribute("loginUser");
     </div>
 	
 	<script>
-	const memNo = <%= mem.getMemNo()%>
-	console.log(memNo);
-	<% System.out.println("m값 있나:" + mem.getMemNo());%> 
+	const memNo = <%= m.getMemNo()%>
 	
 	// 페이지 로드 시 select됬던 요소 실행
 	window.onload= function(){
@@ -182,6 +183,9 @@ Member mem = (Member)session.getAttribute("loginUser");
 			top : document.getElementById('topSave').querySelector('img').src,
 			bottom : document.getElementById('bottomSave').querySelector('img').src,
 			shoes : document.getElementById('shoesSave').querySelector('img').src,
+			wall : document.getElementById('wallSave').querySelector('img').src,
+			floor: document.getElementById('floorSave').querySelector('img').src,
+			theme : document.getElementById('themeSave').querySelector('img').src,
 		};
 		
 	}// getValues()
@@ -213,11 +217,10 @@ Member mem = (Member)session.getAttribute("loginUser");
 		document.cookie = name + '=; MAX-AGE = -99999999; path =/';
 	}
 	
-	
-	
 	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기 - insert, update문
 	function saveAvatar(){
 		let selected = getValues();
+		console.log(selected);
 
 		// 사용자가 아바타가 있는지 없는지 확인하는 ajax문
 		$.ajax({
@@ -241,11 +244,13 @@ Member mem = (Member)session.getAttribute("loginUser");
 						top : selected.top,
 						bottom :selected.bottom,
 						shoes :selected.shoes,
+						wall : selected.wall,
+						floor: selected.floor,
+						theme : selected.theme,
 					},
 					type : "post",
 					success : function(){
 						console.log("ajax update avatar 통신 success");
-						console.log("userNo의 값" + selected.userNo);
 						selectAvatar();
 					},
 					error : function(){
@@ -263,6 +268,9 @@ Member mem = (Member)session.getAttribute("loginUser");
 						top : selected.top,
 						bottom :selected.bottom,
 						shoes :selected.shoes,
+						wall: selected.wall,
+						floor: selected.floor,
+						theme : selected.theme,
 					},
 					type : "post",
 					success : function(result){
@@ -300,33 +308,41 @@ Member mem = (Member)session.getAttribute("loginUser");
 				top : getCookie('top'),
 				bottom : getCookie('bottom'),
 				shoes: getCookie('shoes'),
+				wall : getCookie('wall'),
+				floor: getCookie('floor'),
+				theme : getCookie('theme'),
 			};
 			return avatarData;
 		}// getAvatarFromCookies()
 		
 		let avatarData = getAvatarFromCookie();
-	
 		console.log("ajax call 시도");
-			
+
 		$.ajax({
 			url : "/Mingles/selectAvatar.st",
 			data : {memno : selected.userNo,},
 			type : "post",
 			success : function(result){
 				console.log("select ajax result 성공" );
-				if(result.hair || result.face || result.top || result.bottom || result.shoes){
+				if(result.hair || result.face || result.top || result.bottom || result.shoes || result.wall || result.floor || result.theme){
 			
 					setCookie('hair',changeURL(result.hair), 365);
 	                setCookie('face', changeURL(result.face), 365);
 	                setCookie('top', changeURL(result.top), 365);
 	                setCookie('bottom', changeURL(result.bottom), 365);
 	                setCookie('shoes', changeURL(result.shoes), 365);
+	                setCookie('wall', changeURL(result.wall), 365);
+	                setCookie('floor', changeURL(result.floor), 365);
+	                setCookie('theme', changeURL(result.theme), 365);
 				
 	            	$('#hair').attr('src', changeURL(result.hair));
 					$('#face').attr('src', changeURL(result.face));
 					$('#top').attr('src', changeURL(result.top));
 					$('#bottom').attr('src', changeURL(result.bottom));
 					$('#shoes').attr('src', changeURL(result.shoes));
+					$('#wall').attr('src', changeURL(result.wall));
+					$('#floor').attr('src', changeURL(result.floor));
+					$('#theme').attr('src', changeURL(result.theme));
 					
 					console.log("avatardata가 서버에 적용되고 쿠키에 저장됨");
 					

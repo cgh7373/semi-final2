@@ -12,7 +12,7 @@ public class Shop {
 	 private String memId;
 	 private String nickname;
 	
-	 public Shop () {}
+	 public Shop () {};
 
 	public Shop(int shopNo, int shopCategory, String shopPic, String shopTitle, String shopDes, String shopDate,
 			int memNo, String memId, String nickname) {

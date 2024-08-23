@@ -9,6 +9,9 @@ UPDATE STYLE
      , AVATAR_TOP = ?
      , AVATAR_BOTTOM = ?
      , AVATAR_SHOES = ?
+     , AVATAR_WALL = ?
+     , AVATAR_FLOOR = ?
+     , AVATAR_THEME = ?
  WHERE MEM_NO = ?
 
 </entry>
@@ -23,10 +26,16 @@ INSERT
       , AVATAR_TOP
       , AVATAR_BOTTOM
       , AVATAR_SHOES
+      , AVATAR_WALL
+      , AVATAR_FLOOR
+      , AVATAR_THEME
      )
 VALUES
     (
        ?
+     , ?
+     , ?
+     , ?
      , ?
      , ?
      , ?

@@ -20,8 +20,8 @@ document.querySelector('.bal-floor').addEventListener('click',function() {
     document.querySelector('.style-tag').innerHTML = '바닥'
     updateCategory();
 })
-document.querySelector('.bal-item').addEventListener('click',function() {
-    document.querySelector('.style-tag').innerHTML = '아이템'
+document.querySelector('.bal-theme').addEventListener('click',function() {
+    document.querySelector('.style-tag').innerHTML = '테마'
     updateCategory();
 })
 document.querySelector('.bal-hair').addEventListener('click',function() {
@@ -119,8 +119,42 @@ const shoesdata = [
 ]
 
 // FLOOR DATA PAGINATION
+const floordata = [
+    {itemImg : 'floor1.png',},
+    {itemImg : 'floor2.png',},
+    {itemImg : 'floor3.png',},
+    {itemImg : 'floor4.png',},
+    {itemImg : 'floor5.png',},
+    {itemImg : 'floor6.png',},
+    {itemImg : 'floor7.png',},
+    {itemImg : 'floor8.png',},
+    {itemImg : 'floor9.png',},
+    {itemImg : 'floor10.png',},
+]
 
 // WALL DATA PAGINATION
+const walldata = [
+    {itemImg : 'wall1.png',},
+    {itemImg : 'wall2.png',},
+    {itemImg : 'wall3.png',},
+    {itemImg : 'wall4.png',},
+    {itemImg : 'wall5.png',},
+    {itemImg : 'wall6.png',},
+    {itemImg : 'wall7.png',},
+    {itemImg : 'wall8.png',},
+    {itemImg : 'wall9.png',},
+    {itemImg : 'wall10.png',},
+]
+
+// THEME DATA PAGINATON
+const themedata = [
+    {itemImg : 'theme1.png',},
+    {itemImg : 'theme2.png',},
+    {itemImg : 'theme3.png',},
+    {itemImg : 'theme4.png',},
+    {itemImg : 'theme5.png',},
+]
+
 
 
 // count_per_page = boardLimit = 한 페이지에 보여질 개수
@@ -137,10 +171,9 @@ function updateCategory(){
         case '상의' : currentData = topdata; break;
         case '하의' : currentData = bottomdata; break;
         case '신발' : currentData = shoesdata; break;
-
-        // case '벽지' : currentData = 
-        // case '바닥' : currentData = 
-        // case '아이템' : currentData = 
+        case '벽지' : currentData = walldata; break;
+        case '바닥' : currentData = floordata; break;
+        case '테마' : currentData = themedata; break;
     }
 
     updatePagination();
@@ -271,7 +304,6 @@ const bal2 = document.querySelector('.bal.bal2').classList;
 const bal3 = document.querySelector('.bal.bal3').classList;
 
 document.querySelector('.roomDeco').addEventListener('click',function() {
-
 
     bal2.toggle('onoffTo')
     bal3.remove('onoffTo')
@@ -436,6 +468,9 @@ document.addEventListener("DOMContentLoaded", function() {
     setupCategory('pants', 'bottom');
     setupCategory('outer', 'top');
     setupCategory('shoes', 'shoes');
+    setupCategory('wall', 'wall');
+    setupCategory('floor', 'floor');
+    setupCategory('theme', 'theme');
   
 
     initializePagination();

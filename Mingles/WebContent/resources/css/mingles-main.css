@@ -202,62 +202,6 @@ body {
     position:absolute;
 }
 
-/* 나도 꾸미기 버튼 */
-#decorate {
-    text-decoration: none;
-    position: absolute;
-    border: none;
-    font-size: 23px;
-    font-family: "omyu_pretty";
-    cursor: pointer;
-    color: #fff;
-    width: 120px;
-    height: 35px;
-    text-align: center;
-    background: linear-gradient(60deg, #965df2 , #48BFE3 , #64DFDF, #80FFDB);
-    background-size: 300%;
-    border-radius: 50px;
-    z-index: 20;
-    left: 37%;
-    bottom: 7%;
-}
-  
-#decorate:hover {
-    animation: ani 8s linear infinite;
-    border: none;
-}
-
-@keyframes ani {
-    0% {
-      background-position: 0%;
-    }
-  
-    100% {
-      background-position: 400%;
-    }
-  }
-  
-  #decorate:before {
-    content: "";
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    z-index: -1;
-    background: linear-gradient(30deg, #965df2 , #48BFE3 , #64DFDF, #80FFDB);
-    background-size: 400%;
-    border-radius: 35px;
-    transition: 1s;
-  }
-  
-  #decorate:hover::before {
-    filter: blur(20px);
-  }
-  
-  #decorate:active {
-    background: linear-gradient(32deg, #965df2, #4EA8DE , #56CFE1, #72EFDD);
-  }
 
   /* 좋아요 버튼*/
   .heart-container {
@@ -348,41 +292,41 @@ body {
       display: none;
     }
   }
+
   /* mp3음악 버튼 */
 
- .music{
-    position:absolute;
-    width:30px;
-    height:30px;
-    top: 30px;
-    right: 85px;
-    }
-  
-    .music>img{
-      width:70px;
-      height: 70px;
-      cursor:pointer;
-    }
-  
-    /* mp3창 */
-  
-    .popover-content { 
-      position:absolute;
-      border: 1px solid black;
-      border-radius:20px;
-      bottom: -208%;
-      right:40px;
-      width:300px;
-      height:120px;
-      justify-content:center;
-      flex-wrap:wrap;
-      z-index:5;
-      background-color:#68D8D6;
-      opacity:0;
-      display:none;
-      transition: opacity .5s ease;
-      
+.music{
+  position:absolute;
+  width:30px;
+  height:30px;
+  top:5%;
+  right:8%;
   }
+
+  .music>img{
+    width:70px;
+    height: 70px;
+    cursor:pointer;
+  }
+
+    /* mp3창 */
+.popover-content { 
+  position:absolute;
+  border: 1px solid black;
+  border-radius:20px;
+  top:20%;
+  right:40px;
+  width:300px;
+  height:120px;
+  justify-content:center;
+  flex-wrap:wrap;
+  z-index:5;
+  background-color:#68D8D6;
+  opacity:0;
+  display:none;
+  transition: opacity .5s ease;
+  
+}
   
   .popover-content.youShow{
     opacity:1;

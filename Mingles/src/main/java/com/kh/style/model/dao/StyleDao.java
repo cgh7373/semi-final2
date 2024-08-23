@@ -68,7 +68,10 @@ public class StyleDao {
 			pstmt.setString(3, st.getTop());
 			pstmt.setString(4, st.getBottom());
 			pstmt.setString(5, st.getShoes());
-			pstmt.setInt(6, st.getMemNo());
+			pstmt.setString(6, st.getWall());
+			pstmt.setString(7, st.getFloor());
+			pstmt.setString(8, st.getTheme());
+			pstmt.setInt(9, st.getMemNo());
 			
 			result = pstmt.executeUpdate();
 
@@ -97,6 +100,9 @@ public class StyleDao {
 			pstmt.setString(4, st.getTop());
 			pstmt.setString(5, st.getBottom());
 			pstmt.setString(6, st.getShoes());
+			pstmt.setString(7, st.getWall());
+			pstmt.setString(8, st.getFloor());
+			pstmt.setString(9, st.getTheme());
 
 			result = pstmt.executeUpdate();			
 			
@@ -130,7 +136,10 @@ public class StyleDao {
 						rset.getString("avatar_face"),
 						rset.getString("avatar_top"),
 						rset.getString("avatar_bottom"),
-						rset.getString("avatar_shoes")
+						rset.getString("avatar_shoes"),
+						rset.getString("avatar_wall"),
+						rset.getString("avatar_floor"),
+						rset.getString("avatar_theme")
 						);
 			}
 			

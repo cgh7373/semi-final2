@@ -44,7 +44,11 @@ public class IframeShowController extends HttpServlet {
 			break;
 			
 		case "shop" :
+<<<<<<< HEAD
 			page = "/Mingles/views/shop/minglesShop.jsp";
+=======
+			page = "/Mingles/list.it?&cpage=1";
+>>>>>>> Janet
 			break;
 			
 		case "style" :

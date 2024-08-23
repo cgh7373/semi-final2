@@ -8,11 +8,14 @@ public class Style {
 	private String top;
 	private String bottom;
 	private String shoes;
-	
+    private String wall;
+    private String floor;
+    private String theme;
+
 	public Style () {} // 기본생성자
 
-	// 매개변수 생성자 
-	public Style(int memNo, String hair, String face, String top, String bottom, String shoes) {
+	public Style(int memNo, String hair, String face, String top, String bottom, String shoes, String wall,
+			String floor, String theme) {
 		super();
 		this.memNo = memNo;
 		this.hair = hair;
@@ -20,9 +23,11 @@ public class Style {
 		this.top = top;
 		this.bottom = bottom;
 		this.shoes = shoes;
+		this.wall = wall;
+		this.floor = floor;
+		this.theme = theme;
 	}
 
-	// getter-setter
 	public int getMemNo() {
 		return memNo;
 	}
@@ -71,11 +76,36 @@ public class Style {
 		this.shoes = shoes;
 	}
 
+	public String getWall() {
+		return wall;
+	}
+
+	public void setWall(String wall) {
+		this.wall = wall;
+	}
+
+	public String getFloor() {
+		return floor;
+	}
+
+	public void setFloor(String floor) {
+		this.floor = floor;
+	}
+
+	public String getTheme() {
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
+
 	@Override
 	public String toString() {
 		return "Style [memNo=" + memNo + ", hair=" + hair + ", face=" + face + ", top=" + top + ", bottom=" + bottom
-				+ ", shoes=" + shoes + "]";
-	}; 
+				+ ", shoes=" + shoes + ", wall=" + wall + ", floor=" + floor + ", theme=" + theme + "]";
+	}
+
 	
 	
 	
