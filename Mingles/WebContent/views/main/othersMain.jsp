@@ -78,51 +78,59 @@
                     
                     const now = new Date();
                     
-                    for (let i in pageItems) {
-                    	
-                    	const memoStatusStr = pageItems[i].memoStatus; 
-                        const memoStatus = parseCustomDate(memoStatusStr);  
-                        const timeDiff = now - memoStatus; 
-                        
-                        let timeAgo = "";
-                        
-                        const seconds = Math.floor(timeDiff / 1000);
-                        const minutes = Math.floor(seconds / 60);
-                        const hours = Math.floor(minutes / 60);
-                        const days = Math.floor(hours / 24);
-                        const months = Math.floor(days / 30);
-                        const years = Math.floor(days / 365);
-                        
-                        if (years > 0) {
-                            timeAgo = years + "년 전";
-                        } else if (months > 0) {
-                            timeAgo = months + "달 전";
-                        } else if (days > 0) {
-                            timeAgo = days + "일 전";
-                        } else if (hours > 0) {
-                            timeAgo = hours + "시간 전";
-                        } else if (minutes > 0) {
-                            timeAgo = minutes + "분 전";
-                        } else if (seconds > 0){
-                            timeAgo = seconds + "초 전";
-                        } else {
-                        	timeAgo = "방금 전";
-                        }
-                   	 
-                              value += "<tr>"
-      	                             + "<td rowspan='2' class='memo-img'><img src='" + pageItems[i].profilePic.substring(4) + "'></td>"
-      	                             + "<td rowspan='2' class='memo-content'>" + pageItems[i].memoContent + "</td>"
-      	                             + "<td class='memo-nickname memo-else'>" + pageItems[i].nickname + "</td>"
-      	                             + "</tr>"
-      	                             + "<tr class='memo-dist'>"
-      	                             + "<td class='memo-statusMsg memo-else'>" + timeAgo + "</td>"
-      	                             + "</tr>";
-                            
-                    }
+                    if (pageItems.length === 0) {
+        				
+        				$("#bulletinModal .modal-body table").html("<tr><td class='center-text'>아직 아무것도 없어요</td></tr>");
+        				
+        			  } else {
 
-                    	$("#bulletinModal .modal-body table").html(value);
-                    
-	                	updatePaginationControls();
+        	              for (let i in pageItems) {
+        	                
+        	                const memoStatusStr = pageItems[i].memoStatus; 
+        	                  const memoStatus = parseCustomDate(memoStatusStr);  
+        	                  const timeDiff = now - memoStatus; 
+        	                  
+        	                  let timeAgo = "";
+        	                  
+        	                  const seconds = Math.floor(timeDiff / 1000);
+        	                  const minutes = Math.floor(seconds / 60);
+        	                  const hours = Math.floor(minutes / 60);
+        	                  const days = Math.floor(hours / 24);
+        	                  const months = Math.floor(days / 30);
+        	                  const years = Math.floor(days / 365);
+        	                  
+        	                  if (years > 0) {
+        	                      timeAgo = years + "년 전";
+        	                  } else if (months > 0) {
+        	                      timeAgo = months + "달 전";
+        	                  } else if (days > 0) {
+        	                      timeAgo = days + "일 전";
+        	                  } else if (hours > 0) {
+        	                      timeAgo = hours + "시간 전";
+        	                  } else if (minutes > 0) {
+        	                      timeAgo = minutes + "분 전";
+        	                  } else if (seconds > 0){
+        	                      timeAgo = seconds + "초 전";
+        	                  } else {
+        	                    timeAgo = "방금 전";
+        	                  }
+        	                
+        	                        value += "<tr>"
+        	                               + "<td rowspan='2' class='memo-img'><img src='" + pageItems[i].profilePic.substring(4) + "'></td>"
+        	                               + "<td rowspan='2' class='memo-content'>" + pageItems[i].memoContent + "</td>"
+        	                               + "<td class='memo-nickname memo-else'>" + pageItems[i].nickname + "</td>"
+        	                               + "</tr>"
+        	                               + "<tr class='memo-dist'>"
+        	                               + "<td class='memo-statusMsg memo-else'>" + timeAgo + "</td>"
+        	                               + "</tr>";
+        	                      
+        	              }
+        	
+        	                $("#bulletinModal .modal-body table").html(value);
+                        
+        			  }
+                        
+        	          updatePaginationControls();
 	                     
 	                }
 
