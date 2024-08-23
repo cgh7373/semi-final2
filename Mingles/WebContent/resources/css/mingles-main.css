@@ -121,7 +121,7 @@ body {
     font-size: 20px;
     line-height: 1.5;
     margin: 10px 0;
-    height: 30%;
+    height: 35%;
 }
 
 #con2__my_info {
@@ -709,6 +709,7 @@ table input[type="text"]{
 
 .date {
   padding: 5%;
+  position : relative;
 }
 
 .memoCount {
@@ -717,5 +718,17 @@ table input[type="text"]{
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  margin: 0 20%;
+  margin: 0 35%;
+}
+
+.date.unread::after {
+    content: '💬';
+    position : absolute;
+    top : 12%;
+    left : 52%;
+}
+
+.today {
+	font-size : 20px;
+ 	font-weight: bold;
 }
