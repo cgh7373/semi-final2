@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="postListSelect">
+      SELECT *
+        FROM (
+              SELECT ROWNUM RNUM, A.*
+                FROM (
+                    SELECT 
+                         POST_NUM
+                       , POST_TAG
+                       , POST_TITLE
+                       , POST_COUNT
+                       , TO_CHAR(POST_REGDATE, 'YYYY/MM/DD') AS "CREATE_DATE"
+                   FROM POST B
+                  WHERE POST_TYPE = 1
+                    AND B.POST_STATUS = 'Y'
+                  ORDER 
+                     BY POST_NUM DESC
+                     ) A
+              )
+       WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	 <entry key="selectListCount">
+      SELECT 
+             COUNT(*) AS COUNT
+        FROM POST
+       WHERE POST_TYPE = 1
+         AND POST_STATUS = 'Y'
+   	</entry>
+	 <entry key="postInsert">
+     INSERT INTO POST 
+(
+    POST_NUM,
+    POST_TYPE,
+    POST_TITLE,
+    POST_TAG,
+    POST_SCOPE,
+    POST_CONTENT,
+    POST_WRITER,
+    POST_STATUS,
+    POST_BLOCK
+)
+VALUES
+(
+    SEQ_POST.NEXTVAL,
+    1,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    'Y',
+    'N'
+)   
+     </entry>
+     
+     <entry key="postInsertAttachment">
+INSERT
+        INTO ATTACHMENT
+        (
+          FILE_NO
+        , REF_BNO
+        , ORIGIN_NAME
+        , CHANGE_NAME
+        , FILE_PATH
+        )
+        VALUES
+        (
+          SEQ_ATT.NEXTVAL
+        , SEQ_POST.CURRVAL
+        , ?
+        , ?
+        , ?
+        )
+     </entry>
+</properties>

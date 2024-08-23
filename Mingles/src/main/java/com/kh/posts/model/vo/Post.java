@@ -7,8 +7,8 @@ public class Post
 	 private String postTitle;
 	 private String postContent;
 	 private String postTag;
-	 private char postScope;
-	 private int postWriter;
+	 private String postScope;
+	 private String postWriter;
 	 private int count;
 	 private String postRegdate; 
 	 private String postUpdate;
@@ -17,8 +17,8 @@ public class Post
 	 
 	 public Post() {}
 
-	public Post(int postNum, int postType, String postTitle, String postContent, String postTag, char postScope,
-			int postWriter, int count, String postRegdate, String postUpdate, char postStatus, char postBlock) {
+	public Post(int postNum, int postType, String postTitle, String postContent, String postTag, String postScope,
+			String postWriter, int count, String postRegdate, String postUpdate, char postStatus, char postBlock) {
 		super();
 		this.postNum = postNum;
 		this.postType = postType;
@@ -85,19 +85,19 @@ public class Post
 		this.postTag = postTag;
 	}
 
-	public char getPostScope() {
+	public String getPostScope() {
 		return postScope;
 	}
 
-	public void setPostScope(char postScope) {
+	public void setPostScope(String postScope) {
 		this.postScope = postScope;
 	}
 
-	public int getPostWriter() {
+	public String getPostWriter() {
 		return postWriter;
 	}
 
-	public void setPostWriter(int postWriter) {
+	public void setPostWriter(String postWriter) {
 		this.postWriter = postWriter;
 	}
 

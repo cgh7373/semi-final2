@@ -379,3 +379,9 @@ thead th {
     height: 100%;
     box-sizing: border-box;
   }
+  .paging-area
+  {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+  }

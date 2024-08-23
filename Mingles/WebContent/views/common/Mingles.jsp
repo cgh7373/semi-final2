@@ -1,7 +1,9 @@
+<%@page import="com.kh.common.model.vo.PageInfo"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	PageInfo pi = (PageInfo) session.getAttribute("pi");
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
@@ -187,11 +189,11 @@
                     frameborder="0"></iframe>
                 <iframe src="./views/settings/minglesSettings.jsp" class="mgScreens iframe-settings"
                     frameborder="0"></iframe>
-                <iframe src="./views/shop/minglesShop.jsp" class="mgScreens iframe-shop" frameborder="0"></iframe>
-                <iframe src="./views/style/minglesStyle.jsp" class="mgScreens iframe-style" frameborder="0"></iframe>
-                <iframe src="./views/chat/minglesChat.jsp" class="mgScreens iframe-chat" frameborder="0"></iframe>
-                <iframe src="./views/posts/minglesPosts.jsp" class="mgScreens iframe-posts" frameborder="0"></iframe>
-                <iframe class="mgScreens iframe-eta" src="https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1&loop=1" title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <iframe src="" class="mgScreens iframe-shop" frameborder="0"></iframe>
+                <iframe src="" class="mgScreens iframe-style" frameborder="0"></iframe>
+                <iframe src="" class="mgScreens iframe-chat" frameborder="0"></iframe>
+                <iframe src="/Mingles/views/posts/minglesPosts.jsp" class="mgScreens iframe-posts" frameborder="0"></iframe>
+                <iframe class="mgScreens iframe-eta" src="" title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 
             </div>
 
@@ -252,6 +254,45 @@
             			  }
             			});
             	}
+                function handleIframeNavigation(iframe, source) {
+        	    
+        	    screens.forEach(a => {
+        	        a.style.opacity = 0;
+        	        a.style.transition = '.6s';
+        	        a.style.visibility = 'hidden';
+        	    });
+
+        	    document.querySelector('.iframe-wrapper').animate(
+        	        [
+        	            { transform: 'scale(1)' },
+        	            { transform: 'scale(1.007)' },
+        	            { transform: 'scale(1)' }
+        	        ],
+        	        {
+        	            duration: 700,
+        	            fill: 'forwards',
+        	            easing: 'ease'
+        	        }
+        	    );
+ 				
+	        	   const url = "/Mingles/iframeShow.mi?iSrc=" + source;
+	        	   
+        	    $.ajax({
+        	    	url : url,
+        	    	success : function(page) {
+        	    		setTimeout(() => {
+        	    			$(".mgScreens").src="";
+                	        iframe.src = page;
+                	        iframe.style.opacity = 1;
+                	        iframe.style.visibility = 'visible';
+                	    }, 100);
+        	    	}
+        	    })
+        	    
+
+
+        	}
+
             </script>
 
         

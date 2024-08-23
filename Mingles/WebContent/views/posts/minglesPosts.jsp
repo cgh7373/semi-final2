@@ -1,10 +1,12 @@
+<%@page import="com.kh.common.model.vo.PageInfo"%>
 <%@page import="com.kh.posts.model.vo.Post"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.member.model.vo.Member"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	ArrayList<Post> list =(ArrayList<Post>)request.getAttribute("list");
+	PageInfo pi = (PageInfo) session.getAttribute("pi");
+	ArrayList<Post> list =(ArrayList<Post>)session.getAttribute("list");
 	Member m = (Member)session.getAttribute("loginUser");
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
@@ -27,12 +29,12 @@
         integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="crossorigin="anonymous" referrerpolicy="no-referrer">
     </script>
     <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <link rel="stylesheet" href="./resources/css/commonBoard.css">
-    <script defer src="./resources/js/commonBoard.js"></script>
+    <link rel="stylesheet" href="../../resources/css/commonBoard.css">
+    <script defer src="../../resources/js/commonBoard.js"></script>
 </head>
 <body>
 	<script>
-	
+			let page = localStorage.getItem('currentPage') ? parseInt(localStorage.getItem('currentPage')) : 1;
 			document.addEventListener("DOMContentLoaded", function() {
 		// 성공메시지
 		 <% if (alertMsg != null) { %>
@@ -49,11 +51,116 @@
         	 });
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
-    		location.href="<%=contextPath %>/list.po";
+    	
+    	function showPostlist()
+    	{
+    		
+    		 $.ajax({
+    		        url: "/Mingles/list.po",
+    		        data: { cpage: page },
+    		        success: function(response) {
+    		            // 응답 객체에서 list와 pi를 추출하여 처리
+    		            var posts = response.list || [];
+    		            var pi = response.pi || {};
+    		            
+    		            updatePostList(posts);
+    		            updatePagination(pi);
+    		        },
+    		        error: function() {
+    		            console.log("AJAX 요청 실패");
+    		            swal({
+                            icon: 'error',
+                            title: '리스트 조회 실패',
+                        });
+    		        },
+    		    });
+    	}
+    	$(function()
+    			{
+    				showPostlist();
+    			})
 		 });
+			function updatePostList(posts) {
+			    let tbody = $('#post-list-tbody');
+			    let value = "";
+			    tbody.empty(); // 기존 내용을 지우고 새로 추가합니다
+			    if (posts.length === 0) 
+			    {
+			        tbody.append('<tr><td colspan="5">존재하는 공지사항이 없습니다.</td></tr>');
+			    }
+			    else 
+			    {
+			        posts.forEach(function(post) 
+			        {
+			        	value += "<tr>"
+			        		   + "<td>"+post.postNum+"</td>"
+			        		   + "<td>"+post.postTag+"</td>"
+			        		   + "<td>"+post.postTitle+"</td>"
+			        		   + "<td>"+post.count+"</td>"
+			        		   + "<td>"+post.postRegdate+"</td>"
+			        		   + "</tr>"
+			        });
+					   tbody.html(value);
+			    }
+			}
+
+		        // 페이지네이션을 업데이트하는 함수
+		        function updatePagination(pi) 
+		        {
+		        	console.log(pi)
+		        	let paginationHtml = '';
+
+		        	// 이전 버튼
+		        	if (page > 1) {
+		        	    paginationHtml += "<button onclick=mBtn();>이전</button>";
+		        	}
+
+		        	// 페이지 번호
+					for (let i = pi.startPage; i <= pi.endPage; i++) {
+			            if (i === pi.currentPage) {
+			                paginationHtml += "<button disabled>" + i + "</button>";
+			            } else {
+			                paginationHtml += "<button onclick='gotoPage(" + i + ")'>" + i + "</button>";
+			            }
+			        }
+
+		        	// 다음 버튼
+		        	if (page < pi.maxPage) {
+		        	    paginationHtml += "<button onclick=pBtn();>다음</button>";
+		        	}
+
+		        	$('.paging-area').html(paginationHtml);
+
+				}
+		        window.mBtn = function() {
+		            if (page > 1) {
+		                page--;
+		                localStorage.setItem('currentPage', page); // 페이지 번호를 로컬 스토리지에 저장
+		                location.href ="/Mingles/views/posts/minglesPosts.jsp?cpage="+page;
+		                //showPostlist();  // 목록 갱신
+		            }
+		        };
+
+		        // 다음 페이지로 이동
+		        window.pBtn = function() {
+		            page++;
+		            localStorage.setItem('currentPage', page); // 페이지 번호를 로컬 스토리지에 저장
+		            location.href ="/Mingles/views/posts/minglesPosts.jsp?cpage="+page;
+		            //showPostlist();  // 목록 갱신
+		        };
+
+		        // 특정 페이지로 이동
+		        window.gotoPage = function(pageNumber) {
+		            page = pageNumber;
+		            localStorage.setItem('currentPage', page); // 페이지 번호를 로컬 스토리지에 저장
+		            location.href ="/Mingles/views/posts/minglesPosts.jsp?cpage="+page;
+		            //showPostlist();  // 목록 갱신
+		        };
 	</script>
 
-     <% if (m != null) { %>
+
+
+     <% if (m != null) {  %>
 	 <div id="wrap">
         <div id="container">
             <!-- Left Screen -->
@@ -110,42 +217,31 @@
                             <tr>
                                 <th width="12%">게시번호</th>
                                 <th width="10%">태그</th>
-                                <th width="40%">제목</th>
-                                <th width="8%">조회수</th>
+                                <th width="38%">제목</th>
+                                <th width="10%">조회수</th>
                                 <th width="30%">작성일</th>
                             </tr>
                         </thead> 
-                        
+                     
                         
                         <!-- 여기다가 게시글 동적으로 만들면됨 -->
-                        <tbody>
-                        <% if(list == null || list.isEmpty()) 
-            		  {%>
-                 <tr>
-                    <td colspan="5">존재하는 공지사항이 없습니다.</td>
-                 </tr>
-            		<%}
-            	 else
-            	     {%>
-                <!-- case2 공지글이 있을 경우-->
-                		<%for(Post n : list)
-                     		{%>
-                				<tr>
-                    			<td><%=n.getPostNum()%></td>
-                    			<td><%=n.getPostTag()%></td>
-                    			<td><%=n.getPostTitle()%></td>
-                    			<td><%=n.getCount() %></td>
-                    			<td><%=n.getPostRegdate()%></td>
-                 				</tr>
-                   		  <%}%>
-                  	<%}%>
+                        <tbody id="post-list-tbody">
+              
+                    
+                    
+                    
                         </tbody>
-                        
                     </table>
+                        <div class="paging-area">
+                        
+                        </div>
                 </div>
             </div>
-     
-    						<!-- 글쓰기용 Modal -->
+            
+            
+            
+            
+             						<!-- 글쓰기용 Modal -->
             <div id="modalContainer" class="hidden">
                 <div id="modalContent">
                     <div class="modal_header">
@@ -156,20 +252,20 @@
                             <p>게시글작성</p>
                         </div>
                     </div>
-                    <form id="enroll-form" action="" method="post" enctype="multipart/form-data">
-                        <input type="hidden" name="userNo" value="">
+                    <form id="enroll-form" action="<%=contextPath%>/insert.po" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="userNo" id="userNo" value="<%=m.getMemNo()%>">
                         <div class="modal_body">
                             <table align="center">
                                 <tr style="height: 5%;">
                                     <th>제목</th>
-                                    <td colspan="3"><input type="text" name="title" required></td>
+                                    <td colspan="3"><input type="text" name="title" id="title" required></td>
                                 </tr>
                                 <tr style="height: 5%;">
                                     <th>태그</th>
-                                    <td  style="width:75%;"><input type="text" name="tag" required></td>
+                                    <td  style="width:75%;"><input type="text" name="tag" id="tag" required></td>
                                     <th>공개범위</th>
                                     <td>
-                                        <select name="scop">
+                                        <select name="scop" id="scop">
                                             <!-- Category 테이블로부터 조회해둘꺼임-->
                                             <option value="p">전체</option>
                                             <option value="f">친구만</option>
@@ -179,16 +275,17 @@
                                 </tr>
                                 <tr style="height: 85%;">
                                     <th>내용</th>
-                                    <td colspan="3"><textarea rows="10" name="content" style="resize: none;" required></textarea></td>
+                                    <td colspan="3"><textarea rows="10" name="content" id="content" style="resize: none;" required></textarea></td>
                                 </tr>
                                 <tr style="height: 5%; ">
                                     <th>첨부파일</th>
-                                    <td colspan="3"><input style="margin-top: 2px;" type="file" name="upfile"></td>
+                                    <td colspan="3"><input style="margin-top: 2px;" type="file" name="upfile" id="upfile"></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="modal_footer">
-                            <button type="submit">작성하기</button>
+                        <input type="button" value="작성하기" onclick="insertpost();">
+                        <!--  <button type="submit" onclick="listselect();">작성하기</button> -->
                         </div>
                     </form>
                 </div>
@@ -209,6 +306,70 @@
     modalCloseButton.addEventListener('click', () => {
     modal.classList.add('hidden');
     });
+    
+    
+
+	/*function insertpost()
+        {
+        	$.ajax
+        	({
+        		url:"<%= contextPath %>/insert.po",
+        		data:
+        		{
+        			userNo:$("#userNo").val(),
+        			title:$("#title").val(),
+        			tag:$("#tag").val(),
+        			scop:$("#scop").val(),
+        			content:$("#content").val(),
+        			upfile:$("#upfile").val(),
+        		},
+        		type:"post",
+        		success:function(result)
+    			{
+    				if(result > 0) 
+    				{
+    					location.href="/Mingles/views/posts/minglesPosts.jsp?cpage=1";
+    					
+    				}
+    			},
+    			error:function()
+    			{
+    				console.log();
+    				console.log("ajax통신 실패");
+    			},
+        	})
+        } */
+        function insertpost() {
+            // FormData 객체를 생성하고 폼 데이터를 추가합니다
+             var formElement = document.getElementById('enroll-form');
+    		 var formData = new FormData(formElement);
+            $.ajax({
+                url: "<%=contextPath%>/insert.po",
+                type: "POST",
+                data: formData,
+                contentType: false, // jQuery가 Content-Type을 설정하지 않도록 합니다
+                processData: false, // jQuery가 데이터를 쿼리 문자열로 변환하지 않도록 합니다
+                success: function(result) 
+                {
+                    if (result > 0) 
+                    {
+   								
+                    	location.href="minglesPosts.jsp?cpage=1";
+                    } 
+                    else
+                    {
+                        swal({
+                            icon: 'error',
+                            title: '파일 업로드 실패',
+                        });
+                    }
+                },
+                error: function() {
+                    console.log("ajax통신 실패");
+                }
+            });
+		     
+        }
 </script>
 </body>
 </html>
