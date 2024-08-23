@@ -238,4 +238,69 @@
 		 WHERE MEM_NO = ?
 		   AND STATUS = 'B'
 	</entry>
+	
+	<entry key="selectPostList">
+		SELECT 
+		       POST_NUM
+		     , POST_TYPE
+		     , POST_TITLE
+		     , POST_CONTENT
+		     , POST_TAG
+		     , POST_SCOPE
+		     , NICKNAME
+		     , POST_COUNT
+		     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS POST_REGDATE
+		     , FILE_PATH || CHANGE_NAME AS POST_ATTACHMENT
+		  FROM POST
+		  JOIN MEMBER ON (POST_WRITER = MEM_NO)
+		  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
+		 WHERE POST_STATUS = 'Y'
+		   AND POST_BLOCK = 'N'
+		 ORDER
+		    BY POST_NUM DESC
+	</entry>
+	
+	<entry key="insertNoticeImg">
+		INSERT 
+		  INTO ATTACHMENT 
+			 (
+			   FILE_NO
+			 , ORIGIN_NAME
+			 , CHANGE_NAME
+			 , FILE_PATH
+			 , FILE_POSITION
+			 )
+		VALUES 
+			 (
+			   SEQ_ATT.NEXTVAL
+			 , ?
+			 , ?
+			 , ?
+			 , 1
+			 )
+	</entry>
+	
+	<entry key="insertNotice">
+		INSERT 
+		  INTO POST 
+		          (
+		            POST_NUM
+		          , POST_TYPE
+		          , POST_TITLE
+		          , POST_CONTENT
+		          , POST_WRITER
+		          , POST_REGDATE
+		          , POST_ATTACHMENT_NO
+		          )
+		     VALUES
+		          (
+		            SEQ_POST.NEXTVAL
+		          , 2
+		          , ?
+		          , ?
+		          , 4
+		          , SYSDATE
+		          , ?
+		       )
+	</entry>
 </properties>

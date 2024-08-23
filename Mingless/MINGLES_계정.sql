@@ -522,7 +522,7 @@ INSERT INTO MEMBER_BLACKLIST (
 
 UPDATE MEMBER_BLACKLIST
    SET BLOCK_COUNT = BLOCK_COUNT + 1
- WHERE BLACKLIST_NO = 2
+ WHERE BLACKLIST_NO = 16
  ;
  
  
@@ -600,5 +600,73 @@ UPDATE MEMBER
    AND STATUS = 'Y'
  ;
  
+DELETE FROM MEMBER_BLACKLIST
+ WHERE MEM_NO = 1
+ ;
+
+ commit;
  
- 
+SELECT 
+       POST_NUM
+     , POST_TYPE
+     , POST_TITLE
+     , POST_CONTENT
+     , POST_TAG
+     , POST_SCOPE
+     , NICKNAME
+     , POST_COUNT
+     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS POST_REGDATE
+     , FILE_PATH || CHANGE_NAME AS POST_ATTACHMENT
+  FROM POST
+  JOIN MEMBER ON (POST_WRITER = MEM_NO)
+  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
+ WHERE POST_STATUS = 'Y'
+   AND POST_BLOCK = 'N'
+  
+ ;
+INSERT 
+  INTO POST 
+          (
+            POST_NUM
+          , POST_TYPE
+          , POST_TITLE
+          , POST_CONTENT
+          , POST_WRITER
+          , POST_REGDATE
+          , POST_ATTACHMENT_NO
+          )
+     VALUES
+          (
+            SEQ_POST.NEXTVAL
+          , 2
+          , ?
+          , ?
+          , 4
+          , SYSDATE
+          , ?
+       )
+       ;
+       
+SELECT SEQ_ATT.NEXTVAL
+  FROM DUAL;
+
+INSERT 
+		  INTO ATTACHMENT 
+			 (
+			   FILE_NO
+			 , ORIGIN_NAME
+			 , CHANGE_NAME
+			 , FILE_PATH
+			 , FILE_POSITION
+			 )
+		VALUES 
+			 (
+			   SEQ_ATT.NEXTVAL
+			 , '2024082317073982976.png'
+			 , '2024082317073982976.png'
+			 , '/resources/post_upfiles/'
+			 , 1
+			 )
+             ;
+             commit;
+             

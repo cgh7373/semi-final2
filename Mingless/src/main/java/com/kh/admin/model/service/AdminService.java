@@ -8,6 +8,8 @@ import com.kh.admin.model.vo.Attachment;
 import com.kh.admin.model.vo.Blacklist;
 import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
+import com.kh.admin.model.vo.Notice;
+import com.kh.admin.model.vo.Post;
 import com.kh.common.model.vo.PageInfo;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
@@ -208,6 +210,38 @@ public class AdminService {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<Post> selectPostList() {
+		Connection conn = getConnection();
+		
+		ArrayList<Post> postArr = new AdminDao().selectPostList(conn);
+		
+		close(conn);
+				
+		return postArr;
+	}
+
+	public int insertNotice(Notice notice) {
+		Connection conn = getConnection();
+		
+		int fileNo = 0;
+		
+		if(notice.getSavePath().length() > 0 ) {
+			fileNo = new AdminDao().insertNoticeImg(conn, notice);	
+		}
+		
+		int result1 = new AdminDao().insertNotice(conn, notice, fileNo);
+				
+		if(result1 > 0 && (notice.getSavePath() == null || fileNo > 0)) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1;
 	}
 
 }

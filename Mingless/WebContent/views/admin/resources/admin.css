@@ -771,7 +771,7 @@ h1 span:nth-child(7) {
 #memberTable tbody .fas:hover{
   cursor: pointer;
 }
-
+/* 아이템 카드 */
 .row .itemCard{
   height: 430px;
 	max-height: 430px;
@@ -839,4 +839,33 @@ h1 span:nth-child(7) {
 }
 .search.focused .material-icons{
     opacity: 0;
+}
+
+/* 게시글 카드 */
+.row .postCard{
+  height: 430px;
+	max-height: 430px;
+}
+.row .postCard .card-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row .postCard .card-text{
+  height: 27px;
+  width: 158px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size:18px;
+  
+}
+.row .card .postTag{
+	font-size: 18px;
+}
+
+.row .card .btn-post{
+  margin-top: 20px;
+
 }

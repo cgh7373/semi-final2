@@ -15,6 +15,8 @@ import com.kh.admin.model.vo.Attachment;
 import com.kh.admin.model.vo.Blacklist;
 import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
+import com.kh.admin.model.vo.Notice;
+import com.kh.admin.model.vo.Post;
 import com.kh.common.model.vo.PageInfo;
 import com.kh.member.model.vo.Member;
 
@@ -517,6 +519,104 @@ public class AdminDao {
 		
 		return result1 * result2;
 	}
+
+	public ArrayList<Post> selectPostList(Connection conn) {
+		ArrayList<Post> postArr = new ArrayList<Post>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPostList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				postArr.add(new Post(rset.getInt("post_num")
+						   		   , rset.getInt("post_type")
+						   		   , rset.getString("post_title")
+						   		   , rset.getString("post_content")
+						   		   , rset.getString("post_tag")
+						   		   , rset.getString("post_scope")
+						   		   , rset.getString("nickname")
+						   		   , rset.getInt("post_count")
+						   		   , rset.getString("post_regdate")
+						   		   , rset.getString("post_attachment")));
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(rset);
+			close(pstmt);
+		}
+		
+		return postArr;
+	}
+
+	public int insertNoticeImg(Connection conn, Notice notice) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("insertNoticeImg");
+		String savePath = notice.getSavePath();
+		String fileName = savePath.substring(savePath.lastIndexOf("/") + 1);
+		String filePath = "/resources/post_upfiles/";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, fileName);
+			pstmt.setString(2, fileName);
+			pstmt.setString(3, filePath);
+			
+			result = pstmt.executeUpdate();
+			
+			if (result > 0) {
+				rset = pstmt.getGeneratedKeys();
+				if(rset.next()) {
+					result = rset.getInt(1);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	public int insertNotice(Connection conn, Notice notice, int fileNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;			
+		String sql = prop.getProperty("insertNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, notice.getTitle());
+			pstmt.setString(2, notice.getContent());
+			
+			if (fileNo > 0 ) {
+				pstmt.setInt(3, fileNo);
+			}else {
+				pstmt.setInt(3, 28);
+			}
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 	
 }

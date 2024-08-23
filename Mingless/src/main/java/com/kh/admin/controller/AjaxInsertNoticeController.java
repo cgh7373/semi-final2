@@ -1,4 +1,4 @@
-package com.kh.member.controller;
+package com.kh.admin.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,22 +6,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.kh.admin.model.service.AdminService;
+import com.kh.admin.model.vo.Notice;
 
 /**
- * Servlet implementation class LoginController
+ * Servlet implementation class AjaxInsertNoticeController
  */
-@WebServlet("/login.me")
-public class LoginController extends HttpServlet {
+@WebServlet("/insertNotice.am")
+public class AjaxInsertNoticeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginController() {
+    public AjaxInsertNoticeController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,22 +29,27 @@ public class LoginController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8"); 
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		String title = request.getParameter("nTitle");
+		String content = request.getParameter("nContent");
+		String imgPath = request.getParameter("nImg");
 		
-		Member m = new MemberService().loginMember(userId, userPwd);
+		title = title.substring(title.indexOf(":") +2);
+		content = content.substring(content.indexOf(":") + 2);
+
+		Notice notice = new Notice(title, content, imgPath);
 		
-		HttpSession session = request.getSession();
+		int result = new AdminService().insertNotice(notice);
 		
-		if (m != null) {
-			session.setAttribute("loginUser", m);
-			session.setAttribute("alertMsg", m.getNickname() + "님, 환영해요!");
-			response.sendRedirect(request.getContextPath());
-		} else {
-			session.setAttribute("errorMsg", "로그인 실패");
-			response.sendRedirect(request.getContextPath());
+		if(result > 0 ) {
+			response.setContentType("html/text; charset=utf-8");
+			response.getWriter().print("noitceY");
+		}else {
+			response.setContentType("html.text; charset=utf-8");
+			response.getWriter().print("noticeN");
 		}
+				
 	}
 
 	/**
