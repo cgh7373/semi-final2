@@ -237,11 +237,11 @@ function updateMemoCounts() {
 readStatus();
 
 prevBtn.addEventListener("click", () => {
-    currentMonth--;
-    if (currentMonth < 0) {
-        currentMonth = 11;
-        currentYear--;
-    }
+  currentMonth--;
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
     readStatus();
 });
 
