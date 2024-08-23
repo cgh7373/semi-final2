@@ -30,6 +30,7 @@ public class IframeShowController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String iSrc = request.getParameter("iSrc");
+		String responseType = request.getParameter("type"); 
 		
 		String page = "";
 		
@@ -44,7 +45,7 @@ public class IframeShowController extends HttpServlet {
 			break;
 			
 		case "shop" :
-			page = "/Mingles/list.it?&cpage=1";
+			page = "/Mingles/list.it?category=IC100&cpage=1";
 			break;
 			
 		case "style" :

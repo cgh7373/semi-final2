@@ -121,9 +121,7 @@ public class ItemDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		System.out.println("카테고리 뭐냐 : " + category);
-		
+				
 		return listCount;
 	}//selectListWithCategoryCount
 

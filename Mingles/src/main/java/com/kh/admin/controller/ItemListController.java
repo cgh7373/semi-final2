@@ -59,7 +59,31 @@ public class ItemListController extends HttpServlet {
 		// 페이징바 마지막 수
 		endPage = startPage + pageLimit-1;
 		
-		if(category != null) { // 카테고리가 선택된 경우
+		if(category.equals("IC100")) { 
+			// 선택 안된 경우
+			// 총 게시글 수 : listCount
+			listCount = new ItemService().selectListCount();
+			// 총 페이지 수
+			maxPage = (int)Math.ceil((double)listCount/boardLimit);
+			// endPage = maxPage로 변경
+			if(endPage>maxPage) {
+				endPage = maxPage;
+			}// 내부 if문
+			
+			// 1. pageInfo 가공(조회, 페이징바 선택시)
+			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
+			// 2. 서비스에게 정보 요청(전체)		
+			ArrayList<Item> list = new ItemService().selectItemList(pi);
+	
+			// 3. 응답 던지기
+			request.setAttribute("defaultCategory", category);
+			request.setAttribute("pi", pi);
+			request.setAttribute("list", list); // 아이템 리스트 객체
+			request.getRequestDispatcher("/views/shop/minglesShops.jsp").forward(request, response);
+			
+		}else{ 
+
+			// 카테고리가 선택된 경우
 			// 총 게시글 수 : categoryListCount
 			categoryListCount = new ItemService().selectListWithCategoryCount(category);
 			// 총 페이지 수
@@ -81,29 +105,8 @@ public class ItemListController extends HttpServlet {
 			response.setContentType("application/json; charset=utf-8");			
 			new Gson().toJson(result, response.getWriter());
 			
-		}else { // 선택 안된 경우
-			// 총 게시글 수 : listCount
-			listCount = new ItemService().selectListCount();
-			// 총 페이지 수
-			maxPage = (int)Math.ceil((double)listCount/boardLimit);
-			// endPage = maxPage로 변경
-			if(endPage>maxPage) {
-				endPage = maxPage;
-			}// 내부 if문
-			
-			// 1. pageInfo 가공(조회, 페이징바 선택시)
-			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-			// 2. 서비스에게 정보 요청(전체)		
-			ArrayList<Item> list = new ItemService().selectItemList(pi);
-	
-			// 3. 응답 던지기
-			request.setAttribute("pi", pi);
-			request.setAttribute("list", list); // 아이템 리스트 객체
-			request.getRequestDispatcher("/views/shop/minglesShops.jsp").forward(request, response);
-			
 			
 		};
-				
 	}
 
 	/**

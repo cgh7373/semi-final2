@@ -123,5 +123,4 @@ SELECT ROWNUM RNUM, A.*
 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
-
 </properties>

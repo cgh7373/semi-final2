@@ -291,20 +291,20 @@ footer {
     height:30px;
 }
 
-.paging-area span{
+.currentpage{
     font-family :'omyu_pretty';
     font-weight:600;
     font-size:30px;
-    color: #087da1;
+    color: #087da1 !important;
 }
 
 .page-button{
     position:relative;
-    top:70;
     font-size:30px;
     font-weight:600;
     font-family :'omyu_pretty';
     color: #48BFE3;
+    margin:0.3%;
 }
 
 .page-button:hover{

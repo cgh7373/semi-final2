@@ -3,7 +3,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String contextPath = request.getContextPath(); %>
+<% String contextPath = request.getContextPath(); 
+String defaultCategory = (String)request.getAttribute("defaultCategory");
+%>
 <% ArrayList<Item> list = (ArrayList<Item>)request.getAttribute("list"); 
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
@@ -123,19 +125,19 @@
 
 						<%if(currentPage != 1){ %>
 						
-							<a href ="<%=contextPath %>/list.it?category=aa&cpage=<%=currentPage-1%>" class="page-button">&lt;</a>
+							<a href ="<%=contextPath %>/list.it?category=<%=defaultCategory%>&cpage=<%=currentPage-1%>" class="page-button">&lt;</a>
 						<%} %>
 						
 						<% for(int p=startPage; p<=endPage; p++){ %>
 						<% if(p==currentPage){ %>
-							<span><%=p%></span>
+							<span class = "currentpage"><%=p%></span>
                         	<%}else{ %>
-                        	<a href="<%=contextPath %>/list.it?category=aa&cpage=<%=p %>"class="page-button"><%=p %></a>
+                        	<a href="<%=contextPath %>/list.it?category=<%=defaultCategory%>&cpage=<%=p %>"class="page-button"><%=p %></a>
                         	<%} %>
                           <%} %>
                           
                           <%if(currentPage != maxPage){ %>
-                          <a href="<%=contextPath%>/list.it?category=aa&cpage=<%=currentPage +1%>" class="page-button">&gt;</a>
+                          <a href="<%=contextPath%>/list.it?category=<%=defaultCategory%>&cpage=<%=currentPage +1%>" class="page-button">&gt;</a>
                           <%}%>
                     </div>
                 </footer>
@@ -150,12 +152,14 @@
 			
 		    // 카테고리, 페이지를 별도로 처리해야 한다.
 		    let currentPage = 1; // 기본 페이지
-		    let currentCategory = '';
+		    let currentCategory = "<%=defaultCategory%>";
 		    const tag = document.getElementById('tag');
 
 		    function setCurrentCategory(category) {
+		    	console.log('지금 카테고리 :', category); 
 		        currentCategory = category;
 		        selectItem(currentCategory, currentPage);
+		        console.log('선택 후 카테고리 :', category); 
 		    }
 
 		    function setCurrentPage(page) {
@@ -215,9 +219,9 @@
 		    	ajaxRequest = $.ajax({
 		            url: contextPath + '/list.it',
 		            data: { category: currentCategory, cpage: currentPage},
-		            method: 'get',
+		            method: 'post',
 		            success: function(result) {
-		            	console.log("왜 두번 출력되는 거임 :" , result);
+		            	console.log("성공 후 카테고리 " , currentCategory);
 		            	updatePage(result);
 		                // ArrayList<Item> list, PageInfo pi가 담겨있음.
 		            },
@@ -228,8 +232,12 @@
 		        var contentBar = document.querySelector('.content-main ul');
 		        var pagingArea = document.querySelector('.paging-area'); 
 
+		        if (typeof result === 'string') {
+		            result = JSON.parse(result); // 문자열인 경우 JSON으로 변환
+		        }
+		        
 		        contentBar.innerHTML = '';
-
+		        
 		        if (Array.isArray(result.list) && result.list.length > 0) {
 		            for(var i=0; i<result.list.length; i++){
 		            	var item = result.list[i]
@@ -237,7 +245,7 @@
 		                listItem.classList.add('item-class');
 		                listItem.innerHTML = 
 						'<div class="item-container">' +
-						'    <div class="img-box"><img src="' + item.saveFile + '></div>' +
+						'    <div class="img-box"><img src="'+ contextPath + item.saveFile +'"></div>' +
 						'    <div class="basket">' +
 						'        <button class="material-icons" id="cart">add_shopping_cart</button>' +
 						'        <button class="material-icons" id="jjimkong">auto_awesome</button>' +
@@ -257,6 +265,7 @@
 		        if (result.pi.currentPage !== 1) {
 		            var prevButton = document.createElement('a');
 		            prevButton.href = contextPath + '/list.it?category=' + currentCategory + '&cpage=' + (result.pi.currentPage - 1);
+		            prevButton.classList.add('page-button');
 		            prevButton.textContent = '<';
 		            pagingArea.appendChild(prevButton);
 		        }
@@ -264,9 +273,10 @@
 		        for (var p = result.pi.startPage; p <= result.pi.endPage; p++) {
 		            var pageButton = document.createElement('a');
 		            pageButton.href = contextPath + '/list.it?category=' + currentCategory + '&cpage=' + p;
+		            pageButton.classList.add('page-button');
 		            pageButton.textContent = p;
 		            if (p === result.pi.currentPage) {
-		                pageButton.classList.add('current-page');
+		                pageButton.classList.add('currentpage');
 		            }
 		            pagingArea.appendChild(pageButton);
 		        }
@@ -274,6 +284,7 @@
 		        if (result.pi.currentPage < result.pi.maxPage) {
 		            var nextButton = document.createElement('a');
 		            nextButton.href = contextPath + '/list.it?category=' + currentCategory + '&cpage=' + (result.pi.currentPage + 1);
+		            nextButton.classList.add('page-button');
 		            nextButton.textContent = '>';
 		            pagingArea.appendChild(nextButton);
 		        }
