@@ -343,6 +343,14 @@ public class Member {
 		this.MBTI = MBTI;
 	}
 
+	public String getKakaoNo() {
+		return kakaoNo;
+	}
+
+	public void setKakaoNo(String kakaoNo) {
+		this.kakaoNo = kakaoNo;
+	}
+
 
 	@Override
 	public String toString() {
