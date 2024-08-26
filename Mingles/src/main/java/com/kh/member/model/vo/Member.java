@@ -20,6 +20,7 @@ public class Member {
 	private String profilePic;
 	private String statusMsg;
 	private String kakaoNo;
+	private String kakaoNo;
 	
 	public Member() {}
 	
@@ -166,6 +167,8 @@ public class Member {
 		this.MBTI = mBTI;
 		this.ABO = ABO;
 		this.MBTI = MBTI;
+		this.ABO = aBO;
+		this.MBTI = mBTI;
 		this.profilePic = profilePic;
 		this.statusMsg = statusMsg;
 	}

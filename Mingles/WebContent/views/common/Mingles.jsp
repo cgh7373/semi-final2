@@ -31,6 +31,10 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <!-- <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script> -->
 	
+	<!-- kakao login연동 developer-->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script> -->
+	
     <!-- 내부파일 -->
     <link rel="stylesheet" href="./resources/css/mingle.css">    
     <script defer src="<%=contextPath %>/resources/js/mingle.js"></script>
@@ -111,7 +115,7 @@
                                         <!-- 아이디 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="name">ID</label>
-                                            <input placeholder="아이디를 입력하세요." id="id" class="form_style" type="text" name="userId" value="user01" required>
+                                            <input placeholder="아이디를 입력하세요." id="id" class="form_style" type="text" name="userId" required>
                                         </div>
 
                                         <!-- 비밀번호 버튼 -->
@@ -310,6 +314,43 @@
             			    swal("돌아가요");
             			  }
             			});
+            	}
+            	
+            	function handleIframeNavigation(iframe, source) {
+            		
+            	    screens.forEach(a => {
+            	        a.style.opacity = 0;
+            	        a.style.transition = '.6s';
+            	        a.style.visibility = 'hidden';
+            	    });
+
+            	    document.querySelector('.iframe-wrapper').animate(
+            	        [
+            	            { transform: 'scale(1)' },
+            	            { transform: 'scale(1.007)' },
+            	            { transform: 'scale(1)' }
+            	        ],
+            	        {
+            	            duration: 700,
+            	            fill: 'forwards',
+            	            easing: 'ease'
+            	        }
+            	    );
+
+            	    const url = "/Mingles/iframeShow.mi?iSrc=" + source;
+                    
+            	    $.ajax({
+            	    	url : url,
+            	    	success : function(page) {
+            	    		setTimeout(() => {
+                                $(".mgScreens").src = "";
+                    	        iframe.src = page;
+                    	        iframe.style.opacity = 1;
+                    	        iframe.style.visibility = 'visible';
+                    	    }, 100);
+            	    	}
+            	    })
+            	    
             	}
             </script>
 
