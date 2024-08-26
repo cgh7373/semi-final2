@@ -7,11 +7,11 @@
 <% 
 	Member m = (Member)session.getAttribute("loginUser");
 	ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
-	Friend toMem = (Friend)session.getAttribute("toMem");
+	//Friend toMem = (Friend)session.getAttribute("toMem");
 	
 	System.out.println(m);
 	System.out.println(friend);
-	System.out.println(toMem);
+	//System.out.println(toMem);
 
 %>
 <!DOCTYPE html>
@@ -72,6 +72,44 @@
 					<% } %> 
                 </ul>
             </div>
+            
+	    <script>
+			$(function(){
+				$(".chat-friend").on('click', 'li', function(){
+					let toNo = $(this).attr('value');
+					console.log(toNo);
+					
+					$.ajax({
+						url:'chatting.ch',
+						type:'GET',
+						data:{
+							toNo:toNo
+							},
+						success:function(s){
+							let chat = "";
+							$.each(s, function(index, chat){
+									if(chat.fromNo != toNo){
+										chatContent += "<div class='chatting ch1'>"
+														+ "<div class='icon'><img src='" + toMem.getprofilePic + "' alt='친구프로필'></div>"
+														+ "<div class='textbox'>" + chat.chatContent + "</div>"
+													 + "</div>";
+											 
+									}else{
+										chatContent += "<div class='chatting ch2'>"
+													  + "<div class='icon'><img src='<%= m.getProfilePic() %>' alt='내프로필'></div>"
+													  + "<div class='textbox'>" + chat.chatContent + "</div>"
+										  			+ "</div>";
+									}	
+							});				
+							$(".chatRoom").html(chat);
+						},
+						error:function(){
+							console.log("채팅 불러오기 실패했다. 오바")
+						},
+					})
+				})
+			})
+		</script>
 
             <!-- 대화창 -->
 	            <div class="chat-right">
@@ -100,45 +138,6 @@
             </div>
          </section>
     </div>
-
-	<script>
-		$(function(){
-			$(".chat-friend").on('click', 'li', function(){
-				let toNo = $(this).attr('value');
-				console.log(toNo);
-				
-				$.ajax({
-					url:'chatting.ch',
-					type:'GET',
-					dataType:'json',
-					data:{
-						toNo:toNo
-						},
-					success:function(s){
-						let chat = "";
-						$.each(s, function(index, chat){
-								if(chat.fromNo != toNo){
-									chatContent += "<div class='chatting ch1'>"
-													+ "<div class='icon'><img src='<%= toMem.getProfilePic() %>' alt='친구프로필'></div>"
-													+ "<div class='textbox'>" + chat.chatContent + "</div>"
-												 + "</div>";
-										 
-								}else{
-									chatContent += "<div class='chatting ch2'>"
-												  + "<div class='icon'><img src='<%= m.getProfilePic() %>' alt='내프로필'></div>"
-												  + "<div class='textbox'>" + chat.chatContent + "</div>"
-									  			+ "</div>";
-								}	
-						});				
-						$(".chatRoom").html(chat);
-					},
-					error:function(){
-						console.log("채팅 불러오기 실패했다. 오바")
-					},
-				})
-			})
-		})
-	</script>
 
 </body>
 
