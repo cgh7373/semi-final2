@@ -20,7 +20,6 @@ public class Member {
 	private String profilePic;
 	private String statusMsg;
 	private String kakaoNo;
-	private String kakaoNo;
 	
 	public Member() {}
 	
@@ -163,12 +162,8 @@ public class Member {
 		this.status = status;
 		this.egg = egg;
 		this.zodiac = zodiac;
-		this.ABO = aBO;
-		this.MBTI = mBTI;
 		this.ABO = ABO;
 		this.MBTI = MBTI;
-		this.ABO = aBO;
-		this.MBTI = mBTI;
 		this.profilePic = profilePic;
 		this.statusMsg = statusMsg;
 	}
@@ -344,26 +339,11 @@ public class Member {
 		return egg;
 	}
 
-	public String getABO() {
-		return ABO;
-	}
-
 	public void setEgg(int egg) {
 		this.egg = egg;
 	}
 	
 
-	public void setABO(String ABO) {
-		this.ABO = ABO;
-	}
-
-	public String getMBTI() {
-		return MBTI;
-	}
-
-	public void setMBTI(String mBTI) {
-		this.MBTI = MBTI;
-	}
 
 
 	@Override
