@@ -7,7 +7,7 @@
 <% 
 	Member m = (Member)session.getAttribute("loginUser");
 	ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
-	Friend toMem = (Friend)request.getAttribute("toMem");
+	Friend toMem = (Friend)session.getAttribute("toMem");
 	
 	System.out.println(m);
 	System.out.println(friend);
@@ -32,7 +32,7 @@
     <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
     
     <!-- 내부파일 -->
-    <link rel="stylesheet" href="./resources/css/mingles-chat.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mingles-chat.css">
     <script defer src="./resources/js/mingles-chat.js"></script>
 
 </head>
@@ -110,6 +110,7 @@
 				$.ajax({
 					url:'chatting.ch',
 					type:'GET',
+					dataType:'json',
 					data:{
 						toNo:toNo
 						},
@@ -118,15 +119,15 @@
 						$.each(s, function(index, chat){
 								if(chat.fromNo != toNo){
 									chatContent += "<div class='chatting ch1'>"
-											+ "<div class='icon'><img src='<%= toMem.getProfilePic() %>' alt='친구프로필'></div>"
-											+ "<div class='textbox'>" + chat.chatContent + "</div>"
-										 + "</div>";
+													+ "<div class='icon'><img src='<%= toMem.getProfilePic() %>' alt='친구프로필'></div>"
+													+ "<div class='textbox'>" + chat.chatContent + "</div>"
+												 + "</div>";
 										 
 								}else{
 									chatContent += "<div class='chatting ch2'>"
-										  + "<div class='icon'><img src='<%= m.getProfilePic() %>' alt='내프로필'></div>"
-											 + "<div class='textbox'>" + chat.chatContent + "</div>"
-									   + "</div>";
+												  + "<div class='icon'><img src='<%= m.getProfilePic() %>' alt='내프로필'></div>"
+												  + "<div class='textbox'>" + chat.chatContent + "</div>"
+									  			+ "</div>";
 								}	
 						});				
 						$(".chatRoom").html(chat);

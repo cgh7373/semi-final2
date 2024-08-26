@@ -51,7 +51,6 @@ public class ChattingController extends HttpServlet {
 		ArrayList<Chat> selectChat = new ChatService().selectChat(user);
 		
 		request.getSession().setAttribute("toMem", toMem);
-//		request.setAttribute("selectChat", selectChat);
 		request.getRequestDispatcher("views/chat/minglesChats.jsp").forward(request, response);
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(selectChat, response.getWriter());

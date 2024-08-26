@@ -216,10 +216,8 @@
     
     
     <!-- 내부파일 -->
-    <link rel="stylesheet" href="./resources/css/mingles-chat.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mingles-chat.css">
     <script defer src="./resources/js/mingles-chat.js"></script>
-    
-    <link rel="icon" href="./chat/favicon.ico">
 
 </head>
 
