@@ -251,11 +251,11 @@
 		     , POST_COUNT
 		     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS POST_REGDATE
 		     , FILE_PATH || CHANGE_NAME AS POST_ATTACHMENT
+		     , POST_BLOCK
 		  FROM POST
 		  JOIN MEMBER ON (POST_WRITER = MEM_NO)
 		  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
 		 WHERE POST_STATUS = 'Y'
-		   AND POST_BLOCK = 'N'
 		 ORDER
 		    BY POST_NUM DESC
 	</entry>
@@ -302,5 +302,68 @@
 		          , SYSDATE
 		          , ?
 		       )
+	</entry>
+	
+	<entry key="deleteNotice">
+		UPDATE POST
+		   SET POST_STATUS = 'N'
+		 WHERE POST_NUM = ?
+	</entry>
+	
+	<entry key="insertNoticeHTML">
+		INSERT 
+		  INTO NOTICE
+				    (
+				      NOTICE_NO
+				    , NOTICE_HTML
+				    , POST_NO  
+				    )
+			   VALUES
+				    (
+				      SEQ_NOTICE.NEXTVAL
+				    , ?
+				    , ?
+				    )
+	</entry>
+	
+	<entry key="selectNoticeHTML">
+		SELECT NOTICE_HTML 
+		  FROM NOTICE
+		 WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="updatePostBlock">
+		UPDATE POST
+		   SET POST_BLOCK = 'Y'
+		 WHERE POST_NUM = ?
+	</entry>
+	
+	<entry key="selectPostType">
+		SELECT POST_TYPE
+		     , POST_TYPE_NAME
+  		  FROM POST_TYPE
+	</entry>
+	
+	<entry key="choicePostType">
+		SELECT 
+		       POST_NUM
+		     , POST_TYPE
+		     , POST_TITLE
+		     , POST_CONTENT
+		     , POST_TAG
+		     , POST_SCOPE
+		     , NICKNAME
+		     , POST_COUNT
+		     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS POST_REGDATE
+		     , FILE_PATH || CHANGE_NAME AS POST_ATTACHMENT
+		     , POST_BLOCK
+		  FROM POST
+		  JOIN MEMBER ON (POST_WRITER = MEM_NO)
+		  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
+          JOIN POST_TYPE PT USING(POST_TYPE)
+		 WHERE POST_STATUS = 'Y'
+           AND PT.POST_TYPE_NAME = ?
+		 ORDER
+		    BY POST_NUM DESC
 	</entry>
 </properties>

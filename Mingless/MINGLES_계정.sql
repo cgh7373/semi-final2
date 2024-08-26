@@ -669,4 +669,34 @@ INSERT
 			 )
              ;
              commit;
-             
+        
+UPDATE POST
+   SET STATUS = 'N'
+ WHERE POST_NUM = ?
+ ;
+ 
+CREATE TABLE NOTICE (
+    NOTICE_NO NUMBER PRIMARY KEY,
+    NOTICE_HTML VARCHAR2(4000) NOT NULL,
+    POST_NO NUMBER NOT NULL REFERENCES POST(POST_NUM)
+);
+
+ DROP TABLE NOTICE CASCADE CONSTRAINTS;
+ DROP SEQUENCE SEQ_NOTICE;
+ CREATE SEQUENCE SEQ_NOTICE NOCACHE
+ ;
+ 
+INSERT 
+  INTO NOTICE
+            (
+              NOTICE_NO
+            , NOTICE_HTML
+            , POST_NO  
+            )
+       VALUES
+            (
+              SEQ_NOTICE.NEXTVAL
+            , ?
+            , ?
+            )
+      ;

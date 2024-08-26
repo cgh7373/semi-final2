@@ -10,6 +10,7 @@ import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
 import com.kh.admin.model.vo.Notice;
 import com.kh.admin.model.vo.Post;
+import com.kh.admin.model.vo.PostType;
 import com.kh.common.model.vo.PageInfo;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
@@ -222,7 +223,7 @@ public class AdminService {
 		return postArr;
 	}
 
-	public int insertNotice(Notice notice) {
+	public int insertNotice(Notice notice, String html) {
 		Connection conn = getConnection();
 		
 		int fileNo = 0;
@@ -231,9 +232,11 @@ public class AdminService {
 			fileNo = new AdminDao().insertNoticeImg(conn, notice);	
 		}
 		
-		int result1 = new AdminDao().insertNotice(conn, notice, fileNo);
-				
-		if(result1 > 0 && (notice.getSavePath() == null || fileNo > 0)) {
+		int postNo = new AdminDao().insertNotice(conn, notice, fileNo);
+		
+		int result = new AdminDao().insertNoticeHTML(conn, html, postNo);
+		
+		if(postNo > 0 && (notice.getSavePath() == null || fileNo > 0) && result > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -241,7 +244,72 @@ public class AdminService {
 		
 		close(conn);
 		
-		return result1;
+		return postNo;
 	}
+
+	public String selectNoticeHTML(int postNum) {
+		Connection conn = getConnection();
+		
+		String html = new AdminDao().selectNoticeHTML(conn, postNum);
+		
+		close(conn);
+		
+		return html;
+	}
+
+	public int deleteNotice(int postNum) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().deleteNotice(conn, postNum);
+		
+		if(result > 0 ) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+		
+	}
+
+	public int updatePostBlock(int postNo) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().updatePostBlock(conn, postNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<PostType> selectPostType() {
+		Connection conn = getConnection();
+		
+		ArrayList<PostType> pt = new AdminDao().selectPostType(conn);
+		
+		close(conn);
+		
+		return pt;
+	}
+
+	public ArrayList<Post> choicePostType(String postTN) {
+		Connection conn = getConnection();
+		
+		ArrayList<Post> postArr = new AdminDao().choicePostType(conn, postTN);
+		
+		close(conn);
+		
+		return postArr;
+	}
+
+	
 
 }

@@ -40,7 +40,7 @@ public class Post {
 	
 
 	public Post(int postNum, int postType, String postTitle, String postContent, String postTag, String postScope,
-			String postWriter, int postCount, String postRegdate, String postAttachment) {
+			String postWriter, int postCount, String postRegdate, String postAttachment, String postBlock) {
 		super();
 		this.postNum = postNum;
 		this.postType = postType;
@@ -52,6 +52,7 @@ public class Post {
 		this.postCount = postCount;
 		this.postRegdate = postRegdate;
 		this.postAttachment = postAttachment;
+		this.postBlock = postBlock;
 	}
 
 	public int getPostNum() {

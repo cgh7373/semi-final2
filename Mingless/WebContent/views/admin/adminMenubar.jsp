@@ -165,8 +165,8 @@
     </div>
 
     <!-- 스크롤 버튼 위로 -->
-    <a class="scroll-to-top rounded" href="#page-top">
+  <!--   <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
-    </a>
+    </a> -->
 </body>
 </html>

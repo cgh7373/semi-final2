@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -17,6 +18,7 @@ import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
 import com.kh.admin.model.vo.Notice;
 import com.kh.admin.model.vo.Post;
+import com.kh.admin.model.vo.PostType;
 import com.kh.common.model.vo.PageInfo;
 import com.kh.member.model.vo.Member;
 
@@ -525,7 +527,6 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectPostList");
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
@@ -541,7 +542,8 @@ public class AdminDao {
 						   		   , rset.getString("nickname")
 						   		   , rset.getInt("post_count")
 						   		   , rset.getString("post_regdate")
-						   		   , rset.getString("post_attachment")));
+						   		   , rset.getString("post_attachment")
+						   		   , rset.getString("post_block")));
 			}
 			
 			
@@ -561,6 +563,8 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("insertNoticeImg");
+		String sqlCurrVal = "SELECT SEQ_ATT.CURRVAL FROM dual";
+		
 		String savePath = notice.getSavePath();
 		String fileName = savePath.substring(savePath.lastIndexOf("/") + 1);
 		String filePath = "/resources/post_upfiles/";
@@ -574,7 +578,9 @@ public class AdminDao {
 			result = pstmt.executeUpdate();
 			
 			if (result > 0) {
-				rset = pstmt.getGeneratedKeys();
+				pstmt = conn.prepareStatement(sqlCurrVal);
+				rset = pstmt.executeQuery();
+				
 				if(rset.next()) {
 					result = rset.getInt(1);
 				}
@@ -592,20 +598,52 @@ public class AdminDao {
 	
 	
 	public int insertNotice(Connection conn, Notice notice, int fileNo) {
-		int result = 0;
+		int postNo = 0;
 		PreparedStatement pstmt = null;			
+		ResultSet rset = null;
 		String sql = prop.getProperty("insertNotice");
+		String sqlCurrVal = "SELECT SEQ_POST.CURRVAL FROM dual";
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, notice.getTitle());
 			pstmt.setString(2, notice.getContent());
-			
 			if (fileNo > 0 ) {
 				pstmt.setInt(3, fileNo);
 			}else {
 				pstmt.setInt(3, 28);
 			}
+			postNo = pstmt.executeUpdate();
+			
+			pstmt = conn.prepareStatement(sqlCurrVal);
+			rset = pstmt.executeQuery();
+			
+			if(postNo > 0) {
+				if(rset.next()) {
+					postNo = rset.getInt(1);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return postNo;
+	}
+	
+	public int insertNoticeHTML(Connection conn, String html, int postNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertNoticeHTML");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, html);
+			pstmt.setInt(2, postNo);
+			
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -615,6 +653,125 @@ public class AdminDao {
 		}
 		
 		return result;
+	}
+
+	public String selectNoticeHTML(Connection conn, int postNum) {
+		String html = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectNoticeHTML");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, postNum);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				html = rset.getString(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);	
+		}
+		
+		return html;
+	}
+
+	public int deleteNotice(Connection conn, int postNum) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, postNum);
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updatePostBlock(Connection conn, int postNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePostBlock");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, postNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<PostType> selectPostType(Connection conn) {
+		ArrayList<PostType> pt = new ArrayList<PostType>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPostType");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pt.add(new PostType(rset.getInt(1)
+								  , rset.getString(2)));
+				
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pt;
+	}
+
+	public ArrayList<Post> choicePostType(Connection conn, String postTN) {
+		ArrayList<Post> postArr = new ArrayList<Post>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("choicePostType");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, postTN);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				postArr.add(new Post(rset.getInt("post_num")
+						   		   , rset.getInt("post_type")
+						   		   , rset.getString("post_title")
+						   		   , rset.getString("post_content")
+						   		   , rset.getString("post_tag")
+						   		   , rset.getString("post_scope")
+						   		   , rset.getString("nickname")
+						   		   , rset.getInt("post_count")
+						   		   , rset.getString("post_regdate")
+						   		   , rset.getString("post_attachment")
+						   		   , rset.getString("post_block")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return postArr;
 	}
 
 

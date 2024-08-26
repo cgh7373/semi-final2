@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.admin.model.service.AdminService;
 import com.kh.admin.model.vo.Post;
+import com.kh.admin.model.vo.PostType;
 
 /**
  * Servlet implementation class AdminPostController
@@ -34,9 +35,16 @@ public class AdminPostController extends HttpServlet {
 		
 		ArrayList<Post> postArr = new AdminService().selectPostList();
 		
+		ArrayList<PostType> pt = new AdminService().selectPostType();
 		
-		request.setAttribute("postArr", postArr);
-		request.getRequestDispatcher("views/admin/adminPost.jsp").forward(request, response);
+		if(postArr.isEmpty() && pt.isEmpty()) {
+			response.sendRedirect(request.getContextPath() + "/main.am");
+		}else {
+			request.setAttribute("postArr", postArr);
+			request.setAttribute("postType", pt);			
+			request.getRequestDispatcher("views/admin/adminPost.jsp").forward(request, response);
+		}
+		
 		
 		
 	}

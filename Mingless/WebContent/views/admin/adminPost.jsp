@@ -1,9 +1,12 @@
+<%@page import="com.kh.admin.model.vo.PostType"%>
 <%@page import="com.kh.admin.model.vo.Post"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%
  ArrayList<Post> postArr = (ArrayList<Post>)request.getAttribute("postArr");
+ // 게시글번호, 타입, 제목, 내용, 태그, 공개범위, 닉네임, 조회수, 등록일, 파일경로, 블락상태
+ ArrayList<PostType> postType = (ArrayList<PostType>)request.getAttribute("postType");
 %>
 <!DOCTYPE html>
 <html>
@@ -57,16 +60,18 @@
                     <div class="d-sm-flex justify-content-start mb-4" id="page-header">
                         <h1 class="h3 mb-0 text-gray-800">게시글 관리</h1>
                         <div class="dropdown d-flex align-items-start">
-                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" id="iCategory">
-                                상점 카테고리 선택
+                            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" id="postType">
+                                게시글 카테고리 선택
                             </button>
                             <div class="dropdown-menu">
-                                    <button class="dropdown-item" onclick="">일반 게시판</button>
-                                    <button class="dropdown-item" onclick="">사진 게시판</button>
+                            	
+                                <% for(PostType pt : postType) { %>
+                                    <button class="dropdown-item" onclick="choicePT(this)" id="postType<%=pt.getPostTypeNo()%>"><%=pt.getPostTypeName() %></button>
+                                <% } %>
                             </div>
                         </div>
-                        <div class="goToPrice">
-                            <button id="productReg" class="btn btn-primary" data-toggle="modal" data-target="#addNotice">공지사항 작성</button>
+                        <div class="insert-notice ">
+                            <button id="noticeEnroll" class="btn btn-primary" data-toggle="modal" data-target="#addNotice">공지사항 작성</button>
                             <div class="modal fade" id="addNotice">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -80,7 +85,7 @@
                                                     <div id="notice-content"></div>
                                                 </div>    
                                                 <div class="modal-footer">
-                                                        <button type="reset" class="btn btn-lg" id="modalCloseButton">작성 취소</button>
+                                                        <button type="reset" class="btn btn-lg" id="noticeResetButton">작성 취소</button>
                                                         <button type="button" class="btn btn-lg" id="notice-enroll">작성 완료</button>
                                                 </div>    
                                             </div>
@@ -127,7 +132,7 @@
 
                                 change: () => {
                                     const contentElement = document.querySelector('#notice-content');
-                                    
+                                    // notice-title 아이디 부여
                                     if (contentElement) {
                                         const headings = contentElement.querySelectorAll('h2');
                                         headings.forEach((heading) => {
@@ -140,12 +145,16 @@
                             },
 						});
 
-                        editor.setHTML('<h2 id="notice-title">제목: </h2> <div id="notice-content">내용: </div>');
+                        editor.setHTML('<h2 id="notice-title">제목: </h2> <hr> <div id="notice-content">내용: </div>');
 
 						console.log(editor.getHTML());
-
-
+						
+						document.getElementById('noticeResetButton').addEventListener('click', function() {
+					        editor.setHTML('<h2 id="notice-title">제목: </h2> <hr> <div id="notice-content">내용: </div>'); // 초기 상태로 되돌리기
+					    });
+						
 						$(function(){
+							// 공지사항 등록
                             $("#notice-enroll").click(function(){
                                 const htmlContent = editor.getHTML();
 
@@ -174,13 +183,14 @@
 								
                                 
 								const urls = "<%=contextPath %>";
-								
+								// 공지사항 등록 ajax 
                                 $.ajax({
                                     url:"insertNotice.am",
                                     data:{
                                         "nTitle":title,
                                         "nContent": content,
                                         "nImg":img,
+                                        "html":htmlContent,
                                     },
                                     success:function(e){
                                         console.log("ajax insertNotice");
@@ -190,7 +200,7 @@
                                                 title: "공지사항 등록 성공!",
                                             });
                                         }else if(e === 'noticeN'){
-                                        	swal({
+                                            swal({
                                                 icon: 'error',
                                                 title: "공지사항 등록 실패!",
                                             });
@@ -206,33 +216,106 @@
                             
 						})
                         
-					
+						function choicePT(el){
+							var loginUserNickname = '${loginUser.getNickname()}';
+							$.ajax({
+								
+								url:"choicePostType.am",
+								data:{"postType":$(el).text()},
+								success:function(e){
+                                    console.log("ajax success");
+                                    let value = "";
+                                    $(".row").html("");
+
+                                    for(let i=0; i<e.length; i++){
+                                        let postAttachment = e[i].postAttachment;
+                                        let postTitle = e[i].postTitle;
+                                        let postBlock = e[i].postBlock;
+                                        let postCount = e[i].postCount;
+                                        let postContent = e[i].postContent;
+                                        let postTag = e[i].postTag;
+                                        let postNum = e[i].postNum;
+                                        let postWriter = e[i].postWriter;
+
+                                        value += `
+                                            <div class="card postCard" data-toggle="modal" data-target="#postDetailModal" onclick="postDetail(event, \${postNum})">
+                                                <img class="card-img-top" src=".\${postAttachment}" alt="post image1" style="width:100%">
+                                                <div class="card-body">
+                                                    <h4 class="card-title">\${postTitle}</h4>
+                                                    \${postBlock === "N" ? 
+                                                    `<p class="postCount">\${postCount} 
+                                                            <i class="fas fa-solid fa-heart" style="color: pink"></i>
+                                                        </p>` :
+                                                        `<i class="fas fa-solid fa-lock" style="color: gray"></i>`
+                                                    }
+                                                    <p class="card-text">\${postContent}</p>
+                                                    \${postTag === null ? 
+                                                        `<p class="postTag">#태그없음</p>` :
+                                                        `<p class="postTag">\${postTag}</p>`
+                                                    }
+                                                    <button class="dropdown-menu btn-primary" id="postSetting" onclick="event.stopPropagation();">게시글관리</button>
+                                                    <div class="dropdown">
+                                                        <button type="button" class="btn btn-post dropdown-toggle btn-primary" data-toggle="dropdown">
+                                                            게시글관리
+                                                        </button>
+                                                        <div class="dropdown-menu">
+                                                            <button class="dropdown-item" id="deletePost" onclick="event.stopPropagation(); deletePost(\${postNum});">게시글삭제</button>
+                                                            <button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(\${postNum});">블락설정</button>
+                                                            \${loginUserNickname === postWriter ? 
+                                                                `` :
+                                                                `<button class="dropdown-item" id="sendMessage" name="" onclick="event.stopPropagation(); sendMessage(this);">메세지보내기</button>`
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `;
+                                    }
+                                    
+                                    $("#postArea").html(value);
+                                    $("#postType").text($(el).text());
+									
+								},
+								error:function(){
+									console.log("ajax choicePT faild");
+								},
+							})
+						}
                     </script>
                     
 					
                     <!-- 페이지 콘텐츠 -->
-                    <div class="row">
+                    <div class="row" id="postArea">
                         <%for(Post p : postArr) {%>
-                            <div class="card postCard" style="width:200px; margin-left: 20px; margin-bottom: 20px">
+                            <div class="card postCard" data-toggle="modal" data-target="#postDetailModal" onclick="postDetail(event, <%=p.getPostNum() %>)">
                                 <img class="card-img-top" src=".<%=p.getPostAttachment() %>" alt="item image1" style="width:100%">
                                 <div class="card-body">
-                                    <h4 class="card-title"><%=p.getPostTitle() %></h4>
-                                    <p class="postCount"><%=p.getPostCount() %> <i class="fas fa-solid fa-heart" style="color: pink"></i></p>
+                                    <h4 class="card-title"><%=p.getPostTitle() %></h4>  
+                                    <%if(p.getPostBlock().equals("N")){ %> 
+                                        <p class="postCount"><%=p.getPostCount() %>
+                                            <i class="fas fa-solid fa-heart" style="color: pink"></i>
+                                        </p>
+                                    <%}else{ %>
+                                            <i class="fas fa-solid fa-lock" style="color: gray"></i>
+                                    <%} %>
                                     <p class="card-text"><%=p.getPostContent() %></p>
                                     <%if(p.getPostTag() == null) {%>
                                         <p class="postTag">#태그없음</p>
                                     <%}else{ %>
                                         <p class="postTag"><%=p.getPostTag() %></p>
                                     <%} %>
-                                    <button class="dropdown-menu btn-primary" id="postSetting">게시글관리</button>
+                                    <button class="dropdown-menu btn-primary" id="postSetting" onclick="event.stopPropagation();">게시글관리</button>
                                     <div class="dropdown">
-                                        <button type="button" class="btn btn-post dropdown-toggle btn-primary" data-toggle="dropdown">
+                                        <button type="button" class="btn btn-post dropdown-toggle btn-primary" data-toggle="dropdown" >
                                         게시글관리
                                         </button>
                                         <div class="dropdown-menu">
-                                            <button class="dropdown-item" id="deletePost" name="" onclick="deleteItem(this);">게시글삭제</button>
-                                            <button class="dropdown-item" id="blockPost" name=""  onclick="updatePrice(this);">블락설정</button>
-                                            <button class="dropdown-item" id="sendMessage" name="" onclick="changePicture(this);">메세지보내기</button>
+                                            <button class="dropdown-item" id="deletePost" onclick="event.stopPropagation(); deletePost(<%=p.getPostNum() %>); ">게시글삭제</button>
+                                            <button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(<%=p.getPostNum() %>); ">블락설정</button>
+                                            <%if(loginUser.getNickname().equals(p.getPostWriter())){ %>
+                                            <%}else{ %>
+                                                <button class="dropdown-item" id="sendMessage" name="" onclick="event.stopPropagation(); sendMessage(this);">메세지보내기</button>
+                                            <%} %>
                                         </div>
                                     </div>
                                 </div>
@@ -241,38 +324,76 @@
                     </div>   
                 </div>
                 
-                <!-- 사진 수정 modal -->
-                <div class="modal fade" id="changePictureModal" tabindex="-1" role="dialog" aria-labelledby="changePictureModalLabel" aria-hidden="true">
+                <!-- 게시글 상세보기 modal -->
+                <div class="modal fade" id="postDetailModal" tabindex="-1" role="dialog" aria-labelledby="postDetailModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content" id="noticeModal">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="changePictureModalLabel">사진 변경</h5>
+                                <h5 class="modal-title" id="postDetailModalLabel">게시글 상세보기</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                <form id="changePictureForm" action="changePicture.am" method="post" enctype="multipart/form-data">
-                                    <div id="productImages"></div>
-                                    <div align="center">
-                                    <label class="btn btn-info" for="input-files" >
-                                        사진 업로드
-                                    </label>
-                                    <input type="file" id="input-files" name="changeImg" accept="image/*" style="display: none;" required>
-                                    <input type="hidden" id="itemNum" name="itemNo">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">사진 변경</button>
-                                    </div>
-                                </form>
+                            <div class="modal-body" id="postDetailContent">
+                                
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
+                <script defer>
+                    function postDetail(event, no){
+                        const modalBody = $("#postDetailContent");
+                        const modal = $("#postDetailModal");
+                        let value = "";
+                        console.log(event.target);
+                        if ($(event.target).closest('.dropdown').length > 0) {
+                               return; // 드롭다운 클릭 시 모달 열기 방지
+                        }
+
+                        $.ajax({
+                            url:"selectPostDetail.am",
+                            data:{postNo:no},
+                            success:function(e){
+                                
+                                if(e === 'NNNN'){
+                                    swal({
+                                        icon: 'error',
+                                        title: "상세 조회 실패!",
+                                    }).then(() => {
+                                        modal.modal('hide');  // 모달 닫기
+                                    });
+                                }else{
+                                    value += e;
+                                    modal.modal('show');
+                                }
+                                    modalBody.html(value);
+
+                            },
+                            error:function(){
+                                console.log("ajax selectPostDetail error");
+                            },
+                        });
+                    }
+
+                    // 클릭 시 이벤트 전파 차단
+                    $(document).on('click', '.dropdown-item', function(event) {
+                        event.stopPropagation(); 
+                    });
+
+					// 게시글 삭제
+                    function deletePost(no){
+                        location.href = "deletePost.am?postNo=" + no; 
+                    }
+					
+                    // 블락 처리
+                    function updateBlock(no){
+                        location.href = "updateBlock.am?postNo=" + no;
+                    }
+                </script>
+
             </div>
-
         </div>
-
     </div>
 
     <!-- 스크롤 버튼 위로 -->
