@@ -351,6 +351,7 @@
                     </div>
                 </div>
             </div>
+            
 
             <!-- 오른쪽 화면 - 미니홈피 -->
             <div class = "minihompi">
