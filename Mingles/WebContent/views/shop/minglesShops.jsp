@@ -217,11 +217,13 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
 		    	}
 		    
 		    	ajaxRequest = $.ajax({
-		            url: contextPath + '/list.it',
+		            url: contextPath + '/listCa.it?',
 		            data: { category: currentCategory, cpage: currentPage},
 		            method: 'post',
+		            dataType:'json',
 		            success: function(result) {
 		            	console.log("성공 후 카테고리 " , currentCategory);
+		            	console.log("성공 후 결과값 :", result);
 		            	updatePage(result);
 		                // ArrayList<Item> list, PageInfo pi가 담겨있음.
 		            },
@@ -264,7 +266,7 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
 
 		        if (result.pi.currentPage !== 1) {
 		            var prevButton = document.createElement('a');
-		            prevButton.href = contextPath + '/list.it?category=' + currentCategory + '&cpage=' + (result.pi.currentPage - 1);
+		            prevButton.href = contextPath + '/listCa.it?category=' + currentCategory + '&cpage=' + (result.pi.currentPage - 1);
 		            prevButton.classList.add('page-button');
 		            prevButton.textContent = '<';
 		            pagingArea.appendChild(prevButton);
@@ -272,7 +274,7 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
 
 		        for (var p = result.pi.startPage; p <= result.pi.endPage; p++) {
 		            var pageButton = document.createElement('a');
-		            pageButton.href = contextPath + '/list.it?category=' + currentCategory + '&cpage=' + p;
+		            pageButton.href = contextPath + '/listCa.it?category=' + currentCategory + '&cpage=' + p;
 		            pageButton.classList.add('page-button');
 		            pageButton.textContent = p;
 		            if (p === result.pi.currentPage) {
@@ -283,11 +285,12 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
 
 		        if (result.pi.currentPage < result.pi.maxPage) {
 		            var nextButton = document.createElement('a');
-		            nextButton.href = contextPath + '/list.it?category=' + currentCategory + '&cpage=' + (result.pi.currentPage + 1);
+		            nextButton.href = contextPath + '/listCa.it?category=' + currentCategory + '&cpage=' + (result.pi.currentPage + 1);
 		            nextButton.classList.add('page-button');
 		            nextButton.textContent = '>';
 		            pagingArea.appendChild(nextButton);
 		        }
-		    }
+		    }  
+		    
 		</script>
 			

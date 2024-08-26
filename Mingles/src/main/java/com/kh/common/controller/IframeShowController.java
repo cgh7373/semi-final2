@@ -60,10 +60,6 @@ public class IframeShowController extends HttpServlet {
 			page = "/Mingles/views/posts/minglesPosts.jsp";
 			break;
 			
-		case "etas" :
-			page = "https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1&loop=1";
-			break;
-		
 		}
 		
 		response.setContentType("json/application; charset=utf-8;");

@@ -108,7 +108,7 @@
                                     </td>
                                     <td width="360px">
                                         &nbsp;
-                                        제목 : <input type="text" name="title" id = "musicTitle"required />
+                                        제목 : <input type="text" name="title" id = "musicTitle" required />
                                         가수 : <input type="text" name= "singer" id = "singer" required />
                                         <br>
                                     </td>
@@ -117,9 +117,6 @@
                             <br><br>
                             <div class="btn btn-sm btn-info" id = "music--add">
                                 추가
-                            </div>
-                            <div class="btn btn-sm btn-warning" id = "music--seq">
-                                순서변경
                             </div>
                             <div class="btn btn-sm btn-danger" id = "music--delete">
                                 삭제
@@ -180,11 +177,18 @@
                     <!-- img 클릭하면 이 창 뜸 -->
                     <div class ="popover-content" id = "show">
                         <div class = "musicThumbnail" id="musicThumbnail">
-                            <!-- 여기에 썸네일 이미지 추가 -->
+                            <img id="musicImg" src = "../../resources/images/Mingles 심볼 png(크기키움).png">
                         </div>
                         <div class = "music--info">
                             <p class="music--title">ETA <!--여기에 jsp로 제목 입력할것--> </p>
                             <p class="music--singer">뉴진스<!--여기에 jsp로 가수 입력할것--> </p>
+                            <button id="play-pause-button">Play!</button>
+
+                            <!-- MUSIC BAR -->
+                            <span class="current-time">0:0</span>
+                            <input type="range" id="music-bar" value="0">
+                            <span class="duration">0:0</span>
+                            <audio id="music--element" src="https://p.scdn.co/mp3-preview/0ba9d38f5d1ad30f0e31fc8ee80c1bebf0345a0c" controls="1" style="visibility:hidden;"></audio>
                         </div>
                         <!-- PLAYLIST BUTTON -->
                         <button class="material-icons">expand_less</button>

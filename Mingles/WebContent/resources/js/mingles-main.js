@@ -50,6 +50,47 @@ $(document).ready(function(){
 
   });
 
+// MP3 화면
+
+let music = document.getElementById('music--element');
+
+function togglePlayPause() {
+  let playPausebtn = document.getElementById('play-pause-button');
+  
+  if (music.paused) {
+    music.play();
+    playPausebtn.textContent = 'Pause';
+  } else {
+    music.pause();
+    playPausebtn.textContent = 'Play!';
+  }
+}
+document.getElementById('play-pause-button').addEventListener('click', togglePlayPause);
+
+let currentTime = document.querySelector('.current-time');
+let duration = document.querySelector('.duration');
+let musicBar = document.querySelector('#music-bar');
+
+music.addEventListener('loadedmetadata', function() {
+  if (!isNaN(music.duration)) {
+    musicBar.max = music.duration;
+    var ds = parseInt(music.duration % 60);
+    var dm = parseInt((music.duration / 60) % 60);
+    duration.innerHTML = dm + ':' + ds;
+  } else {
+    console.error("오디오 파일의 길이를 가져올 수 없습니다.");
+  }
+});
+music.ontimeupdate = function () { musicBar.value = music.currentTime }
+handleSeekBar = function () { music.currentTime = seekbar.value }
+music.addEventListener('timeupdate', function () {
+  var cs = parseInt(music.currentTime % 60)
+  var cm = parseInt((music.currentTime / 60) % 60)
+  currentTime.innerHTML = cm + ':' + cs
+}, false)
+
+
+// MP3 설정 화면
   $(document).ready(function() {
     // MP3 FILE INSERT -> COLOR CHANGE
     $('#file').change(function() {
@@ -58,6 +99,10 @@ $(document).ready(function(){
       } else {
         $('#music--icon').css('color', 'black');
       }
+
+      $('#music--add').click(function(){
+        $('#music--icon').css('color', 'black');
+      })
     });
   
     // THUMBNAIL FILE INSERT -> COLOR CHANGE
@@ -71,6 +116,10 @@ $(document).ready(function(){
         } else {
           $('#music--thumbnail').css('color', 'black');
         }
+
+        $('#music--add').click(function(){
+          $('#music--thumbnail').css('color', 'black');
+        })
       }
     });
   
@@ -113,9 +162,8 @@ $(document).ready(function(){
 
     $('.music--list').on('click', '.trashcan', function(){
       $(this).parent().remove();
+      alert("음악이 성공적으로 삭제되었습니다.");
     })
-
-    // <div class="material-icons" style ="color:#07BEB8; font-size:18px; cursor:pointer;">play_arrow</div> 클릭하면 음악 재생하게 하기
 
 
 

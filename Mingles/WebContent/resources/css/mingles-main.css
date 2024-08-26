@@ -308,16 +308,14 @@ body {
     /* mp3창 */
 .popover-content { 
   position:absolute;
-  border: 1px solid black;
-  border-radius:20px;
   top:20%;
   right:40px;
-  width:300px;
-  height:120px;
+  width:350px;
+  height:180px;
   justify-content:center;
   flex-wrap:wrap;
   z-index:5;
-  background-color:#68D8D6;
+  background-color:#d6ecffde;
   opacity:0;
   display:none;
   transition: opacity .5s ease;
@@ -329,22 +327,21 @@ body {
     display:flex;
   }
 
-  .iframe-container {
-      position: relative;
-      width:90px;
-      height:90px;
-      right:8px;
-      top:13px;
-      overflow: hidden;
-      border-radius: 50px;
-      background-color:#07BEB8;
+  #musicThumbnail{
+    position:relative;
+    top:5%;
+    width:37.5%;
+    height:80%;
+    border:2px solid rgb(254, 255, 187);
+    box-shadow: 0 3px 5px rgb(254, 255, 216), 0 5px 7px rgb(253, 255, 114);
+    position:relative;
+    right:1%;
+    overflow:hidden;
   }
-  
-  .iframe-container iframe{
-    width:180%;
-    height:100%;
-    position:absolute;
-    
+
+  #musicImg{
+    width: 100%; 
+    height: 100%; 
   }
 
   .music--info{
@@ -353,12 +350,12 @@ body {
     width:120px;
     height:70px;
     left:50px;
-    top:25px;
+    top:50px;
   }
   
   .music--title{
     font-size:27px;
-    font-weight:500;
+    font-weight:600;
     font-family:'omyu_pretty';
   }
   
@@ -368,21 +365,64 @@ body {
     font-family:'omyu_pretty';
   }
 
+  #play-pause-button{
+    position:relative;
+    top:15%;
+  }
+
+  #music--element, #music-bar{
+    height:10px;
+    width:200%;
+    background-color:transparent;
+    position:relative;
+    top:47.5%;
+    left:-110%;
+  }
+
+  #music-bar{
+    -webkit-appearance: none;
+    position:relative;
+    width:150%;
+    height:2px;
+    outline: none;
+    background-color:#afc1d9;
+    background: linear-gradient(to right, #8cbcfe 0%, #b9d7ff 50%, #ececec 50%, #ececec 100%);
+    transition: background 450ms ease-in;
+    accent-color: rgb(74, 170, 255);
+  }
+
+  .current-time, .duration{
+    position:relative;
+    top:28%;
+    left:-110%;
+  }
+
+  .current-time{
+    top:75%;
+    left:-150%;
+  }
+
+  .duration{
+    left:60%;
+  }
 
   /* 플리 버튼 */
 .popover-content button{
     width:10px;
     height: 10px;
-    padding:10px;
     border: transparent;
     background-color:transparent;
-    color:#08817d;
+    color:rgb(74, 170, 255);
+  }
+
+  .material-icons{
+    margin:5px;
   }
   
   #playlist{
     position:absolute;
-    top:78px;
-    left:257px;
+    top:150px;
+    left:310px;
   }
 
   /* Tooltip */

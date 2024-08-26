@@ -8,26 +8,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.kh.admin.model.service.ItemService;
 import com.kh.admin.model.vo.Item;
-import com.kh.admin.model.vo.ItemCategory;
 import com.kh.common.model.vo.ItemListResponse;
 import com.kh.common.model.vo.PageInfo;
 
 /**
- * Servlet implementation class ItemListController
+ * Servlet implementation class ItemCategoryListController
  */
-@WebServlet("/list.it")
-public class ItemListController extends HttpServlet {
+@WebServlet("/listCa.it")
+public class ItemCategoryListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ItemListController() {
+    public ItemCategoryListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,7 +35,8 @@ public class ItemListController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String category = request.getParameter("category");
-		
+		String cpage = request.getParameter("cpage");
+
 		int listCount; // 총 게시글 개수 - 전체 select문에서 사용할 것 
 		int categoryListCount; // - 일부 select문에서 사용할 것
 		int currentPage =1; // 현재 요청한 페이지
@@ -47,7 +46,7 @@ public class ItemListController extends HttpServlet {
 		int categorymaxPage; //총 페이지 수 - 일부 select문
 		int startPage; // 페이징바의 시작수
 		int endPage; //페이징바의 끝수
-		
+
 		// 현재 페이지 -> 쿼리스트링으로 넘김
 		currentPage = Integer.parseInt(request.getParameter("cpage"));
 		// 페이지 최대 개수 (나는 5개 할거임)
@@ -59,54 +58,30 @@ public class ItemListController extends HttpServlet {
 		// 페이징바 마지막 수
 		endPage = startPage + pageLimit-1;
 		
-		if(category.equals("IC100")) { 
-			// 선택 안된 경우
-			// 총 게시글 수 : listCount
-			listCount = new ItemService().selectListCount();
-			// 총 페이지 수
-			maxPage = (int)Math.ceil((double)listCount/boardLimit);
-			// endPage = maxPage로 변경
-			if(endPage>maxPage) {
-				endPage = maxPage;
-			}// 내부 if문
-			
-			// 1. pageInfo 가공(조회, 페이징바 선택시)
-			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
-			// 2. 서비스에게 정보 요청(전체)		
-			ArrayList<Item> list = new ItemService().selectItemList(pi);
-	
-			// 3. 응답 던지기
-			request.setAttribute("defaultCategory", category);
-			request.setAttribute("pi", pi);
-			request.setAttribute("list", list); // 아이템 리스트 객체
-			request.getRequestDispatcher("/views/shop/minglesShops.jsp").forward(request, response);
+		// 카테고리가 선택된 경우
+		// 총 게시글 수 : categoryListCount
+		categoryListCount = new ItemService().selectListWithCategoryCount(category);
+		// 총 페이지 수
+		categorymaxPage = (int)Math.ceil((double)categoryListCount/boardLimit);
+		// endPage = categorymaxPage로 변경
+		if(endPage>categorymaxPage) {
+			endPage = categorymaxPage;
+		}// 내부 if문
 		
-		}//else{ 
-//
-//			// 카테고리가 선택된 경우
-//			// 총 게시글 수 : categoryListCount
-//			categoryListCount = new ItemService().selectListWithCategoryCount(category);
-//			// 총 페이지 수
-//			categorymaxPage = (int)Math.ceil((double)categoryListCount/boardLimit);
-//			// endPage = categorymaxPage로 변경
-//			if(endPage>categorymaxPage) {
-//				endPage = categorymaxPage;
-//			}// 내부 if문
-//			
-//			// 1. pageInfo 가공(조회, 페이징바 선택시)
-//			PageInfo pi = new PageInfo(categoryListCount, currentPage, pageLimit, boardLimit, categorymaxPage, startPage, endPage);
-//			// 2. 서비스에게 정보 요청(카테고리 포함된 것)
-//			ArrayList<Item> list = new ItemService().selectListWithCategory(pi, category);
-//			
-//			// pi와 list를 같이 담기 위해 만든 야매 메소드
-//			ItemListResponse result = new ItemListResponse(pi, list);
-//			
-//			// 3. 응답 던지기
-//			response.setContentType("application/json; charset=utf-8");			
-//			new Gson().toJson(result, response.getWriter());
-//			
-//			
-//		};
+		// 1. pageInfo 가공(조회, 페이징바 선택시)
+		PageInfo pi = new PageInfo(categoryListCount, currentPage, pageLimit, boardLimit, categorymaxPage, startPage, endPage);
+		// 2. 서비스에게 정보 요청(카테고리 포함된 것)
+		ArrayList<Item> list = new ItemService().selectListWithCategory(pi, category);
+		
+		// pi와 list를 같이 담기 위해 만든 야매 메소드
+		ItemListResponse result = new ItemListResponse(pi, list);
+		
+		// 3. 응답 던지기
+		response.setContentType("application/json; charset=utf-8");			
+		new Gson().toJson(result, response.getWriter());
+		
+		
+		
 	}
 
 	/**
