@@ -31,6 +31,8 @@ $(function(){
         }
         stop = !stop;
     })
+
+    weather();
 })
 
 $(document).ready(function(){
@@ -476,4 +478,176 @@ function insertReply() {
 			console.log("댓글작성용 ajax 통신실패");
 		},
 	})
+}
+
+function weather(){
+  var to_day = getToday();
+  var time = getTime();
+
+  function getToday(){
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = ("0" + (1 + date.getMonth())).slice(-2);
+    var day = ("0" + date.getDate()).slice(-2);
+
+    $('#wYear').text(year);
+    $('#wMonth').text(month);
+    $('#wDay').text(day);
+    
+    return year + month + day;
+}
+
+function getTime(){
+    var date2 = new Date();
+    var hours = ('0' + date2.getHours()).slice(-2);
+    var time = hours+'00';
+
+    return time;
+}
+  getLocation();
+
+  console.log(to_day, time)
+
+  function getLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+          
+      } else { 
+          x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+  
+  }
+
+  function showPosition(position) {
+      
+      var coor = dfs_xy_conv("toXY", position.coords.latitude, position.coords.longitude);
+      $('.location').text(coor.x + ", " + coor.y)
+      var X = coor.x;
+      var Y = coor.y;
+
+      final(X,Y);
+  }
+
+  var RE = 6371.00877; // 지구 반경(km)
+  var GRID = 5.0; // 격자 간격(km)
+  var SLAT1 = 30.0; // 투영 위도1(degree)
+  var SLAT2 = 60.0; // 투영 위도2(degree)
+  var OLON = 126.0; // 기준점 경도(degree)
+  var OLAT = 38.0; // 기준점 위도(degree)
+  var XO = 43; // 기준점 X좌표(GRID)
+  var YO = 136; // 기1준점 Y좌표(GRID)
+  //
+  // LCC DFS 좌표변환 ( code : "toXY"(위경도->좌표, v1:위도, v2:경도), "toLL"(좌표->위경도,v1:x, v2:y) )
+  //
+
+
+  function dfs_xy_conv(code, v1, v2) {
+      var DEGRAD = Math.PI / 180.0;
+      var RADDEG = 180.0 / Math.PI;
+
+      var re = RE / GRID;
+      var slat1 = SLAT1 * DEGRAD;
+      var slat2 = SLAT2 * DEGRAD;
+      var olon = OLON * DEGRAD;
+      var olat = OLAT * DEGRAD;
+
+      var sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+      sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
+      var sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
+      sf = Math.pow(sf, sn) * Math.cos(slat1) / sn;
+      var ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
+      ro = re * sf / Math.pow(ro, sn);
+
+      var rs = {};
+
+      if (code == "toXY") {
+          rs['lat'] = v1;
+          rs['lng'] = v2;
+          var ra = Math.tan(Math.PI * 0.25 + (v1) * DEGRAD * 0.5);
+          ra = re * sf / Math.pow(ra, sn);
+          var theta = v2 * DEGRAD - olon;
+          if (theta > Math.PI) theta -= 2.0 * Math.PI;
+          if (theta < -Math.PI) theta += 2.0 * Math.PI;
+          theta *= sn;
+          rs['x'] = Math.floor(ra * Math.sin(theta) + XO + 0.5);
+          rs['y'] = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
+      }
+      else {
+          rs['x'] = v1;
+          rs['y'] = v2;
+          var xn = v1 - XO;
+          var yn = ro - v2 + YO;
+          ra = Math.sqrt(xn * xn + yn * yn);
+          if (sn < 0.0) - ra;
+          var alat = Math.pow((re * sf / ra), (1.0 / sn));
+          alat = 2.0 * Math.atan(alat) - Math.PI * 0.5;
+
+          if (Math.abs(xn) <= 0.0) {
+              theta = 0.0;
+          }
+          else {
+              if (Math.abs(yn) <= 0.0) {
+                  theta = Math.PI * 0.5;
+                  if (xn < 0.0) - theta;
+              }
+              else theta = Math.atan2(xn, yn);
+          }
+          var alon = theta / sn + olon;
+          rs['lat'] = alat * RADDEG;
+          rs['lng'] = alon * RADDEG;
+      }
+      return rs;
+      
+  }
+
+  function final(X, Y){
+    $.ajax({
+        url:"https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=OsDLpgiCRYWKxckXiRL7XliTmtSFiXeKqvYQJC3FoCWJq3O4Sj%2FnSrQcEWSrVnKjkCUxfBXZxRnbDF8NPgeVJw%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date="+to_day+"&base_time=0500&nx="+X+"&ny="+Y,
+        success:function(res){
+            console.log(res);
+            let item = res.response.body.items.item;
+            for(let i=0;i<item.length;i++){
+                if(item[i].fcstTime === time && item[i].category === 'PTY' && item[i].fcstDate === to_day){
+                  console.log(item[i]);
+                  if(item[i].fcstValue === '1'){
+                    $('#weatherImg').attr({src:'../../resources/images/animated/rainy-5.svg'})
+                    $('#skyStatus').text("비")
+                  }else if(item[i].fcstValue === '2'){
+                    $('#weatherImg').attr({src:'../../resources/images/animated/rainy-4.svg'})
+                    $('#skyStatus').text("비/눈")
+                  }else if(item[i].fcstValue === '3'){
+                    $('#weatherImg').attr({src:'../../resources/images/animated/snowy-5.svg'})
+                    $('#skyStatus').text("눈")
+                  }else if(item[i].fcstValue === '4'){
+                    $('#weatherImg').attr({src:'../../resources/images/animated/rainy-7.svg'})
+                    $('#skyStatus').text("소나기")
+                  }else{
+                    for(let j=0;j<item.length;j++){
+                      if(item[j].fcstTime === time && item[j].category === 'SKY' && item[j].fcstDate === to_day){
+                        console.log(item[j])
+                          if(item[j].fcstValue === '1'){
+                              $('#weatherImg').attr({src:'../../resources/images/animated/day.svg'})
+                              $('#skyStatus').text("맑음")
+                          }else if(item[j].fcstValue === '3'){
+                              $('#weatherImg').attr({src:'../../resources/images/animated/cloudy-day-2.svg'})
+                              $('#skyStatus').text("흐림")
+                          }else if(item[j].fcstValue === '4'){
+                              $('#weatherImg').attr({src:'../../resources/images/animated/cloudy.svg'})
+                              $('#skyStatus').text("흐림")
+                          }
+                      }
+                    }
+                  }
+                }
+
+                if(item[i].fcstTime === time && item[i].category === 'TMP' && item[i].fcstDate === to_day){
+                    console.log(item[i])
+                    var tmp = item[i].fcstValue;
+                    $('#temperate').text(tmp);
+                }
+            }
+        },
+    })
+}
+
 }

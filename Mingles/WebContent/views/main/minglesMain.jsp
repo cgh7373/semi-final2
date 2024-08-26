@@ -208,6 +208,29 @@
                     </div>
                 </div>
             </div>
+
+            <div class="weatherCard">
+                <div id="card">
+                    <div class="icon">
+                        <img id="weatherImg" src="" id="weather_img" />
+                    </div>
+                    
+                    <div class="detatils">
+                        <div class="weather">
+                            <h3><span id="temperate"></span>℃</h3>
+                            <h3 id="skyStatus"></h3>
+                        </div>
+                        <div class="bottom">
+                            <sapn id="wYear"></sapn>년
+                            <span id="wMonth"></span>월
+                            <span id="wDay"></span>일
+                        </div>
+                    </div>
+                </div>
+                <div id="weatherGif">
+                    <img src="../../resources/images/rain-animation.gif" alt="">
+                </div>
+            </div>
             
 
             <!-- 오른쪽 화면 - 미니홈피 -->
