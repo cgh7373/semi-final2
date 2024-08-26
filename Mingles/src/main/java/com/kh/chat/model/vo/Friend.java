@@ -32,6 +32,13 @@ public class Friend {
 		this.nickName = nickName;
 		this.profilePic = profilePic;
 	}
+	
+	public Friend(int fMemNo, String nickName, String profilePic) {
+		super();
+		this.fMemNo = fMemNo;
+		this.nickName = nickName;
+		this.profilePic = profilePic;
+	}
 
 	public int getSenderNo() {
 		return senderNo;

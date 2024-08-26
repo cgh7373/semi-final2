@@ -1,13 +1,19 @@
 package com.kh.chat.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.chat.model.service.ChatService;
+import com.kh.chat.model.vo.Chat;
+import com.kh.chat.model.vo.Chatting;
+import com.kh.chat.model.vo.Friend;
 import com.kh.member.model.vo.Member;
 
 /**
@@ -30,13 +36,26 @@ public class ChattingController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String chatContent = request.getParameter("Content");
-		int fNo = Integer.parseInt(request.getParameter("fNo"));
-//		int chatNo = Integer.parseInt(request.getParameter("chatNo"));
-		Member m = (Member)request.getSession().getAttribute("loginUser");
-		int chatNo = new ChatService().chatNo(m);
+		String toNoStr = request.getParameter("toNo");
+		int toNo = Integer.parseInt(toNoStr);
+		int fromNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
 		
+		System.out.println(toNo);
+		System.out.println(fromNo);
 		
+		Chat user = new Chat();
+		user.setToNo(toNo);
+		user.setFromNo(fromNo);
+		
+		Friend toMem = new ChatService().toMember(toNo);
+		ArrayList<Chat> selectChat = new ChatService().selectChat(user);
+		
+		request.getSession().setAttribute("toMem", toMem);
+//		request.setAttribute("selectChat", selectChat);
+		request.getRequestDispatcher("views/chat/minglesChats.jsp").forward(request, response);
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(selectChat, response.getWriter());
+//		response.getWriter().print(selectChat);
 	}
 
 	/**

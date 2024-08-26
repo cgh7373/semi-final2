@@ -20,7 +20,21 @@ public class ChatService {
 		return friend;
 	}
 	
+	public Friend toMember(int toNo) {
+		Connection conn = getConnection();
+		Friend toMem = new ChatDao().toMember(conn, toNo);
+		
+		close(conn);
+		return toMem;
+	}
 	
+	public ArrayList<Chat> selectChat(Chat user) {
+		Connection conn = getConnection();
+		ArrayList<Chat> selectChat = new ChatDao().selectChat(conn, user);
+
+		close(conn);
+		return selectChat;
+	}
 	
 	
 	

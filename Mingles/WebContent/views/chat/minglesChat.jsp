@@ -258,72 +258,72 @@
                         <div class="friend__icon"><img src="./resources/images/차은우.jpeg" alt=""></div>
                         <div class="friend-info">
                             <span class="friend__name">김서경</span>
-                            <span class="friend__text">1</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
+                            <span class="friend__count">1</span>
+                            <!-- <span class="friend__count">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="./resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">이주영</span>
-                            <span class="friend__text">20</span>
-                            <!-- <span class="friend__text">반짝반짝 작은별 아름답게 비치네</span> -->
+                            <span class="friend__count">20</span>
+
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="./resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">유현동</span>
-                            <span class="friend__text">99+</span>
-                            <!-- <span class="friend__text"> 동쪽하늘에서도 서쪽하늘에서도</span> -->
+                            <span class="friend__count">99+</span>
+
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">김상우</span>
-                            <span class="friend__text">20</span>
-                            <!-- <span class="friend__text">반짝반짝 작은별 아름답게 비치네 짝!</span> -->
+                            <span class="friend__count">20</span>
+
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">정택은</span>
-                            <span class="friend__text">3</span>
-                            <!-- <span class="friend__text"></span> -->
+                            <span class="friend__count">3</span>
+
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">최규호</span>
-                            <span class="friend__text">50</span>
-                            <!-- <span class="friend__text">그냥.. 복붙만 하니까 이상해서 아무거나 써봤어요;;</span> -->
+                            <span class="friend__count">50</span>
+                         
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">김서경</span>
-                            <span class="friend__text">89</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
+                            <span class="friend__count">89</span>
+                          
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">김서경</span>
-                            <span class="friend__text">99+</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
+                            <span class="friend__count">99+</span>
+                         
                         </div>
                     </li>
                     <li class="friendList">
                         <div class="friend__icon"><img src="../../resources/images/차은우.jpeg" alt=""></div>
                         <div>
                             <span class="friend__name">김서경</span>
-                            <span class="friend__text">10</span>
-                            <!-- <span class="friend__text">마지막채팅떴으면 아주아주아주아주 좋겠다리좋겠다~</span> -->
+                            <span class="friend__count">10</span>
+                          
                         </div>
                     </li>
                 </ul>

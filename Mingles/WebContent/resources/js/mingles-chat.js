@@ -94,38 +94,3 @@ function init(){
     draw.addEventListener("click", handClick)
 }
 init();
-
-// 검색하기
-let searchInput = document.getElementById("searchInput");
-searchInput.addEventListener("keypress", function(e){
-    if(e.key === 'enter'){
-        e.preventDefault();
-    }
-})
-$(function(){
-    $('#searchInput').keydown(function(){
-        
-        if(key === 'Enter'){
-
-        }
-    })
-})
-
-
-// 친구 리스트 눌렀을때 화면창 뜨게 하기
-
-
-
-// 채팅창 보낼 때 : 많이 고민해보기.
-
-var input = document.getElementById("myInput");
-
-input.addEventListener("keypress", function(event) {
-    // 키보드의 'enter'키를 누른경우
-  if (event.key === "Enter") {
-    // a태그나, submit 태그를 누를때 디오하거나, 창이 새로고침하여 실행되는데 그걸 막아주는 이벤트 -> 조금 더 고민해보기
-    event.preventDefault();
-    // 클릭버튼 눌렀을때
-    document.getElementById("subBtn").click();
-  }
-});

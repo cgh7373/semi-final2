@@ -23,9 +23,52 @@
 		  FROM FRIEND 
 		  JOIN MEMBER ON (SENDER_NO = MEM_NO)
 		 WHERE RECEIVER_NO = ?
-		   AND REQUEST_STATUS = 'A';
+		   AND REQUEST_STATUS = 'A'
 	</entry>
 	
+	<entry key="toMember">
+		SELECT
+		       MEM_NO
+		     , NICKNAME
+		     , PROFILE_PIC
+		  FROM MEMBER
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectChat">
+	   SELECT 
+		      CHAT_ID
+		    , FROM_MEMNO
+		    , TO_MEMNO
+		    , CHAT_CONTENT
+		    , CHAT_TIME
+		 FROM CHAT
+		WHERE (FROM_MEMNO = ?
+		  AND TO_MEMNO = ?)
+		   OR (FROM_MEMNO = ?
+		  AND TO_MEMNO = ?)
+	</entry>
+	
+	
+	<entry key="insertChat">
+		INSERT
+		  INTO CHAT
+		  (
+		    CHAI_ID
+		  , FROM_MEMNO
+		  , TO_MEMNO
+		  , CHAT_CONTENT
+		  )
+		  VALUES
+		  (
+		    SEQ_CHAT
+		  , ?
+		  , ?
+		  , ?
+		  )
+		
+	</entry>
 	
 
 

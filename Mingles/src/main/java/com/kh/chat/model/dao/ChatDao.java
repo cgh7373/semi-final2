@@ -62,6 +62,65 @@ public class ChatDao {
 		return friend;
 	}
 	
+//	보낸 친구 정보 저장
+	public Friend toMember(Connection conn, int toNo) {
+		Friend toMem = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("toMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, toNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				toMem = new Friend(rset.getInt(toNo),
+								   rset.getString("nickname"),
+								   rset.getString("profile_pic"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}return toMem;
+	}
+	
+//	채팅내역 검색
+	public ArrayList<Chat> selectChat(Connection conn, Chat user) {
+		ArrayList<Chat> selectChat = new ArrayList<Chat>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectChat");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, user.getFromNo());
+			pstmt.setInt(2, user.getToNo());
+			pstmt.setInt(3, user.getToNo());
+			pstmt.setInt(4, user.getFromNo());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				selectChat.add(new Chat(rset.getInt("chat_id"),
+						   				rset.getInt("from_memno"),
+						   				rset.getInt("to_memno"),
+						   				rset.getString("chat_content"),
+						   				rset.getString("chat_time")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}return selectChat;
+	}
 	
 	
 	

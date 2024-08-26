@@ -5,20 +5,26 @@ import java.sql.Date;
 public class Chat {
 	
 	private int chatId; // 채팅방번호
-	private String fromNickname; // 로그인한 사람의 회원번호
-	private String toNickname; // 상대방의 회원번호
-	private String chatContent;
-	private String chatTime;
+	private int fromNo; // 로그인한 사람의 회원번호
+	private int toNo; // 상대방의 회원번호
+	private String chatContent; // 채팅 내용
+	private String chatTime; // 보낸 시간
 	
 	public Chat() {}
 
-	public Chat(int chatId, String fromNickname, String toNickname, String chatContent, String chatTime) {
+	public Chat(int chatId, int fromNo, int toNo, String chatContent, String chatTime) {
 		super();
 		this.chatId = chatId;
-		this.fromNickname = fromNickname;
-		this.toNickname = toNickname;
+		this.fromNo = fromNo;
+		this.toNo = toNo;
 		this.chatContent = chatContent;
 		this.chatTime = chatTime;
+	}
+
+	public Chat(int chatId, String chatContent) {
+		super();
+		this.chatId = chatId;
+		this.chatContent = chatContent;
 	}
 
 	public int getChatId() {
@@ -29,20 +35,20 @@ public class Chat {
 		this.chatId = chatId;
 	}
 
-	public String getFromNickname() {
-		return fromNickname;
+	public int getFromNo() {
+		return fromNo;
 	}
 
-	public void setFromNickname(String fromNickname) {
-		this.fromNickname = fromNickname;
+	public void setFromNo(int fromNo) {
+		this.fromNo = fromNo;
 	}
 
-	public String getToNickname() {
-		return toNickname;
+	public int getToNo() {
+		return toNo;
 	}
 
-	public void setToNickname(String toNickname) {
-		this.toNickname = toNickname;
+	public void setToNo(int toNo) {
+		this.toNo = toNo;
 	}
 
 	public String getChatContent() {
@@ -63,8 +69,8 @@ public class Chat {
 
 	@Override
 	public String toString() {
-		return "chat [chatId=" + chatId + ", fromNickname=" + fromNickname + ", toNickname=" + toNickname
-				+ ", chatContent=" + chatContent + ", chatTime=" + chatTime + "]";
+		return "Chat [chatId=" + chatId + ", fromNo=" + fromNo + ", toNo=" + toNo + ", chatContent=" + chatContent
+				+ ", chatTime=" + chatTime + "]";
 	}
 	
 }
