@@ -1,11 +1,10 @@
+<%@page import="com.kh.style.model.service.StyleService"%>
+<%@page import="com.kh.member.model.service.MemberService"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 Member m = (Member)session.getAttribute("loginUser");
-String contextPath = request.getContextPath();
-String alertMsg = (String)session.getAttribute("alertMsg");
-String errorMsg = (String)session.getAttribute("errorMsg");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,7 +85,7 @@ String errorMsg = (String)session.getAttribute("errorMsg");
                         <div class="bal bal2">
                             <div class="bal-wall">벽지</div>
                             <div class="bal-floor">바닥</div>
-                            <div class="bal-item">아이템</div>
+                            <div class="bal-theme">테마</div>
                         </div>
 
                         <div class="bal bal3">
@@ -103,7 +102,6 @@ String errorMsg = (String)session.getAttribute("errorMsg");
                         </div>
 
                     </div>
-
                     <!-- MINIHOMPI ROOM-->
                     <div class="vis-room">
 
@@ -136,31 +134,36 @@ String errorMsg = (String)session.getAttribute("errorMsg");
                              </div>
 
                             <!-- SHOES -->
-                             <div class="shoes" id = "shoesSave">
+                            <div class="shoes" id = "shoesSave">
                                 <img id = "shoes" src="../../resources/stylesources/shoes13.png" alt="shoes">
                              </div>
 
                         </div> <!--AVATAR-->
 
-                        <!-- FLOOR SKIN -->
-                         <div class="floor-box">
-                            <!-- FLOOR관련 ACCESSORIES 배치할 것 -->    
+						<!-- ROOM : 80 -->
+						<div class="room-box">
 
-                            <div class="floor-skin">
-                                <img id = "floor-skin" src="../../resources/stylesources/floor10.png" alt="floor">
-                            </div>
+							<!-- WALL-->
+							<div class="wall" id = "wallSave">
+								<img id = "wall" src="../../resources/stylesources/wall1.png" alt="wall">
+							</div> <!--WALL-->
 
-                         </div> <!-- FLOOR -->
+                       		<!-- FLOOR-->
+                            <div class="floor" id = "floorSave">
+                                <img id = "floor" src="../../resources/stylesources/floor10.png" alt="floor">
+                            </div> <!-- FLOOR -->
+							
+							<!-- THEME -->
+							<div class="theme" id ="themeSave">
+								<img id = "theme" src="../../resources/stylesources/theme1.png" alt="theme">
+							</div>
 
-                        <!-- WALL SKIN -->
-                         <div class="wall-box">
-                            <!-- WALL관련 ACCESSORIES 배치할 것 -->
-                         </div> <!--WALL-->
+						</div><!-- ROOM -->
 
                     </div> <!-- MINIHOMPI ROOM-->
 
                     <div class="bot-box">
-                        <div class="btn btn1">mingleShop</div>
+                        <div class="btn btn1" onclick="location.href='../../views/shop/minglesShop.jsp';">mingleShop</div>
                        
                         <div class="btn btn2" onclick = "saveAvatar()">저장하기</div>
                        
@@ -176,47 +179,92 @@ String errorMsg = (String)session.getAttribute("errorMsg");
     </div>
 	
 	<script>
+	const memNo = <%= m.getMemNo()%>
+	
+	// 페이지 로드 시 select됬던 요소 실행
+	window.onload= function(){
+		console.log("select 저장 성공");
+		selectAvatar();
+	}
+	
 	// getValues()에 선택된 값 담기
 	function getValues(){
 		return {
+			userNo : memNo,
 			hair : document.getElementById('hairSave').querySelector('img').src,
 			face : document.getElementById('faceSave').querySelector('img').src,
 			top : document.getElementById('topSave').querySelector('img').src,
 			bottom : document.getElementById('bottomSave').querySelector('img').src,
 			shoes : document.getElementById('shoesSave').querySelector('img').src,
+			wall : document.getElementById('wallSave').querySelector('img').src,
+			floor: document.getElementById('floorSave').querySelector('img').src,
+			theme : document.getElementById('themeSave').querySelector('img').src,
 		};
+		
+	}// getValues()
+
+	// COOKIE 만들기 - cookie도 getter, setter이 있다.
+	
+	function setCookie(name, value, expire){
+		var date = new Date();
+		date.setTime(date.getTime() + expire*24*60*60*1000);
+		document.cookie = name + "=" + encodeURIComponent(value) + ";expires =" + date.toUTCString() + ";path=/";
+	}// setCookie
+	
+	function getCookie(name){
+		var nameEQ  = name + "=";
+		var ca = document.cookie.split(';');
+		for(let i=0; i<ca.length; i++){
+			var c = ca[i];
+			while (c.charAt(0) === ' ') c = c.substring(1);
+			if(c.indexOf(nameEQ) === 0){
+				return decodeURIComponent(c.substring(nameEQ.length, c.length));	
+				}
+			}
+			console.log("get 실패");
+		}// getCookie
+
+	
+	// COOKIE 삭제
+	function deleteCookie(name){
+		document.cookie = name + '=; MAX-AGE = -99999999; path =/';
 	}
 	
-	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기
+	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기 - insert, update문
 	function saveAvatar(){
 		let selected = getValues();
-		const userId = <%= m.getMemNo()%>;
-		
+		console.log(selected);
+
 		// 사용자가 아바타가 있는지 없는지 확인하는 ajax문
 		$.ajax({
-			url: "hasAvatar.st",
+			url: "/Mingles/hasAvatar.st",
 			data : {
-				memno : userId,
+				memno : selected.userNo,
 			},
 			type :"post",
-			success : function(response){
-				let flag = response.flag;
+			success : function(result){
+				let flag = result.flag;
 				console.log("hasAvatar여부 성공!");
- 			// 사용자에게 아바타가 있을 경우 == hasAvatar의 flag가 true일 경우 == update문 쏘기
+ 			
+				// 사용자에게 아바타가 있을 경우 == hasAvatar의 flag가 true일 경우 == update문 쏘기
 				if(flag == true){
 				$.ajax({
-					url : "updateAvatar.st",
+					url : "/Mingles/updateAvatar.st",
 					data :{
-						memno: userId,
+						memno: selected.userNo,
 						hair: selected.hair,
 						face: selected.face,
 						top : selected.top,
 						bottom :selected.bottom,
 						shoes :selected.shoes,
+						wall : selected.wall,
+						floor: selected.floor,
+						theme : selected.theme,
 					},
 					type : "post",
 					success : function(){
 						console.log("ajax update avatar 통신 success");
+						selectAvatar();
 					},
 					error : function(){
 						console.log("ajax update avatar 통신 fail");
@@ -225,20 +273,25 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 				}else{
 				// 사용자에게 아바타가 없을 경우 == hasAvatar의 flag가 false일 경우 == insert문 쏘기(최초 1번)
 				$.ajax({
-					url : "insertAvatar.st",
+					url : "/Mingles/insertAvatar.st",
 					data :{
-						memno: userId,
+						memno: selected.userNo,
 						hair: selected.hair,
 						face: selected.face,
 						top : selected.top,
 						bottom :selected.bottom,
 						shoes :selected.shoes,
+						wall: selected.wall,
+						floor: selected.floor,
+						theme : selected.theme,
 					},
 					type : "post",
-					success : function(){
+					success : function(result){
+						// select문을 통해서 저장된 상태를 유지하기
 						console.log("ajax insert avatar 통신 success");
+						selectAvatar();
 					},
-					error : function(){
+					error : function(result){
 						console.log("ajax insert avatar 통신 fail");
 					},
 				})
@@ -250,6 +303,70 @@ String errorMsg = (String)session.getAttribute("errorMsg");
 		})
 		
 	}
+	
+	function selectAvatar(){ // select문
+		console.log("selectAvatar시작");
+		let selected = getValues();
+
+		// url 형식 바꾸기
+		let changeURL = function(url){
+			let originalURL = 'http://localhost:8254/Mingles/';
+			return url.replace(originalURL, '../../');
+		};
+
+		function getAvatarFromCookie(){
+			let avatarData = {
+				hair: getCookie('hair'),
+				face: getCookie('face'),
+				top : getCookie('top'),
+				bottom : getCookie('bottom'),
+				shoes: getCookie('shoes'),
+				wall : getCookie('wall'),
+				floor: getCookie('floor'),
+				theme : getCookie('theme'),
+			};
+			return avatarData;
+		}// getAvatarFromCookies()
+		
+		let avatarData = getAvatarFromCookie();
+		console.log("ajax call 시도");
+
+		$.ajax({
+			url : "/Mingles/selectAvatar.st",
+			data : {memno : selected.userNo,},
+			type : "post",
+			success : function(result){
+				console.log("select ajax result 성공" );
+				if(result.hair || result.face || result.top || result.bottom || result.shoes || result.wall || result.floor || result.theme){
+			
+					setCookie('hair',changeURL(result.hair), 365);
+	                setCookie('face', changeURL(result.face), 365);
+	                setCookie('top', changeURL(result.top), 365);
+	                setCookie('bottom', changeURL(result.bottom), 365);
+	                setCookie('shoes', changeURL(result.shoes), 365);
+	                setCookie('wall', changeURL(result.wall), 365);
+	                setCookie('floor', changeURL(result.floor), 365);
+	                setCookie('theme', changeURL(result.theme), 365);
+				
+	            	$('#hair').attr('src', changeURL(result.hair));
+					$('#face').attr('src', changeURL(result.face));
+					$('#top').attr('src', changeURL(result.top));
+					$('#bottom').attr('src', changeURL(result.bottom));
+					$('#shoes').attr('src', changeURL(result.shoes));
+					$('#wall').attr('src', changeURL(result.wall));
+					$('#floor').attr('src', changeURL(result.floor));
+					$('#theme').attr('src', changeURL(result.theme));
+					
+					console.log("avatardata가 서버에 적용되고 쿠키에 저장됨");
+					
+				}
+			},
+			error : function(result){
+				console.log("select ajax result 실패...");
+			},
+		});
+		
+	}// selectAvatar();
 	
 	</script>
 

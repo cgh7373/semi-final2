@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.board.model.dao.BoardDao;
 import com.kh.board.model.service.BoardService;
 import com.kh.board.model.vo.Memo;
+import com.kh.board.model.vo.MemoReadStatus;
 
 /**
  * Servlet implementation class MemoInsertController
@@ -37,6 +39,7 @@ public class MemoInsertController extends HttpServlet {
 		int owner = Integer.parseInt(request.getParameter("owner"));
 		String scope = request.getParameter("scope");
 		
+		
 		Memo m = new Memo();
 		
 		m.setMemoOwner(owner);
@@ -44,6 +47,21 @@ public class MemoInsertController extends HttpServlet {
 		m.setMemoContent(content);
 		m.setMemoDate(date);
 		m.setMemoScope(scope);
+		
+		if (writer != owner) {
+			
+			int year = Integer.parseInt(request.getParameter("year"));
+			int month = Integer.parseInt(request.getParameter("month"));
+			
+			MemoReadStatus rs = new MemoReadStatus();
+			
+			rs.setOwnerNo(owner);
+			rs.setReadYear(year);
+			rs.setReadMonth(month);
+			rs.setReadDate(date);
+			
+			new BoardService().insertReadStatus(rs);
+		}
 		
 		int result = new BoardService().insertMemo(m);
 		

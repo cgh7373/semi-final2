@@ -130,7 +130,37 @@ const today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 
-function renderCalendar() {
+const owner = document.getElementById("owner").getAttribute("data-owner");
+
+function readStatus() {
+	
+	$.ajax({
+		
+		url : "/Mingles/readStatus.mi",
+		data : {
+			owner : owner,
+			year : currentYear,
+			month : currentMonth + 1,
+		},
+		success : function(result) {
+			
+			const readStatuses = result.reduce((acc, item) => {
+
+        acc[item.readDate] = item.readStatus === 'T';
+
+				return acc;
+			}, {});
+
+			renderCalendar(readStatuses);
+			
+		}
+		
+	})
+	
+}
+
+function renderCalendar(readStatuses) {
+	
     const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const startDayOfWeek = firstDayOfMonth.getDay();
@@ -147,21 +177,35 @@ function renderCalendar() {
 
     // 현재 달의 날짜
     for (let i = 1; i <= daysInMonth; i++) {
+      
+        const dateStr = currentYear + "-" + (currentMonth + 1) + "-" + i;
+        const isToday = today.getDate() === i && today.getMonth() === currentMonth;
+        const isUnread = readStatuses[dateStr] === false;
+
+
         const dateElement = document.createElement("div");
         dateElement.classList.add("date");
         dateElement.textContent = i;
-        dateElement.setAttribute("data-date", currentYear + '-' + (currentMonth + 1) + '-' + i);
+        dateElement.setAttribute("data-date", dateStr);
+
+        if (isToday) {
+          dateElement.classList.add("today")
+        }
+        
+        dateElement.classList.toggle("unread", isUnread);
+        
         calendarDates.appendChild(dateElement);
+
     }
 
     updateMemoCounts();
 
 }
 
-function updateMemoCounts() {
 
-  const owner = document.getElementById("owner").getAttribute("data-owner");
-  const dateEls = document.querySelectorAll("#calendarDates .date");
+function updateMemoCounts() {
+  
+  const dateEls = document.querySelectorAll("#calendarDates .date:not(.empty)");
 
   dateEls.forEach(dateEl => {
 
@@ -176,9 +220,9 @@ function updateMemoCounts() {
         date : date,
       },
       success : function(result) {
-        
+
         if (result > 0) {
-          countElement.textContent = `메모 : ${result}개`
+          countElement.textContent = `📝 ${result}`
           dateEl.appendChild(countElement);
         }
 
@@ -190,7 +234,7 @@ function updateMemoCounts() {
 
 }
 
-renderCalendar();
+readStatus();
 
 prevBtn.addEventListener("click", () => {
     currentMonth--;
@@ -198,7 +242,7 @@ prevBtn.addEventListener("click", () => {
         currentMonth = 11;
         currentYear--;
     }
-    renderCalendar();
+    readStatus();
 });
 
 nextBtn.addEventListener("click", () => {
@@ -207,13 +251,13 @@ nextBtn.addEventListener("click", () => {
         currentMonth = 0;
         currentYear++;
     }
-    renderCalendar();
+    readStatus();
 });
 
 $("#my_info__3").on("click", function() {
 
   const zodiac = document.getElementById("zodiac").getAttribute("data-zodiac");
-
+  
   const encodedZodiac = encodeURIComponent(zodiac);
     
   const searchUrl = `https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&qvt=0&query=${encodedZodiac}%20%EC%9A%B4%EC%84%B8`;
@@ -221,3 +265,215 @@ $("#my_info__3").on("click", function() {
   window.open(searchUrl, '_blank');
 
 })
+
+function parseCustomDate(dateStr) {
+		
+  const [datePart, timePart] = dateStr.split(' ');
+  const [year, month, day] = datePart.split('/').map(num => parseInt(num, 10));
+  const [hours, minutes, seconds] = timePart.split(':').map(num => parseInt(num, 10));
+
+  const fullYear = year + 2000;
+
+  return new Date(fullYear, month - 1, day, hours, minutes, seconds);
+}
+
+
+  
+function selectMemoList(date) {
+
+
+  $.ajax({
+    url : "/Mingles/calendarMemo.mi",
+    data : {
+      date : date,
+      memNo : owner,
+    },
+    success : function(result) {
+      
+      const itemsPerPage = 10;
+          let currentPage = 1;
+          const totalItems = result.length;
+          const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+          function renderPage(page) {
+            
+              const start = (page - 1) * itemsPerPage;
+              const end = start + itemsPerPage;
+              const pageItems = result.slice(start, end);
+
+              let value = "";
+              
+              const now = new Date();
+              
+			  if (pageItems.length === 0) {
+				
+				$("#bulletinModal .modal-body table").html("<tr><td class='center-text'>아직 아무것도 없어요</td></tr>");
+				
+			  } else {
+
+	              for (let i in pageItems) {
+	                
+	                const memoStatusStr = pageItems[i].memoStatus; 
+	                  const memoStatus = parseCustomDate(memoStatusStr);  
+	                  const timeDiff = now - memoStatus; 
+	                  
+	                  let timeAgo = "";
+	                  
+	                  const seconds = Math.floor(timeDiff / 1000);
+	                  const minutes = Math.floor(seconds / 60);
+	                  const hours = Math.floor(minutes / 60);
+	                  const days = Math.floor(hours / 24);
+	                  const months = Math.floor(days / 30);
+	                  const years = Math.floor(days / 365);
+	                  
+	                  if (years > 0) {
+	                      timeAgo = years + "년 전";
+	                  } else if (months > 0) {
+	                      timeAgo = months + "달 전";
+	                  } else if (days > 0) {
+	                      timeAgo = days + "일 전";
+	                  } else if (hours > 0) {
+	                      timeAgo = hours + "시간 전";
+	                  } else if (minutes > 0) {
+	                      timeAgo = minutes + "분 전";
+	                  } else if (seconds > 0){
+	                      timeAgo = seconds + "초 전";
+	                  } else {
+	                    timeAgo = "방금 전";
+	                  }
+	                
+	                        value += "<tr>"
+	                               + "<td rowspan='2' class='memo-img'><img src='" + pageItems[i].profilePic + "'></td>"
+	                               + "<td rowspan='2' class='memo-content'>" + pageItems[i].memoContent + "</td>"
+	                               + "<td class='memo-nickname memo-else'>" + pageItems[i].nickname + "</td>"
+	                               + "</tr>"
+	                               + "<tr class='memo-dist'>"
+	                               + "<td class='memo-statusMsg memo-else'>" + timeAgo + "</td>"
+	                               + "</tr>";
+	                      
+	              }
+	
+	                $("#bulletinModal .modal-body table").html(value);
+                
+			  }
+                
+	          updatePaginationControls();
+                
+            }
+
+             function updatePaginationControls() {
+               
+                 const pageNumbers = $("#bulletinModal #pageNumbers");
+                 pageNumbers.empty();
+                 
+                 if (totalPages === 0) {
+                     $("#bulletinModal #prevPage").prop('disabled', true);
+                     $("#bulletinModal #nextPage").prop('disabled', true);
+                     return;
+                 }
+                 
+                 for (let i = 1; i <= totalPages; i++) {
+                   
+                     const button = $("<button>")
+                                     .text(i)
+                                     .addClass('page-btn')
+                                     .data('page', i)
+                                     .on('click', function() {
+                                           currentPage = $(this).data('page');
+                                           renderPage(currentPage);
+                                        });
+                     pageNumbers.append(button);
+                 }
+
+                 $("#bulletinModal #prevPage").prop('disabled', currentPage === 1);
+                 $("#bulletinModal #nextPage").prop('disabled', currentPage === totalPages || totalPages === 0);
+                 
+             }
+
+          $("#bulletinModal #prevPage").on('click', function() {
+            
+              if (currentPage > 1) {
+                  currentPage--;
+                  renderPage(currentPage);
+              }
+              
+          });
+
+          $("#bulletinModal #nextPage").on('click', function() {
+            
+              if (currentPage < totalPages) {
+                  currentPage++;
+                  renderPage(currentPage);
+              }
+              
+          });
+
+          renderPage(currentPage);
+      
+      
+    }
+  })
+
+}
+
+$(function() {
+        	
+  $("#calendarDates").on("click", ".date:not(.empty)", function() {
+    
+      const date = $(this).data("date");
+      $("#bulletinModalLabel").text(date);
+      
+      selectMemoList(date);
+      
+      $('#bulletinModal').modal('show');
+
+      $.ajax({
+        url : "/Mingles/readStatusUpdate.mi",
+        data : {
+          owner : owner,
+          date : date,
+        },
+        success : function() {
+          readStatus();
+        }
+      })
+      
+  });
+});
+
+function insertReply() {
+                	
+    const replyContent = $("#replyContent").val().trim();
+    const memoScope = $("#memoScopeSelect").val();
+    const selectedDate = $("#bulletinModalLabel").text()
+    
+    if (!replyContent) {
+        swal({
+        icon: 'error',
+        title: '아무것도 적지 않았어요',
+        });
+        return;
+    }
+
+	$.ajax({
+		url : '/Mingles/memoInsert.mi',
+		data : {
+			content : replyContent,
+			date : selectedDate,
+			owner : owner,
+			writer : owner,
+			scope : memoScope,
+		},
+		type : 'post',
+		success : function(result) {
+			if (result > 0) {
+				selectMemoList($("#bulletinModalLabel").text());
+				$("#replyContent").val("");
+        readStatus();
+			}
+		},
+		error : function() {
+			console.log("댓글작성용 ajax 통신실패");
+		},
+	})
+}

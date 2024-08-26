@@ -30,6 +30,7 @@ public class IframeShowController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String iSrc = request.getParameter("iSrc");
+		String responseType = request.getParameter("type"); 
 		
 		String page = "";
 		
@@ -44,7 +45,7 @@ public class IframeShowController extends HttpServlet {
 			break;
 			
 		case "shop" :
-			page = "/Mingles/views/shop/minglesShop.jsp";
+			page = "/Mingles/list.it?category=IC100&cpage=1";
 			break;
 			
 		case "style" :
@@ -59,14 +60,9 @@ public class IframeShowController extends HttpServlet {
 			page = "/Mingles/views/posts/minglesPosts.jsp";
 			break;
 			
-		case "etas" :
-			page = "https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1&loop=1";
-			break;
-		
 		}
 		
 		response.setContentType("json/application; charset=utf-8;");
-		
 		new Gson().toJson(page, response.getWriter());
 		
 	}

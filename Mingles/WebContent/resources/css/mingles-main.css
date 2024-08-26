@@ -121,7 +121,7 @@ body {
     font-size: 20px;
     line-height: 1.5;
     margin: 10px 0;
-    height: 30%;
+    height: 35%;
 }
 
 #con2__my_info {
@@ -129,29 +129,29 @@ body {
     flex-wrap: wrap;
     justify-content: space-between;
     color: #07BEB8;
+    gap: 5px;
 }
 
 #con2__my_info > div {
-    width: 25%;
-    height: 40px;
+    width: auto;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5px 0;
+    margin-bottom:15px;
     border-radius: 20px;
     transition: box-shadow 0.3s;
     font-size: 20px;
     cursor: pointer;
-}
-
-#con2__my_info > div:hover {
-    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+    margin: 0; 
+    padding: 0; 
+    flex: 1 1;
 }
 
 .post-box {
     border: 5px dotted #56CFE1;
     width: 100%;
-    margin: 10px 0;
+    margin: 5px 0;
 }
 
 /* Popular and Recent Posts */
@@ -159,7 +159,7 @@ body {
     font-family: 'Katuri', sans-serif;
     font-size: 20px;
     color: #5390D9;
-    margin-bottom: 10px;
+    margin: 10px;
 }
 
 #con3 ul {
@@ -186,7 +186,7 @@ body {
     width:67%;
     height:77%;
     bottom: 10%;
-    border: 2px solid #07BEB8;
+    /* border: 2px solid #07BEB8; */
     border-radius: 20px;
     position:absolute;
     margin-left:31%;
@@ -202,72 +202,17 @@ body {
     position:absolute;
 }
 
-/* 나도 꾸미기 버튼 */
-#decorate {
-    text-decoration: none;
-    position: absolute;
-    border: none;
-    font-size: 23px;
-    font-family: "omyu_pretty";
-    cursor: pointer;
-    color: #fff;
-    width: 120px;
-    height: 35px;
-    text-align: center;
-    background: linear-gradient(60deg, #965df2 , #48BFE3 , #64DFDF, #80FFDB);
-    background-size: 300%;
-    border-radius: 50px;
-    z-index: 1;
-    left: 31.5%;
-    bottom: 4%;
-}
-  
-#decorate:hover {
-    animation: ani 8s linear infinite;
-    border: none;
-}
-
-@keyframes ani {
-    0% {
-      background-position: 0%;
-    }
-  
-    100% {
-      background-position: 400%;
-    }
-  }
-  
-  #decorate:before {
-    content: "";
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    z-index: -1;
-    background: linear-gradient(30deg, #965df2 , #48BFE3 , #64DFDF, #80FFDB);
-    background-size: 400%;
-    border-radius: 35px;
-    transition: 1s;
-  }
-  
-  #decorate:hover::before {
-    filter: blur(20px);
-  }
-  
-  #decorate:active {
-    background: linear-gradient(32deg, #965df2, #4EA8DE , #56CFE1, #72EFDD);
-  }
 
   /* 좋아요 버튼*/
-.heart-container {
+  .heart-container {
     --heart-color: rgb(255, 91, 137);
     position: absolute;
     width: 50px;
     height: 50px;
     transition: .3s;
-    right: 2%;
-    bottom:4%;
+    right: 5%;
+    bottom:7%;
+    z-index: 20;
   }
   
   .heart-container .checkbox {
@@ -350,39 +295,38 @@ body {
 
   /* mp3음악 버튼 */
 
- .music{
-    position:absolute;
-    width:30px;
-    height:30px;
-    top: 30px;
-    right: 85px;
-    }
-  
-    .music>img{
-      width:70px;
-      height: 70px;
-      cursor:pointer;
-    }
-  
-    /* mp3창 */
-  
-    .popover-content { 
-      position:absolute;
-      border: 1px solid black;
-      border-radius:20px;
-      bottom: -208%;
-      right:40px;
-      width:300px;
-      height:120px;
-      justify-content:center;
-      flex-wrap:wrap;
-      z-index:5;
-      background-color:#68D8D6;
-      opacity:0;
-      display:none;
-      transition: opacity .5s ease;
-      
+.music{
+  position:absolute;
+  width:30px;
+  height:30px;
+  top:5%;
+  right:8%;
   }
+
+  .music>img{
+    width:70px;
+    height: 70px;
+    cursor:pointer;
+  }
+
+    /* mp3창 */
+.popover-content { 
+  position:absolute;
+  border: 1px solid black;
+  border-radius:20px;
+  top:20%;
+  right:40px;
+  width:300px;
+  height:120px;
+  justify-content:center;
+  flex-wrap:wrap;
+  z-index:5;
+  background-color:#68D8D6;
+  opacity:0;
+  display:none;
+  transition: opacity .5s ease;
+  
+}
   
   .popover-content.youShow{
     opacity:1;
@@ -406,7 +350,7 @@ body {
     position:absolute;
     
   }
-  
+
   .music--info{
     position:relative;
     display:inline-block;
@@ -427,6 +371,7 @@ body {
     font-size:18px;
     font-family:'omyu_pretty';
   }
+
 
   /* 플리 버튼 */
 .popover-content button{
@@ -449,8 +394,8 @@ body {
     background-color: #fff !important;
     color: #08817d !important;
     border: 2px dotted #3DCCC7 !important;
-    width: 120px;
-    height: 40px;
+    width: auto;
+    height: auto;
     border-radius: 20px !important;
     font-size: 20px;
     font-family: 'omyu_pretty';
@@ -459,7 +404,8 @@ body {
 .custom-tooltip .tooltip-inner {
     font-size: 15px !important;
     width: 200px !important;
-    height: 30px !important;
+    height: 25px !important;
+
 }
 
 .tooltip .arrow::before, .tooltip .arrow::after {
@@ -709,6 +655,7 @@ table input[type="text"]{
 
 .date {
   padding: 5%;
+  position : relative;
 }
 
 .memoCount {
@@ -717,5 +664,26 @@ table input[type="text"]{
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  margin: 0 20%;
+  margin: 0 35%;
+}
+
+.date.unread::after {
+    content: '💬';
+    position : absolute;
+    top : 12%;
+    left : 52%;
+}
+
+.today {
+	font-size : 20px;
+ 	font-weight: bold;
+}
+
+.center-text {
+	display:flex;
+    width: auto;
+	height : 70% !important;
+	position : absolute;
+	left : 40%;
+	background-color : white;
 }

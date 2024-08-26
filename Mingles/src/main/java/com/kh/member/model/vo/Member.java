@@ -20,6 +20,7 @@ public class Member {
 	private String profilePic;
 	private String statusMsg;
 	private String kakaoNo;
+	private String kakaoNo;
 	
 	public Member() {}
 	
@@ -61,7 +62,7 @@ public class Member {
 	}
 
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
-			String gender, String enrollDate, String modifyDate, String status, String zodiac, String aBO, String mBTI,
+			String gender, String enrollDate, String modifyDate, String status, String zodiac, String ABO, String MBTI,
 			String profilePic, String statusMsg) {
 		super();
 		this.memNo = memNo;
@@ -76,8 +77,8 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.status = status;
 		this.zodiac = zodiac;
-		this.ABO = aBO;
-		this.MBTI = mBTI;
+		this.ABO = ABO;
+		this.MBTI = MBTI;
 		this.profilePic = profilePic;
 		this.statusMsg = statusMsg;
 	}
@@ -146,8 +147,8 @@ public class Member {
 	}
 	
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
-			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO,
-			String mBTI, String profilePic, String statusMsg) {
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String ABO,
+			String MBTI, String profilePic, String statusMsg) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -162,6 +163,10 @@ public class Member {
 		this.status = status;
 		this.egg = egg;
 		this.zodiac = zodiac;
+		this.ABO = aBO;
+		this.MBTI = mBTI;
+		this.ABO = ABO;
+		this.MBTI = MBTI;
 		this.ABO = aBO;
 		this.MBTI = mBTI;
 		this.profilePic = profilePic;
@@ -339,17 +344,27 @@ public class Member {
 		return egg;
 	}
 
+	public String getABO() {
+		return ABO;
+	}
+
 	public void setEgg(int egg) {
 		this.egg = egg;
 	}
+	
 
-	public String getKakaoNo() {
-		return kakaoNo;
+	public void setABO(String ABO) {
+		this.ABO = ABO;
 	}
 
-	public void setKakaoNo(String kakaoNo) {
-		this.kakaoNo = kakaoNo;
+	public String getMBTI() {
+		return MBTI;
 	}
+
+	public void setMBTI(String mBTI) {
+		this.MBTI = MBTI;
+	}
+
 
 	@Override
 	public String toString() {

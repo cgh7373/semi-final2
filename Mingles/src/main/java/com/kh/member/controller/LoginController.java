@@ -1,6 +1,8 @@
 package com.kh.member.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,12 +41,12 @@ public class LoginController extends HttpServlet {
 		HttpSession session = request.getSession();
 		
 		if (m != null) {
-			session.setAttribute("loginUser", m);
-			session.setAttribute("alertMsg", m.getNickname() + "님, 환영해요!");
-			response.sendRedirect(request.getContextPath());
-		} else {
-			session.setAttribute("errorMsg", "로그인 실패");
-			response.sendRedirect(request.getContextPath());
+		session.setAttribute("loginUser", m);
+		session.setAttribute("alertMsg", m.getNickname() + "님, 환영해요!");
+		response.sendRedirect(request.getContextPath());
+		}else {
+		session.setAttribute("errorMsg", "로그인 실패");
+		response.sendRedirect(request.getContextPath());
 		}
 	}
 

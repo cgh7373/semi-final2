@@ -31,8 +31,12 @@
     <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <!-- <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script> -->
 	
+	<!-- kakao login연동 developer-->
+    <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+    <!-- <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js" integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script> -->
+	
     <!-- 내부파일 -->
-    <link rel="stylesheet" href="./resources/css/mingle.css">
+    <link rel="stylesheet" href="./resources/css/mingle.css">    
     <script defer src="<%=contextPath %>/resources/js/mingle.js"></script>
     <link rel="icon" href="./resources/images/Mingles아이콘-removebg-preview.png">
 
@@ -41,6 +45,7 @@
 </head>
 
 <body>
+
 
 	<script>
 	document.addEventListener("DOMContentLoaded", function() {
@@ -117,7 +122,7 @@
                                         <div class="form_group">
                                             <label class="sub_title" for="password">Password</label>
                                             <input placeholder="비밀번호를 입력하세요" id="password" class="form_style"
-                                                type="password" name="userPwd" required>
+                                                type="password" name="userPwd" value = "123" required>
                                         </div>
                                         <!-- 로그인 area -->
                                         <div class="login-area">
@@ -290,6 +295,7 @@
             <span class="material-icons logoutTab" onclick="logout()" title="로그아웃">logout</span>
             
             <script>
+  
             	function logout() {
             		swal({
             			  title: "로그아웃 하시겠어요?",
