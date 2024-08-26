@@ -483,6 +483,8 @@ function insertReply() {
 function weather(){
   var to_day = getToday();
   var time = getTime();
+  getLocation();
+
 
   function getToday(){
     var date = new Date();
@@ -504,22 +506,22 @@ function getTime(){
 
     return time;
 }
-  getLocation();
-
-  console.log(to_day, time)
 
   function getLocation() {
       if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-          
+          navigator.geolocation.getCurrentPosition(showPosition,error);
       } else { 
           x.innerHTML = "Geolocation is not supported by this browser.";
       }
   
   }
+  function error(result){
+	console.log(result)
+}
+  
 
   function showPosition(position) {
-      
+      	  console.log("됨?")
       var coor = dfs_xy_conv("toXY", position.coords.latitude, position.coords.longitude);
       $('.location').text(coor.x + ", " + coor.y)
       var X = coor.x;
@@ -601,6 +603,7 @@ function getTime(){
   }
 
   function final(X, Y){
+
     $.ajax({
         url:"https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=OsDLpgiCRYWKxckXiRL7XliTmtSFiXeKqvYQJC3FoCWJq3O4Sj%2FnSrQcEWSrVnKjkCUxfBXZxRnbDF8NPgeVJw%3D%3D&pageNo=1&numOfRows=1000&dataType=JSON&base_date="+to_day+"&base_time=0500&nx="+X+"&ny="+Y,
         success:function(res){
