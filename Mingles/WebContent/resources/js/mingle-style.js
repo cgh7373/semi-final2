@@ -483,9 +483,3 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
   
-
-// shop에서 구매 후 값을 받아온 경우이다.
-function sendItem(result){
-    console.log('ajax에서 값 받아오는거 성공함');
-    console.log(result)
-};

@@ -3,6 +3,7 @@ import static com.kh.common.JDBCTemplate.*;
 import java.sql.Connection;
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.style.model.dao.StyleDao;
+import com.kh.style.model.vo.PurItem;
 import com.kh.style.model.vo.Style;
 
 public class StyleService {
@@ -57,6 +58,15 @@ public class StyleService {
 		return st;
 	}// selectStyle
 	
+	public int insertItem(PurItem pitem) {
+		Connection conn = getConnection();
+		
+		int result = new StyleDao().insertItem(conn, pitem);
+		
+		close(conn);
+		return result;
+		
+	}// insertItem
 	
 	
 }

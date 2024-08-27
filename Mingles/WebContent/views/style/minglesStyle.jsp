@@ -27,6 +27,7 @@ Member m = (Member)session.getAttribute("loginUser");
     <!-- 내부파일 -->
     <link rel="stylesheet" href="../../resources/css/mingle-style.css">
     <script defer src="../../resources/js/mingle-style.js"></script>
+	<script defer src = "../../resources/js/mingle-style2.js"></script>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="icon" href="../../resources/images/Mingles아이콘-removebg-preview.png">
 

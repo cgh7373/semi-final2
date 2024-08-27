@@ -38,6 +38,7 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
     <!-- 내부파일 -->
 	<link rel="stylesheet" href="<%= contextPath %>/resources/css/mingle-shop.css">
 	<script defer src="<%= contextPath %>/resources/js/mingle-shop.js"></script>
+	<script defer src = "<%= contextPath%>/resources/js/mingle-style2.js"></script>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="icon" href="<%= contextPath %>/resources/images/Mingles아이콘-removebg-preview.png">
 
@@ -259,7 +260,7 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
 		                    '    <div class="item-detail">' +
 		                    '        <p class="item-name">' + item.itemName + '</p>' +
 		                    '        <p class="item-desc">' + item.itemExplan + '</p>' +
-		                    '        <button type="button" class="btn btn-info pay purchaseBtn" onclick = purchaseItem('+item.itemNo'+,+'+ item.price+')>' +
+		                    '        <button type="button" class="btn btn-info pay purchaseBtn" onclick = "purchaseItem('+ item.itemNo + ',' + item.price +')">' +
 		                    '            <img src="' + contextPath + '/resources/images/거북알.png" style="width:30px; height:30px;">' +
 		                    '            <p data-item-no = "' + item.itemNo + '" data-item-price = "' + item.price+ '">' + item.price + '</p>' +
 		                    '        </button>' +
@@ -320,7 +321,7 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
 		                    success: function(result) {
 		                        console.log(result);
 		                        console.log(typeof sendItem);
-		                        if (result.success) {
+		                        if (result) {
 		                            if (typeof sendItem === 'function') {
 		                                sendItem(result);
 		                                alert("성공적으로 구입했습니다. 꾸미기 화면에서 확인하세요!");

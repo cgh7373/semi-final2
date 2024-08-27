@@ -185,7 +185,7 @@ public class ItemDao {
 			if(rset.next()) {
 				it = new Item(
 						rset.getInt("item_num"),
-						rset.getString("categoryname"),
+						rset.getString("item_category"),
 						rset.getString("item_name"),
 						rset.getInt("price"),
 						rset.getString("item_intro"),

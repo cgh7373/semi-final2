@@ -126,7 +126,7 @@ WHERE RNUM BETWEEN ? AND ?
 <entry key = "purchaseItem">
 SELECT 
        ITEM_NUM
-     , CATEGORYNAME
+     , ITEM_CATEGORY
      , ITEM_NAME
      , PRICE
      , ITEM_INTRO
