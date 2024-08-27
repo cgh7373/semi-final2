@@ -2,11 +2,10 @@
 <%@page import="com.kh.admin.model.vo.Post"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%
- ArrayList<Post> postArr = (ArrayList<Post>)request.getAttribute("postArr");
- // 게시글번호, 타입, 제목, 내용, 태그, 공개범위, 닉네임, 조회수, 등록일, 파일경로, 블락상태
- ArrayList<PostType> postType = (ArrayList<PostType>)request.getAttribute("postType");
+    ArrayList<Post> postArr = (ArrayList<Post>)request.getAttribute("postArr");
+    // 게시글번호, 타입, 제목, 내용, 태그, 공개범위, 닉네임, 조회수, 등록일, 파일경로, 블락상태
+    ArrayList<PostType> postType = (ArrayList<PostType>)request.getAttribute("postType");
 %>
 <!DOCTYPE html>
 <html>
@@ -64,7 +63,6 @@
                                 게시글 카테고리 선택
                             </button>
                             <div class="dropdown-menu">
-                            	
                                 <% for(PostType pt : postType) { %>
                                     <button class="dropdown-item" onclick="choicePT(this)" id="postType<%=pt.getPostTypeNo()%>"><%=pt.getPostTypeName() %></button>
                                 <% } %>
@@ -104,7 +102,7 @@
 						    el: document.querySelector('#notice-content'), // 에디터를 적용할 요소 (컨테이너)
 						    height: '500px',                        // 에디터 영역의 높이 값 (OOOpx || auto)
 						    initialEditType: 'wysiwyg',            // 최초로 보여줄 에디터 타입 (markdown || wysiwyg)
-						    // initialValue: "<h2 id='notice-title'>제목 :</h2><p id='notice-content'>내용 : </p>",     // 내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
+						    // initialValue:내용의 초기 값으로, 반드시 마크다운 문자열 형태여야 함
 						    previewStyle: 'tab',                // 마크다운 프리뷰 스타일 (tab || vertical)
                             plugins: [colorSyntax],
                             usageStatics: false,
@@ -151,7 +149,7 @@
 						
 						document.getElementById('noticeResetButton').addEventListener('click', function() {
 					        editor.setHTML('<h2 id="notice-title">제목: </h2> <hr> <div id="notice-content">내용: </div>'); // 초기 상태로 되돌리기
-					    });
+                        });
 						
 						$(function(){
 							// 공지사항 등록
@@ -216,78 +214,86 @@
                             
 						})
                         
-						function choicePT(el){
-							var loginUserNickname = '${loginUser.getNickname()}';
-							$.ajax({
-								
-								url:"choicePostType.am",
-								data:{"postType":$(el).text()},
-								success:function(e){
+						function choicePT(el) {
+                            var loginUserNickname = '${loginUser.getNickname()}';
+                        
+                            $(el).closest('.dropdown-menu').removeClass('show');
+                        
+                            $.ajax({
+                                url: "choicePostType.am",
+                                data: {"postType": $(el).text()},
+                                success: function (e) {
                                     console.log("ajax success");
                                     let value = "";
                                     $(".row").html("");
-
-                                    for(let i=0; i<e.length; i++){
-                                        let postAttachment = e[i].postAttachment;
-                                        let postTitle = e[i].postTitle;
-                                        let postBlock = e[i].postBlock;
-                                        let postCount = e[i].postCount;
-                                        let postContent = e[i].postContent;
-                                        let postTag = e[i].postTag;
-                                        let postNum = e[i].postNum;
-                                        let postWriter = e[i].postWriter;
-
-                                        value += `
-                                            <div class="card postCard" data-toggle="modal" data-target="#postDetailModal" onclick="postDetail(event, \${postNum})">
-                                                <img class="card-img-top" src=".\${postAttachment}" alt="post image1" style="width:100%">
-                                                <div class="card-body">
-                                                    <h4 class="card-title">\${postTitle}</h4>
-                                                    \${postBlock === "N" ? 
-                                                    `<p class="postCount">\${postCount} 
-                                                            <i class="fas fa-solid fa-heart" style="color: pink"></i>
-                                                        </p>` :
-                                                        `<i class="fas fa-solid fa-lock" style="color: gray"></i>`
-                                                    }
-                                                    <p class="card-text">\${postContent}</p>
-                                                    \${postTag === null ? 
-                                                        `<p class="postTag">#태그없음</p>` :
-                                                        `<p class="postTag">\${postTag}</p>`
-                                                    }
-                                                    <button class="dropdown-menu btn-primary" id="postSetting" onclick="event.stopPropagation();">게시글관리</button>
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn btn-post dropdown-toggle btn-primary" data-toggle="dropdown">
-                                                            게시글관리
-                                                        </button>
-                                                        <div class="dropdown-menu">
-                                                            <button class="dropdown-item" id="deletePost" onclick="event.stopPropagation(); deletePost(\${postNum});">게시글삭제</button>
-                                                            <button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(\${postNum});">블락설정</button>
-                                                            \${loginUserNickname === postWriter ? 
-                                                                `` :
-                                                                `<button class="dropdown-item" id="sendMessage" name="" onclick="event.stopPropagation(); sendMessage(this);">메세지보내기</button>`
-                                                            }
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        `;
-                                    }
-                                    
+                        
+                                    e.forEach(post => {
+                                        value += generatePostCard(post, loginUserNickname);
+                                    });
+                        
                                     $("#postArea").html(value);
                                     $("#postType").text($(el).text());
-									
-								},
-								error:function(){
-									console.log("ajax choicePT faild");
-								},
-							})
+                                },
+                                error: function () {
+                                    console.log("ajax choicePT failed");
+                                }
+                            });
 						}
+						
+						function generatePostCard(post, loginUserNickname) {
+                            const { postAttachment, postTitle, postBlock, postCount, postContent, postTag, postNum, postWriter, postType } = post;
+                            const isUserPost = postType === 1;
+                            console.log(postType);
+                            const modalId = isUserPost ? 'userPostDetailModal' : 'postDetailModal';
+                            const clickHandler = isUserPost ? `userPostDetail(event, \${postNum})` : `postDetail(event, \${postNum})`;
+                        
+                            return `
+                                <div class="card postCard" data-toggle="modal" data-target="#\${modalId}" onclick="\${clickHandler}">
+                                    <img class="card-img-top" src=".\${postAttachment}" alt="post image1" style="width:100%">
+                                    <div class="card-body">
+                                        <h4 class="card-title">\${postTitle}</h4>
+                                        \${postBlock === "N" ? 
+                                            `<p class="postCount">\${postCount} 
+                                                <i class="fas fa-solid fa-heart" style="color: pink"></i>
+                                            </p>` :
+                                            `<i class="fas fa-solid fa-lock" style="color: gray"></i>`
+                                        }
+                                        <p class="card-text">\${postContent}</p>
+                                        \${postTag === null ? 
+                                            `<p class="postTag">#태그없음</p>` :
+                                            `<p class="postTag">\${postTag}</p>`
+                                        }
+                                        <button class="dropdown-menu btn-primary" id="postSetting" onclick="event.stopPropagation();">게시글관리</button>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-post dropdown-toggle btn-primary" data-toggle="dropdown">
+                                                게시글관리
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <button class="dropdown-item" id="deletePost" onclick="event.stopPropagation(); deletePost(\${postNum});">게시글삭제</button>
+                                                <button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(\${postNum});">블락설정</button>
+                                                \${loginUserNickname === postWriter ? 
+                                                    `` :
+                                                    `<button class="dropdown-item" id="sendMessage" name="\${postWriter}" onclick="event.stopPropagation(); sendMessage(this);">메세지보내기</button>`
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+						}
+
+						
                     </script>
                     
 					
                     <!-- 페이지 콘텐츠 -->
                     <div class="row" id="postArea">
                         <%for(Post p : postArr) {%>
-                            <div class="card postCard" data-toggle="modal" data-target="#postDetailModal" onclick="postDetail(event, <%=p.getPostNum() %>)">
+                            <%if(p.getPostType() == 1){ %>
+                                <div class="card postCard" data-toggle="modal" data-target="#userPostDetailModal" onclick="userPostDetail(event, <%=p.getPostNum() %>)">
+                            <%}else{ %>
+                                <div class="card postCard" data-toggle="modal" data-target="#postDetailModal" onclick="postDetail(event, <%=p.getPostNum() %>)">
+                            <%} %>
                                 <img class="card-img-top" src=".<%=p.getPostAttachment() %>" alt="item image1" style="width:100%">
                                 <div class="card-body">
                                     <h4 class="card-title"><%=p.getPostTitle() %></h4>  
@@ -324,12 +330,12 @@
                     </div>   
                 </div>
                 
-                <!-- 게시글 상세보기 modal -->
+                <!-- 공지사항 상세보기 modal -->
                 <div class="modal fade" id="postDetailModal" tabindex="-1" role="dialog" aria-labelledby="postDetailModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content" id="noticeModal">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="postDetailModalLabel">게시글 상세보기</h5>
+                                <h5 class="modal-title" id="postDetailModalLabel">공지사항 상세보기</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -340,13 +346,42 @@
                         </div>
                     </div>
                 </div>
+                
+                <!-- 유저 게시글 상세보기 modal -->
+                <div class="modal fade" id="userPostDetailModal" tabindex="-1" role="dialog" aria-labelledby="postDetailModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" id="noticeModal">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="postDetailModalLabel">게시글 상세보기</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="userPostDetailContent">
+                                <div id="post-header">
+                                    <h2 id="post-title">제목</h2>
+                                    <h5 id="post-tags">태그자리</h5>
+                                </div>
+                                <div id="post-enroll">
+                                    <h5>글쓴이</h5>
+                                    <h5>날짜자리</h5>
+                                </div>
+                                <hr>
+                                <div class="post-content" align="center">
+                                    <img id="post-img" src="./resources/post_upfiles/2024082612101434602.gif" alt="">
+                                    <div id="post-text" align="start">내용자리</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <script defer>
                     function postDetail(event, no){
                         const modalBody = $("#postDetailContent");
                         const modal = $("#postDetailModal");
                         let value = "";
-                        console.log(event.target);
+                        
                         if ($(event.target).closest('.dropdown').length > 0) {
                                return; // 드롭다운 클릭 시 모달 열기 방지
                         }
@@ -375,6 +410,46 @@
                             },
                         });
                     }
+                    
+                    //유저 게시글 상세 조회
+                    function userPostDetail(event, no){
+                        const userPostModal = $("userPostDetailModal");
+                        const userPostModalBody = $("#userPostDetailContent");
+                        let value = "";
+                        
+                        if ($(event.target).closest('.dropdown').length > 0) {
+                        	return; // 드롭다운 클릭 시 모달 열기 방지
+                        }
+                        
+                        $.ajax({
+                            url:"userPostDetail.am",
+                            data:{postNo:no},
+                            success:function(e){
+                                console.log("userPost ajax success");
+                                console.log(e);
+                                value += `
+                                    <div id="post-header">
+                                    <h2 id="post-title">\${e.postTitle}</h2>
+                                    <h5 id="post-tags">\${e.postTag}</h5>
+                                </div>
+                                <div id="post-enroll">
+                                    <h5>\${e.postWriter}</h5>
+                                    <h5>\${e.postRegdate}</h5>
+                                </div>
+                                <hr>
+                                <div class="post-content" align="center">
+                                    <img id="post-img" src=".\${e.postAttachment}" alt="">
+                                    <div id="post-text" align="start">\${e.postContent}</div>
+                                </div>
+                                `;
+                                userPostModalBody.html("");
+                                userPostModalBody.html(value);
+                            },
+                            error:function(){
+                                console.log("userPost ajax faild");
+                            },
+                        })
+                    }
 
                     // 클릭 시 이벤트 전파 차단
                     $(document).on('click', '.dropdown-item', function(event) {
@@ -390,6 +465,8 @@
                     function updateBlock(no){
                         location.href = "updateBlock.am?postNo=" + no;
                     }
+                    
+
                 </script>
 
             </div>

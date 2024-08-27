@@ -38,6 +38,16 @@ public class AdminService {
 		
 		return count;
 	}
+	
+	public ArrayList<Integer> selectPostCount() {
+		Connection conn = getConnection();
+		
+		ArrayList<Integer> count = new AdminDao().selectPostCount(conn);
+		
+		close(conn);
+		
+		return count;
+	}
 
 	public ArrayList<Item> selectItem() {
 		Connection conn = getConnection();
@@ -308,6 +318,16 @@ public class AdminService {
 		close(conn);
 		
 		return postArr;
+	}
+
+	public Post selectpost(int postNo) {
+		Connection conn = getConnection();
+		
+		Post p = new AdminDao().selectPost(conn, postNo);
+		
+		close(conn);
+		
+		return p;
 	}
 
 	

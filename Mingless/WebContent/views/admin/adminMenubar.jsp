@@ -8,7 +8,7 @@
 	String contextPath = request.getContextPath();
 	Member loginUser = (Member)session.getAttribute("loginUser");
 	ArrayList<Blacklist> blacklist = (ArrayList<Blacklist>)request.getAttribute("blacklist");
-	ArrayList<Integer> memberCount = (ArrayList<Integer>)request.getAttribute("memberCount");
+	// 블랙리스트 회원아이디, 닉네임, 블락 사유,블랙횟수 , 신고자아이디 ,신고날짜
 	
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	String errorMsg = (String)session.getAttribute("errorMsg");

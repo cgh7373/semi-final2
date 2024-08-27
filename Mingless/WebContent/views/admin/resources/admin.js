@@ -32,7 +32,8 @@
 
 // 차트 
 const ctx = document.querySelector("#myChart");
-console.log(memberCount);
+console.log("mem : " + memberCount);
+console.log("post : " + postCount);
 
 
 new Chart(ctx, {
@@ -106,18 +107,18 @@ new Chart(ctx2, {
             {
                 label: '게시글수',
                 data: [
-                    3,
-                    5,
-                    8,
-                    4,
-                    5,
-                    6,
-                    12,
-                    9,
-                    8,
-                    10,
-                    11,
-                    20
+                    postCount[0],
+                    postCount[1],
+                    postCount[2],
+                    postCount[3],
+                    postCount[4],
+                    postCount[5],
+                    postCount[6],
+                    postCount[7],
+                    postCount[8],
+                    postCount[9],
+                    postCount[10],
+                    postCount[11],
                 ],
                 borderWidth: 1
             }

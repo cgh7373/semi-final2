@@ -929,3 +929,19 @@ h1 span:nth-child(7) {
   list-style: disc;
   padding-left: 20px;
 }
+
+/* 유저게시글 상세보기 */
+#userPostDetailModal #userPostDetailContent #post-header{
+  display: flex;
+  justify-content: space-between;
+}
+
+#userPostDetailModal #userPostDetailContent #post-enroll{
+  display: flex;
+  justify-content: space-between;
+}
+
+#userPostDetailModal #userPostDetailContent img{
+  width: 500px;
+  height: 500px;
+}

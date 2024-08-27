@@ -44,6 +44,7 @@ $(function(){
 
 });
 
+// custom select
 var x,
     i,
     j,
@@ -127,7 +128,7 @@ for (i = 0; i < l; i++) {
     });
 }
 
-// custom select
+// custom select close
 function closeAllSelect(elmnt) {
     /* A function that will close all select boxes in the document,
   except the current select box: */

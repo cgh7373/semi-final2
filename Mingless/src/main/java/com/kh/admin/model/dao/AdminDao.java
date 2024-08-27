@@ -97,6 +97,34 @@ public class AdminDao {
 		
 		
 	}
+	
+	public ArrayList<Integer> selectPostCount(Connection conn) {
+		ArrayList<Integer> count = new ArrayList<Integer>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPostCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for(int i=1; i<13; i++) {
+				pstmt.setInt(1, i);
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					count.add((rset.getInt("count")));
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+		
+		
+	}
 
 	public ArrayList<Item> selecItem(Connection conn) {
 		ArrayList<Item> list = new ArrayList<Item>();
@@ -772,6 +800,40 @@ public class AdminDao {
 			e.printStackTrace();
 		}
 		return postArr;
+	}
+
+	public Post selectPost(Connection conn, int postNo) {
+		Post p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPost");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, postNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				p = new Post(rset.getInt("post_num")
+				   		   , rset.getInt("post_type")
+				   		   , rset.getString("post_title")
+				   		   , rset.getString("post_content")
+				   		   , rset.getString("post_tag")
+				   		   , rset.getString("post_scope")
+				   		   , rset.getString("nickname")
+				   		   , rset.getInt("post_count")
+				   		   , rset.getString("post_regdate")
+				   		   , rset.getString("post_status")
+				   		   , rset.getString("post_block")
+				   		   , rset.getString("savepath"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return p;
 	}
 
 

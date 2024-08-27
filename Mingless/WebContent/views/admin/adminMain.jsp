@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+ArrayList<Integer> memberCount = (ArrayList<Integer>)request.getAttribute("memberCount");
+// 월별 회원 수 1-12월 
+ArrayList<Integer> postCount = (ArrayList<Integer>)request.getAttribute("postCount");
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -49,6 +54,7 @@
                             <!-- 차트 -->
                             <script>
                                 const memberCount = <%=memberCount %>;
+                                const postCount = <%=postCount %>; 
                             </script>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -109,23 +115,6 @@
                                                     <td><%=b.getBlockDate() %></td>
                                                 </tr>
                                             <%} %>
-                                                  <tr>
-                                                    <td>누군가</td>
-                                                    <td>누군가닉네임</td>
-                                                    <td>잘못해서~~~~~~~~~~~~~~</td>
-                                                    <td>61</td>
-                                                    <td>신고자</td>
-                                                    <td>2024/09/25</td>
-                                                </tr>
-                                 				<tr>	
-                                                    <td>누군가</td>
-                                                    <td>누군가닉네임</td>
-                                                    <td>잘못해서~~~~~~~~~~~~~~</td>
-                                                    <td>61</td>
-                                                    <td>신고자</td>
-                                                    <td>2024/09/25</td>
-                                                </tr>
-                                      
                                             </tbody>
                                         </table>
                                     </div>

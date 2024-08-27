@@ -26,6 +26,12 @@
 		   AND STATUS != 'N'
 	</entry>
 	
+	<entry key="selectPostCount">
+		SELECT COUNT(POST_NUM) AS "COUNT"
+		  FROM POST
+		 WHERE EXTRACT(MONTH FROM POST_REGDATE) = ?
+		   AND POST_STATUS != 'N'
+	</entry>
 	<entry key="selectItem">
 		SELECT ITEM_NUM
 		     , CATEGORYNAME
@@ -141,6 +147,7 @@
 		       WHERE RNUM BETWEEN ? AND ?
 	</entry>	
 	
+	<!-- 페이징 처리시 필요 -->
 	<entry key="memberCount">
 		SELECT COUNT(MEM_NO) AS "COUNT"
 		  FROM MEMBER
@@ -365,5 +372,25 @@
            AND PT.POST_TYPE_NAME = ?
 		 ORDER
 		    BY POST_NUM DESC
+	</entry>
+	
+	<entry key="selectPost">
+		SELECT POST_NUM
+		     , POST_TYPE
+		     , POST_TITLE
+		     , POST_CONTENT
+		     , POST_TAG
+		     , POST_SCOPE
+		     , NICKNAME
+		     , POST_COUNT
+		     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS "POST_REGDATE"
+		     , POST_STATUS
+		     , POST_BLOCK
+		     , FILE_PATH || CHANGE_NAME AS SAVEPATH
+		  FROM POST
+		  JOIN MEMBER ON (POST_WRITER = MEM_NO)
+		  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
+		 WHERE POST_TYPE = 1
+		   AND POST_NUM = ?
 	</entry>
 </properties>

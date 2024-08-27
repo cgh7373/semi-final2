@@ -40,12 +40,13 @@ public class AdminMainController extends HttpServlet {
 		
 		ArrayList<Blacklist> list = new AdminService().selectBlacklist();
 		ArrayList<Integer> count = new AdminService().selectMemberCount();
-		
-
+		ArrayList<Integer> postCount = new AdminService().selectPostCount();
 		
 		request.setAttribute("memberCount", count);
 		
 		request.setAttribute("blacklist", list);
+		
+		request.setAttribute("postCount", postCount);
 		
 		request.getRequestDispatcher("views/admin/adminMain.jsp").forward(request, response);
 		

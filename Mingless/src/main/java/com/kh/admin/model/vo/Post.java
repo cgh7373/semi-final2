@@ -54,6 +54,26 @@ public class Post {
 		this.postAttachment = postAttachment;
 		this.postBlock = postBlock;
 	}
+	
+	
+
+	public Post(int postNum, int postType, String postTitle, String postContent, String postTag, String postScope,
+			String postWriter, int postCount, String postRegdate, String postStatus, String postBlock,
+			String postAttachment) {
+		super();
+		this.postNum = postNum;
+		this.postType = postType;
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+		this.postTag = postTag;
+		this.postScope = postScope;
+		this.postWriter = postWriter;
+		this.postCount = postCount;
+		this.postRegdate = postRegdate;
+		this.postStatus = postStatus;
+		this.postBlock = postBlock;
+		this.postAttachment = postAttachment;
+	}
 
 	public int getPostNum() {
 		return postNum;

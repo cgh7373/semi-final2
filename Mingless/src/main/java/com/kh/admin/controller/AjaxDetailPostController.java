@@ -1,8 +1,6 @@
 package com.kh.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,16 +12,16 @@ import com.kh.admin.model.service.AdminService;
 import com.kh.admin.model.vo.Post;
 
 /**
- * Servlet implementation class AjaxChoicePostTypeController
+ * Servlet implementation class AjaxDetailPostController
  */
-@WebServlet("/choicePostType.am")
-public class AjaxChoicePostTypeController extends HttpServlet {
+@WebServlet("/userPostDetail.am")
+public class AjaxDetailPostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AjaxChoicePostTypeController() {
+    public AjaxDetailPostController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +31,16 @@ public class AjaxChoicePostTypeController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String postTN = request.getParameter("postType");  
+		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		
-		ArrayList<Post> postArr = new AdminService().choicePostType(postTN);
+		Post p = new AdminService().selectpost(postNo);
 		
-		if(postArr.isEmpty()) {
-			
-		}else {
+		if(p != null) {
 			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(postArr, response.getWriter());	
+			new Gson().toJson(p, response.getWriter());
+		}else {
+			response.setContentType("text/html; charset=utf-8");
+			response.getWriter().print("NNNN");
 		}
 	}
 
