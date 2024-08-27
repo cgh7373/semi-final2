@@ -723,7 +723,7 @@ table input[type="text"] {
   transition: 1s;
 
   #weatherList {
-    width: 70%;
+    width: 540px;
     transition: 1s;
   }
 }
