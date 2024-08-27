@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="insertPosts">
+			INSERT
+			  INTO POST
+			     (
+			       POST_NUM
+			     , POST_TYPE
+			     , POST_TITLE
+			     , POST_CONTENT
+			     , POST_TAG
+			     , POST_SCOPE
+			     , POST_WRITER
+			     , POST_REGDATE
+			     , POST_TITLE_COLOR
+			     , POST_TITLE_SIZE
+			     , POST_THUMBNAIL
+			     )
+			       VALUES
+			     (
+			       SEQ_POST.NEXTVAL
+			     , 1
+			     , ?
+			     , ?
+			     , ?
+			     , ?
+			     , ?
+			     , SYSDATE
+			     , ?
+			     , ?
+			     , ?
+			     )
+	</entry>
+
+	<entry key="selectPostsList">
+			SELECT
+			       POST_TITLE
+			     , POST_CONTENT
+			     , POST_TAG
+			     , POST_COUNT
+				 , POST_REGDATE
+				 , POST_TITLE_COLOR
+				 , POST_TITLE_SIZE
+				 , POST_THUMBNAIL
+			  FROM POST
+			 WHERE POST_WRITER = ?
+			   AND POST_TYPE = 1
+			   AND POST_STATUS = 'Y'
+			   AND POST_BLOCK = 'N'
+			 ORDER 
+			    BY POST_REGDATE DESC
+	</entry>
+
+
+
+
+
+</properties>
