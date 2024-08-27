@@ -20,6 +20,9 @@
 <!-- jQuery, ajax library -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
 
+<!-- Swiper JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <!-- Popper JS -->
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -228,10 +231,85 @@
                         </div>
                     </div>
                 </div>
-                <div id="weatherGif">
-                    <img src="../../resources/images/rain-animation.gif" alt="">
+                <div id="weatherList">
+                    <div class="swiper">
+                        <div class="swiper-wrapper">
+                          <div class="swiper-slide">
+                            <div id="weatherListTop"><span class="weatherListTop__time" id="no0"></span><span>시</span></div>
+                            <div id="weatherListCenter"><img src="" alt="" id="no0"></div>
+                            <div id="weatherListBottom"><span class="weatherListBottom__tmp" id="no0"></span><span>℃</span></div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div id="weatherListTop"><span class="weatherListTop__time" id="no1"></span><span>시</span></div>
+                            <div id="weatherListCenter"><img src="" alt="" id="no1"></div>
+                            <div id="weatherListBottom"><span class="weatherListBottom__tmp" id="no1"></span><span>℃</span></div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div id="weatherListTop"><span class="weatherListTop__time" id="no2"></span><span>시</span></div>
+                            <div id="weatherListCenter"><img src="" alt="" id="no2"></div>
+                            <div id="weatherListBottom"><span class="weatherListBottom__tmp" id="no2"></span><span>℃</span></div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div id="weatherListTop"><span class="weatherListTop__time" id="no3"></span><span>시</span></div>
+                            <div id="weatherListCenter"><img src="" alt="" id="no3"></div>
+                            <div id="weatherListBottom"><span class="weatherListBottom__tmp" id="no3"></span><span>℃</span></div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div id="weatherListTop"><span class="weatherListTop__time" id="no4"></span><span>시</span></div>
+                            <div id="weatherListCenter"><img src="" alt="" id="no4"></div>
+                            <div id="weatherListBottom"><span class="weatherListBottom__tmp" id="no4"></span><span>℃</span></div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div id="weatherListTop"><span class="weatherListTop__time" id="no5"></span><span>시</span></div>
+                            <div id="weatherListCenter"><img src="" alt="" id="no5"></div>
+                            <div id="weatherListBottom"><span class="weatherListBottom__tmp" id="no5"></span><span>℃</span></div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div id="weatherListTop"><span class="weatherListTop__time" id="no6"></span><span>시</span></div>
+                            <div id="weatherListCenter"><img src="" alt="" id="no6"></div>
+                            <div id="weatherListBottom"><span class="weatherListBottom__tmp" id="no6"></span><span>℃</span></div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div id="weatherListTop"><span class="weatherListTop__time" id="no7"></span><span>시</span></div>
+                            <div id="weatherListCenter"><img src="" alt="" id="no7"></div>
+                            <div id="weatherListBottom"><span class="weatherListBottom__tmp" id="no7"></span><span>℃</span></div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div id="weatherListTop"><span class="weatherListTop__time" id="no8"></span><span>시</span></div>
+                            <div id="weatherListCenter"><img src="" alt="" id="no8"></div>
+                            <div id="weatherListBottom"><span class="weatherListBottom__tmp" id="no8"></span><span>℃</span></div>
+                          </div>
+                          <div class="swiper-slide">
+                            <div id="weatherListTop"><span class="weatherListTop__time" id="no9"></span><span>시</span></div>
+                            <div id="weatherListCenter"><img src="" alt="" id="no9"></div>
+                            <div id="weatherListBottom"><span class="weatherListBottom__tmp" id="no9"></span><span>℃</span></div>
+                          </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <script>
+                var swiper = new Swiper('.swiper', {
+                slidesPerView: 'auto',
+                direction: getDirection(),
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                on: {
+                    resize: function () {
+                    swiper.changeDirection(getDirection());
+                    },
+                },
+                });
+
+                function getDirection() {
+                var windowWidth = window.innerWidth;
+                var direction = window.innerWidth <= 300 ? 'vertical' : 'horizontal';
+
+                return direction;
+                }
+            </script>
             
 
             <!-- 오른쪽 화면 - 미니홈피 -->
