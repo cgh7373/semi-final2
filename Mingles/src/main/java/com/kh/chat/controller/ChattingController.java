@@ -1,6 +1,7 @@
 package com.kh.chat.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -35,26 +36,14 @@ public class ChattingController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int toNo = Integer.parseInt(request.getParameter("toNo"));
+		int fromNo = Integer.parseInt(request.getParameter("fromNo"));
 		
-		String toNoStr = request.getParameter("toNo");
-		int toNo = Integer.parseInt(toNoStr);
-		int fromNo = ((Member)request.getSession().getAttribute("loginUser")).getMemNo();
-		
-		System.out.println(toNo);
-		System.out.println(fromNo);
-		
-		Chat user = new Chat();
-		user.setToNo(toNo);
-		user.setFromNo(fromNo);
-		
-		Friend toMem = new ChatService().toMember(toNo);
-		ArrayList<Chat> selectChat = new ChatService().selectChat(user);
+		ArrayList<Chat> chatList = new ChatService().chatList(toNo, fromNo);
+		System.out.println(chatList);
 		
 		response.setContentType("application/json; charset=utf-8");
-		
-		new Gson().toJson(toMem, response.getWriter());
-		new Gson().toJson(selectChat, response.getWriter());
-//		response.getWriter().print(selectChat);
+		new Gson().toJson(chatList, response.getWriter());
 	}
 
 	/**

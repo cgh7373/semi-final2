@@ -34,14 +34,13 @@ public class FriendListController extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-	
+		
 		Member m = (Member)request.getSession().getAttribute("loginUser");
 		int memNo = m.getMemNo();
 		ArrayList<Friend> friend = new ChatService().friendList(memNo);
-		
+
 		request.setAttribute("friend", friend);
 		request.getRequestDispatcher("views/chat/minglesChats.jsp").forward(request, response);
-
 	}
 
 	/**

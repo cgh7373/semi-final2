@@ -89,28 +89,29 @@ public class ChatDao {
 		}return toMem;
 	}
 	
-//	채팅내역 검색
-	public ArrayList<Chat> selectChat(Connection conn, Chat user) {
-		ArrayList<Chat> selectChat = new ArrayList<Chat>();
+//	채팅리스트 검색
+	public ArrayList<Chat> chatList(Connection conn, int toNum, int fromNum) {
+		ArrayList<Chat> chatList = new ArrayList<Chat>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String sql = prop.getProperty("selectChat");
+		String sql = prop.getProperty("chatList");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, user.getFromNo());
-			pstmt.setInt(2, user.getToNo());
-			pstmt.setInt(3, user.getToNo());
-			pstmt.setInt(4, user.getFromNo());
+			pstmt.setInt(1, fromNum);
+			pstmt.setInt(2, toNum);
+			pstmt.setInt(3, toNum);
+			pstmt.setInt(4, fromNum);
 			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()){
-				selectChat.add(new Chat(rset.getInt("chat_id"),
+				chatList.add(new Chat(rset.getInt("chat_id"),
 						   				rset.getInt("from_memno"),
 						   				rset.getInt("to_memno"),
+						   				rset.getString("PROFILE_PIC"),
 						   				rset.getString("chat_content"),
 						   				rset.getString("chat_time")));
 			}
@@ -119,9 +120,31 @@ public class ChatDao {
 		}finally {
 			close(rset);
 			close(pstmt);
-		}return selectChat;
+		}return chatList;
+	}
+		
+	public int insertChat(Connection conn, Chat c){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertChat");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, c.getToNo());
+			pstmt.setInt(2, c.getFromNo());
+			pstmt.setInt(3, c.getToNo());
+			pstmt.setString(4, c.getChatContent());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
 	}
 	
+		
 	
 	
 	

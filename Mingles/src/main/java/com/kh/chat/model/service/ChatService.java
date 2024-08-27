@@ -28,14 +28,27 @@ public class ChatService {
 		return toMem;
 	}
 	
-	public ArrayList<Chat> selectChat(Chat user) {
+	public ArrayList<Chat> chatList(int toNum, int fromNum) {
 		Connection conn = getConnection();
-		ArrayList<Chat> selectChat = new ChatDao().selectChat(conn, user);
+		ArrayList<Chat> chatList = new ChatDao().chatList(conn, toNum, fromNum);
 
 		close(conn);
-		return selectChat;
+		return chatList;
 	}
 	
+	public int insertChat(Chat c) {
+		Connection conn = getConnection();
+		
+		int result = new ChatDao().insertChat(conn, c);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 	
 	
 	
