@@ -47,6 +47,13 @@ public class ItemService {
 		return list;
 	}// selectListWithCategory
 
+	public Item purchaseItem(int itemNo, int itemPrice) {
+		Connection conn = getConnection();
+		Item it = new ItemDao().purchaseItem(conn, itemNo, itemPrice);
+		
+		close(conn);
+		return it;
+	}// purchaseItem
 
 	
 }

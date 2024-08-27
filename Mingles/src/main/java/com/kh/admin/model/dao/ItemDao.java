@@ -167,5 +167,43 @@ public class ItemDao {
 	}// selectListWithCategory
 
 
+	public Item purchaseItem(Connection conn, int itemNo, int itemPrice) {
+		Item it = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+				
+		String sql = prop.getProperty("purchaseItem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, itemNo);
+			pstmt.setInt(2, itemPrice);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				it = new Item(
+						rset.getInt("item_num"),
+						rset.getString("categoryname"),
+						rset.getString("item_name"),
+						rset.getInt("price"),
+						rset.getString("item_intro"),
+						rset.getDate("item_date"),
+						rset.getString("item_status"),
+						rset.getString("save_file")
+						);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return it;
+	}// purchaseItem
+
+
 	
 }

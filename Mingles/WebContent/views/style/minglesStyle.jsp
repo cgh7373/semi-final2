@@ -34,6 +34,8 @@ Member m = (Member)session.getAttribute("loginUser");
 
 <body>
 
+<!-- 아바타룸에서 보이는 화면입니다. 절대절대 지우지 말것!!!!! -->
+
     <div id="wrap">
 
         <!-- 메인 화면 -->
@@ -367,6 +369,8 @@ Member m = (Member)session.getAttribute("loginUser");
 		});
 		
 	}// selectAvatar();
+	
+
 	
 	</script>
 

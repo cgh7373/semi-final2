@@ -123,4 +123,23 @@ SELECT ROWNUM RNUM, A.*
 WHERE RNUM BETWEEN ? AND ?
 </entry>
 
+<entry key = "purchaseItem">
+SELECT 
+       ITEM_NUM
+     , CATEGORYNAME
+     , ITEM_NAME
+     , PRICE
+     , ITEM_INTRO
+     , ITEM_DATE
+     , ITEM_STATUS
+     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
+  FROM ITEM
+  JOIN ITEMCATEGORY USING (ITEM_CATEGORY)
+  JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
+ WHERE 
+       ITEM_STATUS = 'Y'
+   AND ITEM_NUM = ?
+   AND PRICE = ?
+</entry>
+
 </properties>

@@ -23,6 +23,8 @@ Member mem = (Member)session.getAttribute("loginUser");
 
 <body>
 
+<!-- 메인화면에 보이는 미니홈피입니다. 절대 절대 지우지 말것!!!!!!!!! -->
+
     <div id="wrap">
 
         <!-- 메인 화면 -->

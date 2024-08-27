@@ -181,7 +181,6 @@ function updateCategory(){
 
 }
 
-
 // GET TOTAL PAGE = MAXPAGE
 // data.length = listCount = 현재 총 게시글 수
 const getTotalPage = function () {
@@ -484,3 +483,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
   
+
+// shop에서 구매 후 값을 받아온 경우이다.
+function sendItem(result){
+    console.log('ajax에서 값 받아오는거 성공함');
+    console.log(result)
+};

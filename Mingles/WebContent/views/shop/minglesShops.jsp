@@ -107,12 +107,20 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
                                 <div class="item-container">
                                     <div class="img-box"><img src="<%= contextPath %><%= it.getSaveFile()%>"></div>
                                     <div class="basket">
-                                        <button class="material-icons" id ="cart">add_shopping_cart</button>
-                                        <button class="material-icons" id="jjimkong">auto_awesome</button>
+                                        <button class="material-icons cart">add_shopping_cart</button>
+                                        <button class="material-icons jjimkong">auto_awesome</button>
                                     </div>
                                     <div class="item-detail">
                                         <p class="item-name"><%= it.getItemName()%></p>
                                         <p class="item-desc"><%= it.getItemExplan()%></p>
+										<button type="button" class="btn btn-info pay purchaseBtn" onclick = "purchaseItem(<%= it.getItemNo()%>,<%= it.getPrice() %>)">
+											<img src="<%= contextPath %>/resources/images/거북알.png" style = "width:30px; height:30px;">
+											<p
+											data-item-no="<%= it.getItemNo() %>" 
+											data-item-price="<%= it.getPrice() %>">
+											<%= it.getPrice()%>
+											</p>
+										</button>
                                         <p class="item-date"><span>출시일 : </span><%=it.getItemEnrollDate() %></p>
                                     </div>
                                 </div>
@@ -156,10 +164,8 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
 		    const tag = document.getElementById('tag');
 
 		    function setCurrentCategory(category) {
-		    	console.log('지금 카테고리 :', category); 
 		        currentCategory = category;
 		        selectItem(currentCategory, currentPage);
-		        console.log('선택 후 카테고리 :', category); 
 		    }
 
 		    function setCurrentPage(page) {
@@ -222,13 +228,11 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
 		            method: 'post',
 		            dataType:'json',
 		            success: function(result) {
-		            	console.log("성공 후 카테고리 " , currentCategory);
-		            	console.log("성공 후 결과값 :", result);
 		            	updatePage(result);
 		                // ArrayList<Item> list, PageInfo pi가 담겨있음.
 		            },
 		        });
-		    }
+		    }// selectItem
 			
 		    function updatePage(result) {
 		        var contentBar = document.querySelector('.content-main ul');
@@ -246,51 +250,93 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
 		                var listItem = document.createElement('li');
 		                listItem.classList.add('item-class');
 		                listItem.innerHTML = 
-						'<div class="item-container">' +
-						'    <div class="img-box"><img src="'+ contextPath + item.saveFile +'"></div>' +
-						'    <div class="basket">' +
-						'        <button class="material-icons" id="cart">add_shopping_cart</button>' +
-						'        <button class="material-icons" id="jjimkong">auto_awesome</button>' +
-						'    </div>' +
-						'    <div class="item-detail">' +
-						'        <p class="item-name">' + item.itemName + '</p>' +
-						'        <p class="item-desc">' + item.itemExplan + '</p>' +
-						'        <p class="item-date"><span>출시일 : </span>' + item.itemEnrollDate + '</p>' +
-						'    </div>' +
-						'</div>';
+		                    '<div class="item-container">' +
+		                    '    <div class="img-box"><img src="'+ contextPath + item.saveFile +'"></div>' +
+		                    '    <div class="basket">' +
+		                    '        <button class="material-icons cart">add_shopping_cart</button>' +
+		                    '        <button class="material-icons jjimkong">auto_awesome</button>' +
+		                    '    </div>' +
+		                    '    <div class="item-detail">' +
+		                    '        <p class="item-name">' + item.itemName + '</p>' +
+		                    '        <p class="item-desc">' + item.itemExplan + '</p>' +
+		                    '        <button type="button" class="btn btn-info pay purchaseBtn" onclick = purchaseItem('+item.itemNo'+,+'+ item.price+')>' +
+		                    '            <img src="' + contextPath + '/resources/images/거북알.png" style="width:30px; height:30px;">' +
+		                    '            <p data-item-no = "' + item.itemNo + '" data-item-price = "' + item.price+ '">' + item.price + '</p>' +
+		                    '        </button>' +
+		                    '        <p class="item-date"><span>출시일 : </span>' + item.itemEnrollDate + '</p>' +
+		                    '    </div>' +
+		                    '</div>';
 		                contentBar.appendChild(listItem);
 		            };
 		        }
 
 		        pagingArea.innerHTML = '';
-
 		        if (result.pi.currentPage !== 1) {
-		            var prevButton = document.createElement('a');
-		            prevButton.href = contextPath + '/listCa.it?category=' + currentCategory + '&cpage=' + (result.pi.currentPage - 1);
+		            var prevButton = document.createElement('span');
 		            prevButton.classList.add('page-button');
 		            prevButton.textContent = '<';
+		            prevButton.addEventListener('click', function() {
+		                selectItem(currentCategory, result.pi.currentPage - 1);
+		            });
 		            pagingArea.appendChild(prevButton);
 		        }
 
 		        for (var p = result.pi.startPage; p <= result.pi.endPage; p++) {
-		            var pageButton = document.createElement('a');
-		            pageButton.href = contextPath + '/listCa.it?category=' + currentCategory + '&cpage=' + p;
+		            var pageButton = document.createElement('span');
 		            pageButton.classList.add('page-button');
 		            pageButton.textContent = p;
 		            if (p === result.pi.currentPage) {
 		                pageButton.classList.add('currentpage');
+		            } else {
+		                pageButton.addEventListener('click', function() {
+		                    selectItem(currentCategory, parseInt(this.textContent));
+		                });
 		            }
 		            pagingArea.appendChild(pageButton);
 		        }
 
 		        if (result.pi.currentPage < result.pi.maxPage) {
-		            var nextButton = document.createElement('a');
-		            nextButton.href = contextPath + '/listCa.it?category=' + currentCategory + '&cpage=' + (result.pi.currentPage + 1);
+		            var nextButton = document.createElement('span');
 		            nextButton.classList.add('page-button');
 		            nextButton.textContent = '>';
+		            nextButton.addEventListener('click', function() {
+		                selectItem(currentCategory, result.pi.currentPage + 1);
+		            });
 		            pagingArea.appendChild(nextButton);
 		        }
-		    }  
+		    } // updatePage
+		    
+		    function purchaseItem(itemNo, itemPrice) {
+
+		            console.log(itemNo , itemPrice);
+		            let userConfirm = confirm("정말로 아이템을 구매하시겠습니까?");
+
+		            if (userConfirm) {
+		                $.ajax({
+		                    url: contextPath + '/payItem.it',
+		                    method: 'POST',
+		                    dataType: 'json',
+		                    data: { itemNo: itemNo, itemPrice: itemPrice }, 
+		                    success: function(result) {
+		                        console.log(result);
+		                        console.log(typeof sendItem);
+		                        if (result.success) {
+		                            if (typeof sendItem === 'function') {
+		                                sendItem(result);
+		                                alert("성공적으로 구입했습니다. 꾸미기 화면에서 확인하세요!");
+		                            } else {
+		                                console.log("result를 mingle-style.js에 옮기기 실패함. 알아서 하셈~");
+		                                alert("너 실패");
+		                            }
+		                        }
+		                    },
+		                    error: function() {
+		                        console.log("result값 받아오기 실패하심요");
+		                    }
+		                });
+		            }
+		    }// purchaseItem
+
 		    
 		</script>
 			

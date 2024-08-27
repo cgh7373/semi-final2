@@ -220,7 +220,7 @@ header .hd-menus .menu-content ul li {
 
 .content .content-main .item-container .item-name {
     font-family: 'Katuri';
-    font-size: 30px;
+    font-size: 25px;
     font-weight:300;
     position: absolute;
     top: 52%;
@@ -261,7 +261,7 @@ header .hd-menus .menu-content ul li {
     margin-top:10%;
 }
 
-#cart, #jjimkong{
+.cart, .jjimkong{
     color: rgb(138, 170, 181);
     font-size:30px;
     cursor: pointer;
@@ -272,12 +272,33 @@ header .hd-menus .menu-content ul li {
     transition: box-shadow 0.3s;
 }
 
-#cart:hover, #jjimkong:hover{
+.cart:hover, .jjimkong:hover{
     color: #fff86f;
     background-color: rgb(17, 44, 54);
     box-shadow: 0 0 5px #fff86f, 0 0 10px #fffbb0, 0 0 15px #fffdd8;
 }
 
+.pay{
+    position:relative;
+    top: 50px;
+    left:100px;
+    width:100px;
+    height:40px;
+    font-weight:500;
+    font-family: 'omyu_pretty';
+    display:flex;
+    margin:0;
+    justify-content: center;
+    align-items: center;
+}
+
+.pay img{
+    margin-left:-10px;
+}
+
+.pay p{
+    font-size:20px;
+}
 
 footer {
     width: 100%;
