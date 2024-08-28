@@ -138,11 +138,11 @@
                                         <!-- Modal body -->
                                         <div class="modal-body" align="center">
 
-                                            <div id="modal-left">
+                                            <div class="modal-left">
 
                                                 <div class="modal-post">
                                                     <img src="../../resources/images/2024082616142217358.jfif">
-                                                    <div class="post-titles" style="font-size: 30px;">제목 칸입니다.</div>
+                                                    <div class="post-titles" style="font-size: 30px;"></div>
                                                     <div class="post-cover">
                                                         <div class="post-cover-tag-boxes">#태그1</div>
                                                         <div class="post-cover-tag-boxes">#태그2</div>
@@ -153,7 +153,7 @@
 
                                             </div>
 
-                                            <div id="modal-right">
+                                            <div class="modal-right">
 
                                                 <table>
                                                     <tr>
@@ -233,6 +233,78 @@
                                 </div>
                             </div>
 
+                            <!-- Post DetailView Modal -->
+                            <div class="modal fade" id="detailPostModal">
+                                <div class="modal-dialog modal-dialog-centered modal-xl">
+                                    <div class="modal-content">
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body" align="center">
+
+                                            <div class="modal-left">
+                                                <img src="../../resources/images/차은우.jpeg">
+                                                <div class="post-cover">
+                                                    <div class="post-titles" style="font-size: 30px;">제목 칸입니다.</div>
+                                                    <div class="post-cover-tag-boxes">#태그1</div>
+                                                </div>
+                                            </div>
+
+                                            <div class="modal-right">
+
+                                                <div class="writer-section">
+
+                                                    <div class="post-profile-pic">
+                                                        <img src="<%=m.getProfilePic()%>">
+                                                    </div>
+                                                    <div class="post-writer-info">
+                                                        <div class="post-writer-nickname">
+                                                            <%=m.getNickname()%>
+                                                        </div>
+                                                        <div class="post-writer-statusMsg">
+                                                            <%=m.getStatusMsg()%>
+                                                        </div>
+                                                    </div>
+                                                    <div class="post-visit-btn">홈피방문</div>
+
+                                                    <button type="button" class="close"
+                                                        data-dismiss="modal">&times;</button>
+
+                                                </div>
+
+                                                <div class="content-section">내용섹션</div>
+
+                                                <div class="reply-section">
+
+                                                    <table>
+
+                                                        <tr>
+                                                            <td rowspan='2' class='memo-img'><img
+                                                                    src="../../resources/images/차은우.jpeg"></td>
+                                                            <td rowspan='2' class='memo-content'>
+                                                                pageItems[i].memoContent</td>
+                                                            <td class='memo-nickname memo-else'>pageItems[i].nickname
+                                                            </td>
+                                                        </tr>
+                                                        <tr class='memo-dist'>
+                                                            <td class='memo-statusMsg memo-else'>timeAgo</td>
+                                                        </tr>
+
+                                                    </table>
+
+                                                </div>
+
+                                                <div class="pagination">
+                                                    <button id="prevPage">&lt;</button>
+                                                    <span id="pageNumbers"></span>
+                                                    <button id="nextPage">&gt;</button>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -324,6 +396,12 @@
                                             icon: 'success',
                                             title: '게시글이 등록되었어요',
                                         });
+                                        $("#post-title").val("")
+                                        $("#post-title-color").val("#000000")
+                                        $("#post-title-size").val(30)
+                                        $("#post-tag").val("")
+                                        $("#post-content").val("")
+                                        $("#post-thumbnail").val("");
                                         renderPostsList();
                                     }
 
@@ -373,13 +451,13 @@
                                                         tagsHtml += '<div class="post-cover-tag-boxes">#' + tag.trim() + '</div>';
                                                     }
                                                 }
-
                                                 value += `
-                                                         <div class="posts">
+                                                         <div class="posts" data-pNum="\${item.postNum}">
                                                             <img src="\${item.postThumbnail}" alt="Post Thumbnail">
                                                             <div class="post-titles" style="font-size: \${item.postTitleSize}px; color:\${item.postTitleColor}">\${item.postTitle}</div>
                                                             <div class="post-cover">
                                                                 <div class="post-regdate">\${item.postRegdate}</div>
+                                                                <div class="post-count">⭐️\${item.postCount}</div>
                                                                 \${tagsHtml}
                                                             </div>
                                                          </div>
@@ -450,8 +528,6 @@
                             })
 
                         }
-
-
 
                     </script>
 

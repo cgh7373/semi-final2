@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.member.model.dao.MemberDao;
+import com.kh.member.model.vo.Member;
 import com.kh.posts.model.vo.Post;
+import com.kh.posts.model.vo.Reply;
 
 public class PostsDao {
 
@@ -77,8 +79,8 @@ public class PostsDao {
 				
 				Post p = new Post();
 				
-				p.setPostTitle(rset.getString(1));
-				p.setPostContent(rset.getString(2));
+				p.setPostNum(rset.getInt(1));
+				p.setPostTitle(rset.getString(2));
 				p.setPostTag(rset.getString(3));
 				p.setPostCount(rset.getInt(4));
 				p.setPostRegdate(rset.getDate(5));
@@ -87,6 +89,130 @@ public class PostsDao {
 				p.setPostThumbnail(rset.getString(8));
 				
 				list.add(p);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public int updatePostCount(Connection conn, int postNum) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updatePostCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, postNum);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Member selectMemberFromPostNum(Connection conn, int postNum) {
+		
+		Member m = new Member();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectMemberFromPostNum");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, postNum);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				m.setNickname(rset.getString(1));
+				m.setProfilePic(rset.getString(2));
+				m.setStatusMsg(rset.getString(3));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return m;
+	}
+
+	public Post getPostContent(Connection conn, int pNum) {
+		
+		Post p = new Post();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("getPostContent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, pNum);
+			
+			rset = pstmt.executeQuery();
+			
+			if (rset.next()) {
+				p.setPostTitle(rset.getString(1));
+				p.setPostContent(rset.getString(2));
+				p.setPostTag(rset.getString(3));
+				p.setPostTitleColor(rset.getString(4));
+				p.setPostTitleSize(rset.getInt(5));
+				p.setPostThumbnail(rset.getString(6));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return p;
+	}
+
+	public ArrayList<Reply> selectReplyList(Connection conn, int pNum) {
+		
+		ArrayList<Reply> list = new ArrayList<Reply>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectReplyList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, pNum);
+			
+			rset = pstmt.executeQuery();
+					
+			while (rset.next()) {
+				// 직접 인서트까지 해야 들어가는거같음
+				Reply r = new Reply();
+				
+				r.setReplyNo(rset.getInt(1));
+				r.setReplyWriter(rset.getInt(2));
+				r.setReplyContent(rset.getString(3));
+				r.setReplyScope(rset.getString(4));
+				r.setReplyCreateDate(rset.getDate(5));
+				r.setReplyStatus(rset.getString(6));
+				
+				list.add(r);
 				
 			}
 			

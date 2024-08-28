@@ -36,8 +36,8 @@
 
 	<entry key="selectPostsList">
 			SELECT
-			       POST_TITLE
-			     , POST_CONTENT
+				   POST_NUM
+			     , POST_TITLE
 			     , POST_TAG
 			     , POST_COUNT
 				 , POST_REGDATE
@@ -52,9 +52,51 @@
 			 ORDER 
 			    BY POST_REGDATE DESC
 	</entry>
+	
+	<entry key="updatePostCount">
+			UPDATE POST
+			   SET POST_COUNT = POST_COUNT + 1
+			 WHERE POST_NUM = ?
+	</entry>
 
+	<entry key="selectMemberFromPostNum">
+			SELECT 
+				   NICKNAME
+			     , PROFILE_PIC
+			     , STATUS_MSG
+			  FROM MEMBER
+			  JOIN POST
+			    ON (MEM_NO = POST_WRITER)
+			 WHERE POST_NUM = ?
+	</entry>
 
-
+	<entry key="getPostContent">
+			SELECT
+				   POST_TITLE
+				 , POST_CONTENT
+			     , POST_TAG
+			     , POST_TITLE_COLOR
+				 , POST_TITLE_SIZE
+				 , POST_THUMBNAIL
+			  FROM POST
+			 WHERE POST_NUM = ?
+	</entry>
+	
+	<entry key="selectReplyList">
+			SELECT A.REPLY_NO
+			     , A.REPLY_WRITER
+			     , A.REPLY_CONTENT
+			     , B.PROFILE_PIC
+			     , TO_CHAR(A.REPLY_CREATE_DATE, 'YY/MM/DD HH24:MI:SS') "REPLY_CREATE_DATE"
+			     , B.NICKNAME
+			  FROM REPLY A
+			  JOIN MEMBER B
+			    ON (A.REPLY_WRITER=B.MEM_NO)
+			 WHERE A.REPLY_STATUS = 'Y'
+			   AND A.REPLY_OWN_POST = ?
+			 ORDER 
+			    BY A.REPLY_CREATE_DATE DESC
+	</entry>
 
 
 </properties>
