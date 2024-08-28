@@ -341,7 +341,15 @@
 	
 	<entry key="updatePostBlock">
 		UPDATE POST
-		   SET POST_BLOCK = 'Y'
+		   SET POST_BLOCK = 'Y',
+		   	   POST_UPDATE = SYSDATE
+		 WHERE POST_NUM = ?
+	</entry>
+	
+	<entry key="canclePostBlock">
+		UPDATE POST
+		   SET POST_BLOCK = 'N',
+		   	   POST_UPDATE = SYSDATE
 		 WHERE POST_NUM = ?
 	</entry>
 	

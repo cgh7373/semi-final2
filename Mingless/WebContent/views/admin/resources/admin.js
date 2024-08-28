@@ -32,9 +32,6 @@
 
 // 차트 
 const ctx = document.querySelector("#myChart");
-console.log("mem : " + memberCount);
-console.log("post : " + postCount);
-
 
 new Chart(ctx, {
     type: 'line',
@@ -85,7 +82,7 @@ new Chart(ctx, {
 });
 
 const ctx2 = document.querySelector("#myChart2");
-console.log(ctx2);
+
 new Chart(ctx2, {
     type: 'line',
     data: {

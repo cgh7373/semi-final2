@@ -139,7 +139,7 @@ public class AdminService {
 		Connection conn = getConnection();
 		
 		int result = new AdminDao().deleteItem(conn, itemNo);
-				
+		
 		if(result > 0 ) {
 			commit(null);
 		}else {
@@ -328,6 +328,22 @@ public class AdminService {
 		close(conn);
 		
 		return p;
+	}
+
+	public int canclePostBlock(int postNo) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().canclePostBlock(conn, postNo);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
 	}
 
 	

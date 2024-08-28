@@ -570,14 +570,18 @@ h1 span:nth-child(7) {
 .addProduct #productImage {
   width: 350px;
   height: 350px;
-  box-shadow: 1px 1px 10px #455c71;
+  box-shadow: 1px 1px 10px #a9b7c5;
   border-radius: 10px;
   margin: 20px 0 10px 10px;
 }
 
+.addProduct #productImage:hover{
+  cursor: pointer;
+}
+
 .input-file-button {
   margin: 20px 0 0 20px;
-  height: 38px;
+  height: 45px;
   padding: 6px 25px;
   background-color: #FF6600;
   border-radius: 4px;
@@ -618,7 +622,7 @@ h1 span:nth-child(7) {
   margin: 5px 0 10px;
   border-radius: 10px;
   border: 0;
-  box-shadow: 2px 2px 2px #82838a;
+  box-shadow: 1px 1px 10px #a9b7c5;
   font-size: 15px;
 }
 
@@ -629,7 +633,7 @@ h1 span:nth-child(7) {
   margin: 5px 0 10px;
   border-radius: 10px;
   border: 0;
-  box-shadow: 2px 2px 2px #82838a;
+  box-shadow: 1px 1px 10px #a9b7c5;
   font-size: 15px;
 }
 
@@ -638,7 +642,7 @@ h1 span:nth-child(7) {
   margin: 5px 0 20px;
   border-radius: 10px;
   border: 0;
-  box-shadow: 2px 2px 2px #82838a;
+  box-shadow: 1px 1px 10px #a9b7c5;
 }
 .submit {
   width: 150px;
@@ -658,7 +662,7 @@ h1 span:nth-child(7) {
   background-color: white;
   border: 0;
   border-radius: 10px;
-  box-shadow: 2px 2px 2px #82838a;
+  box-shadow: 1px 1px 10px #a9b7c5;
 }
 
 .custom-select select {
@@ -944,4 +948,20 @@ h1 span:nth-child(7) {
 #userPostDetailModal #userPostDetailContent img{
   width: 500px;
   height: 500px;
+}
+
+div:where(.swal2-icon) {
+  position: relative;
+  box-sizing: content-box;
+  justify-content: center;
+  width: 5em;
+  height: 5em;
+  margin: 2.5em auto .6em;
+  border: 0.25em solid rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  border-color: #000;
+  font-family: inherit;
+  line-height: 5em;
+  cursor: default;
+  user-select: none;
 }

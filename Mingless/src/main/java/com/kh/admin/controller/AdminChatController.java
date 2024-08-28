@@ -6,21 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.kh.admin.model.service.AdminService;
 
 /**
- * Servlet implementation class AjaxDeleteItemController
+ * Servlet implementation class AdminChatController
  */
-@WebServlet("/deleteItem.am")
-public class AdminDeleteItemController extends HttpServlet {
+@WebServlet("/adminChat.am")
+public class AdminChatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminDeleteItemController() {
+    public AdminChatController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,20 +26,7 @@ public class AdminDeleteItemController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int itemNo = Integer.parseInt(request.getParameter("itemNo"));
-		
-		int result = new AdminService().deleteItem(itemNo);
-		
-		
-		HttpSession session = request.getSession();
-		
-		if(result > 0 ) {
-			session.setAttribute("alertMsg", "상품이 삭제 되었습니다.");
-			response.sendRedirect(request.getContextPath() + "/store.am");
-		}else {
-			session.setAttribute("errorMsg", "상품삭제에 실패했습니다");
-			response.sendRedirect(request.getContextPath() + "/store.am");
-		}
+		String nickname = request.getParameter("userNickname");
 		
 	}
 

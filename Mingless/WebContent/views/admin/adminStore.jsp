@@ -68,7 +68,8 @@
                                                 <h2 class="modal-header">상품 등록</h2>
                                                     <form action="insertItem.am" method="post" enctype="multipart/form-data">
                                                     <!-- <div id="insertform"> -->
-                                                    <div id="productImage"></div>
+                                                    <label id="productImage" for="input-file" style="display: block;"></label>
+                                                    
                                                     <label class="input-file-button" for="input-file">
                                                         사진 업로드
                                                     </label>
@@ -120,7 +121,6 @@
                             var formData = new FormData(this);
                             formData.append('tags', tagString)
                             
-                            console.log(formData);
                             $.ajax({
                                 type: 'POST',
                                 url: "<%= contextPath %>/insertItem.am",
@@ -250,28 +250,38 @@
 						
                         // 상품 삭제
                         function deleteItem(el){
-                            console.log(el.name);
 
                             location.href = "deleteItem.am?itemNo=" + el.name;						
                         }
 
                         // 상품 가격 설정
                         function updatePrice(el){
-                            console.log(el.name);
 
-                            setPrice = Number(window.prompt("변경할 가격",{
-                                title: '가격 변경',
-                            }));
-                            location.href = "updatePrice.am?itemNo=" + el.name + "&price=" + setPrice;
+                            Swal.fire({
+                                title: "변경할 가격",
+                                input: "number",
+                                inputAttributes: {
+                                    autocapitalize: "off"
+                                },
+                                showCancelButton: true,
+                                confirmButtonText: "확인",  
+                            }).then((result) => {
+                                if(result.isConfirmed){
+                                    let price = result.value;
+
+                                    if(price){
+                                        location.href = "updatePrice.am?itemNo=" + el.name + "&price=" + price;
+                                    }
+                                }
+                            })
+                            
                         }
 
                         // 사진 변경
                         function changePicture(el){
-                            console.log(el.name);
-                         // 아이템 번호 가져오기
+                         	// 아이템 번호 가져오기
                             var itemNo = el.name;
                             
-                         	
                             // 모달의 hidden input에 아이템 번호 설정
                             document.getElementById('itemNum').value = itemNo;
                             
@@ -282,7 +292,7 @@
 
                         function submitPictureForm() {
 	                        // 폼 제출
-	                        document.getElementById('changePictureForm').submit();
+                            document.getElementById('changePictureForm').submit();
                         }
 				</script>
             </div>

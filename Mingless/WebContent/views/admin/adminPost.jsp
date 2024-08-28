@@ -174,16 +174,12 @@
                                 const title = titleElement ? titleElement.textContent.trim() : '';
                                 const content = contents.join('\n'); // 배열의 요소들을 줄바꿈으로 구분하여 하나의 문자열로 만듭니다.
                                 const img = imgElement ? imgElement.src : '';
-
-                                console.log(title);
-                                console.log(content);
-                                console.log(img);   
-								
-                                
+								                                
 								const urls = "<%=contextPath %>";
 								// 공지사항 등록 ajax 
                                 $.ajax({
                                     url:"insertNotice.am",
+                                    type:"post",
                                     data:{
                                         "nTitle":title,
                                         "nContent": content,
@@ -243,7 +239,7 @@
 						function generatePostCard(post, loginUserNickname) {
                             const { postAttachment, postTitle, postBlock, postCount, postContent, postTag, postNum, postWriter, postType } = post;
                             const isUserPost = postType === 1;
-                            console.log(postType);
+                        
                             const modalId = isUserPost ? 'userPostDetailModal' : 'postDetailModal';
                             const clickHandler = isUserPost ? `userPostDetail(event, \${postNum})` : `postDetail(event, \${postNum})`;
                         
@@ -270,7 +266,10 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <button class="dropdown-item" id="deletePost" onclick="event.stopPropagation(); deletePost(\${postNum});">게시글삭제</button>
-                                                <button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(\${postNum});">블락설정</button>
+                                                \${postBlock === "N" ? 
+                                                	`<button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(\${postNum});">블락설정</button>`:
+                                                	`<button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); cancleBlock(\${postNum});">블락해제</button>`
+                                                }
                                                 \${loginUserNickname === postWriter ? 
                                                     `` :
                                                     `<button class="dropdown-item" id="sendMessage" name="\${postWriter}" onclick="event.stopPropagation(); sendMessage(this);">메세지보내기</button>`
@@ -317,10 +316,14 @@
                                         </button>
                                         <div class="dropdown-menu">
                                             <button class="dropdown-item" id="deletePost" onclick="event.stopPropagation(); deletePost(<%=p.getPostNum() %>); ">게시글삭제</button>
-                                            <button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(<%=p.getPostNum() %>); ">블락설정</button>
+                                            <%if(p.getPostBlock().equals("N")){ %>
+                                            	<button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(<%=p.getPostNum() %>); ">블락설정</button>
+                                            <%}else{ %>
+                                            	<button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); cancleBlock(<%=p.getPostNum() %>); ">블락해제</button>
+                                            <%} %>
                                             <%if(loginUser.getNickname().equals(p.getPostWriter())){ %>
                                             <%}else{ %>
-                                                <button class="dropdown-item" id="sendMessage" name="" onclick="event.stopPropagation(); sendMessage(this);">메세지보내기</button>
+                                                <button class="dropdown-item" id="sendMessage" name="<%=p.getPostWriter()%>"onclick="event.stopPropagation(); sendMessage(this);">메세지보내기</button>
                                             <%} %>
                                         </div>
                                     </div>
@@ -426,7 +429,7 @@
                             data:{postNo:no},
                             success:function(e){
                                 console.log("userPost ajax success");
-                                console.log(e);
+                                
                                 value += `
                                     <div id="post-header">
                                     <h2 id="post-title">\${e.postTitle}</h2>
@@ -465,7 +468,16 @@
                     function updateBlock(no){
                         location.href = "updateBlock.am?postNo=" + no;
                     }
+                    // 블락 해제
+                    function cancleBlock(no){
+                    	location.href = "cancleBlock.am?postNo=" + no;
+                    }
                     
+                    
+                    function sendMessage(el){
+                    	console.log(el.name);
+                    	location.href = "adminChat.am?userNickname=" + el.name;
+                    }
 
                 </script>
 

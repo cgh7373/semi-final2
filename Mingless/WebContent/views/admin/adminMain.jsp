@@ -144,7 +144,7 @@ ArrayList<Integer> postCount = (ArrayList<Integer>)request.getAttribute("postCou
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">정말 로그아웃하시겠습니까?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
+                        <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">로그아웃을 원하면 아래 "로그아웃"을 클릭하세요.</div>

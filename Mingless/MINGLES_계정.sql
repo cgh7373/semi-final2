@@ -135,58 +135,6 @@ INSERT INTO MEMBER (
     'ENTJ' -- MBTI
 );
 
-COMMIT;
-
-
-
-
-SELECT
-        m.MEM_ID,
-        m.NICKNAME,
-        b.BLOCK_TYPE,
-        b.BLOCK_COUNT,
-        r.MEM_ID,
-        b.BLOCK_DATE
-  FROM
-        MEMBER_BLACKLIST b
-  JOIN
-        MEMBER m ON b.MEM_NO = m.MEM_NO  -- 내부조인
-  JOIN
-        MEMBER r ON b.REPORTMEM_NO = r.MEM_NO  -- 신고자 회원 정보와 조인
-  ORDER
-     BY
-        b.BLOCK_DATE DESC;
-        
-SELECT
-		        m.MEM_ID AS "MEM_ID",
-		        m.NICKNAME AS "NICKNAME",
-		        b.BLOCK_TYPE AS "BLOCK_TYPE",
-		        b.BLOCK_COUNT AS "BLOCK_COUNT",
-		        r.MEM_ID "REPORT_ID",
-		        b.BLOCK_DATE "BLOCK_DATE"
-		  FROM
-		        MEMBER_BLACKLIST b
-		  JOIN
-		        MEMBER m ON b.MEM_NO = m.MEM_NO 
-		  JOIN
-		        MEMBER r ON b.REPORTMEM_NO = r.MEM_NO  
-		  ORDER
-		     BY
-		        b.BLOCK_DATE DESC
-                ;
-                
-                commit
-                ;
-                
-UPDATE MEMBER 
-   SET STATUS = 'N'
-   WHERE STATUS = 'C';
-   
-SELECT COUNT(MEM_NO)
-  FROM MEMBER
- WHERE EXTRACT(MONTH FROM ENROLL_DATE) = 8
-   AND STATUS != 'N';
-
 DROP TABLE ITEM; 
 DROP SEQUENCE SEQ_ICA;
 DROP TABLE ITEMCATEGORY; 
@@ -309,50 +257,6 @@ VALUES (SEQ_ITEM.NEXTVAL, 'IC3', 'Item 19', 100, 'Introduction to Item 19', SYSD
 INSERT INTO ITEM (ITEM_NUM, ITEM_CATEGORY, ITEM_NAME, PRICE, ITEM_INTRO, ITEM_DATE, ITEM_UPDATE, ITEM_STATUS)
 VALUES (SEQ_ITEM.NEXTVAL, 'IC4', 'Item 20', 100, 'Introduction to Item 20', SYSDATE, SYSDATE, 'Y');   
  
-commit;
-
-SELECT ITEM_NUM
-		     , CATEGORYNAME
-		     , ITEM_NAME
-		     , PRICE
-		     , ITEM_INTRO
-		     , ITEM_DATE
-		     , ITEM_STATUS
-		     , FILE_PATH || ORIGIN_NAME AS SAVE_FILE
-		  FROM ITEM
-		  JOIN ITEMCATEGORY USING(ITEM_CATEGORY)
-		  JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
-		 WHERE ITEM_STATUS = 'Y'
-		 ORDER
-		    BY ITEM_NUM DESC  
-  ;  
-
-SELECT ITEM_CATEGORY
-     , CATEGORYNAME
-  FROM ITEMCATEGORY
-  ;
-UPDATE ITEMCATEGORY
-   SET CATEGORYNAME = '아이템광장'
- WHERE ITEM_CATEGORY = 'IC4'
- ;
- 
-COMMIT;
-
-	SELECT ITEM_NUM
-		     , CATEGORYNAME
-		     , ITEM_NAME
-		     , PRICE
-		     , ITEM_INTRO
-		     , ITEM_DATE
-		     , ITEM_STATUS
-		  FROM ITEM I
-		  JOIN ITEMCATEGORY IC USING(ITEM_CATEGORY)
-		 WHERE ITEM_STATUS = 'Y'
-		   AND IC.CATEGORYNAME = '홈피꾸미기'
-		 ORDER
-		    BY ITEM_NUM DESC
-            ;
-
 -- 첨부파일
 -- ATTACHMENT 테이블
 DROP TABLE ATTACHMENT;
@@ -366,105 +270,7 @@ CREATE TABLE ATTACHMENT(
     FILE_POSITION NUMBER CONSTRAINT ATTACHMENT_FILE_POSITION_NN NOT NULL,
     FILE_STATUS VARCHAR2(1) DEFAULT 'Y' CONSTRAINT ATTACHMENT_FILE_STATUS_NN NOT NULL
 );
-
-/*
-회원번호 아이디 닉네임 생일 이메일 성별 회원가입일 보유거북알
-*/
-
-SELECT 
-		       MEM_NO
-		     , MEM_ID
-		     , NICKNAME
-		     , TO_CHAR(BIRTHDATE, 'MM/DD') AS BIRTHDAY
-		     , EMAIL
-		     , DECODE(GENDER, 'M', '남자', 'F', '여자') AS GENDER
-		     , ENROLL_DATE
-		     , EGG
-		 FROM 
-		       MEMBER
-		WHERE MEM_ID != 'admin'
-		ORDER
-		   BY MEM_NO ASC
-           ;
-
-SELECT *
-		  FROM (
-		        SELECT ROWNUM RNUM, A.*
-		          FROM (
-		              SELECT 
-		                   BOARD_NO
-		                 , CATEGORY_NAME
-		                 , BOARD_TITLE
-		                 , USER_ID
-		                 , COUNT
-		                 , TO_CHAR(CREATE_DATE, 'YYYY/MM/DD') AS "CREATE_DATE"
-		             FROM BOARD B
-		             JOIN CATEGORY USING(CATEGORY_NO)
-		             JOIN MEMBER ON (BOARD_WRITER = USER_NO)
-		            WHERE BOARD_TYPE = 1
-		              AND B.STATUS = 'Y'
-		            ORDER 
-		               BY BOARD_NO DESC
-		               ) A
-		        )
-		 WHERE RNUM BETWEEN ? AND ?
-;
-SELECT *
-  FROM (
-        SELECT ROWNUM RNUM, A.*
-          FROM (
-               SELECT 
-                      MEM_NO
-                    , MEM_ID
-                    , NICKNAME
-                    , TO_CHAR(BIRTHDATE, 'MM/DD') AS BIRTHDAY
-                    , EMAIL
-                    , DECODE(GENDER, 'M', '남자', 'F', '여자') AS GENDER
-                    , ENROLL_DATE
-                    , EGG
-                 FROM 
-                      MEMBER
-                WHERE MEM_ID != 'admin'
-                ORDER
-                   BY MEM_NO ASC
-               ) A
-       )
-       WHERE RNUM BETWEEN ? AND ?
-       ;
-commit;
-
-
-              
-              
-    
-		SELECT COUNT(MEM_NO) AS "COUNT"
-		  FROM MEMBER
-		 WHERE STATUS != 'N'
-	;
-    
-    
-INSERT
-  INTO MEMBER_BLACKLIST 
-       (
-         BLACLIST_NO
-       , MEM_NO
-       , REPORTMEM_NO
-       , BLOCK_TYPE
-       , BLOCK_DATE
-       , BLOCK_COUNT
-       , EXPIRY_DATE
-       ) 
-VALUES (
-       SEQ_BLACKLIST.NEXTVAL,  -- BLACLIST_NO: 블랙리스트의 고유번호
-       ?,  -- MEM_NO: 블랙리스트에 등록된 회원의 고유번호
-       '4',  -- REPORTMEM_NO: 신고한 회원의 고유번호 (예시로 1002로 설정)
-       '불법 행위로 인한 블랙리스트 등록',  -- BLOCK_TYPE: 블랙리스트에 등록된 이유
-       SYSDATE,  -- BLOCK_DATE: 현재 날짜로 블랙 설정 날짜
-       0,  -- BLOCK_COUNT: 블락 횟수 (기본값 0)
-       SYSDATE + INTERVAL '3' DAY  -- EXPIRY_DATE: 블랙리스트 만료일 (예: 30일 후 만료)
-)
-;
-
+     
 -- CREATE BLACKLIST TABLE 
 DROP TABLE MEMBER_BLACKLIST;
 DROP SEQUENCE SEQ_BLACKLIST;
@@ -492,6 +298,7 @@ CREATE SEQUENCE SEQ_BLACKLIST
 START WITH 1
 NOCACHE;
 
+-- blacklist 샘플
 INSERT INTO MEMBER_BLACKLIST (
     BLACKLIST_NO, MEM_NO, REPORTMEM_NO, BLOCK_TYPE, BLOCK_DATE, BLOCK_COUNT, EXPIRY_DATE
 ) VALUES (
@@ -503,11 +310,6 @@ INSERT INTO MEMBER_BLACKLIST (
     0, 
     SYSDATE + INTERVAL '3' DAY 
 );
-
-UPDATE MEMBER_BLACKLIST
-   SET BLOCK_COUNT = BLOCK_COUNT + 1
- WHERE BLACKLIST_NO = 1;
- 
 INSERT INTO MEMBER_BLACKLIST (
     BLACKLIST_NO, MEM_NO, REPORTMEM_NO, BLOCK_TYPE, BLOCK_DATE, BLOCK_COUNT, EXPIRY_DATE
 ) VALUES (
@@ -520,136 +322,7 @@ INSERT INTO MEMBER_BLACKLIST (
     SYSDATE + INTERVAL '3' DAY  -- EXPIRY_DATE: 블랙리스트 만료일 (예: 30일 후 만료)
 );
 
-UPDATE MEMBER_BLACKLIST
-   SET BLOCK_COUNT = BLOCK_COUNT + 1
- WHERE BLACKLIST_NO = 16
- ;
- 
- 
-SELECT * 
-  FROM MEMBER_BLACKLIST;
-
-COMMIT;
-
-SELECT ITEM_NUM
-		     , CATEGORYNAME
-		     , ITEM_NAME
-		     , PRICE
-		     , ITEM_INTRO
-		     , ITEM_DATE
-		     , ITEM_STATUS
-		     , FILE_PATH || ORIGIN_NAME AS SAVE_FILE
-             , String_split(ITEM_TAG, ',')
-		  FROM ITEM
-		  JOIN ITEMCATEGORY USING(ITEM_CATEGORY)
-		  JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
-		 WHERE ITEM_STATUS = 'Y'
-		 ORDER
-		    BY ITEM_NUM DESC  
-  ;  
-
-SELECT INSTR(ITEM_TAG, '#')
- FROM ITEM
- ;
- 
-UPDATE ITEM
-   SET ITEM_STAUTS = 'N'
- WHERE ITEM_NUM = ?
- ;
-
-UPDATE ATTACHMENT
-   SET ORIGIN_NAME = ?,
-       CHANGE_NAME = ?
- WHERE FILE_NO = (SELECT 
-                         ATTACHMENT_NO
-                    FROM ITEM
-                   WHERE ITEM_NUM = ?
-                 )
-;
-DELETE FROM ATTACHMENT
- WHERE ORIGIN_NAME = ?
- ;
- 
- SELECT ITEM_NUM
-		     , CATEGORYNAME
-		     , ITEM_NAME
-		     , PRICE
-		     , ITEM_INTRO
-		     , ITEM_DATE
-		     , ITEM_STATUS
-		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
-		     , ITEM_TAG
-		     , CHANGE_NAME
-		  FROM ITEM
-		  JOIN ITEMCATEGORY USING(ITEM_CATEGORY)
-		  JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
-		 WHERE ITEM_STATUS = 'Y'
-		 ORDER
-		    BY ITEM_NUM DESC 
-            ;
-
-SELECT MEM_ID
-  FROM MEMBER
- WHERE MEM_ID like ?
-    OR NICKNAME like ?
- ;
- 
-UPDATE MEMBER
-   SET STATUS = 'B'
- WHERE MEM_NO = ?
-   AND STATUS = 'Y'
- ;
- 
-DELETE FROM MEMBER_BLACKLIST
- WHERE MEM_NO = 1
- ;
-
- commit;
- 
-SELECT 
-       POST_NUM
-     , POST_TYPE
-     , POST_TITLE
-     , POST_CONTENT
-     , POST_TAG
-     , POST_SCOPE
-     , NICKNAME
-     , POST_COUNT
-     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS POST_REGDATE
-     , FILE_PATH || CHANGE_NAME AS POST_ATTACHMENT
-  FROM POST
-  JOIN MEMBER ON (POST_WRITER = MEM_NO)
-  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
- WHERE POST_STATUS = 'Y'
-   AND POST_BLOCK = 'N'
-  
- ;
-INSERT 
-  INTO POST 
-          (
-            POST_NUM
-          , POST_TYPE
-          , POST_TITLE
-          , POST_CONTENT
-          , POST_WRITER
-          , POST_REGDATE
-          , POST_ATTACHMENT_NO
-          )
-     VALUES
-          (
-            SEQ_POST.NEXTVAL
-          , 2
-          , ?
-          , ?
-          , 4
-          , SYSDATE
-          , ?
-       )
-       ;
-       
-SELECT SEQ_ATT.NEXTVAL
-  FROM DUAL;
-
+-- 게시글 파일 파일 기본설정
 INSERT 
 		  INTO ATTACHMENT 
 			 (
@@ -670,10 +343,6 @@ INSERT
              ;
              commit;
         
-UPDATE POST
-   SET STATUS = 'N'
- WHERE POST_NUM = ?
- ;
  
 CREATE TABLE NOTICE (
     NOTICE_NO NUMBER PRIMARY KEY,
@@ -686,25 +355,6 @@ CREATE TABLE NOTICE (
  CREATE SEQUENCE SEQ_NOTICE NOCACHE
  ;
  
-INSERT 
-  INTO NOTICE
-            (
-              NOTICE_NO
-            , NOTICE_HTML
-            , POST_NO  
-            )
-       VALUES
-            (
-              SEQ_NOTICE.NEXTVAL
-            , ?
-            , ?
-            )
-      ;
-      SELECT COUNT(POST_NUM) AS "COUNT"
-		  FROM POST
-		 WHERE EXTRACT(MONTH FROM POST_REGDATE) = 8
-		   AND POST_STATUS != 'N'
-           ;
 INSERT INTO POST (POST_NUM, POST_TYPE, POST_TITLE, POST_CONTENT, POST_TAG, POST_SCOPE, POST_WRITER, POST_COUNT, POST_REGDATE, POST_UPDATE, POST_STATUS, POST_BLOCK, POST_ATTACHMENT_NO)
 VALUES (SEQ_POST.NEXTVAL, 1, 'First Post', 'This is the content of the first post.', 'Tag1, Tag2', 'T', 10, 0, SYSDATE, SYSDATE, 'Y', 'N', 45);
 
@@ -722,21 +372,5 @@ VALUES (SEQ_POST.NEXTVAL, 1, 'Fifth Post', 'This is the content of the fifth pos
 
 commit;
 
-SELECT POST_NUM
-     , POST_TYPE
-     , POST_TITLE
-     , POST_CONTENT
-     , POST_TAG
-     , POST_SCOPE
-     , NICKNAME
-     , POST_COUNT
-     , TO_CHAR(POST_REGDATE, 'YY/MM/DD')
-     , POST_STATUS
-     , POST_BLOCK
-     , FILE_PATH || CHANGE_NAME AS SAVEPATH
-  FROM POST
-  JOIN MEMBER ON (POST_WRITER = MEM_NO)
-  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
- WHERE POST_TYPE = 1
-   AND POST_NUM = 28
-   ;
+
+ 

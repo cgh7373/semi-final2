@@ -44,12 +44,13 @@
             href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css"
             rel="stylesheet"
             type="text/css"/>
-        <!-- sweetalert -->
-        <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <!-- <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
         <!-- reset -->
         <link
         href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
         rel="stylesheet">
+        <!-- sweetalert -->
+        <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- 내부파일 -->
         <link href="./views/admin/resources/admin.css" rel="stylesheet">                 
         <script src="./views/admin/resources/admin.js" defer></script>
@@ -60,17 +61,19 @@
 	document.addEventListener("DOMContentLoaded", function() {
 		// 성공메시지
         <% if (alertMsg != null) { %>
-            swal({
-            icon: 'success',
-            title: '<%=alertMsg%>',
+            Swal.fire({
+                icon: "success",
+                text: '<%=alertMsg%>',
+                showConfirmButton: false,
             });
         <% session.removeAttribute("alertMsg"); %>
         <% } %>
 
         <% if (errorMsg != null) { %>
-            swal({
-            icon: 'error',
-            title: '<%=errorMsg%>',
+            Swal.fire({
+	            icon: 'error',
+	            text: '<%=errorMsg%>',
+	            showConfirmButton: false,
             });
         <% session.removeAttribute("errorMsg"); %>
         <% } %>
@@ -125,7 +128,7 @@
                     <i class="fas fa-fw fa-store"></i>
                     <span>상점 관리</span>
                 </a>
-              
+
             </li>
 
             <!-- 네비게이션 항목 - 페이지 접기 메뉴 -->
@@ -163,10 +166,18 @@
 		
 
     </div>
+	<script>
+	    window.onload = function() {
+	        const url = window.location.href;
+	        const urlWithoutQueryString = window.location.origin + window.location.pathname;
+	
+	        // 현재 URL이 쿼리 문자열을 포함하고 있는지 확인합니다.
+	        if (url !== urlWithoutQueryString) {
+	            // 쿼리 문자열이 제거된 URL로 브라우저의 URL을 업데이트합니다.
+	            window.history.replaceState({}, document.title, urlWithoutQueryString);
+	        }
+	    };
+    </script>
 
-    <!-- 스크롤 버튼 위로 -->
-  <!--   <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a> -->
 </body>
 </html>

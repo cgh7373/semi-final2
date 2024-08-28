@@ -747,6 +747,25 @@ public class AdminDao {
 		
 		return result;
 	}
+	
+	public int canclePostBlock(Connection conn, int postNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("canclePostBlock");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, postNo);
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 	public ArrayList<PostType> selectPostType(Connection conn) {
 		ArrayList<PostType> pt = new ArrayList<PostType>();
@@ -835,6 +854,8 @@ public class AdminDao {
 		}
 		return p;
 	}
+
+	
 
 
 	
