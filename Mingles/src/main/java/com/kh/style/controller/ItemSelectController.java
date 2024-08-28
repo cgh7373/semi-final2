@@ -1,6 +1,8 @@
 package com.kh.style.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +14,16 @@ import com.kh.style.model.service.StyleService;
 import com.kh.style.model.vo.PurItem;
 
 /**
- * Servlet implementation class ItemInsertController
+ * Servlet implementation class ItemSelectController
  */
-@WebServlet("/insertItem.st")
-public class ItemInsertController extends HttpServlet {
+@WebServlet("/selectItem.st")
+public class ItemSelectController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ItemInsertController() {
+    public ItemSelectController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,20 +32,13 @@ public class ItemInsertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		int itemNo = Integer.parseInt(request.getParameter("itemNo"));
-		String itemCategory = request.getParameter("itemCategory");
-		String itemName = request.getParameter("itemName");
-		String fileName = request.getParameter("fileName");
+		ArrayList<PurItem> pitem = new StyleService().selectAllItem(userNo); 
 		
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(pitem, response.getWriter());
 		
-		
-		PurItem pitem = new PurItem(userNo, itemNo, itemCategory, itemName, fileName); 
-		
-		int result = new StyleService().insertItem(pitem);
-		
-		response.setContentType("application/json; charset=utf-8");			
-		new Gson().toJson(result, response.getWriter());
 	}
 
 	/**

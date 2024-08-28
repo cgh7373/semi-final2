@@ -1,12 +1,13 @@
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@page import="com.kh.common.model.vo.PageInfo"%>
 <%@page import="com.kh.admin.model.vo.Item"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String contextPath = request.getContextPath(); 
-String defaultCategory = (String)request.getAttribute("defaultCategory");
-%>
-<% ArrayList<Item> list = (ArrayList<Item>)request.getAttribute("list"); 
+<% 	Member m = (Member)session.getAttribute("loginUser");
+	String contextPath = request.getContextPath(); 
+	String defaultCategory = (String)request.getAttribute("defaultCategory");
+	ArrayList<Item> list = (ArrayList<Item>)request.getAttribute("list"); 
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -38,6 +39,7 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
     <!-- 내부파일 -->
 	<link rel="stylesheet" href="<%= contextPath %>/resources/css/mingle-shop.css">
 	<script defer src="<%= contextPath %>/resources/js/mingle-shop.js"></script>
+	<script type="text/javascript"> let memNo = <%= m.getMemNo() %>;</script>
 	<script defer src = "<%= contextPath%>/resources/js/mingle-style2.js"></script>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="icon" href="<%= contextPath %>/resources/images/Mingles아이콘-removebg-preview.png">
@@ -317,7 +319,7 @@ String defaultCategory = (String)request.getAttribute("defaultCategory");
 		                    url: contextPath + '/payItem.it',
 		                    method: 'POST',
 		                    dataType: 'json',
-		                    data: { itemNo: itemNo, itemPrice: itemPrice }, 
+		                    data: {itemNo: itemNo, itemPrice: itemPrice }, 
 		                    success: function(result) {
 		                        console.log(result);
 		                        console.log(typeof sendItem);

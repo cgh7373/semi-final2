@@ -1,6 +1,7 @@
 package com.kh.style.model.vo;
 
 public class PurItem {
+	private int memNo;
 	private int pItemNo;
 	private int itemNo;
 	private String itemCategory;
@@ -9,8 +10,9 @@ public class PurItem {
 	
 	public PurItem() {}
 
-	public PurItem(int pItemNo, int itemNo, String itemCategory, String itemName, String fileName) {
+	public PurItem(int memNo, int pItemNo, int itemNo, String itemCategory, String itemName, String fileName) {
 		super();
+		this.memNo = memNo;
 		this.pItemNo = pItemNo;
 		this.itemNo = itemNo;
 		this.itemCategory = itemCategory;
@@ -18,14 +20,22 @@ public class PurItem {
 		this.fileName = fileName;
 	}
 	
-	
 	// itemInsertController 가방
-	public PurItem(int itemNo, String itemCategory, String itemName, String fileName) {
+	public PurItem(int memNo, int itemNo, String itemCategory, String itemName, String fileName) {
 		super();
+		this.memNo = memNo;
 		this.itemNo = itemNo;
 		this.itemCategory = itemCategory;
 		this.itemName = itemName;
 		this.fileName = fileName;
+	}
+	
+	public int getMemNo() {
+		return memNo;
+	}
+
+	public void setMemNo(int memNo) {
+		this.memNo = memNo;
 	}
 
 	public int getpItemNo() {
@@ -70,11 +80,9 @@ public class PurItem {
 
 	@Override
 	public String toString() {
-		return "PurItem [pItemNo=" + pItemNo + ", itemNo=" + itemNo + ", itemCategory=" + itemCategory + ", itemName="
-				+ itemName + ", fileName=" + fileName + "]";
-	};
-	
-
+		return "PurItem [memNo=" + memNo + ", pItemNo=" + pItemNo + ", itemNo=" + itemNo + ", itemCategory="
+				+ itemCategory + ", itemName=" + itemName + ", fileName=" + fileName + "]";
+	}
 	
 	
 }

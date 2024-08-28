@@ -30,7 +30,7 @@ Member m = (Member)session.getAttribute("loginUser");
 	<script defer src = "../../resources/js/mingle-style2.js"></script>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="icon" href="../../resources/images/Mingles아이콘-removebg-preview.png">
-
+ 
 </head>
 
 <body>
@@ -166,10 +166,10 @@ Member m = (Member)session.getAttribute("loginUser");
                     </div> <!-- MINIHOMPI ROOM-->
 
                     <div class="bot-box">
-                        <div class="btn btn1" onclick="location.href='../../views/shop/minglesShop.jsp';">mingleShop</div>
+                        <div class="btn btn1" onclick="location.href='../../views/shop/minglesShops.jsp';">mingleShop</div>
                        
                         <div class="btn btn2" onclick = "saveAvatar()">저장하기</div>
-                       
+                       <%-- <%= System.out.println(m.getMemNo()) %> --%>
                     </div>
  
                 </div>
@@ -182,11 +182,10 @@ Member m = (Member)session.getAttribute("loginUser");
     </div>
 	
 	<script>
-	const memNo = <%= m.getMemNo()%>
-	
+	let memNo = <%= m.getMemNo()%>
+	console.log('사용자 번호:', memNo);
 	// 페이지 로드 시 select됬던 요소 실행
 	window.onload= function(){
-		console.log("select 저장 성공");
 		selectAvatar();
 	}
 	
@@ -236,7 +235,6 @@ Member m = (Member)session.getAttribute("loginUser");
 	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기 - insert, update문
 	function saveAvatar(){
 		let selected = getValues();
-		console.log(selected);
 
 		// 사용자가 아바타가 있는지 없는지 확인하는 ajax문
 		$.ajax({
@@ -247,7 +245,6 @@ Member m = (Member)session.getAttribute("loginUser");
 			type :"post",
 			success : function(result){
 				let flag = result.flag;
-				console.log("hasAvatar여부 성공!");
  			
 				// 사용자에게 아바타가 있을 경우 == hasAvatar의 flag가 true일 경우 == update문 쏘기
 				if(flag == true){
@@ -266,8 +263,8 @@ Member m = (Member)session.getAttribute("loginUser");
 					},
 					type : "post",
 					success : function(){
-						console.log("ajax update avatar 통신 success");
 						selectAvatar();
+						alert("성공적으로 저장하였습니다. 내 아바타를 자랑해봐요!");
 					},
 					error : function(){
 						console.log("ajax update avatar 통신 fail");
@@ -291,8 +288,8 @@ Member m = (Member)session.getAttribute("loginUser");
 					type : "post",
 					success : function(result){
 						// select문을 통해서 저장된 상태를 유지하기
-						console.log("ajax insert avatar 통신 success");
 						selectAvatar();
+						alert("성공적으로 저장하였습니다. 내 아바타를 자랑해봐요!");
 					},
 					error : function(result){
 						console.log("ajax insert avatar 통신 fail");
@@ -308,7 +305,6 @@ Member m = (Member)session.getAttribute("loginUser");
 	}
 	
 	function selectAvatar(){ // select문
-		console.log("selectAvatar시작");
 		let selected = getValues();
 
 		// url 형식 바꾸기
@@ -332,14 +328,12 @@ Member m = (Member)session.getAttribute("loginUser");
 		}// getAvatarFromCookies()
 		
 		let avatarData = getAvatarFromCookie();
-		console.log("ajax call 시도");
-
+		
 		$.ajax({
 			url : "/Mingles/selectAvatar.st",
 			data : {memno : selected.userNo,},
 			type : "post",
 			success : function(result){
-				console.log("select ajax result 성공" );
 				if(result.hair || result.face || result.top || result.bottom || result.shoes || result.wall || result.floor || result.theme){
 			
 					setCookie('hair',changeURL(result.hair), 365);
@@ -360,8 +354,6 @@ Member m = (Member)session.getAttribute("loginUser");
 					$('#floor').attr('src', changeURL(result.floor));
 					$('#theme').attr('src', changeURL(result.theme));
 					
-					console.log("avatardata가 서버에 적용되고 쿠키에 저장됨");
-					
 				}
 			},
 			error : function(result){
@@ -372,9 +364,28 @@ Member m = (Member)session.getAttribute("loginUser");
 	}// selectAvatar();
 	
 
+	document.addEventListener("DOMContentLoaded", function() {
+		
+			selectItem();	
+		
+    		// shop에서 사온 아이템들 전체 select하고 값 뿌리기 위해선
+    		function selectItem(){
+    			$.ajax({
+    			url : '/Mingles/selectItem.st',
+    			method : 'post',
+    			data : {userNo : memNo},
+    			success:function(result){
+    				updateItemList(result);
+    			},
+    			error :function(result){
+    				console.log("select 실패", result);
+    			},
+    			});
+    		}// selectItem
+    		
+		 });
+	
 	
 	</script>
-
 </body>
-
 </html>

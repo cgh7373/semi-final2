@@ -59,6 +59,7 @@ INSERT
        , ITEM_CATEGORY
        , ITEM_NAME
        , FILE_NAME
+       , MEM_NO
        )
 VALUES (
           SEQ_PUR_ITEM.NEXTVAL
@@ -66,8 +67,14 @@ VALUES (
         , ?
         , ?
         , ?
+        , ?
         )
 </entry>
 
+<entry key = "selectAllItem">
+SELECT *
+  FROM PURCHASE_ITEM
+ WHERE MEM_NO = ?
+</entry>
 
 </properties>

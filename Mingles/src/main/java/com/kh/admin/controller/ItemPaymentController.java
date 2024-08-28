@@ -31,6 +31,7 @@ public class ItemPaymentController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 구매하는 서블릿 - 정보를 style로 보낼 것임
+
 		int itemNo = Integer.parseInt(request.getParameter("itemNo"));
 		int itemPrice = Integer.parseInt(request.getParameter("itemPrice"));
 		

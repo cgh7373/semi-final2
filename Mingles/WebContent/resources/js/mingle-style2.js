@@ -1,41 +1,44 @@
-// shop에서 구매 후 값을 받아온 경우이다.
-function sendItem(result){
-    console.log('ajax에서 값 받아오는거 성공함');
-    console.log(result);
-    changeFileName(result.saveFile);
-    insertItem(result);
-};
+		
+		// Mingles-shop과 Mingles-style화면이 공유하는 자바스크립트 화면입니당
+		// Shop에서 아이템 구매 시 style화면으로 데이터를 끌어올리려고 만들었슴당
+		// 지우기 절대금지!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		
+		// shop에서 구매 후 값을 받아와서 style의 pagination에 반영할 예정이다.
+		function sendItem(result){
+		    console.log("result 유무 상관 없이 잘 되냐 :", result);
+		    changeFileName(result.saveFile);
+		    insertItem(result);
+		    
+		};
+		
+		// result에서 가져온 saveFile 파일명 가공하기
+		function changeFileName(result){
+			let changeName = result.substring(24, 41);
+			console.log(changeName);
+			return changeName;
+		}
+		
+		// shop에서 사온거 DB에 INSERT문으로 넣기..
+		function insertItem(result){
+			$.ajax({
+				url : '/Mingles/insertItem.st',
+				dataType : 'json',
+				method : 'post',
+				data : {
+					userNo : memNo,
+					itemNo : result.itemNo,
+					itemCategory : result.itemCategory,
+					itemName : result.itemName,
+					fileName : changeFileName(result.saveFile),
+					},
+				success:function(result){
+					console.log("구입 성공", result);
+				},
+				error :function(result){
+					console.log("insert 실패따리", result);
+				},
+			})
+			
+		}// insertItem
 
-// result에서 가져온 saveFile 파일명 가공하기
-function changeFileName(result){
-	let changeName = result.substring(23, 40);
-	return changeName;
-}
-
-
-// shop에서 사온거 DB에 INSERT문으로 넣기..
-function insertItem(result){
-	$.ajax({
-		url : '/Mingles/insertItem.st',
-		dataType : 'json',
-		method : 'post',
-		data : {
-			itemNo : result.itemNo,
-			itemCategory : result.itemCategory,
-			itemName : result.itemName,
-			fileName : changeFileName(result.saveFile),
-			},
-		success:function(result){
-			console.log(result);
-		},
-		error :function(result){
-			console.log("쓰읍 실패따리", result);
-		},
-	});
-	
-};
-
-// shop에서 사온 아이템들 전체 select하고 값 뿌리기 위해선
-// ArrayList<miniroom-item>같은거 있어야 할듯
-
-
+		
