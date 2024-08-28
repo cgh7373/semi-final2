@@ -11,6 +11,7 @@ public class Reply {
 	private String replyScope;
 	private Date replyCreateDate;
 	private String replyStatus;
+	private String replyDate;
 	
 	public Reply() {}
 
@@ -24,6 +25,27 @@ public class Reply {
 		this.replyScope = replyScope;
 		this.replyCreateDate = replyCreateDate;
 		this.replyStatus = replyStatus;
+	}
+
+	public String getReplyDate() {
+		return replyDate;
+	}
+
+	public void setReplyDate(String replyDate) {
+		this.replyDate = replyDate;
+	}
+
+	public Reply(int replyNo, int replyOwnPost, int replyWriter, String replyContent, String replyScope,
+			Date replyCreateDate, String replyStatus, String replyDate) {
+		super();
+		this.replyNo = replyNo;
+		this.replyOwnPost = replyOwnPost;
+		this.replyWriter = replyWriter;
+		this.replyContent = replyContent;
+		this.replyScope = replyScope;
+		this.replyCreateDate = replyCreateDate;
+		this.replyStatus = replyStatus;
+		this.replyDate = replyDate;
 	}
 
 	public int getReplyNo() {

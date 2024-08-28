@@ -209,7 +209,7 @@ public class PostsDao {
 				r.setReplyWriter(rset.getInt(2));
 				r.setReplyContent(rset.getString(3));
 				r.setReplyScope(rset.getString(4));
-				r.setReplyCreateDate(rset.getDate(5));
+				r.setReplyDate(rset.getString(5));
 				r.setReplyStatus(rset.getString(6));
 				
 				list.add(r);
