@@ -124,7 +124,7 @@ public class ChatDao {
 	}
 		
 	public int insertChat(Connection conn, Chat c){
-		int result = 0;
+		int inChat = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertChat");
 		
@@ -136,12 +136,14 @@ public class ChatDao {
 			pstmt.setInt(3, c.getToNo());
 			pstmt.setString(4, c.getChatContent());
 			
-			result = pstmt.executeUpdate();
+			inChat = pstmt.executeUpdate();
+			
+			System.out.println("여기는 dao : " + inChat);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
-		}return result;
+		}return inChat;
 	}
 	
 		

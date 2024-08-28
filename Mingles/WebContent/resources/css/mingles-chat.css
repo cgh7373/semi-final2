@@ -49,7 +49,7 @@ body {
 /* 채팅 친구리스트 왼쪽 */
 .chat .chat-left {
   position: absolute;
-  place-content: center;
+  place-content: top;
   width: 27%;
   height: 78%;
   top: 20%;

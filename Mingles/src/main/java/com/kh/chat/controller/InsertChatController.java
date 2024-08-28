@@ -1,33 +1,26 @@
 package com.kh.chat.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.chat.model.service.ChatService;
 import com.kh.chat.model.vo.Chat;
-import com.kh.chat.model.vo.Chatting;
-import com.kh.chat.model.vo.Friend;
-import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class ChattingController
+ * Servlet implementation class InsertChatController
  */
-@WebServlet("/chatting.ch")
-public class ChattingController extends HttpServlet {
+@WebServlet("/insert.ch")
+public class InsertChatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChattingController() {
+    public InsertChatController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,13 +29,22 @@ public class ChattingController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String content = request.getParameter("content");
 		int toNo = Integer.parseInt(request.getParameter("toNo"));
 		int fromNo = Integer.parseInt(request.getParameter("fromNo"));
 		
-		ArrayList<Chat> chatList = new ChatService().chatList(toNo, fromNo);
+		Chat c = new Chat();
+		c.setChatContent(content);
+		c.setToNo(toNo);
+		c.setFromNo(fromNo);
 		
-		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(chatList, response.getWriter());
+		int inChat = new ChatService().insertChat(c);
+		System.out.println("controller : " + inChat);
+		
+		response.getWriter().print(inChat);
+		
+		
 	}
 
 	/**

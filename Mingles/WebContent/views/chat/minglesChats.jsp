@@ -91,7 +91,11 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Member m =
             <!-- 대화창 -->
             <div class="chat-right">
               <div class="chatRoom">
-                <img src="./resources/images/해양광선.jpg" alt="" id="back" />
+                <img
+                  src="./resources/images/채팅 초기 배경.webp"
+                  alt=""
+                  id="back"
+                />
                 <canvas id="jsCanvas" class="canvas" name="canvas"></canvas>
               </div>
 
@@ -133,91 +137,110 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Member m =
         </div>
 
         <script>
-        let fromMemprofile = '<%= m.getProfilePic() %>';
-          $(function () {
-            loadChatting();
-            setInterval(loadChatting, 10000);
-          });
+          let fromMemprofile = '<%= m.getProfilePic() %>';
+          let loginNo = <%= m.getMemNo() %>;
 
-          $(".chat-friend").on("click", "li", function () {
-            let toNo = $(this).attr("value");
-            let fromNo = <%= m.getMemNo() %>;
-            console.log(toNo , fromNo);
-            loadChatting(toNo, fromNo);
-          });
+               /* $(function () {
+                 loadChatting();
+                 //setInterval(loadChatting, 10000);
+               }); */
 
-          // 채팅 로딩하는 함수
-          function loadChatting(toNo, fromNo) {
-            $.ajax({
-              url: "chatting.ch",
-              type: "GET",
-              data: { 
-            	  toNo: toNo,
-            	  fromNo:fromNo
-            	  },
-              dataType: "json",
-              success: function (data) {
-                let chatContent = "";
-                $.each(data, function (index, chat) {
-                		console.log(chat)
-                	for(let i=0; i <chat.length; i++){
-                		if(chat[i].chatId === chat[i].toNo){
-                			chatContent +=
-                                "<div class='chatting ch1'>" +
-                                "<div class='icon'><img src='" +
-                                chat[i].toNoprofile +
-                                "' alt='Friend Profile'></div>" +
-                                "<div class='textbox'>" +
-                                chat[i].chatContent +
-                                "</div>" +
-                                "</div>";
-                		}else{
-                			chatContent +=
-                                "<div class='chatting ch2'>" +
-                                "<div class='icon'><img src='" +
-                                fromMemprofile +
-                                "' alt='My Profile'></div>" +
-                                "<div class='textbox'>" +
-                                chat[i].chatContent +
-                                "</div>" +
-                                "</div>";
-                		}
-                	}
-                }),
-                  $(".chatRoom").html("");
-                  $(".chatRoom").html(chatContent);
-              },
-              error: function () {
-                console.log("채팅 조회 실패했지요");
-              },
-            });
-          }
+               $(".chat-friend").on("click", "li", function () {
+                 let toNo = $(this).attr("value");
+                 let fromNo = loginNo;
+                 loadChatting(toNo, fromNo, loginNo);
+               });
 
-          // 메세지 작성하는 함수
-          $("chat_form").on("submit", function (e) {
-            let message = $("#messageInput").val();
-            if (!toNo || !message.trim()) return;
+               // 채팅 로딩하는 함수
+               function loadChatting(toNo, fromNo, loginNo) {
+                 $.ajax({
+                   url: "chatting.ch",
+                   type: "GET",
+                   data: {
+                 	  toNo: toNo,
+                 	  fromNo:fromNo,
+                 	  loginNo:loginNo
+                 	  },
+                   dataType: "json",
+                   success: function (c) {
+               let chatContent = "";
+                     $.each(c, function (index, chat) {
+                     		if(loginNo !== chat.fromNo){
+                     			chatContent +=
+                                     "<div class='chatting ch1'>" +
+                                     "<div class='icon'><img src='" +
+                                     chat.toNoprofile +
+                                     "' alt='Friend Profile'></div>" +
+                                     "<div class='textbox'>" +
+                                     chat.chatContent +
+                                     "</div>" +
+                                     "</div>";
+                     		}else{
+                     			chatContent +=
+                                     "<div class='chatting ch2'>" +
+                                     "<div class='icon'><img src='" +
+                                     fromMemprofile +
+                                     "' alt='My Profile'></div>" +
+                                     "<div class='textbox'>" +
+                                     chat.chatContent +
+                                     "</div>" +
+                                     "</div>";
+                      		}
+                     });
+                       	$(".chatRoom").html(chatContent);
+                 },
+                   error: function () {
+                     console.log("채팅 조회 실패했지요");
+                   },
+                 });
+               }
 
-            $.ajax({
-              ulr: "chattings.ch",
-              daga: {
-                toNo: toNo,
-                inMessage: message,
-              },
-              type: "post",
-              success: function (result) {
-                if (result > 0) {
-                  loadChatting();
-                  $("#messageInput").val("");
-                } else {
-                  console.log("메세지 보내기 실패했지요");
-                }
-              },
-              error: function () {
-                console.log("메세지 보내기 ajax 아예 실패했지롱");
-              },
-            });
-          });
+               // ajax으로 메세지 작성하는 함수
+                /*  $("chat_form").on("submit", function (e) {
+                 let message = $("#messageInput").val();
+                 if (!toNo || !message.trim()) return;
+
+                 $.ajax({
+                   ulr: "insert.ch",
+                   daga: {
+                     toNo: toNo,
+                     inMessage: message,
+                   },
+                   type: "post",
+                   success: function (result) {
+                     if (result > 0) {
+                       loadChatting();
+                       $("#messageInput").val("");
+                     } else {
+                       console.log("메세지 보내기 실패했지요");
+                     }
+                   },
+                   error: function () {
+                     console.log("메세지 보내기 ajax 아예 실패했지롱");
+                   },
+                 });
+               }); */
+               function insertchat(){
+             	  $.ajax({
+             		  url:"insert.ch",
+             		  data:{
+             			  content : $("#messageInput").val(),
+             			  toNo:toNo,
+             			  fromNo:fromNo,
+             			  loginNo:loginNo,
+             		  },
+             		  type:"post",
+             		  success:function(inChat){
+             			  if(inChat > 0){ // 채팅 보내기 성공 => 갱신 리스트 조회
+             				  loadChatting();
+             			  $("#messageInput").val("");
+             			  }
+             		  },
+             		  error:function(){
+             			  console.log("응 채팅 보내는거 실패해띠~");
+             		  },
+             	  })
+               }
         </script>
       </body>
     </html></Friend

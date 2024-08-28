@@ -39,15 +39,15 @@ public class ChatService {
 	public int insertChat(Chat c) {
 		Connection conn = getConnection();
 		
-		int result = new ChatDao().insertChat(conn, c);
+		int inChat = new ChatDao().insertChat(conn, c);
 		
-		if(result>0) {
+		if(inChat>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		close(conn);
-		return result;
+		return inChat;
 	}
 	
 	
