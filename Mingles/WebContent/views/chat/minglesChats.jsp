@@ -1,10 +1,10 @@
 <%@page import="com.kh.chat.model.vo.Friend"%> <%@page
 import="java.util.ArrayList"%> <%@page import="com.kh.chat.model.vo.Chat"%>
 <%@page import="com.kh.member.model.vo.Member"%> <%@ page language="java"
-contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Member m =
-(Member)session.getAttribute("loginUser"); ArrayList<Friend>
-  friend = (ArrayList<Friend
-    >)request.getAttribute("friend"); %>
+contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<% Member m = (Member)session.getAttribute("loginUser"); 
+ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend"); 
+%>
 
     <!DOCTYPE html>
     <html lang="en">
@@ -95,42 +95,44 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Member m =
                   src="./resources/images/채팅 초기 배경.webp"
                   alt=""
                   id="back"
+                  style="width: 100%; height: 100%"
                 />
                 <canvas id="jsCanvas" class="canvas" name="canvas"></canvas>
               </div>
 
               <!-- send부분 -->
-              <form
-                action="minglesChats.jsp"
-                id="chat_form"
+              <div
+                id="chat-form"
                 class="chat-form"
                 enctype="multipart/form-data"
               >
-                <div class="inputContainer">
-                  <input
-                    type="text"
-                    id="messageInput"
-                    name="inMessage"
-                    placeholder="메세지를 입력하세요 :)"
-                  />
-                  <label for="input-file">
-                    <div class="material-icons">attach_file</div>
-                  </label>
-                  <input
-                    type="file"
-                    id="input-file"
-                    name="originFileNo"
-                    style="display: none"
-                    accept="image/*"
-                  />
-                  <span class="material-icons draw">draw</span>
-                  <button type="submit" class="send_btn" id="subBtn">
-                    send
-                    <div class="hoverEffect">
-                      <div><!-- 이펙트공간 --></div>
-                    </div>
-                  </button>
-                </div>
+              <div class="inputContainer">
+                <input
+                  type="text"
+                  id="messageInput"
+                  name="inMessage"
+                  placeholder="메세지를 입력하세요 :)"
+                />
+                <label for="input-file">
+                  <div class="material-icons">attach_file</div>
+                </label>
+                <input
+                  type="file"
+                  id="input-file"
+                  name="originFileNo"
+                  style="display: none"
+                  accept="image/*"
+                />
+                
+                <span class="material-icons draw">draw</span>
+                <button class="send_btn" id="subBtn" onclick="insertchat(<%= m.getMemNo() %>)">
+                  send
+                  <div class="hoverEffect">
+                    <div><!-- 이펙트공간 --></div>
+                  </div>
+                </button>
+                
+              </div>
               </form>
             </div>
           </section>
@@ -139,18 +141,23 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Member m =
         <script>
           let fromMemprofile = '<%= m.getProfilePic() %>';
           let loginNo = <%= m.getMemNo() %>;
-
-               /* $(function () {
-                 loadChatting();
-                 //setInterval(loadChatting, 10000);
-               }); */
+          let toNo;
+          let fromNo;
+          
+               $(() => {
+                 setInterval(test, 3000);
+               });
+               
 
                $(".chat-friend").on("click", "li", function () {
-                 let toNo = $(this).attr("value");
-                 let fromNo = loginNo;
-                 loadChatting(toNo, fromNo, loginNo);
+                 toNo = $(this).attr("value");
+                 fromNo = loginNo;
+                 loadChatting(toNo, fromNo, loginNo); 
                });
 
+               function test() {
+            	   loadChatting(toNo, fromNo, loginNo);
+               }
                // 채팅 로딩하는 함수
                function loadChatting(toNo, fromNo, loginNo) {
                  $.ajax({
@@ -163,8 +170,9 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Member m =
                  	  },
                    dataType: "json",
                    success: function (c) {
-               let chatContent = "";
+               	   let chatContent = "";
                      $.each(c, function (index, chat) {
+                    	 
                      		if(loginNo !== chat.fromNo){
                      			chatContent +=
                                      "<div class='chatting ch1'>" +
@@ -188,6 +196,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Member m =
                       		}
                      });
                        	$(".chatRoom").html(chatContent);
+                       	
                  },
                    error: function () {
                      console.log("채팅 조회 실패했지요");
@@ -196,31 +205,9 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Member m =
                }
 
                // ajax으로 메세지 작성하는 함수
-                /*  $("chat_form").on("submit", function (e) {
-                 let message = $("#messageInput").val();
-                 if (!toNo || !message.trim()) return;
-
-                 $.ajax({
-                   ulr: "insert.ch",
-                   daga: {
-                     toNo: toNo,
-                     inMessage: message,
-                   },
-                   type: "post",
-                   success: function (result) {
-                     if (result > 0) {
-                       loadChatting();
-                       $("#messageInput").val("");
-                     } else {
-                       console.log("메세지 보내기 실패했지요");
-                     }
-                   },
-                   error: function () {
-                     console.log("메세지 보내기 ajax 아예 실패했지롱");
-                   },
-                 });
-               }); */
-               function insertchat(){
+               function insertchat(fromNo){
+            	  
+            	  
              	  $.ajax({
              		  url:"insert.ch",
              		  data:{
@@ -231,8 +218,9 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Member m =
              		  },
              		  type:"post",
              		  success:function(inChat){
+             			  console.log(toNo, fromNo, loginNo)
              			  if(inChat > 0){ // 채팅 보내기 성공 => 갱신 리스트 조회
-             				  loadChatting();
+             			  loadChatting(toNo, fromNo, loginNo);
              			  $("#messageInput").val("");
              			  }
              		  },

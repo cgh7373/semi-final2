@@ -40,7 +40,6 @@ public class InsertChatController extends HttpServlet {
 		c.setFromNo(fromNo);
 		
 		int inChat = new ChatService().insertChat(c);
-		System.out.println("controller : " + inChat);
 		
 		response.getWriter().print(inChat);
 		

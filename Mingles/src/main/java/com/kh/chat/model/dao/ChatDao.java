@@ -138,7 +138,6 @@ public class ChatDao {
 			
 			inChat = pstmt.executeUpdate();
 			
-			System.out.println("여기는 dao : " + inChat);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

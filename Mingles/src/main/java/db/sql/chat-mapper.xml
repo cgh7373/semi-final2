@@ -13,6 +13,7 @@
 		  JOIN MEMBER ON (RECEIVER_NO = MEM_NO)
 		 WHERE SENDER_NO = ?
 		   AND REQUEST_STATUS = 'A'
+		   AND FRIEND_LEVEL != 'F'
 		UNION
 		SELECT 
 		       SENDER_NO
@@ -24,6 +25,7 @@
 		  JOIN MEMBER ON (SENDER_NO = MEM_NO)
 		 WHERE RECEIVER_NO = ?
 		   AND REQUEST_STATUS = 'A'
+		   AND FRIEND_LEVEL != 'F'
 	</entry>
 	
 	<entry key="toMember">
