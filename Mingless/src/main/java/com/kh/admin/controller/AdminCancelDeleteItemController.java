@@ -1,8 +1,6 @@
 package com.kh.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.admin.model.service.AdminService;
-import com.kh.admin.model.vo.Chat;
 
 /**
- * Servlet implementation class AdminChatController
+ * Servlet implementation class AdminCancelDeleteItemController
  */
-@WebServlet("/adminChat.am")
-public class AdminChatController extends HttpServlet {
+@WebServlet("/cancleDeleteItem.am")
+public class AdminCancelDeleteItemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminChatController() {
+    public AdminCancelDeleteItemController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,11 +28,17 @@ public class AdminChatController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String memId = request.getParameter("memId");
+		int itemNo = Integer.parseInt(request.getParameter("itemNo"));
+		String itemCategory = request.getParameter("itemCategory");
+		int result = new AdminService().cancelDeleteItem(itemNo, itemCategory);
 		
-		ArrayList<Chat> chatList = new AdminService().selectChatList(memId); 
-		
-				
+		if(result > 0) {
+			request.getSession().setAttribute("alertMsg", "상품이 재등록 되었습니다!");
+			response.sendRedirect(request.getContextPath() + "/store.am");
+		}else {
+			request.getSession().setAttribute("errorMsg", "상품 재등록에 실패했습니다");
+			response.sendRedirect(request.getContextPath() + "/store.am");
+		}
 	}
 
 	/**

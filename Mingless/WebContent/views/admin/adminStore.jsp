@@ -214,7 +214,8 @@
 									for(let i=0;i<a.length; i++){
                                         let itemTags = (a[i].itemTag || '').replaceAll(',', ' ');
                                         let itemNo = a[i].itemNo;
-                                        let originFileName = a[i].changeName
+                                        let originFileName = a[i].changeName;
+                                        let itemStatus = a[i].itemStatus;
                                             value += `
 											<div class="card itemCard" style="width:200px; height: auto; margin-left: 20px; margin-bottom: 20px">
                                                 <img class="card-img-top" src=".\${a[i].saveFile}" alt="item image1" style="width:100%">
@@ -230,7 +231,9 @@
                                                         상품관리
                                                     </button>
                                                     <div class="dropdown-menu ">
-                                                        <button class="dropdown-item" id="deleteItem" name="\${itemNo}" onclick="deleteItem(this);">상품삭제</button>
+                                                    \${itemStatus === 'Y' ? 
+                                                        `<button class="dropdown-item" id="deleteItem" name="\${itemNo}" onclick="deleteItem(this);">상품삭제</button>`
+                                                       : `<button class="dropdown-item" id="deleteItem" name="\${itemNo}" onclick="cancelDeleteItem(this);">상품재등록</button>`}
                                                         <button class="dropdown-item" id="resetItem" name="\${itemNo}" onclick="updatePrice(this);">가격설정</button>
                                                         <button class="dropdown-item" id="settingPhoto" name="\${itemNo}, \${originFileName}" onclick="changePicture(this);">상품사진변경</button>
                                                     </div>
@@ -250,8 +253,68 @@
 						
                         // 상품 삭제
                         function deleteItem(el){
-
-                            location.href = "deleteItem.am?itemNo=" + el.name;						
+							let itemNo = el.name;
+                        	Swal.fire({
+                        		title: "상품을 삭제 하시겠습니까?",
+                        		showCancelButton: true,
+                        		confirmButtonText: "삭제",
+                        		cancelButtonText: "취소",
+                        	}).then((result)=>{
+                        		if(result.isConfirmed){
+                            		location.href = "deleteItem.am?itemNo=" + itemNo;						
+                        		}else if(result.isDismissed){
+                        			return;
+                        		}
+                        	})
+                        }
+                        
+                        // 상품 재등록
+                        function cancelDeleteItem(el){
+                        	let itemNo = el.name;
+                        	function showAlert(){                        
+	                        	Swal.fire({
+	                        		title: "상품을 재등록 하시겠습니까?",
+	                        		showCancelButton: true,
+	                        		confirmButtonText: "재등록",
+	                        		cancelButtonText: "취소",
+	                        		input: "select",
+	                        		inputOptions:{
+	                        			'IC1': '홈피꾸미기',
+	                        			'IC2': '내방꾸미기',
+	                        			'IC3': '아바타꾸미기',
+	                        			'IC4': '아이템광장',
+	                        			'IC5': '벽지꾸미기',
+	                        			'IC6': '바닥꾸미기',
+	                        			'IC7': '테마꾸미기',
+	                        			'IC8': '헤어꾸미기',
+	                        			'IC9': '표정꾸미기',
+	                        			'IC10': '상의꾸미기',
+	                        			'IC11': '하의꾸미기',
+	                        			'IC12': '신발꾸미기',
+	                        		},
+	                        		inputPlaceholder: '변경할 아이템 카테고리를 선택해주세요',
+	                        		customClass:{
+	                        			input: 'btn',
+	                        			option: 'btn'
+	                        		}
+	                        	}).then((result) => {                        		
+	                        		if(result.isConfirmed){
+	                        			
+		                        		let itemCategory = result.value; 
+	                        			if(itemCategory){
+		                        			location.href = "cancleDeleteItem.am?itemNo=" + itemNo + "&itemCategory=" + itemCategory;                    				
+	                        			}else{
+	                        				Swal.fire("카테고리를 입력해주세요!", "", "warning").then(()=>{
+		                        				showAlert();	                        					
+	                        				});
+	                        			}
+	                        		}else if(result.isDismissed){
+	                        			return;
+	                        		}
+	                        	})
+                        	}
+                        	
+                        	showAlert();
                         }
 
                         // 상품 가격 설정
@@ -264,7 +327,8 @@
                                     autocapitalize: "off"
                                 },
                                 showCancelButton: true,
-                                confirmButtonText: "확인",  
+                                confirmButtonText: "확인",
+                                cancelButtonText: "취소",
                             }).then((result) => {
                                 if(result.isConfirmed){
                                     let price = result.value;

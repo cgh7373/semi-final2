@@ -14,6 +14,7 @@ import java.util.Properties;
 
 import com.kh.admin.model.vo.Attachment;
 import com.kh.admin.model.vo.Blacklist;
+import com.kh.admin.model.vo.Chat;
 import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
 import com.kh.admin.model.vo.Notice;
@@ -188,9 +189,15 @@ public class AdminDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("choiceCategory");
+		String sql2 = prop.getProperty("choiceCategoryDeleted");
+		
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			if(ic.equals("삭제아이템")) {
+				pstmt = conn.prepareStatement(sql2);
+			}else {
+				pstmt = conn.prepareStatement(sql);
+			}
 			pstmt.setString(1, ic);
 			
 			rset = pstmt.executeQuery();
@@ -567,7 +574,7 @@ public class AdminDao {
 						   		   , rset.getString("post_content")
 						   		   , rset.getString("post_tag")
 						   		   , rset.getString("post_scope")
-						   		   , rset.getString("nickname")
+						   		   , rset.getString("mem_id")
 						   		   , rset.getInt("post_count")
 						   		   , rset.getString("post_regdate")
 						   		   , rset.getString("post_attachment")
@@ -809,7 +816,7 @@ public class AdminDao {
 						   		   , rset.getString("post_content")
 						   		   , rset.getString("post_tag")
 						   		   , rset.getString("post_scope")
-						   		   , rset.getString("nickname")
+						   		   , rset.getString("mem_id")
 						   		   , rset.getInt("post_count")
 						   		   , rset.getString("post_regdate")
 						   		   , rset.getString("post_attachment")
@@ -839,7 +846,7 @@ public class AdminDao {
 				   		   , rset.getString("post_content")
 				   		   , rset.getString("post_tag")
 				   		   , rset.getString("post_scope")
-				   		   , rset.getString("nickname")
+				   		   , rset.getString("mem_id")
 				   		   , rset.getInt("post_count")
 				   		   , rset.getString("post_regdate")
 				   		   , rset.getString("post_status")
@@ -853,6 +860,48 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return p;
+	}
+
+	public int cancelDeleteItem(Connection conn, int itemNo, String itemCategory) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("cancelDeleteItem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, itemCategory);
+			pstmt.setInt(2, itemNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public ArrayList<Chat> selectChatList(Connection conn, String memId) {
+		ArrayList<Chat> chatList = new ArrayList<Chat>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectChatList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memId);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				chatList.add(new Chat());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return chatList;
 	}
 
 	

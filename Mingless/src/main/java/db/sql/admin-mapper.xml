@@ -77,6 +77,25 @@
 		    BY ITEM_NUM DESC
 	</entry>
 	
+	<entry key="choiceCategoryDeleted">
+		SELECT ITEM_NUM
+		     , CATEGORYNAME
+		     , ITEM_NAME
+		     , PRICE
+		     , ITEM_INTRO
+		     , ITEM_DATE
+		     , ITEM_STATUS
+		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
+		     , ITEM_TAG
+		  FROM ITEM I
+		  JOIN ITEMCATEGORY IC USING(ITEM_CATEGORY)
+          JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
+		 WHERE ITEM_STATUS = 'N'
+		   AND IC.CATEGORYNAME = ?
+		 ORDER
+		    BY ITEM_NUM DESC
+	</entry>
+	
 	<entry key="insertItemImg">
 		INSERT 
 		  INTO ATTACHMENT 
@@ -192,7 +211,15 @@
 	
 	<entry key="deleteItem">
 		UPDATE ITEM
-		   SET ITEM_STATUS = 'N'
+		   SET ITEM_STATUS = 'N',
+		   	   ITEM_CATEGORY = 'IC13'
+		 WHERE ITEM_NUM = ?
+	</entry>
+	
+	<entry key="cancelDeleteItem">
+		UPDATE ITEM
+		   SET ITEM_STATUS = 'Y',
+		   	   ITEM_CATEGORY = ?
 		 WHERE ITEM_NUM = ?
 	</entry>
 	
@@ -254,7 +281,7 @@
 		     , POST_CONTENT
 		     , POST_TAG
 		     , POST_SCOPE
-		     , NICKNAME
+		     , MEM_ID
 		     , POST_COUNT
 		     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS POST_REGDATE
 		     , FILE_PATH || CHANGE_NAME AS POST_ATTACHMENT
@@ -367,7 +394,7 @@
 		     , POST_CONTENT
 		     , POST_TAG
 		     , POST_SCOPE
-		     , NICKNAME
+		     , MEM_ID
 		     , POST_COUNT
 		     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS POST_REGDATE
 		     , FILE_PATH || CHANGE_NAME AS POST_ATTACHMENT
@@ -389,7 +416,7 @@
 		     , POST_CONTENT
 		     , POST_TAG
 		     , POST_SCOPE
-		     , NICKNAME
+		     , MEM_ID
 		     , POST_COUNT
 		     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS "POST_REGDATE"
 		     , POST_STATUS

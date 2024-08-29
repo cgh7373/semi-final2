@@ -65,6 +65,7 @@
                 icon: "success",
                 text: '<%=alertMsg%>',
                 showConfirmButton: false,
+                timer: 1500,
             });
         <% session.removeAttribute("alertMsg"); %>
         <% } %>
@@ -74,6 +75,7 @@
 	            icon: 'error',
 	            text: '<%=errorMsg%>',
 	            showConfirmButton: false,
+	            timer: 1500,
             });
         <% session.removeAttribute("errorMsg"); %>
         <% } %>

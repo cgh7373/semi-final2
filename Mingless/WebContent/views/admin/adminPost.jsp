@@ -174,7 +174,7 @@
                                 const title = titleElement ? titleElement.textContent.trim() : '';
                                 const content = contents.join('\n'); // 배열의 요소들을 줄바꿈으로 구분하여 하나의 문자열로 만듭니다.
                                 const img = imgElement ? imgElement.src : '';
-								                                
+
 								const urls = "<%=contextPath %>";
 								// 공지사항 등록 ajax 
                                 $.ajax({
@@ -210,6 +210,7 @@
                             
 						})
                         
+						// 게시글 카테고리별 조회
 						function choicePT(el) {
                             var loginUserNickname = '${loginUser.getNickname()}';
                         
@@ -239,10 +240,9 @@
 						function generatePostCard(post, loginUserNickname) {
                             const { postAttachment, postTitle, postBlock, postCount, postContent, postTag, postNum, postWriter, postType } = post;
                             const isUserPost = postType === 1;
-                        
                             const modalId = isUserPost ? 'userPostDetailModal' : 'postDetailModal';
                             const clickHandler = isUserPost ? `userPostDetail(event, \${postNum})` : `postDetail(event, \${postNum})`;
-                        
+                            console.log(postTag);
                             return `
                                 <div class="card postCard" data-toggle="modal" data-target="#\${modalId}" onclick="\${clickHandler}">
                                     <img class="card-img-top" src=".\${postAttachment}" alt="post image1" style="width:100%">
@@ -255,9 +255,9 @@
                                             `<i class="fas fa-solid fa-lock" style="color: gray"></i>`
                                         }
                                         <p class="card-text">\${postContent}</p>
-                                        \${postTag === null ? 
+                                        \${!postTag  ? 
                                             `<p class="postTag">#태그없음</p>` :
-                                            `<p class="postTag">\${postTag}</p>`
+                                            `<p class="postTag">\${postTag.replaceAll(',', ' ')}</p>`
                                         }
                                         <button class="dropdown-menu btn-primary" id="postSetting" onclick="event.stopPropagation();">게시글관리</button>
                                         <div class="dropdown">
@@ -267,8 +267,8 @@
                                             <div class="dropdown-menu">
                                                 <button class="dropdown-item" id="deletePost" onclick="event.stopPropagation(); deletePost(\${postNum});">게시글삭제</button>
                                                 \${postBlock === "N" ? 
-                                                	`<button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(\${postNum});">블락설정</button>`:
-                                                	`<button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); cancleBlock(\${postNum});">블락해제</button>`
+                                                    `<button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(\${postNum});">블락설정</button>`:
+                                                    `<button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); cancleBlock(\${postNum});">블락해제</button>`
                                                 }
                                                 \${loginUserNickname === postWriter ? 
                                                     `` :
@@ -307,7 +307,7 @@
                                     <%if(p.getPostTag() == null) {%>
                                         <p class="postTag">#태그없음</p>
                                     <%}else{ %>
-                                        <p class="postTag"><%=p.getPostTag() %></p>
+                                        <p class="postTag"><%=p.getPostTag().replaceAll("[,]", " ") %></p>
                                     <%} %>
                                     <button class="dropdown-menu btn-primary" id="postSetting" onclick="event.stopPropagation();">게시글관리</button>
                                     <div class="dropdown">
@@ -317,13 +317,14 @@
                                         <div class="dropdown-menu">
                                             <button class="dropdown-item" id="deletePost" onclick="event.stopPropagation(); deletePost(<%=p.getPostNum() %>); ">게시글삭제</button>
                                             <%if(p.getPostBlock().equals("N")){ %>
-                                            	<button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(<%=p.getPostNum() %>); ">블락설정</button>
+                                                <button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); updateBlock(<%=p.getPostNum() %>); ">블락설정</button>
                                             <%}else{ %>
-                                            	<button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); cancleBlock(<%=p.getPostNum() %>); ">블락해제</button>
+                                                <button class="dropdown-item" id="blockPost" onclick="event.stopPropagation(); cancleBlock(<%=p.getPostNum() %>); ">블락해제</button>
                                             <%} %>
-                                            <%if(loginUser.getNickname().equals(p.getPostWriter())){ %>
+                                            <%if(loginUser.getMemId().equals(p.getPostWriter())){ %>
+                                                <!-- 아이디가 같으면 메세지보내기 안뜸 -->
                                             <%}else{ %>
-                                                <button class="dropdown-item" id="sendMessage" name="<%=p.getPostWriter()%>"onclick="event.stopPropagation(); sendMessage(this);">메세지보내기</button>
+                                                <button class="dropdown-item" id="sendMessage" name="<%=p.getPostWriter()%>" data-toggle="modal" data-target="#admin-chat" onclick="event.stopPropagation(); sendMessage(this);">메세지보내기</button>
                                             <%} %>
                                         </div>
                                     </div>
@@ -361,23 +362,67 @@
                                 </button>
                             </div>
                             <div class="modal-body" id="userPostDetailContent">
-                                <div id="post-header">
-                                    <h2 id="post-title">제목</h2>
-                                    <h5 id="post-tags">태그자리</h5>
-                                </div>
-                                <div id="post-enroll">
-                                    <h5>글쓴이</h5>
-                                    <h5>날짜자리</h5>
-                                </div>
-                                <hr>
-                                <div class="post-content" align="center">
-                                    <img id="post-img" src="./resources/post_upfiles/2024082612101434602.gif" alt="">
-                                    <div id="post-text" align="start">내용자리</div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                <!-- 관리자 채팅 modal -->
+				<div class="modal fade" id="admin-chat" tabindex="0" role="dialog" aria-labelledby="adminChatModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" id="admin-chat-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="adminChatModalLabel">관리자 채팅</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body" id="admin-chat-body">
+								<!-- 메시지 받는 대상 리스트 -->
+                                <div class="contact-list" id="contact-list">
+                                    <div class="contact-item" onclick="selectContact('user1')">작성자</div>
+                                </div>
+                                <!-- 채팅 리스트 및 입력 -->
+                                <div class="chat-container">
+                                    <div class="chat-list" id="chat-list">
+                                        <!-- 채팅 내역 없으면  -->
+                                        <div class="chat-item">대화내용이없습니다</div>
+
+                                        <div class="message-container">
+                                            <h6 class="time">10:00 AM</h6>
+                                            <div class="chat-item sent">보낸 내용</div>
+                                        </div>
+                                        <div class="message-container">
+                                            <div class="chat-item received">받은 내용~~~~~~~~~~</div>
+                                            <h6 class="time">10:01 AM</h6>
+                                        </div>
+                                        <div class="message-container">
+                                            <h6 class="time">10:02 AM</h6>
+                                            <div class="chat-item sent">보낸 내용</div>
+                                        </div>
+                                        <div class="message-container">
+                                            <div class="chat-item received">받은 내용~~~~~~~~~~</div>
+                                            <h6 class="time">10:03 AM</h6>
+                                        </div>
+                                        <div class="message-container">
+                                            <h6 class="time">10:04 AM</h6>
+                                            <div class="chat-item sent">보낸 내용</div>
+                                        </div>
+                                        <div class="message-container">
+                                            <div class="chat-item received">받은 내용~~~~~~~~~~</div>
+                                            <h6 class="time">10:05 AM</h6>
+                                        </div>
+                                    </div>
+                                    <div class="chat-input">
+                                        <input type="text" id="chat-message" placeholder="메시지를 입력하세요..." class="form-control">
+                                        <button type="button" class="btn btn-primary mt-2" id="send-message">전송</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+				</div>
 
                 <script defer>
                     function postDetail(event, no){
@@ -432,12 +477,12 @@
                                 
                                 value += `
                                     <div id="post-header">
-                                    <h2 id="post-title">\${e.postTitle}</h2>
-                                    <h5 id="post-tags">\${e.postTag}</h5>
+                                    <h2 id="post-title">제목 : \${e.postTitle}</h2>
+                                    <h5 id="post-tags">태그 : \${e.postTag}</h5>
                                 </div>
                                 <div id="post-enroll">
-                                    <h5>\${e.postWriter}</h5>
-                                    <h5>\${e.postRegdate}</h5>
+                                    <h5>작성자(ID) : \${e.postWriter}</h5>
+                                    <h5>작성일 : \${e.postRegdate}</h5>
                                 </div>
                                 <hr>
                                 <div class="post-content" align="center">
@@ -470,21 +515,54 @@
                     }
                     // 블락 해제
                     function cancleBlock(no){
-                    	location.href = "cancleBlock.am?postNo=" + no;
+                        location.href = "cancleBlock.am?postNo=" + no;
                     }
                     
-                    
+                    // 채팅 로드 하는 함수
                     function sendMessage(el){
-                    	console.log(el.name);
-                    	location.href = "adminChat.am?userNickname=" + el.name;
+                        let memId = el.name;
+
+                        $('#admin-chat').modal('show');
+                        $.ajax({
+                            url:"adminChat.am",
+                            data:{
+                                memId: memId,
+                            },
+                            success:()=>{
+                                console.log("loadChat success");
+                            },
+                            error: () =>{
+                                console.log("loadChat faild");
+                            },
+                        });
+                    	//location.href = "adminChat.am?memId=" + el.name;
+                        prepareScroll();
+                    }
+
+	                    // 채팅창 스크롤 항상 아래로
+                        function prepareScroll() {
+                            
+                            window.setTimeout(scrollList, 500);
+                        }
+						
+				
+
+                    // scroll 함수
+                    function scrollList() {
+                        // 채팅창 form 안의 채팅 요소
+                        let chatList = document.querySelector('.chat-list');
+                        chatList.scrollTop = chatList.scrollHeight; // 스크롤의 위치를 최하단으로
                     }
 
                 </script>
 
             </div>
         </div>
-    </div>
 
+    </div>
+	
+	
+	
     <!-- 스크롤 버튼 위로 -->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>

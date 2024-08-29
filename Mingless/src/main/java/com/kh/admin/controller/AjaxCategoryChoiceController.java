@@ -34,7 +34,7 @@ public class AjaxCategoryChoiceController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String ic = request.getParameter("category");
 		ArrayList<Item> itemList = new AdminService().choiceCategory(ic);
-		
+
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(itemList, response.getWriter());
 	}

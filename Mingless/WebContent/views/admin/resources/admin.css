@@ -965,3 +965,128 @@ div:where(.swal2-icon) {
   cursor: default;
   user-select: none;
 }
+
+/* 상품 재등록 SELECT */
+.swal2-select option{
+  border-radius: 10px;
+  border: #a9b7c5;
+  outline: none;
+}
+
+/* 관리자 채팅 */
+#admin-chat-body {
+  display: flex;
+  height: 400px; /* 모달의 높이 설정 */
+}
+.contact-list {
+  flex: 0 0 30%;
+  border-right: 1px solid #ddd;
+  padding: 10px;
+  overflow-y: auto;
+}
+.chat-container {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+}
+.chat-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  background-color: #ccc;
+  scroll-behavior: smooth;
+}
+.chat-input {
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.chat-input #chat-message{
+  width: 80%;
+  display: inline-block;
+}
+
+.chat-input #send-message{
+  margin-top: .2rem !important;
+}
+
+.contact-item, .chat-item {
+  margin-bottom: 10px;
+}
+.contact-item {
+  cursor: pointer;
+}
+.chat-item {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  position: relative;
+  margin-bottom: 10px;
+  clear: both;
+}
+.chat-item.sent {
+  align-self: flex-end;
+  background-color: #dcf8c6;
+  text-align: right;
+  margin-left: auto;
+}
+.chat-item.received {
+  align-self: flex-start;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+.chat-item.sent::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #dcf8c6 transparent transparent transparent;
+}
+.chat-item.received::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+}
+.message-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  /* gap: 10px; */
+}
+.message-container .time {
+  font-size: 0.8rem;
+  color: #888;
+  margin: 0 10px;
+  white-space: nowrap;
+}
+.message-container .chat-item {
+  max-width: calc(100% - 70px); /* 시간을 위한 공간을 고려하여 메시지 폭 조정 */
+  position: relative;
+}
+
+#chat-list::-webkit-scrollbar {
+  width: 5px;  /* 세로축 스크롤바 폭 너비 */
+  height: 20px;  /* 가로축 스크롤바 폭 너비 */
+}
+
+
+#chat-list::-webkit-scrollbar-thumb {
+  background: #dcf8c6; /* 스크롤바 막대 색상 */
+  border: 2px solid #d5fcb7; /* 스크롤바 막대 테두리 설정  */
+  border-radius: 12px 12px 12px 12px;
+}
+
+#chat-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}

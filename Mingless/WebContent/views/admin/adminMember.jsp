@@ -107,49 +107,29 @@
                                                 $("#memberTableCard").html(value1)
                                             }else{ // 검색된 결과 있을 때 
                                                 let value2 = "";
-                                                $("#memberTableCard").html("");
+                                                $("#memberCardBody").html("");
                                                 $("#card-table-member .card-footer").html("");
                                                 for(let u=0; u<a.length; u++){
                                                     let isChecked = a[u].status === 'B' ? 'checked' : '';
                                                     value2 += `
-                                                    <div class="table-responsive">
-                                                        <table class="table table-bordered" id="memberTable" width="100%" cellspacing="0">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>회원번호</th>
-                                                                    <th>아이디</th>
-                                                                    <th>닉네임</th>
-                                                                    <th>생일</th>
-                                                                    <th>이메일</th>
-                                                                    <th>성별</th>
-                                                                    <th>회원가입일</th>
-                                                                    <th>보유거북알</th>
-                                                                    <th>블랙리스트</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                    <tr>
-                                                                        <td>\${a[u].memNo}</td>
-                                                                        <td>\${a[u].memId}</td>
-                                                                        <td>\${a[u].nickname}</td>
-                                                                        <td>\${a[u].birthdate}</td>
-                                                                        <td>\${a[u].email}</td>
-                                                                        <td>\${a[u].gender}</td>
-                                                                        <td>\${a[u].enrollDate}</td>
-                                                                        <td>\${a[u].egg}</td>    
-                                                                        <td align="center">
-                                                                            <div class="custom-control custom-switch">
-                                                                                <input type="checkbox" class="custom-control-input" id="switch\${a[i].memNo}" value="\${a[i].memNo}" onchange="insertBlack(this);" \${isChecked}>
-                                                                                <label class="custom-control-label" for="switch\${a[i].memNo}"></label>
-                                                                            </div>
-                                                                        </td>    
-                                                                    </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    `;  
+                                                    <tr>
+                                                        <td>\${a[u].memNo}</td>
+                                                        <td>\${a[u].memId}</td>
+                                                        <td>\${a[u].nickname}</td>
+                                                        <td>\${a[u].birthdate}</td>
+                                                        <td>\${a[u].email}</td>
+                                                        <td>\${a[u].gender}</td>
+                                                        <td>\${a[u].enrollDate}</td>
+                                                        <td>\${a[u].egg}</td>    
+                                                        <td align="center">
+                                                        	<div class="custom-control custom-switch">
+                                                        		<input type="checkbox" class="custom-control-input" id="switch\${a[i].memNo}" value="\${a[i].memNo}" onchange="insertBlack(this);" \${isChecked}>
+                                                            	<label class="custom-control-label" for="switch\${a[i].memNo}"></label>
+                                                        	</div>
+                                                        </td>    
+                                                    </tr>`;  
                                                 }
-                                                $("#memberTableCard").html(value2);
+                                                $("#memberCardBody").html(value2);
                                             }
                                         },
                                         error:function(){
@@ -186,7 +166,7 @@
                                                     <th>블랙리스트</th>
                                                 </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id='memberCardBody'>
                                             <%if(memList.isEmpty()) {%>
                                                 <tr>
                                                     <td colspan="9">조회된 회원이 없습니다</td>

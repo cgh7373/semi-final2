@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.kh.admin.model.dao.AdminDao;
 import com.kh.admin.model.vo.Attachment;
 import com.kh.admin.model.vo.Blacklist;
+import com.kh.admin.model.vo.Chat;
 import com.kh.admin.model.vo.Item;
 import com.kh.admin.model.vo.ItemCategory;
 import com.kh.admin.model.vo.Notice;
@@ -344,6 +345,29 @@ public class AdminService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int cancelDeleteItem(int itemNo, String itemCategory) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().cancelDeleteItem(conn, itemNo, itemCategory);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public ArrayList<Chat> selectChatList(String memId) {
+		Connection conn = getConnection();
+		
+		ArrayList<Chat> chatList = new AdminDao().selectChatList(conn, memId);
+		return chatList;
 	}
 
 	
