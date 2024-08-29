@@ -117,6 +117,22 @@
 			     , ?
 			     )
 	</entry>
+	
+	<entry key="selectFavoritePosts">
+			SELECT POST_NUM
+			     , POST_TITLE
+			  FROM 
+			     ( 
+			     	SELECT POST_TITLE
+			  			 , POST_NUM
+			  			 , POST_WRITER
+			          FROM POST
+			         ORDER
+			            BY POST_COUNT DESC
+			     )   
+			 WHERE POST_WRITER = ?
+			   AND ROWNUM <![CDATA[<]]> 4
+	</entry>
 
 
 </properties>

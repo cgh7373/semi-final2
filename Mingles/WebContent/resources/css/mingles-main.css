@@ -860,6 +860,11 @@ body {
   z-index: 1 !important;
 }
 
-#calendarModal {}
+#calendarModal {
+  position: fixed;
+  z-index: 100 !important;
+}
 
-#bulletinModal {}
+#bulletinModal {
+  z-index: 101 !important;
+}

@@ -343,7 +343,7 @@
 
                                 <!-- 오른쪽 화면 - 미니홈피 -->
                                 <div class="minihompi">
-                                    <%@ include file="../style/minglesStyle2.jsp" %>
+                                   <jsp:include page="../style/minglesStyle2.jsp"/>
                                 </div><!-- 미니홈피 div 끝 -->
 
                                 <!-- 꾸미기 버튼 -->

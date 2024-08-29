@@ -1,3 +1,5 @@
+<%@page import="com.kh.posts.model.vo.Post"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.member.model.vo.Member" %>
     <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         <% Member m=(Member)session.getAttribute("loginUser"); String contextPath=request.getContextPath(); String
@@ -47,6 +49,8 @@
                         <% } %>
 
                             renderPostsList();
+                        	renderFavoritePosts();
+                        
 
                     });
                 </script>
@@ -84,9 +88,9 @@
                                     <div class="post-box" id="popular">
                                         <div class="sub-title">인기글</div>
                                         <ul>
-                                            <li>뽀ㄷH 퀸ㅋr만 눌러</li>
-                                            <li>학생○lㄹΓ는 죄로..</li>
-                                            <li>친구ㄱг무엇을뜻ㅎг는줄○гㄴı¿ </li>
+	                                        <li>ㅂıㄹr는 ㄱł..참 ㅅĿブıㅎŀスl?</li>
+	                                        <li>ㅂıㄹr는 ㄱł..참 ㅅĿブıㅎŀスl?</li>
+	                                        <li>ㅂıㄹr는 ㄱł..참 ㅅĿブıㅎŀスl?</li>
                                         </ul>
                                     </div>
                                     <div class="post-box" id="recent">
@@ -556,6 +560,61 @@
                             })
 
                         }
+                        
+                        function renderFavoritePosts() {
+                        	
+                        	let value = "";
+                        	
+                        	$.ajax({
+                        		url : "/Mingles/favPosts.mi",
+                        		data : {
+                        			owner : <%=m.getMemNo()%>,
+                        		},
+                        		success : (result) => {
+                        			
+                        			for (let i in result) {
+                        				
+                        				result[i].postTitle = result[i].postTitle ?? "제목 없음"
+                        						
+                        				value += "<li>" + result[i].postTitle+ "<span data-favpno=" + result[i].postNum + "></span></li>"
+                        				// 저 게시번호로 게시글날아가기
+                        			}
+                        			
+                        			$("#popular ul").html(value);
+                        		}
+                        		
+                        	})
+                        	
+                        };
+                        
+                        function renderRecentReplied() {
+                        	
+							let value = "";
+                        	
+                        	$.ajax({
+                        		url : "/Mingles/recentReplied.mi",
+                        		data : {
+                        			owner : <%=m.getMemNo()%>,
+                        		},
+                        		success : (result) => {
+                        			
+                        			for (let i in result) {
+                        				
+                        				result[i].postTitle = result[i].postTitle ?? "제목 없음"
+                        						
+                        				value += "<li>" + result[i].postTitle+ "<span data-favpno=" + result[i].postNum + "></span></li>"
+                        				// 저 게시번호로 게시글날아가기
+                        			}
+                        			
+                        			$("#recent ul").html(value);
+                        		}
+                        		
+                        	})
+                        	
+                        };
+                        
+                    	
+                    	// 게시글, 댓글 조인해서 최근에 댓글 추가된 게시글
 
                     </script>
 

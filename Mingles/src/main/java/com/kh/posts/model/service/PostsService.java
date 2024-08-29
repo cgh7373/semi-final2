@@ -102,4 +102,15 @@ public class PostsService {
 		return result;
 	}
 
+	public ArrayList<Post> selectFavoritePosts(int owner) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Post> list = new PostsDao().selectFavoritePosts(conn, owner);
+		
+		close(conn);
+		
+		return list;
+	}
+
 }

@@ -2,7 +2,7 @@
 	<%@page import="com.kh.member.model.service.MemberService" %>
 		<%@page import="com.kh.member.model.vo.Member" %>
 			<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-				<% Member mem=(Member)session.getAttribute("loginUser"); %>
+				<% Member m =(Member)session.getAttribute("loginUser"); %>
 					<!DOCTYPE html>
 					<html lang="en">
 
