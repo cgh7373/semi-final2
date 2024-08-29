@@ -142,4 +142,10 @@ SELECT
    AND PRICE = ?
 </entry>
 
+<entry key = "decreaseEgg">
+UPDATE MEMBER
+   SET EGG = EGG - ?
+ WHERE MEM_NO = ?
+</entry>
+
 </properties>

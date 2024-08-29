@@ -55,5 +55,13 @@ public class ItemService {
 		return it;
 	}// purchaseItem
 
+	public int decreaseEgg(int userNo, int price) {
+		Connection conn = getConnection();
+		int result = new ItemDao().decreaseEgg(conn, userNo, price);
+		
+		close(conn);
+		return result;
+	}// decreaseEgg
+
 	
 }

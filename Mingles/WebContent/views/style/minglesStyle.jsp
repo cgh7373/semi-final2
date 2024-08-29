@@ -24,6 +24,9 @@ Member m = (Member)session.getAttribute("loginUser");
         integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+	<!-- SweetAlert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
     <!-- 내부파일 -->
     <link rel="stylesheet" href="../../resources/css/mingle-style.css">
     <script defer src="../../resources/js/mingle-style.js"></script>
@@ -166,10 +169,10 @@ Member m = (Member)session.getAttribute("loginUser");
                     </div> <!-- MINIHOMPI ROOM-->
 
                     <div class="bot-box">
-                        <div class="btn btn1" onclick="location.href='../../views/shop/minglesShops.jsp';">mingleShop</div>
+                        <div class="btn btn1" style="visibility:hidden;">mingleShop</div>
                        
                         <div class="btn btn2" onclick = "saveAvatar()">저장하기</div>
-                       <%-- <%= System.out.println(m.getMemNo()) %> --%>
+
                     </div>
  
                 </div>
@@ -264,7 +267,13 @@ Member m = (Member)session.getAttribute("loginUser");
 					type : "post",
 					success : function(){
 						selectAvatar();
-						alert("성공적으로 저장하였습니다. 내 아바타를 자랑해봐요!");
+						Swal.fire({
+						title: "성공적으로 저장하였습니다",
+						text: "내 아바타를 자랑해봐요!",
+						icon: "success",
+						confirmButtonColor: "#75DAD7",
+						confirmButtonText: "당장 갈래요",
+						});
 					},
 					error : function(){
 						console.log("ajax update avatar 통신 fail");
@@ -289,7 +298,11 @@ Member m = (Member)session.getAttribute("loginUser");
 					success : function(result){
 						// select문을 통해서 저장된 상태를 유지하기
 						selectAvatar();
-						alert("성공적으로 저장하였습니다. 내 아바타를 자랑해봐요!");
+						Swal.fire({
+						title: "성공적으로 저장하였습니다",
+						text: "내 아바타를 자랑해봐요!",
+						icon: "success"
+						});
 					},
 					error : function(result){
 						console.log("ajax insert avatar 통신 fail");

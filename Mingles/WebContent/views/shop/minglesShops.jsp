@@ -32,9 +32,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
     integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+	
+	<!-- SweetAlert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- 내부파일 -->
 	<link rel="stylesheet" href="<%= contextPath %>/resources/css/mingle-shop.css">
@@ -277,6 +280,7 @@
 		        if (result.pi.currentPage !== 1) {
 		            var prevButton = document.createElement('span');
 		            prevButton.classList.add('page-button');
+		            prevButton.style.cursor = 'pointer';
 		            prevButton.textContent = '<';
 		            prevButton.addEventListener('click', function() {
 		                selectItem(currentCategory, result.pi.currentPage - 1);
@@ -287,6 +291,7 @@
 		        for (var p = result.pi.startPage; p <= result.pi.endPage; p++) {
 		            var pageButton = document.createElement('span');
 		            pageButton.classList.add('page-button');
+		            pageButton.style.cursor = 'pointer';
 		            pageButton.textContent = p;
 		            if (p === result.pi.currentPage) {
 		                pageButton.classList.add('currentpage');
@@ -301,6 +306,7 @@
 		        if (result.pi.currentPage < result.pi.maxPage) {
 		            var nextButton = document.createElement('span');
 		            nextButton.classList.add('page-button');
+		            nextButton.style.cursor = 'pointer';
 		            nextButton.textContent = '>';
 		            nextButton.addEventListener('click', function() {
 		                selectItem(currentCategory, result.pi.currentPage + 1);
@@ -310,36 +316,51 @@
 		    } // updatePage
 		    
 		    function purchaseItem(itemNo, itemPrice) {
-
-		            console.log(itemNo , itemPrice);
-		            let userConfirm = confirm("정말로 아이템을 구매하시겠습니까?");
-
-		            if (userConfirm) {
-		                $.ajax({
-		                    url: contextPath + '/payItem.it',
-		                    method: 'POST',
-		                    dataType: 'json',
-		                    data: {itemNo: itemNo, itemPrice: itemPrice }, 
-		                    success: function(result) {
-		                        console.log(result);
-		                        console.log(typeof sendItem);
-		                        if (result) {
-		                            if (typeof sendItem === 'function') {
-		                                sendItem(result);
-		                                alert("성공적으로 구입했습니다. 꾸미기 화면에서 확인하세요!");
-		                            } else {
-		                                console.log("result를 mingle-style.js에 옮기기 실패함. 알아서 하셈~");
-		                                alert("너 실패");
-		                            }
-		                        }
-		                    },
-		                    error: function() {
-		                        console.log("result값 받아오기 실패하심요");
-		                    }
-		                });
-		            }
+				
+		    	Swal.fire({
+		    		  title: "정말로 아이템을 구매하시겠습니까?",
+		    		  text: "아이템이 좀 예쁘긴 하지요~",
+		    		  icon: "question",
+		    		  showCancelButton: true,
+		    		  confirmButtonColor: "#72DDF7",
+		    		  cancelButtonColor: " #FCC5D9",
+		    		  confirmButtonText: "완전 예뻐요 살래요",
+					  cancelButtonText: "좀만 더 고민할래요",
+		    		}).then((result) => {
+		    		  if (result.isConfirmed) {
+			            	updateEgg(itemPrice);
+			                $.ajax({
+			                    url: contextPath + '/payItem.it',
+			                    method: 'POST',
+			                    dataType: 'json',
+			                    data: {itemNo: itemNo, itemPrice: itemPrice }, 
+			                    success: function(result) {
+			                    	sendItem(result);
+			                    	if(<%=m.getEgg()%><100){
+			    		    		    Swal.fire({
+			    			    		      title: "구입에 실패하였습니다",
+			    			    		      text: "거북알을 충전해주세요!",
+			    			    		      icon: "warning",
+											  confirmButtonColor: "#75DAD7",
+											  confirmButtonText: "충전할게요",
+			    			    		    });
+			                    	}else{
+			    		    		    Swal.fire({
+			    			    		      title: "성공적으로 구입했습니다",
+			    			    		      text: "꾸미기 화면에서 확인하세요!",
+			    			    		      icon: "success",
+											  confirmButtonColor: "#75DAD7",
+											  confirmButtonText: "당장 갈래요",
+			    			    		    });
+			                    	}
+			                    },
+			                    error: function() {}
+			                });
+		    		  }
+		    		});
+		    	
+		            
 		    }// purchaseItem
 
-		    
 		</script>
 			

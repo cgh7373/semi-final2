@@ -205,5 +205,28 @@ public class ItemDao {
 	}// purchaseItem
 
 
+	public int decreaseEgg(Connection conn, int userNo, int price) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("decreaseEgg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, price);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
 	
 }
