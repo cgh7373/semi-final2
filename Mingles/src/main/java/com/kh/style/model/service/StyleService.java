@@ -65,6 +65,11 @@ public class StyleService {
 		
 		int result = new StyleDao().insertItem(conn, pitem);
 		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
 		return result;
 		

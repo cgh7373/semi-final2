@@ -1,3 +1,5 @@
+<%@page import="com.kh.admin.model.vo.Attachment"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -6,6 +8,7 @@
 	String contextPath = request.getContextPath();
 	String alertMsg = (String)session.getAttribute("alertMsg");
 	String errorMsg = (String)session.getAttribute("errorMsg");
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -85,8 +88,12 @@
                        <div>
                             좋아하는 음악을 추가해보세요! (최대 10개 가능)
                             <br><br>
-                            <ul class="music--list">
-                                
+							<ul class="music--list">
+							<li class="song">
+							<div class="material-icons selectMusic" style="color:#07BEB8; font-size:18px; cursor:pointer;">play_arrow</div>
+							basicSong - hiphopRockstar
+							<div class="material-icons trashcan" style="color:#dc3545; font-size:16px; visibility:hidden; cursor:pointer;">delete_outline</div>
+							</li>
                             </ul>
                             <br><br>
                             <table class="music--insert">
@@ -96,14 +103,14 @@
                                             <div class="material-icons" id="music--icon">
                                                 music_note
                                             </div>
-                                            <input type="file" name="music" accept=".MP3" id="file">
+                                            <input type="file" name="musicFile" accept=".MP3" id="file">
                                         </label>
 
                                         <label for ="thumbnail">
                                             <div class="material-icons" id ="music--thumbnail">
                                                 smart_display
                                             </div>
-                                            <input type="file" name="musicThumbnail" id="thumbnail">
+                                            <input type="file" name="musicThumbnai" id="thumbnail">
                                         </label>
                                     </td>
                                     <td width="360px">
@@ -115,15 +122,10 @@
                                 </tr>
                             </table>
                             <br><br>
-                            <div class="btn btn-sm btn-info" id = "music--add">
-                                추가
-                            </div>
-                            <div class="btn btn-sm btn-danger" id = "music--delete">
-                                삭제
-                             </div>
+                            <div class="btn btn-sm btn-info" id = "music--add">추가</div>
+                            <div class="btn btn-sm btn-danger" id = "music--delete">삭제</div>
                        </div> 
                     </div>
-
                 </div>
             </div>
             </div>
@@ -135,7 +137,7 @@
                     <% if (m != null) { %>
             <div class="post-list" id="left">
                 <div class="left__content" id="con1">
-                    <img src="<%=m.getProfilePic() %>" alt="">
+                    <img src="<%=m.getProfilePic() %>" alt="프로필 사진">
                 </div>
                 <div class="left__content" id="con2">
                     <div id="con2__nickname"><%= m.getNickname() %></div>
@@ -180,8 +182,8 @@
                             <img id="musicImg" src = "../../resources/images/Mingles 심볼 png(크기키움).png">
                         </div>
                         <div class = "music--info">
-                            <p class="music--title">ETA <!--여기에 jsp로 제목 입력할것--> </p>
-                            <p class="music--singer">뉴진스<!--여기에 jsp로 가수 입력할것--> </p>
+                            <p class="music--title">basicSong</p>
+                            <p class="music--singer">hiphopRockstar</p>
                             <button id="play-pause-button">Play!</button>
 
                             <!-- MUSIC BAR -->

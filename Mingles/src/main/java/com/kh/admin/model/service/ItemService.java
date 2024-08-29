@@ -59,6 +59,12 @@ public class ItemService {
 		Connection conn = getConnection();
 		int result = new ItemDao().decreaseEgg(conn, userNo, price);
 		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
 		close(conn);
 		return result;
 	}// decreaseEgg

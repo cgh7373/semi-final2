@@ -478,10 +478,11 @@ body {
   font-size:20px;
 }
 
-#music--icon, #music--icon{
+#music--icon, #music--thumbnail{
   color: black;
   font-size:30px;
   margin-top:10px;
+  cursor:pointer;
 }
 
 input[type="file"]{
