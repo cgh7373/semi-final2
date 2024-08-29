@@ -55,7 +55,7 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
           <!-- 채팅창 -->
           <section class="chat">
             <!-- 친구리스트 -->
-            <a href="/mingles" class="chat-logo"
+            <a href="#" class="chat-logo"
               ><img
                 src="./resources/images/Mingles로고-움직임-짤.gif"
                 alt="mingles"
@@ -148,20 +148,37 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
           let loginNo = <%= m.getMemNo() %>;
           let toNo;
           let fromNo;
+          let isAutoScroll = true; // 자동 스크롤 활성화 상태.
+          
+		     // 채팅 로드
+          $(document).ready(()=>{
+            setInterval(test, 2000);
 
-               $(() => {
-                 setInterval(test, 3000);
-               });
-               
-
-               $(".chat-friend").on("click", "li", function () {
+            $(".chat-friend").on("click", "li", function () {
                  toNo = $(this).attr("value");
                  fromNo = loginNo;
                  loadChatting(toNo, fromNo, loginNo); 
                });
 
+            // 스크롤 위치 감지 함수
+            $('.chatRoom').on('scroll', function(){
+                let chatRoom = $(this);
+                // 사용자가 스크롤 올렸는지 감지
+                if(chatRoom.scrollTop() + chatRoom.innerHeight() >= chatRoom[0].scrollHeight - 10){
+                  isAutoScroll = true;
+                }else{
+                  isAutoScroll = false;
+                }
+               });   
+          });
+
                function test() {
             	   loadChatting(toNo, fromNo, loginNo);
+               }
+
+               function scrollToBottom(){
+                let chatRoom = $(".chatRoom");
+                chatRoom.scrollTop(chatRoom[0].scrollHeight);
                }
                
                // 채팅 로딩하는 함수
@@ -176,9 +193,8 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                  	  },
                    dataType: "json",
                    success: function (c) {
-               	   let chatContent = "<canvas id='jsCanvas' class='canvas' name='canvas'></canvas>";
+               	   let chatContent = "";
                      $.each(c, function (index, chat) {
-                    	 
                      		if(loginNo !== chat.fromNo){
                      			chatContent +=
                                      "<div class='chatting ch1'>" +
@@ -201,24 +217,17 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                                      "</div>";
                       		}
                      });
-                       	$(".chatRoom").html(chatContent);
-                        prepareScroll()
+
+                     let chatRoom =	$(".chatRoom");
+                     chatRoom.html("<canvas id='jsCanvas' class='canvas' name='canvas'></canvas>" + chatContent);
+                     if(isAutoScroll){
+                       scrollToBottom();
+                     }
                  },
                    error: function () {
                      console.log("채팅 조회 실패했지요");
                    },
                  });
-               }
-
-               // 스크롤 밑으로
-               function prepareScroll(){
-                  window.setTimeout(scrollList, 1000);
-                }
-
-               // scroll  함수
-               function scrollList(){
-                let chatRight = document.querySelector('.chatRoom');
-                chatRight.scrollTop = chatRight.scrollHeight;
                }
 
                // ajax으로 메세지 작성하는 함수
@@ -242,11 +251,8 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
              		  error:function(){
              			  console.log("응 채팅 보내는거 실패해띠~");
              		  },
-             	  })
+             	  });
                }
-               
-               
-              
 
         </script>
       </body>

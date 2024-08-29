@@ -91,10 +91,6 @@ function init() {
 }
 init();
 
-//scroll
-const $messageTextBox = $(".chatRoom");
-$messageTextBox.scrollTop($messageTextBox[0].scrollHeight);
-
 // enterKey
 let input = document.querySelector("input[type=text]");
 let chatbtn = document.querySelector(".send_btn");
