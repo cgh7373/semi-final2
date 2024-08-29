@@ -317,7 +317,7 @@ function selectMemoList(date) {
 
             value +=
               "<tr>" +
-              "<td rowspan='2' class='memo-img'><img src='" +
+              "<td rowspan='2' class='memo-img'><img class='bullImg' src='" +
               pageItems[i].profilePic +
               "'></td>" +
               "<td rowspan='2' class='memo-content'>" +
@@ -450,7 +450,6 @@ function weather() {
   var to_day = getToday();
   var time = getTime();
   getLocation();
-  console.log(to_day, time);
   function getToday() {
     var date = new Date();
     var year = date.getFullYear();
@@ -571,8 +570,6 @@ function weather() {
         "&ny=" +
         Y,
       success: function (res) {
-        console.log("갑자기");
-        console.log(res);
         let item = res.response.body.items.item;
 
         for (let i = 0; i < item.length - 500; i++) {

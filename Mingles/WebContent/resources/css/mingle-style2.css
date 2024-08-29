@@ -68,12 +68,12 @@ img {
 }
 
 .item-container {
-	width : 90%;
-	height : 60%;
+    width: 90%;
+    height: 60%;
     display: flex;
     flex-wrap: wrap;
     margin: 5%;
-    margin-left:10%;
+    margin-left: 10%;
     border-top: 5px solid #80ffdb;
     border-bottom: 5px solid #80ffdb;
     padding-bottom: 10%;
@@ -93,7 +93,8 @@ img {
     cursor: pointer;
     transition: .6s;
     overflow: hidden;
-    box-sizing:border-box;
+    box-sizing: border-box;
+
     &:hover {
         box-shadow: 0 0 4px 4px #80FFDB;
     }
@@ -176,6 +177,7 @@ footer .pagination-container {
 
 .main-right .right-wrapper .style-shop .bal div {
     margin: auto 15px;
+
     /* text-align:center; */
     &:hover {
         color: #07BEB8;
@@ -199,23 +201,25 @@ footer .pagination-container {
     font-family: 'Katuri';
     font-size: 35px;
     margin: 20px;
+
     &:hover {
         cursor: pointer;
-        color:#0b77eb;
+        color: #0b77eb;
     }
+
     &:active {
         transform: translateX(.8px) translateY(.8px);
     }
 }
 
 .main-right .right-wrapper .vis-room {
-    position:relative;
+    position: relative;
     height: 74%;
     border-radius: 20px;
     border: 2px solid #7F7F7F;
     margin-top: 1%;
     overflow: hidden;
-    background-color:#ceffea;
+    background-color: #ceffea;
     background-size: cover;
     box-sizing: border-box;
     background-repeat: no-repeat;
@@ -231,14 +235,14 @@ footer .pagination-container {
 
 .bal {
     height: 48%;
-	position: relative;
-	padding: 10px 20px 10px 20px;
-	background: #FFFFFF;
-	border-radius: 10px;
-	border: #89c2ff solid 3px;
-	/* position: absolute; */
-	font-size: 28px;
-	text-align: left;
+    position: relative;
+    padding: 10px 20px 10px 20px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    border: #89c2ff solid 3px;
+    /* position: absolute; */
+    font-size: 28px;
+    text-align: left;
     font-family: 'omyu_pretty';
     align-items: center;
     display: flex;
@@ -248,7 +252,8 @@ footer .pagination-container {
 .bal.bal2 {
     display: none;
     width: 33%;
-    &::after, 
+
+    &::after,
     &::before {
         left: 100px;
     }
@@ -257,34 +262,35 @@ footer .pagination-container {
 .bal.bal3 {
     display: none;
     width: 45%;
-    &::after, 
+
+    &::after,
     &::before {
         left: 220px;
     }
 }
 
 .bal:after {
-	content: '';
-	position: absolute;
-	border-style: solid;
-	border-width: 20px 16px 0 17.5px;
-	border-color: #FFFFFF transparent;
-	display: block;
-	width: 0;
-	z-index: 1;
-	top: 95%; 
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 20px 16px 0 17.5px;
+    border-color: #FFFFFF transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    top: 95%;
 }
-	
+
 .bal:before {
-	content: '';
-	position: absolute;
-	border-style: solid;
-	border-width: 20px 16px 0 17.5px;
-	border-color: #89c2ff transparent;
-	display: block;
-	width: 0;
-	z-index: 0;
-	top: 100%;
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 20px 16px 0 17.5px;
+    border-color: #89c2ff transparent;
+    display: block;
+    width: 0;
+    z-index: 0;
+    top: 100%;
 }
 
 .bal.bal1.onoffTo {
@@ -300,72 +306,72 @@ footer .pagination-container {
 }
 
 .btn {
-    width:60px;
-    height:30px;
-    margin:3px;
-    float:left;
+    width: 60px;
+    height: 30px;
+    margin: 3px;
+    float: left;
 }
 
 /* MINIHOMPI BOX */
 
 /* AVATAR : Z-INDEX 90s */
 
-.body img{
-position:absolute;
-width:300px;
-height:300px;
-z-index:91;
+.minihompi .body img {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: 91;
 }
 
-.face img{
-position:absolute;
-width:300px;
-height:300px;
-z-index:92;
-}
-
-
-.hair img{
-position:absolute;
-width:300px;
-height:300px;
-z-index:93;
-}
-
-.shoes img{
-position:absolute;
-width:300px;
-height:300px;
-z-index:94;
+.minihompi .face img {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: 92;
 }
 
 
-.bottom img{
-position:absolute;
-width:300px;
-height:300px;
-z-index:95;
+.minihompi .hair img {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: 93;
 }
 
-.top img{
-position:absolute;
-width:300px;
-height:300px;
-z-index:96;
+.minihompi .shoes img {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: 94;
 }
 
 
-.avatar-box{
-position:relative;
-left:20%;
-top:30%;
+.minihompi .bottom img {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: 95;
+}
+
+.minihompi .top img {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: 96;
+}
+
+
+.minihompi .avatar-box {
+    position: relative;
+    left: 20%;
+    top: 30%;
 }
 
 /* FLOOR : Z-INDEX 70s */
 
-.floor-skin img{
-position:absolute;
-width:100%;
-height:100%;
-z-index:71;
+.minihompi .floor-skin img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 71;
 }

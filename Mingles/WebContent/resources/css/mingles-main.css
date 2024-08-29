@@ -43,6 +43,7 @@ body {
 
 #left {
   width: 30%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -50,6 +51,7 @@ body {
 
 #right {
   width: 70%;
+  height: 100%;
   padding: 20px;
 }
 
@@ -690,6 +692,10 @@ body {
 #bulletinModal {
   border-radius: 10px;
   overflow: hidden;
+
+  & table {
+    width: 100%;
+  }
 }
 
 #bulletinModal .modal-dialog {
@@ -710,8 +716,28 @@ body {
   border-radius: 10px;
 }
 
-#bulletinModal .modal-img {
+#bulletinModal tr {
+  width: 100%;
+  height: auto;
+}
+
+#bulletinModal .memo-img {
   width: 8%;
+  position: relative;
+
+  /* & img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    aspect-ratio: 1;
+    height: auto;
+    text-align: center;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: auto;
+    border: 2px solid #ddd;
+  } */
 }
 
 #bulletinModal .memo-content {
@@ -723,8 +749,8 @@ body {
   width: 12%;
 }
 
-#bulletinModal img {
-  width: 10%;
+#bulletinModal .bullImg {
+  width: 90%;
   aspect-ratio: 1;
   height: auto;
   text-align: center;
@@ -732,6 +758,7 @@ body {
   overflow: hidden;
   margin: auto;
   border: 2px solid #ddd;
+  position: static;
 }
 
 #bulletinModal .modal-content .modal-header {
@@ -828,3 +855,11 @@ body {
   left: 40%;
   background-color: white;
 }
+
+.modal-backdrop {
+  z-index: 1 !important;
+}
+
+#calendarModal {}
+
+#bulletinModal {}
