@@ -33,6 +33,11 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
           href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
           rel="stylesheet"
         />
+        <!-- 스크롤 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" integrity="sha512-1PKqXBz2ju2JcAerHKL0ldg0PT/1vr3LghYAtc59+9xy8e19QEtaNUyt1gprouyWnpOPqNJjL4gXMRMEpHYyLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" integrity="sha512-8E3KZoPoZCD+1dgfqhPbejQBnQfBXe8FuwL4z/c8sTrgeDMFEnoyTlH3obB4/fV+6Sg0a0XF+L/6xS4Xx1fUEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
         <!-- 내부파일 -->
         <link
@@ -143,7 +148,7 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
           let loginNo = <%= m.getMemNo() %>;
           let toNo;
           let fromNo;
-          
+
                $(() => {
                  setInterval(test, 3000);
                });
@@ -158,6 +163,7 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                function test() {
             	   loadChatting(toNo, fromNo, loginNo);
                }
+               
                // 채팅 로딩하는 함수
                function loadChatting(toNo, fromNo, loginNo) {
                  $.ajax({
@@ -170,7 +176,7 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                  	  },
                    dataType: "json",
                    success: function (c) {
-               	   let chatContent = "";
+               	   let chatContent = "<canvas id='jsCanvas' class='canvas' name='canvas'></canvas>";
                      $.each(c, function (index, chat) {
                     	 
                      		if(loginNo !== chat.fromNo){
@@ -196,7 +202,7 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                       		}
                      });
                        	$(".chatRoom").html(chatContent);
-                       	
+                        prepareScroll()
                  },
                    error: function () {
                      console.log("채팅 조회 실패했지요");
@@ -204,10 +210,19 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                  });
                }
 
+               // 스크롤 밑으로
+               function prepareScroll(){
+                  window.setTimeout(scrollList, 1000);
+                }
+
+               // scroll  함수
+               function scrollList(){
+                let chatRight = document.querySelector('.chatRoom');
+                chatRight.scrollTop = chatRight.scrollHeight;
+               }
+
                // ajax으로 메세지 작성하는 함수
                function insertchat(fromNo){
-            	  
-            	  
              	  $.ajax({
              		  url:"insert.ch",
              		  data:{
@@ -229,6 +244,10 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
              		  },
              	  })
                }
+               
+               
+              
+
         </script>
       </body>
     </html></Friend

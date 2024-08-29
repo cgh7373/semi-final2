@@ -52,6 +52,8 @@
 		  AND TO_MEMNO = ?)
 		   OR (FROM_MEMNO = ?
 		  AND TO_MEMNO = ?)
+		ORDER
+           BY CHAT_TIME
 	</entry>
 
 	<entry key="insertChat">

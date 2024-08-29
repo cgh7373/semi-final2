@@ -219,7 +219,7 @@ input:hover {
   max-width: calc(100% - 70px);
   padding: 10px;
   margin-top: 7px;
-  font-size: 13px;
+  font-size: 15px;
   border-radius: 10px;
 }
 
@@ -257,6 +257,17 @@ input:hover {
   content: "▶";
   color: #f9dcff;
 }
+
+/* .chat-wrap {
+  display: flex;
+}
+
+.chatRoom .chatTime {
+  display: flex;
+  margin-left: 10px;
+  align-items: flex-end;
+  font-size: x-small;
+} */
 
 /* 채팅입력창 디자인 */
 #chat-form {
@@ -311,7 +322,7 @@ input:hover {
   padding-left: 15px;
   letter-spacing: 0.8px;
   color: #8b8888;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 /* send btn */
@@ -397,7 +408,7 @@ div img {
   background-color: transparent;
   display: none;
   right: 0;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* 캔버스 버튼 css */
