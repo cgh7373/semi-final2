@@ -135,6 +135,3 @@ document.querySelector('.chatTab').addEventListener('click', () => handleIframeN
 document.querySelector('.explore-tab').addEventListener('click', () => showExplore(iExplore));
 document.querySelector('.postsTab').addEventListener('click', () => handleIframeNavigation(iPosts, 'posts'));
 document.querySelector('.anyTab7').addEventListener('click', () => handleIframeNavigation(iEta, 'etas'));
-
-
-

@@ -61,7 +61,7 @@ public class Member {
 	}
 
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
-			String gender, String enrollDate, String modifyDate, String status, String zodiac, String aBO, String mBTI,
+			String gender, String enrollDate, String modifyDate, String status, String zodiac, String ABO, String MBTI,
 			String profilePic, String statusMsg) {
 		super();
 		this.memNo = memNo;
@@ -76,8 +76,8 @@ public class Member {
 		this.modifyDate = modifyDate;
 		this.status = status;
 		this.zodiac = zodiac;
-		this.ABO = aBO;
-		this.MBTI = mBTI;
+		this.ABO = ABO;
+		this.MBTI = MBTI;
 		this.profilePic = profilePic;
 		this.statusMsg = statusMsg;
 	}
@@ -146,8 +146,8 @@ public class Member {
 	}
 	
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
-			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO,
-			String mBTI, String profilePic, String statusMsg) {
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String ABO,
+			String MBTI, String profilePic, String statusMsg) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -162,8 +162,8 @@ public class Member {
 		this.status = status;
 		this.egg = egg;
 		this.zodiac = zodiac;
-		this.ABO = aBO;
-		this.MBTI = mBTI;
+		this.ABO = ABO;
+		this.MBTI = MBTI;
 		this.profilePic = profilePic;
 		this.statusMsg = statusMsg;
 	}
@@ -231,22 +231,6 @@ public class Member {
 		this.memNo = memNo;
 	}
 	
-	public String getABO() {
-		return ABO;
-	}
-	
-	public void setABO(String ABO) {
-		this.ABO = ABO;
-	}
-	
-	public String getMBTI() {
-		return MBTI;
-	}
-	
-	public void setMBTI(String MBTI) {
-		this.MBTI = MBTI;
-	}
-
 	public String getMemId() {
 		return memId;
 	}
@@ -342,6 +326,22 @@ public class Member {
 	public void setEgg(int egg) {
 		this.egg = egg;
 	}
+	
+	public String getABO() {
+		return ABO;
+	}
+
+	public void setABO(String ABO) {
+		this.ABO = ABO;
+	}
+
+	public String getMBTI() {
+		return MBTI;
+	}
+
+	public void setMBTI(String mBTI) {
+		this.MBTI = MBTI;
+	}
 
 	public String getKakaoNo() {
 		return kakaoNo;
@@ -350,6 +350,7 @@ public class Member {
 	public void setKakaoNo(String kakaoNo) {
 		this.kakaoNo = kakaoNo;
 	}
+
 
 	@Override
 	public String toString() {

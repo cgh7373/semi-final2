@@ -1,6 +1,8 @@
 package com.kh.style.controller;
 
 import java.io.IOException;
+import java.util.Collections;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +36,7 @@ public class HasStyleController extends HttpServlet {
 		boolean flag = new StyleService().hasStyle(memNo);
 		
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(flag, response.getWriter());
+		new Gson().toJson(Collections.singletonMap("flag", flag), response.getWriter());
 		
 	}
 

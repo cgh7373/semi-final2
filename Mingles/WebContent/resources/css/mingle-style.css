@@ -55,14 +55,14 @@ img {
     font-family: 'Katuri';
     font-size: 50px;
     text-align: center;
-    color: #7aecbc;
+    color: #07BEB8;
     margin-bottom: 5%;
     text-shadow: 5px 5px 10px rgb(215, 215, 215);
 }
 
 .style-tag {
     font-family: 'omyu_pretty';
-    color: #64DFDF;
+    color: #07BEB8;
     font-size: 33px;
     margin-left: 10%;
 }
@@ -72,10 +72,10 @@ img {
 	height : 60%;
     display: flex;
     flex-wrap: wrap;
-    margin: 5%;
+    margin: 3%;
     margin-left:10%;
-    border-top: 5px solid #80ffdb;
-    border-bottom: 5px solid #80ffdb;
+    border-top: 5px solid #07BEB8;
+    border-bottom: 5px solid #07BEB8;
     padding-bottom: 10%;
 }
 
@@ -175,9 +175,10 @@ footer .pagination-container {
 }
 
 .main-right .right-wrapper .style-shop .bal div {
-    margin: auto 10px;
+    margin: auto 15px;
+    /* text-align:center; */
     &:hover {
-        color: #07BEB8;
+        color: #0185ae;
         cursor: pointer;
     }
 }
@@ -190,17 +191,18 @@ footer .pagination-container {
     display: flex;
     align-items: center;
     background-color: #d2efff;
-    border-top: 3px solid #89c2ff;
-    border-bottom: 3px solid #89c2ff;
+    border-top: 3px solid #48BFE3;
+    border-bottom: 3px solid #48BFE3;
 }
 
 .main-right .right-wrapper .style-shop .catB .catTitle {
     font-family: 'Katuri';
+    font-weight:200;
     font-size: 35px;
     margin: 20px;
     &:hover {
         cursor: pointer;
-        color:#0b77eb;
+        color:#006989;
     }
     &:active {
         transform: translateX(.8px) translateY(.8px);
@@ -234,7 +236,7 @@ footer .pagination-container {
 	padding: 10px 20px 10px 20px;
 	background: #FFFFFF;
 	border-radius: 10px;
-	border: #89c2ff solid 3px;
+	border:#48BFE3 solid 3px;
 	/* position: absolute; */
 	font-size: 28px;
 	text-align: left;
@@ -255,7 +257,7 @@ footer .pagination-container {
 
 .bal.bal3 {
     display: none;
-    width: 52%;
+    width: 45%;
     &::after, 
     &::before {
         left: 220px;
@@ -279,7 +281,7 @@ footer .pagination-container {
 	position: absolute;
 	border-style: solid;
 	border-width: 20px 16px 0 17.5px;
-	border-color: #89c2ff transparent;
+	border-color: #48BFE3 transparent;
 	display: block;
 	width: 0;
 	z-index: 0;
@@ -378,11 +380,25 @@ left:20%;
 top:30%;
 }
 
-/* FLOOR : Z-INDEX 70s */
+/* ROOM : Z-INDEX 80s */
 
-.floor-skin img{
+.floor img{
 position:absolute;
 width:100%;
 height:100%;
-z-index:71;
+z-index:81;
+}
+
+.wall img{
+position:absolute;
+width:100%;
+height:100%;
+z-index:81;
+}
+
+.theme img{
+position:absolute;
+width:100%;
+height:100%;
+z-index:81;
 }
