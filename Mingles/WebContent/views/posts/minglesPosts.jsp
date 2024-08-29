@@ -47,6 +47,7 @@
                         <% } %>
 
                             renderPostsList();
+
                     });
                 </script>
 
@@ -144,10 +145,10 @@
                                                     <img src="../../resources/images/2024082616142217358.jfif">
                                                     <div class="post-titles" style="font-size: 30px;"></div>
                                                     <div class="post-cover">
-                                                        <div class="post-cover-tag-boxes">#태그1</div>
-                                                        <div class="post-cover-tag-boxes">#태그2</div>
-                                                        <div class="post-cover-tag-boxes">#태그3</div>
-                                                        <div class="post-cover-tag-boxes">#태그4</div>
+                                                        <div class="post-cover-tag-boxes">🏷️태그1</div>
+                                                        <div class="post-cover-tag-boxes">🏷️태그2</div>
+                                                        <div class="post-cover-tag-boxes">🏷️태그3</div>
+                                                        <div class="post-cover-tag-boxes">🏷️태그4</div>
                                                     </div>
                                                 </div>
 
@@ -264,7 +265,7 @@
                                                             <%=m.getStatusMsg()%>
                                                         </div>
                                                     </div>
-                                                    <div class="post-visit-btn">홈피방문</div>
+                                                    <!-- <div class="post-visit-btn">홈피방문</div> -->
 
                                                     <button type="button" class="close"
                                                         data-dismiss="modal">&times;</button>
@@ -291,6 +292,31 @@
 
                                                     </table>
 
+                                                </div>
+
+                                                <div class="reply-insert">
+                                                    <table>
+                                                        <tr>
+                                                            <th>
+                                                                <img src=<%=m.getProfilePic() %>>
+                                                            </th>
+                                                            <td id="writeMemo">
+                                                                <input id="replyContent" maxlength="100" type="text">
+                                                            </td>
+                                                            <td>
+                                                                <select id="memoScopeSelect">
+                                                                    <option value='P'>전체공개</option>
+                                                                    <option value='F'>친구공개</option>
+                                                                    <option value='M'>비공개</option>
+                                                                </select>
+                                                            </td>
+                                                            <td>
+                                                                <button onclick="insertReply();">댓글작성</button>
+                                                                <input type="hidden" class="pNumBox">
+                                                                <input type="hidden" class="writerBox">
+                                                            </td>
+                                                        </tr>
+                                                    </table>
                                                 </div>
 
                                                 <div class="pagination">
@@ -356,7 +382,7 @@
 
                                     if (tags[0] !== "") {
                                         for (let i in tags) {
-                                            values += '<div class="post-cover-tag-boxes">#' + tags[i].trim() + '</div>'
+                                            values += '<div class="post-cover-tag-boxes">🏷️' + tags[i].trim() + '</div>'
                                         }
                                     }
 
@@ -424,6 +450,8 @@
                                     const totalItems = result.length;
                                     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
+                                    $(".writerBox").val(<%= m.getMemNo() %>)
+
                                     function renderPage(page) {
 
                                         const start = (page - 1) * itemsPerPage;
@@ -448,7 +476,7 @@
 
                                                 for (let tag of tArr) {
                                                     if (tag != "") {
-                                                        tagsHtml += '<div class="post-cover-tag-boxes">#' + tag.trim() + '</div>';
+                                                        tagsHtml += '<div class="post-cover-tag-boxes">🏷️' + tag.trim() + '</div>';
                                                     }
                                                 }
                                                 value += `

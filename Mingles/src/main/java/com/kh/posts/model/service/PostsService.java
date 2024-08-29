@@ -86,4 +86,20 @@ public class PostsService {
 		return list;
 	}
 
+	public int insertReply(Reply r) {
+		
+		Connection conn = getConnection();
+		
+		int result = new PostsDao().insertReply(conn, r);
+		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+
 }

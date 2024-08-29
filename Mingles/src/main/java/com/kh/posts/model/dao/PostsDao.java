@@ -202,7 +202,7 @@ public class PostsDao {
 			rset = pstmt.executeQuery();
 					
 			while (rset.next()) {
-				// 직접 인서트까지 해야 들어가는거같음
+				
 				Reply r = new Reply();
 				
 				r.setReplyNo(rset.getInt(1));
@@ -224,6 +224,31 @@ public class PostsDao {
 		}
 		
 		return list;
+	}
+
+	public int insertReply(Connection conn, Reply r) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, r.getReplyOwnPost());
+			pstmt.setInt(2, r.getReplyWriter());
+			pstmt.setString(3, r.getReplyContent());
+			pstmt.setString(4, r.getReplyScope());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 }

@@ -97,6 +97,26 @@
 			 ORDER 
 			    BY A.REPLY_CREATE_DATE DESC
 	</entry>
+	
+	<entry key="insertReply">
+			INSERT 
+			  INTO REPLY
+			     (
+			       REPLY_NO
+			     , REPLY_OWN_POST
+			     , REPLY_WRITER
+			     , REPLY_CONTENT
+			     , REPLY_SCOPE
+			     )
+			       VALUES
+			     (
+			       SEQ_REPLY.NEXTVAL
+			     , ?
+			     , ?
+			     , ?
+			     , ?
+			     )
+	</entry>
 
 
 </properties>

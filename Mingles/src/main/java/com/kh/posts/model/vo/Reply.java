@@ -15,6 +15,14 @@ public class Reply {
 	
 	public Reply() {}
 
+	public Reply(int replyOwnPost, int replyWriter, String replyContent, String replyScope) {
+		super();
+		this.replyOwnPost = replyOwnPost;
+		this.replyWriter = replyWriter;
+		this.replyContent = replyContent;
+		this.replyScope = replyScope;
+	}
+
 	public Reply(int replyNo, int replyOwnPost, int replyWriter, String replyContent, String replyScope,
 			Date replyCreateDate, String replyStatus) {
 		super();
