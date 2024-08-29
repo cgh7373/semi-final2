@@ -6,16 +6,14 @@ img {
 
 @font-face {
   font-family: "Katuri";
-  src: url("https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff")
-    format("woff");
+  src: url("https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff") format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "omyu_pretty";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2")
-    format("woff2");
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }
@@ -140,7 +138,7 @@ body {
   gap: 5px;
 }
 
-#con2__my_info > div {
+#con2__my_info>div {
   width: auto;
   height: auto;
   display: flex;
@@ -260,11 +258,11 @@ body {
   stroke-width: 2px;
 }
 
-.heart-container .checkbox:checked ~ .svg-container .svg-filled {
+.heart-container .checkbox:checked~.svg-container .svg-filled {
   display: block;
 }
 
-.heart-container .checkbox:checked ~ .svg-container .svg-celebrate {
+.heart-container .checkbox:checked~.svg-container .svg-celebrate {
   display: block;
 }
 
@@ -310,7 +308,7 @@ body {
   right: 8%;
 }
 
-.music > img {
+.music>img {
   width: 70px;
   height: 70px;
   cursor: pointer;
@@ -422,21 +420,21 @@ body {
 
 /* PLAYLIST UPDATE MODAL */
 
-.modal .modal-title {
+#myModal .modal-title {
   color: #08817d;
   font-size: 30px;
   text-align: center;
   font-weight: 600;
 }
 
-.modal-body .music--update,
-.modal-body .music--sequence {
+#myModal .modal-body .music--update,
+#myModal .modal-body .music--sequence {
   margin: 5px;
   padding: 5px;
   font-size: 15px;
 }
 
-.modal-body p {
+#myModal .modal-body p {
   font-size: 25px;
   font-weight: 400;
 }
@@ -452,11 +450,11 @@ body {
   margin-top: 10px;
 }
 
-input[type="file"] {
+#myModal input[type="file"] {
   display: none;
 }
 
-table input[type="text"] {
+#myModal table input[type="text"] {
   width: 130px;
   margin: 4px;
 }
@@ -478,6 +476,148 @@ table input[type="text"] {
     transition-duration: 1s;
   }
 }
+
+/* 날씨 카드 */
+.weatherCard,
+.weatherCard * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "omyu_pretty";
+  font-weight: 700;
+}
+
+.weatherCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 12%;
+  /* width: 52%; */
+  width: 17%;
+  background: linear-gradient(50deg, #e0feff, #bbfffd);
+  position: absolute;
+  left: 31%;
+  top: 4px;
+  border-radius: 20px;
+  transition: 0.5s;
+  overflow: hidden;
+}
+
+.weatherCard:hover {
+  width: 52%;
+  transition: 1s;
+
+  #weatherList {
+    width: 540px;
+    transition: 1s;
+  }
+}
+
+#card {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0);
+  padding: 10px 0;
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  right: -28px;
+  top: 10%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+  border-radius: 50px;
+}
+
+.icon img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  scale: 1.2;
+}
+
+.bottom {
+  display: flex;
+  position: absolute;
+  color: #777777;
+  right: 120px;
+  bottom: 10px;
+  transition: 0.5s;
+  font-size: 16px;
+}
+
+.weather {
+  display: flex;
+  position: absolute;
+  margin: 15px 0 10px 5%;
+  height: 20px;
+  right: 100px;
+  font-size: 30px;
+}
+
+.weather>h3 {
+  color: #000000;
+  margin: 0 10px;
+}
+
+#weatherList {
+  position: absolute;
+  height: 100%;
+  background-color: transparent;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  left: 0;
+  /* width: 70%; */
+  width: 0;
+  transition: 0.5s;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 15px;
+  background: #fff;
+  background-color: transparent;
+  width: 18%;
+}
+
+.swiper-slide div {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+}
+
+.swiper-slide #weatherListTop {
+  height: 20%;
+  top: 6px;
+}
+
+.swiper-slide #weatherListCenter {
+  position: absolute;
+  height: 100%;
+  top: -2px;
+}
+
+.swiper-slide #weatherListBottom {
+  height: 20%;
+  bottom: 3px;
+}
+
+.swiper-slide div img {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+}
+
 
 .calendar-container {
   width: 1000px;
@@ -570,7 +710,7 @@ table input[type="text"] {
   border-radius: 10px;
 }
 
-#bulletinModal .memo-img {
+#bulletinModal .modal-img {
   width: 8%;
 }
 
@@ -583,11 +723,8 @@ table input[type="text"] {
   width: 12%;
 }
 
-#bulletinModal .memo-dist {
-}
-
 #bulletinModal img {
-  width: 90%;
+  width: 10%;
   aspect-ratio: 1;
   height: auto;
   text-align: center;
@@ -690,145 +827,4 @@ table input[type="text"] {
   position: absolute;
   left: 40%;
   background-color: white;
-}
-
-/* 날씨 카드 */
-.weatherCard,
-.weatherCard * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "omyu_pretty";
-  font-weight: 700;
-}
-
-.weatherCard {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 12%;
-  /* width: 52%; */
-  width: 17%;
-  background: linear-gradient(50deg, #e0feff, #bbfffd);
-  position: absolute;
-  left: 31%;
-  top: 4px;
-  border-radius: 20px;
-  transition: 0.5s;
-  overflow: hidden;
-}
-
-.weatherCard:hover {
-  width: 52%;
-  transition: 1s;
-
-  #weatherList {
-    width: 540px;
-    transition: 1s;
-  }
-}
-
-#card {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  background-color: rgba(255, 255, 255, 0);
-  padding: 10px 0;
-  position: relative;
-}
-
-.icon {
-  position: absolute;
-  right: -28px;
-  top: 10%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 80px;
-  background-color: #fff;
-  border-radius: 50px;
-}
-
-.icon img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  scale: 1.2;
-}
-
-.bottom {
-  display: flex;
-  position: absolute;
-  color: #777777;
-  right: 120px;
-  bottom: 10px;
-  transition: 0.5s;
-  font-size: 16px;
-}
-
-.weather {
-  display: flex;
-  position: absolute;
-  margin: 15px 0 10px 5%;
-  height: 20px;
-  right: 100px;
-  font-size: 30px;
-}
-
-.weather > h3 {
-  color: #000000;
-  margin: 0 10px;
-}
-
-#weatherList {
-  position: absolute;
-  height: 100%;
-  background-color: transparent;
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  color: #000;
-  left: 0;
-  /* width: 70%; */
-  width: 0;
-  transition: 0.5s;
-}
-
-.swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.swiper-slide {
-  text-align: center;
-  font-size: 15px;
-  background: #fff;
-  background-color: transparent;
-  width: 18%;
-}
-
-.swiper-slide div {
-  width: 100%;
-  text-align: center;
-  position: absolute;
-}
-
-.swiper-slide #weatherListTop {
-  height: 20%;
-  top: 6px;
-}
-
-.swiper-slide #weatherListCenter {
-  position: absolute;
-  height: 100%;
-  top: -2px;
-}
-
-.swiper-slide #weatherListBottom {
-  height: 20%;
-  bottom: 3px;
-}
-
-.swiper-slide div img {
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
 }

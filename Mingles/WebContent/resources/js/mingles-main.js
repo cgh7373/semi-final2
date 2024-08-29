@@ -1,3 +1,9 @@
+const show = document.getElementById("show");
+const mp3button = document.getElementById("mp3Button");
+let isShow = false;
+
+
+
 $(function () {
   let bounce;
   // stop: 애니메이션이 현재 실행중인지 일시중지 되었는지 추적하는데 사용됨.
@@ -216,11 +222,7 @@ prevBtn.addEventListener("click", () => {
     currentMonth = 11;
     currentYear--;
   }
-<<<<<<< HEAD
-    readStatus();
-=======
   readStatus();
->>>>>>> 0cdc3326b491cacd475d4db4e08988e88aacfe85
 });
 
 nextBtn.addEventListener("click", () => {
@@ -694,7 +696,6 @@ function weather() {
   function wListSetImg(item) {
     var num = 0;
     var iTime = Number(time);
-    console.log(item);
     for (let i = 0; i < item.length - 500; i++) {
       if (
         item[i].fcstTime == iTime &&
@@ -816,3 +817,13 @@ function weather() {
     }
   }
 }
+
+mp3button.addEventListener("click", function () {
+  isShow = !isShow;
+  if (isShow) {
+    show.classList.add('youShow');
+  } else {
+    show.classList.remove('youShow');
+  }
+
+});
