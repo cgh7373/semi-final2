@@ -38,17 +38,20 @@
             href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <!-- style -->
-        <style>
-            
-        </style>
+        
         <!-- reset -->
         <link
-            href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
-            rel="stylesheet">
-
+        href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css"
+        rel="stylesheet">
+        
         <link rel="stylesheet" href="../../resources/css/mingle-community.css">
         <script src="../../resources/js/mingle-community.js" defer="defer"></script>
+        
+        
+        <!-- style -->
+        <style>
+          
+        </style>
 
     </head>
 
@@ -59,43 +62,30 @@
             <!-- 메인 화면 -->
             <div id="container">
                 <!-- TAG -->
+                <button class="reload" onclick="location.reload()">새로고침</button>
+                <section class="communityTop">
+                    <input type="text" placeholder="원하는 카테고리를 검색해보세요">
+                    <button id="cateSearch">검색</button>
+                </section>
+
                 <header class="tag">
                     <div class="tagList">
                         <div class="swiper">
                             <div class="swiper-wrapper" id="swiper-wrapper">
            						<!-- 여기에 값이 들어가야함 -->
                                    <div class='swiper-slide btn btn--tag color-7'>#강아지</div>
+                                   <div class='swiper-slide btn btn--tag color-7'>#고양이</div>
+                                   <div class='swiper-slide btn btn--tag color-7'>#운동</div>
+                                   <div class='swiper-slide btn btn--tag color-7'>#배고픈데 밥 뭐먹지</div>
+                                   <div class='swiper-slide btn btn--tag color-7'>#놀러가실분</div>
+                                   <div class='swiper-slide btn btn--tag color-7'>#정보공유</div>
+                                   <div class='swiper-slide btn btn--tag color-7'>#뭘봐</div>
+                                   <div class='swiper-slide btn btn--tag color-7'>#빨리도망가</div>
                             </div>
                         </div>
                     </div>
                 </header>
                 
-
-                <section class="homepage">
-                    <div class="showHomefield">
-                        <div class="slide-title--homepage">
-                          <h5>
-                            <span>미</span>
-                            <span>니</span>
-                            <span>홈</span>
-                            <span>피</span>
-                          </h5>
-                        </div>
-                        <div class="swiper">
-                            <div class="swiper-wrapper">
-                                <a href="" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                                <a href="/" class="swiper-slide"><img src="../../resources/images/030305_wall_01.gif"/></a>
-                            </div>
-                            <div class="swiper-button-next"></div>
-                            <div class="swiper-button-prev"></div>
-                        </div>
-                    </div>
-                </section>
 
                 <section class="popularPost">
                     <div class="showPopularPost">
@@ -138,6 +128,28 @@
     </body>
     
     <script>
+        $(function() {
+            const swiper = new Swiper('header .swiper', {
+            // Optional parameters
+            slidesPerView: 7,
+            loop: true,
+            spaceBetween: 20,
+            });
+
+            const swiperPp = new Swiper('.popularPost .swiper', {
+            // Optional parameters
+            slidesPerView: 4,
+            loop: false,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            });
+        });
+
+
+
     	
     	// ajax로 태그리스트 조회용
     	function tagList(){
@@ -162,24 +174,24 @@
     	}
     	
     	/* 게시글 리스트조회용 */
-    	function postList(){
-    		$.ajax({
-    			url:"/pList.cmt",
-    			success:function(c){
-    				let value = "";
-    				for(Community cmt : list ){
-    					value += '<div class="text--post--title">
-    							+ cmt[i].postTitle
-    							+ '</div><div class="text--post--content">'
-    							+ cmt[i].postWirter
-    							+ '</div>'
-    				}
-    			},
-    			error:function(c){
-    				console.log("게시글 조회용 ajax실패띠");
-    			},
-    		})
-    	}
+    	// function postList(){
+    	// 	$.ajax({
+    	// 		url:"/pList.cmt",
+    	// 		success:function(c){
+    	// 			let value = "";
+    	// 			for(Community cmt : list ){
+    	// 				value += '<div class="text--post--title">
+    	// 						+ cmt[i].postTitle
+    	// 						+ '</div><div class="text--post--content">'
+    	// 						+ cmt[i].postWirter
+    	// 						+ '</div>'
+    	// 			}
+    	// 		},
+    	// 		error:function(c){
+    	// 			console.log("게시글 조회용 ajax실패띠");
+    	// 		},
+    	// 	})
+    	// }
 	</script>
 
 </html>
