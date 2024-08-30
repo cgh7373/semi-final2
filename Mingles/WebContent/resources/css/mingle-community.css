@@ -1,18 +1,23 @@
 /* 기본 스타일 초기화 */
 @font-face {
     font-family: 'omyu_pretty';
-    src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2") format('woff2');
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
 }
+
+body{
+    font-family: 'omyu_pretty';
+    box-sizing: border-box;
+}
+
 a,
 div,
 img {
     box-sizing: border-box;
-    font-family: 'omyu_pretty';
 }
 
 a {
     text-decoration: none;
-    color: #222222;
+    color: #3b3b3b;
 }
 
 a:hover {
@@ -20,177 +25,137 @@ a:hover {
     text-decoration: none;
 }
 
-/* 버튼 */
+/* 태그 버튼 */
 .btn {
     width: 150px;
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 1s;
+    color: #2b64b9;
     cursor: pointer;
+    border-style: none;
+    border-radius: 50px;
+    background-size: 120%;
 }
-.btn:hover {
-    border-radius: 20px;
+
+.btn:hover{
+    /* border-radius: 20px; */
     box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition-duration: 1s;
+    transition: .5s;
+}
+
+.btn--tag.color-7 {
+    background-image: linear-gradient(to right, #ffffeb ,#f7e8ff, #aef8fd);
+}
+
+/* btn클릭시 디자인 */
+.commselected{
+    border-radius: 20px;
+    color: #48BFE3;
 }
 
 /* 전체 랩 스타일 */
 #wrap {
-    width: 99vw;
-    height: 99.5vh;
+    width: 95vw;
+    height: 95.5vh;
     margin: auto;
     position: relative;
-    display: flex;
 }
 
 /* 메인 컨테이너 스타일 */
 #container {
     width: 100%;
     height: 100%;
-    background-color: white;
     border-radius: 20px;
     position: absolute;
 }
-
-/* 홈키 스타일 */
-#homeKey {
-    width: 3%;
-    height: 6%;
-    position: absolute;
-    left: 96.3%;
-    top: 50%;
-    cursor: pointer;
-    border: 2px outset #07BEB8;
-    box-shadow: 0 0 2px 1px #08817d;
-}
-
-/* 메뉴바 스타일 */
-#menuBar {
-    width: 20%;
-    height: 100%;
-    border-radius: 20px;
-    border: 3px solid #07BEB8;
-    box-shadow: 0 0 1px 1px #07BEB8;
-    right: 0;
-    position: absolute;
-    background-color: white;
-    display: none;
-}
-
-/* 메뉴 랩 스타일 */
-#menuWrap {
-    width: 100%;
-    height: 100%;
-    position: relative;
-}
-
-/* 메뉴 헤드 스타일 */
-#mHead {
-    position: absolute;
-    left: 24%;
-    width: 54%;
-    height: 10%;
-    border-bottom: 2px solid #07BEB8;
-}
-
-/* 메뉴 바디 스타일 */
-#mBody {
-    top: 20%;
-    position: absolute;
-}
-
-#mBody .material-icons {
-    margin: 50px;
-}
-
-#mBody .material-icons a {
-    margin: 5px;
-}
-
-.menu-button {
-    width: 70px;
-    height: 70px;
-    background-color: white;
-    border: none;
-}
-
-.menu-image {
-    background-color: white;
-    width: 70%;
-    height: 70%;
-}
-
-.menu-logo {
-    width: 90%;
-    height: 90%;
-}
-
 
 /* header 해쉬태그 */
+
 header .tagList{
-    margin: 20px;
-    height: 130px;
+    margin: 40px 10px;
 }
 
 header .tagList .swiper {
     width: 100%;
     height: 100%;
 }
+
 header .tagList .swiper .swiper-wrapper{
     align-items: center;
 }
 
 header .tagList .swiper .swiper-wrapper .btn{
-    background-color: #dcfffb; 
+    background-color: #d3f1ff; 
     width: 100px;
-    height: 60px;
-    font-size: 20px;
+    height: 50px;
+    font-size: 20;
 }
+
+header .tagList .swiper .swiper-wrapper .btn:hover{
+    border-radius: 20px;
+    background-color: white;
+    color: #48BFE3;
+}
+
+/* 해쉬태그 삭제 */
+
+
 /* 친구 홈피 */
 
-.homepage {
-    /* background-color: #08817d; */
+/* 안에 글씨 */
+h5 {
+    color: #5cc2db;
+    font:bold 2.5vw/.3 'omyu_pretty', sans-serif;
+    user-select:none;
+}
+
+h5 span { display:inline-block; animation:float .2s ease-in-out infinite; }
+@keyframes float {
+    0%,100%{ transform:none; }
+    33%{ transform:translateY(-1px) rotate(-2deg); }
+    66%{ transform:translateY(1px) rotate(2deg); }
+}
+@keyframes bounce {
+    0%,100%{ transform:translate(0); }
+    25%{ transform:rotateX(20deg) translateY(2px) rotate(-3deg); }
+    50%{ transform:translateY(-20px) rotate(3deg) scale(1.1);  }
+}
+
+.reload{
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.communityTop{
+    height: 3%;
     margin: 10px 20px;
-    height: 330px;
-}
-
-.homepage .slide-title--homepage{
-    line-height: 30px;
     text-align: center;
-    width: 150px;
+}
+
+.communityTop input{
+    width: 500px;
+    height: 50px;
+    border-radius: 20px;
+}
+
+.communityTop #cateSearch{
+    width: 60px;
     height: 30px;
-    border-radius: 5px;
-    box-shadow: 1px 1px 1px black;
-    margin-bottom: 20px;
+    border-radius: 20px;
     font-size: 20px;
-}
+    font-family: 'omyu_pretty';
+    transition: all .5s;
+    box-shadow: none;
+    border: 1px solid #64DFDF;
+    margin-right: 20px;
+    background-color: #fff;
 
-
-
-
-/* 인기 게시글 */
-.popularPost{
-    /* background-color: #08817d; */
-    margin: 10px 20px;
-    height: 330px;
-}
-
-.popularPost img{
-    width: 280px;
-    height: 280px;
-}
-.popularPost .swiper-slide{
-}
-
-.popularPost .slide-title--homepage{
-    line-height: 30px;
-    text-align: center;
-    width: 150px;
-    height: 30px;
-    border-radius: 5px;
-    box-shadow: 1px 1px 1px black;
-    margin-bottom: 10px;
-    font-size: 20px;
+    &:hover {
+    border-radius:20px;
+    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+    transition-duration:.5s;
+    } 
 }
