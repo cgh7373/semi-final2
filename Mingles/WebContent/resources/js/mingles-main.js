@@ -11,6 +11,7 @@ const today = new Date();
 let currentMonth = today.getMonth();
 let currentYear = today.getFullYear();
 
+const m = document.getElementById("member").getAttribute("data-member");
 const owner = document.getElementById("owner").getAttribute("data-owner");
 
 $(function () {
@@ -257,12 +258,21 @@ function parseCustomDate(dateStr) {
 }
 
 function selectMemoList(date) {
+	
+	let url = "";
+	let data;
+	
+	if (m === owner) {
+		url = "/Mingles/calendarMemo.mi";
+		data = { date: date, memNo: owner };
+    } else {
+		url = "/Mingles/visCalendarMemo.mi";
+		data = { date: date, memNo: owner, visNo: m }
+	}
+	
   $.ajax({
-    url: "/Mingles/calendarMemo.mi",
-    data: {
-      date: date,
-      memNo: owner,
-    },
+    url: url,
+    data: data,
     success: function (result) {
       const itemsPerPage = 10;
       let currentPage = 1;
@@ -409,9 +419,18 @@ $(function () {
 });
 
 function insertReply() {
+	
   const replyContent = $("#replyContent").val().trim();
-  const memoScope = $("#memoScopeSelect").val();
   const selectedDate = $("#bulletinModalLabel").text();
+  
+  let memoScope;
+  
+  if (m == owner) {
+	  memoScope = $("#memoScopeSelect").val();
+  } else {
+	  memoScope = 'P'
+  }
+	
 
   if (!replyContent) {
     swal({
@@ -427,8 +446,10 @@ function insertReply() {
       content: replyContent,
       date: selectedDate,
       owner: owner,
-      writer: owner,
+      writer: m,
       scope: memoScope,
+      year : currentYear,
+      month : currentMonth + 1,
     },
     type: "post",
     success: function (result) {
@@ -822,3 +843,81 @@ mp3button.addEventListener("click", function () {
   }
 
 });
+
+$("#con3 ul").on('click', 'li', function() {
+	 
+	 location.href="/Mingles/toOthersPost.mi?owner=" + owner;
+	
+})
+
+function renderFavoritePosts() {
+                        	
+	let value = "";
+	
+	$.ajax({
+		url : "/Mingles/favPosts.mi",
+		data : {
+			owner : owner,
+		},
+		success : (result) => {
+			
+			let j = 0;
+			j = result.length;
+			
+			for (let i in result) {
+				
+				result[i].postTitle = result[i].postTitle ?? "제목 없음"
+						
+    			value += "<li>" + result[i].postTitle + "<span data-pno=" + result[i].postNum + "></span></li>"
+				
+			}
+			
+			while (j < 3) {
+				value += "<li>게시글을 작성해보세요!</li>"
+				j++;
+			}
+			
+			$("#popular ul").html(value);
+			
+		}
+		
+	})
+	
+};
+
+function renderRecentReplied() {
+	
+	let value = "";
+	
+	$.ajax({
+		url : "/Mingles/recentReplied.mi",
+		data : {
+			owner : owner,
+		},
+		success : (result) => {
+			
+			let j = 0;
+			j = result.length;
+			
+			for (let i in result) {
+				
+				result[i].postTitle = result[i].postTitle ?? "제목 없음"
+						
+				value += "<li>" + result[i].postTitle + "<span data-pno=" + result[i].postNum + "></span></li>"
+				
+			}
+			
+
+			while (j < 3) {
+				value += "<li>게시글을 작성해보세요!</li>"
+				j++;
+			}
+			
+			
+			$("#recent ul").html(value);
+			
+		}
+		
+	})
+	
+};

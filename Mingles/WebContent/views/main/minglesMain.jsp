@@ -20,6 +20,7 @@
 	String errorMsg=(String)session.getAttribute("errorMsg");
 	Member mem = (o != null) ? o : m;
 	request.setAttribute("user", mem);
+	
 %>
             <!DOCTYPE html>
             <html>
@@ -72,7 +73,6 @@
 
                     <script>
 
-
                         document.addEventListener("DOMContentLoaded", function () {
                    
 		// 성공메시지
@@ -91,6 +91,9 @@
                                 });
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
+    	 
+    	 renderFavoritePosts();
+     	renderRecentReplied();
 		
 		 });
                     </script>
@@ -335,6 +338,7 @@
                                     </div>
                                 </div>
                                 <script>
+                               
                                     var swiper = new Swiper('.swiper', {
                                         slidesPerView: 'auto',
                                         direction: getDirection(),
@@ -472,6 +476,7 @@
                                                     </tr>
 
                                                 </table>
+                                                <span id="member" data-member="<%= m.getMemNo() %>"></span>
                                                 <span id="owner" data-owner="<%= mem.getMemNo() %>"></span>
                                                 <div class="pagination">
                                                     <button id="prevPage">&lt;</button>
@@ -484,11 +489,12 @@
                                                 <table>
                                                     <tr>
                                                         <th>
-                                                            <img class='bullImg' src=<%=mem.getProfilePic() %>>
+                                                            <img class='bullImg' src=<%=m.getProfilePic() %>>
                                                         </th>
                                                         <td id="writeMemo">
                                                             <input id="replyContent" maxlength="100" type="text">
                                                         </td>
+                                                        <% if (m.getMemNo() == mem.getMemNo()) { %>
                                                         <td>
                                                             <select id="memoScopeSelect">
                                                                 <option value='P'>전체공개</option>
@@ -496,6 +502,7 @@
                                                                 <option value='M'>비공개</option>
                                                             </select>
                                                         </td>
+                                                        <% } %>
                                                         <td>
                                                             <button onclick="insertReply();">메모작성</button>
                                                         </td>

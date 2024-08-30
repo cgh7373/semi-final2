@@ -1,10 +1,29 @@
+<%@page import="com.kh.member.model.service.MemberService"%>
 <%@page import="com.kh.posts.model.vo.Post"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.member.model.vo.Member" %>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-        <% Member m=(Member)session.getAttribute("loginUser"); String contextPath=request.getContextPath(); String
-            alertMsg=(String)session.getAttribute("alertMsg"); String errorMsg=(String)session.getAttribute("errorMsg");
-            %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<% 
+	
+	String memNoStr = request.getParameter("owner");
+	
+	if (memNoStr != null) {
+		
+	    int owner = Integer.parseInt(memNoStr);
+	    Member o = new MemberService().selectNoMember(owner);
+	    
+	    request.setAttribute("otherUser", o);
+	}
+
+	Member m=(Member)session.getAttribute("loginUser"); 
+	Member o = (Member)request.getAttribute("otherUser");
+	String contextPath=request.getContextPath(); 
+	String alertMsg=(String)session.getAttribute("alertMsg"); 
+	String errorMsg=(String)session.getAttribute("errorMsg");
+	Member mem = (o != null) ? o : m;
+	request.setAttribute("user", mem);
+	
+ %>
             <!DOCTYPE html>
             <html>
 
@@ -30,6 +49,7 @@
             <body>
 
                 <script>
+                
                     document.addEventListener("DOMContentLoaded", function () {
                         // 성공메시지
                         <% if (alertMsg != null) { %>
@@ -56,31 +76,36 @@
                     });
                 </script>
 
-                <% if (m !=null) { %>
+                <% if (mem !=null) { %>
                     <div id="wrap">
                         <div id="container">
                             <!-- Left Screen -->
                             <div class="post-list" id="left">
                                 <div class="left__content" id="con1">
-                                    <img src="<%=m.getProfilePic() %>" alt="">
+                                    <img src="<%=mem.getProfilePic() %>" alt="">
                                 </div>
                                 <div class="left__content" id="con2">
                                     <div id="con2__nickname">
-                                        <%= m.getNickname() %>
+                                        <%= mem.getNickname() %>
                                     </div>
                                     <button id="mailIcon" class="material-icons">mail_outline</button>
-                                    <button id="writeIcon" data-toggle="modal" data-target="#writePostModal"
-                                        class="material-icons">edit_square</button>
+                                    <% if (m.getMemNo() == mem.getMemNo()) { %>
+	                                   	 <button id="writeIcon" data-toggle="modal" data-target="#writePostModal"
+	                                        class="material-icons">edit_square</button>
+                                    <% } else { %>
+                                    	 <button id="writeIcon" class="material-icons"
+                                    	 onclick="location.href='/Mingles/othersMain.mi?oMemNo=' + <%=o.getMemNo()%>">home</button>
+                                    <% } %>
                                     <div id="con2__my_text">
-                                        <%=m.getStatusMsg() %>
+                                        <%=mem.getStatusMsg() %>
                                     </div>
                                     <div id="con2__my_info">
-                                        <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
-                                        <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
-                                        <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리
+                                        <div id="my_info__1" data-toggle="tooltip" title="<%= mem.getEmail() %>">이메일</div>
+                                        <div id="my_info__2" data-toggle="tooltip" title="<%= mem.getMBTI() %>">MBTI</div>
+                                        <div id="my_info__3" data-toggle="tooltip" title="<%= mem.getZodiac() %>">별자리
                                         </div>
-                                        <span id="zodiac" data-zodiac="<%= m.getZodiac() %>"></span>
-                                        <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO() %>">혈액형</div>
+                                        <span id="zodiac" data-zodiac="<%= mem.getZodiac() %>"></span>
+                                        <div id="my_info__4" data-toggle="tooltip" title="<%= mem.getABO() %>">혈액형</div>
                                     </div>
 
                                 </div>
@@ -260,14 +285,14 @@
                                                 <div class="writer-section">
 
                                                     <div class="post-profile-pic">
-                                                        <img src="<%=m.getProfilePic()%>">
+                                                        <img src="<%=mem.getProfilePic()%>">
                                                     </div>
                                                     <div class="post-writer-info">
                                                         <div class="post-writer-nickname">
-                                                            <%=m.getNickname()%>
+                                                            <%=mem.getNickname()%>
                                                         </div>
                                                         <div class="post-writer-statusMsg">
-                                                            <%=m.getStatusMsg()%>
+                                                            <%=mem.getStatusMsg()%>
                                                         </div>
                                                     </div>
                                                     <!-- <div class="post-visit-btn">홈피방문</div> -->
@@ -308,6 +333,7 @@
                                                             <td id="writeMemo">
                                                                 <input id="replyContent" maxlength="100" type="text">
                                                             </td>
+                                                            <% if (m.getMemNo() == mem.getMemNo()) { %>
                                                             <td>
                                                                 <select id="memoScopeSelect">
                                                                     <option value='P'>전체공개</option>
@@ -315,6 +341,7 @@
                                                                     <option value='M'>비공개</option>
                                                                 </select>
                                                             </td>
+                                                            <% } %>
                                                             <td>
                                                                 <button onclick="insertReply();">댓글작성</button>
                                                                 <input type="hidden" class="pNumBox">
@@ -446,10 +473,10 @@
                             $.ajax({
                                 url: "/Mingles/selectPostsList.mi",
                                 data: {
-                                    writer: <%= m.getMemNo() %>,
+                                    writer: <%= mem.getMemNo() %>,
                                 },
                                 success: (result) => {
-
+                                	
                                     const itemsPerPage = 6;
                                     let currentPage = 1;
                                     const totalItems = result.length;
@@ -569,7 +596,7 @@
                         	$.ajax({
                         		url : "/Mingles/favPosts.mi",
                         		data : {
-                        			owner : <%=m.getMemNo()%>,
+                        			owner : <%=mem.getMemNo()%>,
                         		},
                         		success : (result) => {
                         			
@@ -604,7 +631,7 @@
                         	$.ajax({
                         		url : "/Mingles/recentReplied.mi",
                         		data : {
-                        			owner : <%=m.getMemNo()%>,
+                        			owner : <%=mem.getMemNo()%>,
                         		},
                         		success : (result) => {
                         			
@@ -633,10 +660,7 @@
                         	})
                         	
                         };
-                        
                     	
-                    	// 게시글, 댓글 조인해서 최근에 댓글 추가된 게시글
-
                     </script>
 
                     <% } %>
