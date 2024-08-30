@@ -6,6 +6,17 @@
 <% 
 	
 	String memNoStr = request.getParameter("owner");
+	String modal = request.getParameter("modal");
+	
+	int pNum = 0;
+	if (request.getParameter("pNum") != null) {
+		pNum = Integer.parseInt(request.getParameter("pNum"));
+	}
+	
+	boolean open = false;
+	if (modal != null) {
+		open = true;
+	}
 	
 	if (memNoStr != null) {
 		
@@ -14,7 +25,7 @@
 	    
 	    request.setAttribute("otherUser", o);
 	}
-
+	
 	Member m=(Member)session.getAttribute("loginUser"); 
 	Member o = (Member)request.getAttribute("otherUser");
 	String contextPath=request.getContextPath(); 
@@ -68,12 +79,14 @@
                         <% session.removeAttribute("errorMsg"); %>
                         <% } %>
 
-                            renderPostsList();
-                        	renderFavoritePosts();
-                        	renderRecentReplied();
-                        	
-
-                    });
+                        renderPostsList();
+                    	renderFavoritePosts();
+                    	renderRecentReplied();
+                    
+                    	if(<%=open%>) {
+                    	  toThePost(<%=pNum%>);
+                    	}
+                  });
                 </script>
 
                 <% if (mem !=null) { %>

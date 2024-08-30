@@ -28,8 +28,14 @@ public class ToOthersPostController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int owner = Integer.parseInt(request.getParameter("owner"));
+		String modal = request.getParameter("modal");
+		int pNum = 0;
 		
-		response.sendRedirect(request.getContextPath() + "/views/posts/minglesPosts.jsp?owner=" + owner);
+		if (request.getParameter("pNum") != null) {
+			pNum = Integer.parseInt(request.getParameter("pNum"));
+		}
+		
+		response.sendRedirect(request.getContextPath() + "/views/posts/minglesPosts.jsp?owner=" + owner + "&pNum=" + pNum + "&modal=" + modal);
 		
 	}
 

@@ -121,11 +121,13 @@
 	<entry key="selectFavoritePosts">
 			SELECT POST_NUM
 			     , POST_TITLE
+			     , POST_THUMBNAIL
 			  FROM 
 			     ( 
 			     	SELECT POST_TITLE
 			  			 , POST_NUM
 			  			 , POST_WRITER
+			  			 , POST_THUMBNAIL
 			          FROM POST
 			         ORDER
 			            BY POST_COUNT DESC

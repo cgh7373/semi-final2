@@ -271,6 +271,7 @@ public class PostsDao {
 				
 				p.setPostNum(rset.getInt(1));
 				p.setPostTitle(rset.getString(2));
+				p.setPostThumbnail(rset.getString(3));
 				
 				list.add(p);
 				
