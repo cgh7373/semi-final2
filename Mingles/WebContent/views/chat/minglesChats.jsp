@@ -80,12 +80,12 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
               <!-- 친구리스트 동적으로 만듬 -->
               <ul class="chat-friend">
                 <% for(Friend f : friend){ %>
-                <li class="friendList" value="<%= f.getfMemNo() %>">
+                <li class="friendList" value="<%= f.getfMemNo() %>" rel="friendList">
                   <div class="friend__icon">
                     <img src="<%= f.getProfilePic() %>" alt="친구프로필" />
                   </div>
                   <div class="friend-info">
-                    <span class="friend__name"><%= f.getNickName() %></span>
+                    <span class="friend__name" rel="frinedNick"><%= f.getNickName() %></span>
                     <span class="friend__text">20</span>
                   </div>
                 </li>
@@ -96,13 +96,13 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
             <!-- 대화창 -->
             <div class="chat-right">
               <div class="chatRoom">
+                <canvas id="jsCanvas" class="canvas" name="canvas"></canvas>
                 <img
                   src="./resources/images/채팅 초기 배경.webp"
                   alt=""
                   id="back"
                   style="width: 100%; height: 100%"
                 />
-                <canvas id="jsCanvas" class="canvas" name="canvas"></canvas>
               </div>
 
               <!-- send부분 -->
@@ -150,10 +150,68 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
           let fromNo;
           let isAutoScroll = true; // 자동 스크롤 활성화 상태.
           
-		     // 채팅 로드
-          $(document).ready(()=>{
-            setInterval(test, 2000);
+          // 친구 검색
+    	   const originalList = $('.chat-friend').html();
+      	 
+      	 // enter event
+      	 $('.inputSearch').on('keydown', (e)=>{
+      		 if(e.key === 'Enter'){
+      			 $.ajax({
+      				 url:'search.ch',
+      				 data:{
+      					 friendKeyword:$('.inputSearch').val(),
+      				 },
+      				 success:function(s){
+      					 console.log("친구찾기");
+      					 let sFriend = "";
+      					 if(s.length === 0){
+      						 let value = "";
+      						 value += '<div style="text-align:center">찾으시는 친구가</div>'
+      						 		+ '<div style="text-align:center">존재하지 않습니다.</div>';
+       					 $('.chat-friend').html(value);
+      					 }else{
+      						 
+      						 $('.chat-friend').html("");
+      						 for(let i=0; i<s.length; i++){						 
+      							sFriend += `
+          							<li class='friendList' value="\${s[i].fMemNo}" rel='friendList'>
+                                        <div class='friend__icon'>
+                                        	<img src="\${s[i].profilePic}" alt='친구프로필' />
+                                        </div>
+                                        <div class='friend-info'>
+                                        	<span class='friend__name' rel='frinedNick'>\${s[i].nickName}</span>
+                                        	<span class='friend__text'>20</span>
+                                        </div>
+                                    </li>
+                                    `;
+      						 }
+      						 console.log(sFriend);
+      					 }
+      		               	$('.chat-friend').html(sFriend);
+      				 },
+      				 error:function(){
+      					 console.log("친구검색 망해띠");
+      				 },
+      			 });
+      			}
+        	 });
+       
+       // 인풋 서치 내용 지우면 친구리스트 나옴
+       $('.inputSearch').on('input', () => {
+           if ($('.inputSearch').val() === '') {
+               $('.chat-friend').html(originalList);
+           }
+       });
 
+       // focus 다른곳으로 바꾸면 친구리스트 리셋
+       $('.inputSearch').on('blur', () => {
+           if ($('.inputSearch').val() === '') {
+               $('.chat-friend').html(originalList);
+           }
+       });
+          
+
+            // 친구 리스트 클릭시 값 받기
             $(".chat-friend").on("click", "li", function () {
                  toNo = $(this).attr("value");
                  fromNo = loginNo;
@@ -170,11 +228,11 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                   isAutoScroll = false;
                 }
                });   
-          });
-
-               function test() {
-            	   loadChatting(toNo, fromNo, loginNo);
-               }
+        
+          
+          	setInterval(()=>{
+          		 loadChatting(toNo, fromNo, loginNo);
+          	}, 2000)
 
                function scrollToBottom(){
                 let chatRoom = $(".chatRoom");
@@ -219,7 +277,7 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                      });
 
                      let chatRoom =	$(".chatRoom");
-                     chatRoom.html("<canvas id='jsCanvas' class='canvas' name='canvas'></canvas>" + chatContent);
+                     chatRoom.html(chatContent);
                      if(isAutoScroll){
                        scrollToBottom();
                      }
@@ -242,7 +300,6 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
              		  },
              		  type:"post",
              		  success:function(inChat){
-             			  console.log(toNo, fromNo, loginNo)
              			  if(inChat > 0){ // 채팅 보내기 성공 => 갱신 리스트 조회
              			  loadChatting(toNo, fromNo, loginNo);
              			  $("#messageInput").val("");

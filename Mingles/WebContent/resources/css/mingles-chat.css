@@ -115,6 +115,11 @@ input:hover {
   border-radius: 20px;
 }
 
+/* 흠..냐?? */
+.chat-left .friendList.visible {
+  display: flex;
+}
+
 .chat-left .friendList:hover,
 .chat-left .friendList:focus,
 .chat-left .friendList:visited {
@@ -258,17 +263,6 @@ input:hover {
   color: #f9dcff;
 }
 
-/* .chat-wrap {
-  display: flex;
-}
-
-.chatRoom .chatTime {
-  display: flex;
-  margin-left: 10px;
-  align-items: flex-end;
-  font-size: x-small;
-} */
-
 /* 채팅입력창 디자인 */
 #chat-form {
   display: flex;
@@ -407,8 +401,10 @@ div img {
   position: absolute;
   background-color: transparent;
   display: none;
+  background-color: red;
   right: 0;
-  z-index: 2;
+  overflow: hidden;
+  z-index: 1;
 }
 
 /* 캔버스 버튼 css */

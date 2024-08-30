@@ -4,8 +4,9 @@ const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
 
 // 캔버스 사이즈 여기서조정
-canvas.width = 3000;
-canvas.height = 1100;
+
+canvas.width = 2000;
+canvas.height = 4000;
 
 let painting = false;
 
@@ -76,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // canvas click 뜨고 안뜨고
 const newLocal = $(document).ready(function () {
   $(".draw").click(function () {
-    $("canvas").toggle();
+    $(".canvas").toggle();
   });
 });
 
@@ -89,13 +90,13 @@ function handClick() {
 function init() {
   draw.addEventListener("click", handClick);
 }
-init();
+init(newLocal);
 
-// enterKey
-let input = document.querySelector("input[type=text]");
+// chatting enterKey
+let chattingInput = document.querySelector("input[type=text]");
 let chatbtn = document.querySelector(".send_btn");
 
-input.addEventListener("keydown", (e) => {
+chattingInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
     chatbtn.onclick();
   }

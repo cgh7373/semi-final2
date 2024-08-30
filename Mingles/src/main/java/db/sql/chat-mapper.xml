@@ -74,6 +74,33 @@
 		  )
 	</entry>
 
+	<entry key="searchFriend">
+		SELECT 
+		       SENDER_NO
+		     , RECEIVER_NO
+		     , MEM_NO
+		     , NICKNAME
+		     , PROFILE_PIC
+		  FROM FRIEND 
+		  JOIN MEMBER ON (RECEIVER_NO = MEM_NO)
+		 WHERE SENDER_NO = ?
+		   AND REQUEST_STATUS = 'A'
+		   AND FRIEND_LEVEL != 'F'
+		   AND NICKNAME LIKE '%' || ? || '%'
+		UNION
+		SELECT 
+		       SENDER_NO
+		     , RECEIVER_NO
+		     , MEM_NO
+		     , NICKNAME
+		     , PROFILE_PIC
+		  FROM FRIEND 
+		  JOIN MEMBER ON (SENDER_NO = MEM_NO)
+		 WHERE RECEIVER_NO = ?
+		   AND REQUEST_STATUS = 'A'
+		   AND FRIEND_LEVEL != 'F'
+		   AND NICKNAME LIKE '%' || ? || '%'
+	</entry>
 
 
 

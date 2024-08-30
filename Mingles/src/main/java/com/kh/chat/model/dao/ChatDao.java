@@ -123,6 +123,7 @@ public class ChatDao {
 		}return chatList;
 	}
 		
+	// 채팅 입력하는 
 	public int insertChat(Connection conn, Chat c){
 		int inChat = 0;
 		PreparedStatement pstmt = null;
@@ -145,6 +146,39 @@ public class ChatDao {
 		}return inChat;
 	}
 	
+	// 친구 찾기
+	public ArrayList<Friend> searchFriend(Connection conn, int loginMem, String friendKeyword){
+	
+		ArrayList<Friend> searchFriend = new ArrayList<Friend>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("searchFriend");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, loginMem);
+			pstmt.setString(2, friendKeyword);
+			pstmt.setInt(3, loginMem);
+			pstmt.setString(4, friendKeyword);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				searchFriend.add(new Friend(rset.getInt("sender_no"),
+											rset.getInt("receiver_no"),
+											rset.getInt("mem_no"),
+											rset.getString("nickname"),
+											rset.getString("profile_pic")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return searchFriend;
+	}
 		
 	
 	

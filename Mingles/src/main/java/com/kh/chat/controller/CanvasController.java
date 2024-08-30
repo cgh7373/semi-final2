@@ -1,32 +1,23 @@
 package com.kh.chat.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-import com.kh.chat.model.service.ChatService;
-import com.kh.chat.model.vo.Chat;
-import com.kh.chat.model.vo.Friend;
-import com.kh.member.model.vo.Member;
-
 /**
- * Servlet implementation class ChattingController
+ * Servlet implementation class CanvasController
  */
-@WebServlet("/chatting.ch")
-public class ChattingController extends HttpServlet {
+@WebServlet("/Canva.ch")
+public class CanvasController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChattingController() {
+    public CanvasController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,20 +26,8 @@ public class ChattingController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int toNo = Integer.parseInt(request.getParameter("toNo"));
-		int fromNo = Integer.parseInt(request.getParameter("fromNo"));
-		
-		ArrayList<Chat> chatList = new ChatService().chatList(toNo, fromNo);
-		
-		if(chatList.isEmpty()) {
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(chatList, response.getWriter());
-		}else {
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(chatList, response.getWriter());			
-		}
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

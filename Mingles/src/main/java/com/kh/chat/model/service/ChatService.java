@@ -50,6 +50,14 @@ public class ChatService {
 		return inChat;
 	}
 	
+	public ArrayList<Friend> searchFriend(int loginMem, String friendKeyword){
+		Connection conn = getConnection();
+		ArrayList<Friend> searchFriend = new ChatDao().searchFriend(conn, loginMem, friendKeyword);
+		
+		close(conn);
+		return searchFriend;
+	}
+	
 	
 	
 	
