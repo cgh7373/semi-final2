@@ -81,12 +81,16 @@ $(function() {
 
     // MP3 설정 화면
     $(document).ready(function() {
+		//(음악 있으면 만약에) list 보여주기 위한 함수
+		selectAllMusic();
+	
+	
         // MP3 FILE INSERT -> COLOR CHANGE
         $('#file').change(function() {
             if (this.files && this.files[0].type === 'audio/mpeg') {
                 $('#music--icon').css('color', '#68D8D6');
+                console.log("음악파일 들어감");
             } 
-            console.log("음악 제대로 들어감");
         });
 
         // THUMBNAIL FILE INSERT -> COLOR CHANGE
@@ -97,17 +101,18 @@ $(function() {
 
                 if (allowedExt.includes(fileExt)) {
                     $('#music--thumbnail').css('color', '#68D8D6');
+                	console.log("썸네일 들어감");
                 } 
-                console.log("썸네일 제대로 들어감");
             }
         });
 
         // MUSIC PLAYLIST ADD
         $('#music--add').click(function() {
+            let memNo = $('input[name="memNo"]').val();
             let title = $('#musicTitle').val().trim();
             let singer = $('#singer').val().trim();
-            let musicFile = $('#file').val().trim();
-            let musicThumbnail = $('#thumbnail').val().trim();
+            let musicFile = $('#file')[0].files[0];
+            let musicThumbnail = $('#thumbnail')[0].files[0];
 
             // 추가는 최대 10개
             if ($('.music--list li').length >= 10) {
@@ -119,28 +124,37 @@ $(function() {
                 alert('제목과 가수를 모두 입력해주세요.');
                 return;
             } else if (title !== '' && singer !== '') { // 값을 모두 올바르게 넣어서 삽입됐다면
-                $('.music--list').append(`
-                    <li class="song">
-                        <div class="material-icons selectMusic" style="color:#07BEB8; font-size:18px; cursor:pointer;">play_arrow</div>
-                        ${title} - ${singer}
-                        <div class="material-icons trashcan" style="color:#dc3545; font-size:16px; visibility:hidden; cursor:pointer;">delete_outline</div>
-                    </li>
-                `);
+                
+                    if(musicFile && musicThumbnail){
+				 		let formData = new FormData();
+				        formData.append('memNo', memNo);
+				        formData.append('title', title);
+				        formData.append('singer', singer);
+				        formData.append('musicFile', musicFile);
+				        formData.append('musicThumbnail', musicThumbnail);
+				
+				        $.ajax({
+				            url: '/Mingles/insertMusic.msc',
+				            type: 'post',
+				            data: formData,
+				            contentType: false,
+				            processData: false,
+				            success: function(result) {
+				                if(result === 1){
+								alert("성공적으로 삽입되었습니당");
+								}
+				            },
+				            error: function(result) {
+				                console.error('멸망이다 이놈아', result);
+				            }
+				        });
+                    $('#music--icon').css('color', 'black');
+                    $('#music--thumbnail').css('color', 'black');
 
+                    } // 제목과 가수 입력, 파일 업로드가 다 정상적으로 작동됬을 때 작용하는 if문
                 $('#musicTitle').val('');
                 $('#singer').val('');
 
-	            const musicFileURL = URL.createObjectURL(musicFile);
-	            const musicThumbnailURL = URL.createObjectURL(musicThumbnail);
-	            
-                // PLAYLIST에 값 insert하기
-                musicList.push({
-                    title: title,
-                    singer: singer,
-                    musicFile: musicFileURL,
-                    musicThumbnail: musicThumbnailURL
-                });
-		        $('#music--icon').css('color', 'black');
             }
         });
         
@@ -174,15 +188,42 @@ $(function() {
                 console.log(selectedMusic);
             }
         });
-    });
 
-    // PLAYLIST
-    const musicList = [
-        {
-            title: 'basicSong',
-            singer: 'hiphopRockstar',
-            musicFile: 'https://p.scdn.co/mp3-preview/0ba9d38f5d1ad30f0e31fc8ee80c1bebf0345a0c',
-            musicThumbnail: '../../resources/images/Mingles 심볼 png(크기키움).png'
-        }
-    ];
+  
+
+        // 화면 켜졌을 때 음악파일 전체 select하는 함수
+        function selectAllMusic(){
+            $.ajax({
+                url : '/Mingles/selectMusic.msc',
+                data : {memNo : memNo},
+                method : 'post',
+                success: function(result){
+					console.log("가져오기 성공~", result);
+					setMusicList(result);
+				},
+				error : function(result){
+					console.error("개같이 멸망잼", result)
+				}
+                
+            });//ajax
+        }// selectAllMusic()
+
+	function setMusicList(result){
+	
+	let listHtml = '';
+        result.forEach((music, index) => {
+        listHtml += `
+            <li class="song">
+                <div class="material-icons selectMusic" style="color:#07BEB8; font-size:18px; cursor:pointer;">play_arrow</div>
+                ${music.title} - ${music.singer}
+                <div class="material-icons trashcan" style="color:#dc3545; font-size:16px; visibility:hidden; cursor:pointer;">delete_outline</div>
+            </li>
+        `;
+        });
+        $('.music--list').html(listHtml);
+	};// setMusicList
+	
+
+    });// document.ready 
+
 });

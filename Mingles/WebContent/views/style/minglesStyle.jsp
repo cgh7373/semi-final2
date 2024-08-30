@@ -186,7 +186,7 @@ Member m = (Member)session.getAttribute("loginUser");
 	
 	<script>
 	let memNo = <%= m.getMemNo()%>
-	console.log('사용자 번호:', memNo);
+
 	// 페이지 로드 시 select됬던 요소 실행
 	window.onload= function(){
 		selectAvatar();

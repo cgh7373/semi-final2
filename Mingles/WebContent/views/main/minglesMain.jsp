@@ -99,6 +99,7 @@
                             <table class="music--insert">
                                 <tr>
                                     <td>
+                                    <input type = "hidden" name = "memNo" value="<%= m.getMemNo() %>">
                                         <label for="file">
                                             <div class="material-icons" id="music--icon">
                                                 music_note
@@ -110,7 +111,7 @@
                                             <div class="material-icons" id ="music--thumbnail">
                                                 smart_display
                                             </div>
-                                            <input type="file" name="musicThumbnai" id="thumbnail">
+                                            <input type="file" name="musicThumbnail" id="thumbnail">
                                         </label>
                                     </td>
                                     <td width="360px">
