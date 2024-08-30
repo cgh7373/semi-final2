@@ -2,7 +2,16 @@ const show = document.getElementById("show");
 const mp3button = document.getElementById("mp3Button");
 let isShow = false;
 
+const calendarDates = document.getElementById("calendarDates");
+const currentMonthElement = document.getElementById("currentMonth");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 
+const today = new Date();
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+
+const owner = document.getElementById("owner").getAttribute("data-owner");
 
 $(function () {
   let bounce;
@@ -120,17 +129,6 @@ $(document).ready(function () {
 
   // <div class="material-icons" style ="color:#07BEB8; font-size:18px; cursor:pointer;">play_arrow</div> 클릭하면 음악 재생하게 하기
 });
-
-const calendarDates = document.getElementById("calendarDates");
-const currentMonthElement = document.getElementById("currentMonth");
-const prevBtn = document.getElementById("prevBtn");
-const nextBtn = document.getElementById("nextBtn");
-
-const today = new Date();
-let currentMonth = today.getMonth();
-let currentYear = today.getFullYear();
-
-const owner = document.getElementById("owner").getAttribute("data-owner");
 
 function readStatus() {
   $.ajax({

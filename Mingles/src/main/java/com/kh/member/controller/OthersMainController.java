@@ -32,11 +32,7 @@ public class OthersMainController extends HttpServlet {
 		
 		int memNo = Integer.parseInt(request.getParameter("oMemNo"));
 		
-		Member m = new MemberService().selectNoMember(memNo);
-		
-		request.setAttribute("otherUser", m);
-		
-		request.getRequestDispatcher("views/main/othersMain.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/views/main/minglesMain.jsp?memNo=" + memNo);
 		
 	}
 

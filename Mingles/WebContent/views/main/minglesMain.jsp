@@ -1,8 +1,26 @@
+<%@page import="com.kh.member.model.service.MemberService"%>
 <%@page import="com.kh.member.model.vo.Member" %>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-        <% Member m=(Member)session.getAttribute("loginUser"); String contextPath=request.getContextPath(); String
-            alertMsg=(String)session.getAttribute("alertMsg"); String errorMsg=(String)session.getAttribute("errorMsg");
-            %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%  
+	
+	String memNoStr = request.getParameter("memNo");
+
+	if (memNoStr != null) {
+		
+	    int memNo = Integer.parseInt(memNoStr);
+	    Member m = new MemberService().selectNoMember(memNo);
+	    
+	    request.setAttribute("otherUser", m);
+	}
+
+	Member m = (Member)session.getAttribute("loginUser"); 
+    Member o = (Member)request.getAttribute("otherUser");
+	String contextPath=request.getContextPath(); 
+	String alertMsg=(String)session.getAttribute("alertMsg"); 
+	String errorMsg=(String)session.getAttribute("errorMsg");
+	Member mem = (o != null) ? o : m;
+	request.setAttribute("user", mem);
+%>
             <!DOCTYPE html>
             <html>
 
@@ -47,7 +65,6 @@
                 <link rel="icon" href="../../resources/images/Mingles아이콘-removebg-preview.png">
             </head>
 
-            <body>
 
                 <body>
 
@@ -56,8 +73,8 @@
                     <script>
 
 
-
                         document.addEventListener("DOMContentLoaded", function () {
+                   
 		// 성공메시지
 		 <% if (alertMsg != null) { %>
                                 swal({
@@ -172,31 +189,31 @@
                     <div id="wrap">
                         <div id="container">
                             <!-- Left Screen -->
-                            <% if (m !=null) { %>
+                            <% if (mem !=null) { %>
                                 <div class="post-list" id="left">
                                     <div class="left__content" id="con1">
-                                        <img src="<%=m.getProfilePic() %>" alt="">
+                                        <img src="<%=mem.getProfilePic() %>" alt="">
                                     </div>
                                     <div class="left__content" id="con2">
                                         <div id="con2__nickname">
-                                            <%= m.getNickname() %>
+                                            <%= mem.getNickname() %>
                                         </div>
 
                                         <button id="calendarIcon" class="material-icons" data-toggle="modal"
                                             data-target="#calendarModal">calendar_month</button>
 
                                         <div id="con2__my_text">
-                                            <%=m.getStatusMsg() %>
+                                            <%=mem.getStatusMsg() %>
                                         </div>
                                         <div id="con2__my_info">
-                                            <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일
+                                            <div id="my_info__1" data-toggle="tooltip" title="<%= mem.getEmail() %>">이메일
                                             </div>
-                                            <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI
+                                            <div id="my_info__2" data-toggle="tooltip" title="<%= mem.getMBTI() %>">MBTI
                                             </div>
-                                            <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리
+                                            <div id="my_info__3" data-toggle="tooltip" title="<%= mem.getZodiac() %>">별자리
                                             </div>
-                                            <span id="zodiac" data-zodiac="<%= m.getZodiac() %>"></span>
-                                            <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO()%>">혈액형
+                                            <span id="zodiac" data-zodiac="<%= mem.getZodiac() %>"></span>
+                                            <div id="my_info__4" data-toggle="tooltip" title="<%= mem.getABO()%>">혈액형
                                             </div>
                                         </div>
 
@@ -335,7 +352,7 @@
                                     function getDirection() {
                                         var windowWidth = window.innerWidth;
                                         var direction = window.innerWidth <= 300 ? 'vertical' : 'horizontal';
-
+                                        
                                         return direction;
                                     }
                                 </script>
@@ -441,21 +458,21 @@
                                                 <table class="modal-table">
 
                                                     <tr>
-                                                        <td rowspan="2" class="modal-img"><img src=<%=m.getProfilePic()
+                                                        <td rowspan="2" class="modal-img"><img src=<%=mem.getProfilePic()
                                                                 %>></td>
                                                         <td class="modal-nickname">
-                                                            <%=m.getNickname() %>
+                                                            <%=mem.getNickname() %>
                                                         </td>
                                                         <td rowspan='2' class='memo-content'>Content</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="modal-statusMsg">
-                                                            <%=m.getStatusMsg() %>
+                                                            <%=mem.getStatusMsg() %>
                                                         </td>
                                                     </tr>
 
                                                 </table>
-                                                <span id="owner" data-owner="<%= m.getMemNo() %>"></span>
+                                                <span id="owner" data-owner="<%= mem.getMemNo() %>"></span>
                                                 <div class="pagination">
                                                     <button id="prevPage">&lt;</button>
                                                     <span id="pageNumbers"></span>
@@ -467,7 +484,7 @@
                                                 <table>
                                                     <tr>
                                                         <th>
-                                                            <img class='bullImg' src=<%=m.getProfilePic() %>>
+                                                            <img class='bullImg' src=<%=mem.getProfilePic() %>>
                                                         </th>
                                                         <td id="writeMemo">
                                                             <input id="replyContent" maxlength="100" type="text">

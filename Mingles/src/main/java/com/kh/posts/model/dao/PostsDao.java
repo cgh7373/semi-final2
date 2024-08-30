@@ -285,5 +285,40 @@ public class PostsDao {
 		
 		return list;
 	}
+
+	public ArrayList<Post> selectRecentRepliedPosts(Connection conn, int owner) {
+		
+		ArrayList<Post> list = new ArrayList<Post>();
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectRecentRepliedPosts");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, owner);
+			
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				
+				Post p = new Post();
+				
+				p.setPostNum(rset.getInt(1));
+				p.setPostTitle(rset.getString(2));
+				
+				list.add(p);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
 }

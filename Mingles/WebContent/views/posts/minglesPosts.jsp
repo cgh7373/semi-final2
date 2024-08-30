@@ -50,7 +50,8 @@
 
                             renderPostsList();
                         	renderFavoritePosts();
-                        
+                        	renderRecentReplied();
+                        	
 
                     });
                 </script>
@@ -572,15 +573,24 @@
                         		},
                         		success : (result) => {
                         			
+                        			let j = 0;
+                        			j = result.length;
+                        			
                         			for (let i in result) {
                         				
                         				result[i].postTitle = result[i].postTitle ?? "제목 없음"
                         						
-                        				value += "<li>" + result[i].postTitle+ "<span data-favpno=" + result[i].postNum + "></span></li>"
-                        				// 저 게시번호로 게시글날아가기
+	                        			value += "<li>" + result[i].postTitle + "<span data-pno=" + result[i].postNum + "></span></li>"
+                        				
+                        			}
+                        			
+                        			while (j < 3) {
+                        				value += "<li>게시글을 작성해보세요!</li>"
+                        				j++;
                         			}
                         			
                         			$("#popular ul").html(value);
+                        			
                         		}
                         		
                         	})
@@ -598,15 +608,26 @@
                         		},
                         		success : (result) => {
                         			
+                        			let j = 0;
+                        			j = result.length;
+                        			
                         			for (let i in result) {
                         				
                         				result[i].postTitle = result[i].postTitle ?? "제목 없음"
                         						
-                        				value += "<li>" + result[i].postTitle+ "<span data-favpno=" + result[i].postNum + "></span></li>"
-                        				// 저 게시번호로 게시글날아가기
+                        				value += "<li>" + result[i].postTitle + "<span data-pno=" + result[i].postNum + "></span></li>"
+                        				
                         			}
                         			
+
+                        			while (j < 3) {
+                        				value += "<li>게시글을 작성해보세요!</li>"
+                        				j++;
+                        			}
+                        			
+                        			
                         			$("#recent ul").html(value);
+                        			
                         		}
                         		
                         	})

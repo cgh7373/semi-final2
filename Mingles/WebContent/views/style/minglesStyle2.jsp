@@ -2,7 +2,9 @@
 	<%@page import="com.kh.member.model.service.MemberService" %>
 		<%@page import="com.kh.member.model.vo.Member" %>
 			<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-				<% Member m =(Member)session.getAttribute("loginUser"); %>
+				<% //Member m =(Member)session.getAttribute("loginUser");
+				   Member m =(Member)request.getAttribute("user");
+				%>
 					<!DOCTYPE html>
 					<html lang="en">
 
@@ -181,6 +183,7 @@
 
 								// getValues()에 선택된 값 담기
 								function getValues() {
+									
 									return {
 										userNo: memNo,
 										hair: document.getElementById('hairSave').querySelector('img').src,

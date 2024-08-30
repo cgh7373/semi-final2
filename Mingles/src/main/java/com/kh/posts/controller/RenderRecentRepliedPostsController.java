@@ -1,11 +1,17 @@
 package com.kh.posts.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
+import com.kh.posts.model.service.PostsService;
+import com.kh.posts.model.vo.Post;
 
 /**
  * Servlet implementation class RenderRecentRepliedPostsController
@@ -29,6 +35,11 @@ public class RenderRecentRepliedPostsController extends HttpServlet {
 		
 		int owner = Integer.parseInt(request.getParameter("owner"));
 		
+		ArrayList<Post> list = new PostsService().selectRecentRepliedPosts(owner);
+		
+		response.setContentType("json/application; charset=utf-8;");
+		
+		new Gson().toJson(list, response.getWriter());
 		
 	}
 

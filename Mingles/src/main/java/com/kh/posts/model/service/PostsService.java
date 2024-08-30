@@ -113,4 +113,15 @@ public class PostsService {
 		return list;
 	}
 
+	public ArrayList<Post> selectRecentRepliedPosts(int owner) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Post> list = new PostsDao().selectRecentRepliedPosts(conn, owner);
+		
+		close(conn);
+		
+		return list;
+	}
+
 }
