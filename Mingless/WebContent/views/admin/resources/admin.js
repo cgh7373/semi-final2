@@ -54,18 +54,7 @@ new Chart(ctx, {
             {
                 label: '회원수',
                 data: [
-                    memberCount[0],
-                    memberCount[1],
-                    memberCount[2],
-                    memberCount[3],
-                    memberCount[4],
-                    memberCount[5],
-                    memberCount[6],
-                    memberCount[7],
-                    memberCount[8],
-                    memberCount[9],
-                    memberCount[10],
-                    memberCount[11]
+                    ...memberCount
                 ],
                 borderWidth: 1
             }
@@ -104,18 +93,7 @@ new Chart(ctx2, {
             {
                 label: '게시글수',
                 data: [
-                    postCount[0],
-                    postCount[1],
-                    postCount[2],
-                    postCount[3],
-                    postCount[4],
-                    postCount[5],
-                    postCount[6],
-                    postCount[7],
-                    postCount[8],
-                    postCount[9],
-                    postCount[10],
-                    postCount[11],
+                    ...postCount
                 ],
                 borderWidth: 1
             }
@@ -131,4 +109,43 @@ new Chart(ctx2, {
     }
 });
 
+const ctx3 = document.querySelector("#myChart3");
+
+new Chart(ctx3, {
+    type: 'line',
+    data: {
+        labels: [
+            '1월',
+            '2월',
+            '3월',
+            '4월',
+            '5월',
+            '6월',
+            '7월',
+            '8월',
+            '9월',
+            '10월',
+            '11월',
+            '12월'
+        ],
+        datasets: [
+            {
+                label: '결제',
+                data: [
+                    ...payCount
+                    
+                ],
+                borderWidth: 1
+            }
+        ]
+    },
+    options: {
+        responsive: false,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
 

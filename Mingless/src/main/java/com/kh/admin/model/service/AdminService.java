@@ -49,6 +49,16 @@ public class AdminService {
 		
 		return count;
 	}
+	
+	public ArrayList<Integer> selectPayCount() {
+		Connection conn = getConnection();
+		
+		ArrayList<Integer> count = new AdminDao().selectPayCount(conn);
+		
+		close(conn);
+		
+		return count;
+	}
 
 	public ArrayList<Item> selectItem() {
 		Connection conn = getConnection();
@@ -367,8 +377,29 @@ public class AdminService {
 		Connection conn = getConnection();
 		
 		ArrayList<Chat> chatList = new AdminDao().selectChatList(conn, memId);
+		
+		close(conn);
+		
 		return chatList;
 	}
+
+	public int insertAdminChat(String sendMsg, String toMem) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().insertAdminChat(conn, sendMsg, toMem);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	
 
 	
 

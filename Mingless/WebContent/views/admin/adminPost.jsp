@@ -381,14 +381,15 @@
                             <div class="modal-body" id="admin-chat-body">
 								<!-- 메시지 받는 대상 리스트 -->
                                 <div class="contact-list" id="contact-list">
-                                    <div class="contact-item" onclick="selectContact('user1')">작성자</div>
+                                    <div class="contact-item" id="toMember">작성자</div>
                                 </div>
                                 <!-- 채팅 리스트 및 입력 -->
                                 <div class="chat-container">
                                     <div class="chat-list" id="chat-list">
                                         <!-- 채팅 내역 없으면  -->
-                                        <div class="chat-item">대화내용이없습니다</div>
-
+                                        <div class="message-container chat-empty">
+                                            <div class="chat-item chat-empty">대화내용이없습니다...</div>
+                                        </div>
                                         <div class="message-container">
                                             <h6 class="time">10:00 AM</h6>
                                             <div class="chat-item sent">보낸 내용</div>
@@ -416,7 +417,7 @@
                                     </div>
                                     <div class="chat-input">
                                         <input type="text" id="chat-message" placeholder="메시지를 입력하세요..." class="form-control">
-                                        <button type="button" class="btn btn-primary mt-2" id="send-message">전송</button>
+                                        <button type="button" class="btn btn-primary mt-2" id="send-message-btn">전송</button>
                                     </div>
                                 </div>
                             </div>
@@ -518,26 +519,102 @@
                         location.href = "cancleBlock.am?postNo=" + no;
                     }
                     
+                    let toNo = "";
+                    let memId;
                     // 채팅 로드 하는 함수
-                    function sendMessage(el){
-                        let memId = el.name;
-
+                    function sendMessage(el) {
+                        memId = el.name;
+                        let value = "";
+                        let sendChat = "";
+                        
+                        let toNoIn = "";
+                        let lastDate = null; // 마지막으로 표시한 날짜
+                        const chatLists = $('#chat-list');
+                        $('#toMember').text(el.name);
+                        chatLists.html("");
                         $('#admin-chat').modal('show');
+
                         $.ajax({
-                            url:"adminChat.am",
-                            data:{
+                            url: "adminChat.am",
+                            data: {
                                 memId: memId,
                             },
-                            success:()=>{
+                            dataType: 'json',
+                            success: (chatList) => {
                                 console.log("loadChat success");
+                                console.log(chatList);
+                                if (chatList.length === 0) {
+                                    value += `
+                                    <div class="message-container chat-empty">
+                                        <div class="chat-item chat-empty">대화내용이없습니다...</div>
+                                    </div>
+                                    <input type='hidden' id='toNoBox' value='\${memId}'  />
+                                    `;
+                                } else {
+                                    
+                                    chatList.forEach(chat => {
+                                        const chatDate = new Date(chat.chatTime);
+                                        const year = chatDate.getFullYear();
+                                        const month = chatDate.getMonth() + 1;
+                                        const date = chatDate.getDate();
+                                        const dayIndex = chatDate.getDay();
+                                        const hour = chatDate.getHours().toString().padStart(2, '0');
+                                        const minute = chatDate.getMinutes().toString().padStart(2, '0');
+										
+                                        // 요일을 문자열로 변환
+                                        const daysOfWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+                                        const dayString = daysOfWeek[dayIndex];
+
+                                        // 현재 날짜를 비교할 수 있도록 새 객체로 생성
+                                        const currentDate = new Date(chatDate.getFullYear(), chatDate.getMonth(), chatDate.getDate());
+                                        
+                                        // 같은 날짜의 메시지일 때 날짜를 표시하지 않도록 설정
+                                        if (lastDate === null || lastDate.getTime() !== currentDate.getTime()) {
+                                            // 날짜를 표시한 후, 그 날짜에 속하는 메시지를 표시하도록 value에 추가
+                                            if (sendChat) {
+                                                value += sendChat;
+                                                sendChat = "";
+                                            }
+                                            value += `
+                                            <div class="message-container chat-date">
+                                                <div class="chat-item chat-date">\${year}년 \${month}월 \${date}일 \${dayString}</div>
+                                            </div>`;
+                                            lastDate = currentDate;
+                                        }
+
+                                        // 메시지 표시
+                                        if (chat.fromNo === 4) {
+                                            toNo = `\${chat.toNo}`;
+                                            sendChat += `
+                                            <div class="message-container">
+                                                <h6 class="time">\${hour}:\${minute}</h6>
+                                                <div class="chat-item sent">\${chat.chatContent}</div>
+                                            </div>`;
+                                        } else if (chat.toNo === 4) {
+                                            sendChat += `
+                                            <div class="message-container">
+                                                <div class="chat-item received">\${chat.chatContent}</div>
+                                                <h6 class="time">\${hour}:\${minute}</h6>
+                                            </div>`;
+                                        }
+                                    });
+
+                                    // 마지막으로 남은 메시지 추가
+                                    if (sendChat) {
+                                        value += sendChat;
+                                    }
+                                }
+                                toNoIn += `<input type='hidden' id='toNoBox' value='\${toNo}'>`;
+                                chatLists.html(value + toNoIn);
                             },
-                            error: () =>{
-                                console.log("loadChat faild");
+                            error: () => {
+                                console.log("loadChat failed");
                             },
                         });
-                    	//location.href = "adminChat.am?memId=" + el.name;
+
                         prepareScroll();
                     }
+
 
 	                    // 채팅창 스크롤 항상 아래로
                         function prepareScroll() {
@@ -553,6 +630,71 @@
                         let chatList = document.querySelector('.chat-list');
                         chatList.scrollTop = chatList.scrollHeight; // 스크롤의 위치를 최하단으로
                     }
+
+                    function delayedSendMessage(el) {
+                        setTimeout(() => {
+                            sendMessage(el); 
+                        }, 500); 
+                    }
+
+                    $(() => {
+                        const sendMsgInput = $("#chat-message"); // 인풋(엔터, 버튼 클릭시 안에 밸류넘기기)
+                        const sendMsgBtn = $("#send-message-btn"); // 버튼(클릭이벤트)
+                        let sendMsg = "";
+                        // 엔터 눌렀을 때
+                        sendMsgInput.on('keydown',(e)=>{
+                            let toMem = $('#toNoBox').val();
+                            if(e.key === 'Enter'){
+                                sendMsg = sendMsgInput.val();
+                                $.ajax({
+                                    url:"insertChat.am",
+                                    data:{
+                                        sendMsg:sendMsg,
+                                        toMem: toMem,
+                                    },
+                                    success:(e)=>{
+                                        console.log("insert chat success");
+                                        if(e === 'YYYI'){
+											sendMsgInput.val("");
+											
+											delayedSendMessage({name: memId});
+										}else{
+											
+										}
+                                    },
+                                    error:()=>{
+                                        console.log("insert chat faild");
+                                        
+                                    },
+                                })
+                            }
+                        });
+                        // 버튼 클릭시
+                        sendMsgBtn.on('click' ,() =>{
+                            sendMsg = sendMsgInput.val();
+                                $.ajax({
+                                    url:"insertChat.am",
+                                    data:{
+                                    	sendMsg:sendMsg,
+                                        toMem: toMem,
+                                    },
+                                    success:()=>{
+                                    	 console.log("insert chat success");
+                                         if(e === 'YYYI'){
+ 											sendMsgInput.val("");
+ 											
+ 											delayedSendMessage({name: memId});
+ 										}else{
+ 											
+ 										}
+                                    },
+                                    error:()=>{
+                                        console.log("insert chat faild");
+                                    },
+                                })
+                        })
+
+                    });
 
                 </script>
 

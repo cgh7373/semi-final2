@@ -81,10 +81,9 @@
                                                         <div class="custom-select" style="width: 200px;">
                                                             <select name="category" id="productCategory" required="required">
                                                                 <option value="none">카테고리 선택</option>
-                                                                <option value="IC1">홈피꾸미기</option>
-                                                                <option value="IC2">내방꾸미기</option>
-                                                                <option value="IC3">아바타꾸미기</option>
-                                                                <option value="IC4">아이템광장</option>
+                                                                <%for(ItemCategory ic : itemCategory){  %>
+                                                                    <option value="<%=ic.getCategoryNo()%>"><%=ic.getCategoryName() %></option>
+                                                                <%} %>
                                                             </select>
                                                         </div>
                                                         <div class="detailCategory">
@@ -92,7 +91,7 @@
                                                         </div>
                                                         <div class="openTag btn tagify--hasMaxTags">태그작성</div>
                                                     </div>
-                                                    <button id="insertItem" class="submit btn btn-sm btn-primary" onclick="insertItems();">상품등록</button>
+                                                    <button id="insertItem" class="submit btn btn-sm" onclick="insertItems();">상품등록</button>
                                                 <!--  </div> -->
                                                 </form>
                                             </div>

@@ -583,7 +583,7 @@ h1 span:nth-child(7) {
   margin: 20px 0 0 20px;
   height: 45px;
   padding: 6px 25px;
-  background-color: #FF6600;
+  background-color: #1abdaf9c;
   border-radius: 4px;
   color: white;
   cursor: pointer;
@@ -974,10 +974,14 @@ div:where(.swal2-icon) {
 }
 
 /* 관리자 채팅 */
+#admin-chat-content{
+  width: 650px;  
+} 
 #admin-chat-body {
   display: flex;
   height: 400px; /* 모달의 높이 설정 */
 }
+
 .contact-list {
   flex: 0 0 30%;
   border-right: 1px solid #ddd;
@@ -1063,8 +1067,16 @@ div:where(.swal2-icon) {
   margin-bottom: 10px;
   /* gap: 10px; */
 }
+.message-container.chat-empty{
+  justify-content: center;
+}
+.message-container.chat-date{
+  justify-content: center;
+  font-size: 18px;
+}
+
 .message-container .time {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   color: #888;
   margin: 0 10px;
   white-space: nowrap;
@@ -1072,6 +1084,7 @@ div:where(.swal2-icon) {
 .message-container .chat-item {
   max-width: calc(100% - 70px); /* 시간을 위한 공간을 고려하여 메시지 폭 조정 */
   position: relative;
+  font-size: 20px;
 }
 
 #chat-list::-webkit-scrollbar {
@@ -1087,6 +1100,74 @@ div:where(.swal2-icon) {
 }
 
 #chat-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* 상품등록 아이템 카테고리*/
+#insertItem{
+  background-color: #a2d2ff;
+}
+
+#insertItem:hover{
+  background-color: #8fc9ff;
+  color: aliceblue;
+}
+
+.custom-select {
+  position: relative;
+  display: inline-block;
+  width: 200px; /* 원하는 너비 설정 */
+}
+
+.custom-select select {
+  display: none; /* 기본 select 숨기기 */
+}
+
+.select-selected {
+  background-color: #ffffff;
+  padding: 8px;
+  border: 1px solid #f1f1f1;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.select-items {
+  position: absolute;
+  background-color: #ffffff;
+  border: 1px solid #f1f1f1;
+  border-radius: 4px;
+  max-height: 150px; /* 최대 높이 설정 */
+  overflow-y: auto; /* 스크롤바 활성화 */
+  z-index: 99;
+  width: 100%;
+  box-sizing: border-box;
+  top: 100%;
+  left: 0;
+}
+
+.select-items div {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.select-items div:hover {
+  background-color: #ddd;
+}
+
+.select-items::-webkit-scrollbar {
+  width: 10px;  /* 세로축 스크롤바 폭 너비 */
+  height: 20px;  /* 가로축 스크롤바 폭 너비 */
+}
+
+
+.select-items::-webkit-scrollbar-thumb {
+  background: #dcf8c6; /* 스크롤바 막대 색상 */
+  border: 2px solid #d5fcb7; /* 스크롤바 막대 테두리 설정  */
+  border-radius: 12px 12px 12px 12px;
+}
+
+.select-items::-webkit-scrollbar-thumb:hover {
   background-color: rgba(255, 255, 255, 0.5);
   border: 2px solid rgba(255, 255, 255, 0.5);
 }

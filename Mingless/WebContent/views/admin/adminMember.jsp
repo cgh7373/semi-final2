@@ -122,10 +122,10 @@
                                                         <td>\${a[u].enrollDate}</td>
                                                         <td>\${a[u].egg}</td>    
                                                         <td align="center">
-                                                        	<div class="custom-control custom-switch">
-                                                        		<input type="checkbox" class="custom-control-input" id="switch\${a[i].memNo}" value="\${a[i].memNo}" onchange="insertBlack(this);" \${isChecked}>
-                                                            	<label class="custom-control-label" for="switch\${a[i].memNo}"></label>
-                                                        	</div>
+                                                            <div class="custom-control custom-switch">
+                                                                <input type="checkbox" class="custom-control-input" id="switch\${a[i].memNo}" value="\${a[i].memNo}" onchange="insertBlack(this);" \${isChecked}>
+                                                                <label class="custom-control-label" for="switch\${a[i].memNo}"></label>
+                                                            </div>
                                                         </td>    
                                                     </tr>`;  
                                                 }

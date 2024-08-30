@@ -4,8 +4,8 @@ public class Chat {
 
 
 	private int chatId; // 채팅방번호
-	private String fromNo; // 로그인한 사람의 회원번호
-	private String toNo; // 상대방의 회원번호
+	private int fromNo; // 로그인한 사람의 회원번호
+	private int toNo; // 상대방의 회원번호
 	private String toNoprofile; // 상대방의 프로필
 	private String chatContent; // 채팅 내용
 	private String chatTime; // 보낸 시간
@@ -14,7 +14,7 @@ public class Chat {
 	public Chat () {}
 
 
-	public Chat(int chatId, String fromNo, String toNo, String toNoprofile, String chatContent, String chatTime) {
+	public Chat(int chatId, int fromNo, int toNo, String toNoprofile, String chatContent, String chatTime) {
 		super();
 		this.chatId = chatId;
 		this.fromNo = fromNo;
@@ -35,22 +35,22 @@ public class Chat {
 	}
 
 
-	public String getFromNo() {
+	public int getFromNo() {
 		return fromNo;
 	}
 
 
-	public void setFromNo(String fromNo) {
+	public void setFromNo(int fromNo) {
 		this.fromNo = fromNo;
 	}
 
 
-	public String getToNo() {
+	public int getToNo() {
 		return toNo;
 	}
 
 
-	public void setToNo(String toNo) {
+	public void setToNo(int toNo) {
 		this.toNo = toNo;
 	}
 
@@ -90,6 +90,8 @@ public class Chat {
 		return "Chat [chatId=" + chatId + ", fromNo=" + fromNo + ", toNo=" + toNo + ", toNoprofile=" + toNoprofile
 				+ ", chatContent=" + chatContent + ", chatTime=" + chatTime + "]";
 	}
+
+	
 
 	
 	

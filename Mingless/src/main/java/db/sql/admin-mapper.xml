@@ -26,6 +26,13 @@
 		   AND STATUS != 'N'
 	</entry>
 	
+	<entry key="selectPayCount">
+		SELECT SUM(PRICE) PRICE
+		  FROM EGGPAYMENT
+		 WHERE EXTRACT(MONTH FROM PAYDATE) = ?
+		   AND PAYSTATUS = 'Y'
+	</entry>
+	
 	<entry key="selectPostCount">
 		SELECT COUNT(POST_NUM) AS "COUNT"
 		  FROM POST
@@ -427,5 +434,80 @@
 		  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
 		 WHERE POST_TYPE = 1
 		   AND POST_NUM = ?
+	</entry>
+	
+	<entry key="insertChat">
+		INSERT
+		  INTO CHAT
+		  (
+		    CHAT_ID
+		  , FROM_MEMNO
+		  , TO_MEMNO
+		  , CHAT_CONTENT
+		  )
+		  VALUES
+		  (
+		    ? // 상대방
+		  , 4 // 나
+		  , ? // 상대방
+		  , ? // 컨텐츠
+		  )
+	</entry>
+	
+	<entry key="selectChatList">
+		SELECT 
+		       CHAT_ID
+		     , FROM_MEMNO
+		     , TO_MEMNO
+		     , PROFILE_PIC
+		     , CHAT_CONTENT
+		     , CHAT_TIME
+		FROM CHAT
+		JOIN MEMBER ON (MEM_NO = TO_MEMNO)
+		WHERE 
+		      (FROM_MEMNO = 4 AND TO_MEMNO = (SELECT MEM_NO 
+		                                        FROM MEMBER 
+		                                       WHERE MEM_ID = ?))
+		   OR (FROM_MEMNO = (SELECT MEM_NO 
+		                       FROM MEMBER 
+		                      WHERE MEM_ID = ?) AND TO_MEMNO = 4)
+		ORDER
+		   BY CHAT_TIME
+	</entry>
+	
+	<entry key="insertAdminChatId">
+		INSERT 
+		  INTO CHAT 
+		     (
+		       CHAT_ID
+		     , FROM_MEMNO
+		     , TO_MEMNO
+		     , CHAT_CONTENT
+		     )
+		VALUES 
+		     (
+		       ( SELECT MEM_NO FROM MEMBER WHERE MEM_ID = ?)
+		     , 4
+		     , ( SELECT MEM_NO FROM MEMBER WHERE MEM_ID = ?)
+		     , ?
+		)
+	</entry>
+	
+	<entry key="insertAdminChatNo">
+		INSERT 
+		  INTO CHAT 
+		     (
+		       CHAT_ID
+		     , FROM_MEMNO
+		     , TO_MEMNO
+		     , CHAT_CONTENT
+		     )
+		VALUES 
+		     (
+		       ?
+		     , 4
+		     , ?
+		     , ?
+		)
 	</entry>
 </properties>

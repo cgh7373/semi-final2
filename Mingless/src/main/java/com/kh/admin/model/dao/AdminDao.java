@@ -126,6 +126,32 @@ public class AdminDao {
 		
 		
 	}
+	
+	public ArrayList<Integer> selectPayCount(Connection conn) {
+		ArrayList<Integer> count = new ArrayList<Integer>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectPayCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			for(int i=1; i<13; i++) {
+				pstmt.setInt(1, i);
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					count.add((rset.getInt("price")));
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
 
 	public ArrayList<Item> selecItem(Connection conn) {
 		ArrayList<Item> list = new ArrayList<Item>();
@@ -892,18 +918,74 @@ public class AdminDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memId);
+			pstmt.setString(2, memId);
 			
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				chatList.add(new Chat());
+				chatList.add(new Chat(rset.getInt("chat_id")
+						            , rset.getInt("from_memno")
+						            , rset.getInt("to_memno")
+						            , rset.getString("profile_pic")
+						            , rset.getString("chat_content")
+						            , rset.getString("chat_time")));
 			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		
 		return chatList;
 	}
 
+	public int insertAdminChat(Connection conn, String sendMsg, String toMem) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAdminChatId");
+		String sql2 = prop.getProperty("insertAdminChatNo");
+		
+			try {
+				if(isMixed(toMem)) { // 아이디일때
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, toMem);
+					pstmt.setString(2, toMem);
+					pstmt.setString(3, sendMsg);
+				
+					result = pstmt.executeUpdate();
+					
+				}else if(isNumeric(toMem)) { // 숫자만 있을때
+					pstmt = conn.prepareStatement(sql2);
+					pstmt.setInt(1, Integer.parseInt(toMem));
+					pstmt.setInt(2, Integer.parseInt(toMem));
+					pstmt.setString(3, sendMsg);
+					
+					result = pstmt.executeUpdate();
+							
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(conn);
+			}
+			
+		
+		return result;
+	}
+	
+	
+	// 문자열이 숫자와 문자가 혼합되어 있는지 확인
+    public static boolean isMixed(String str) {
+        return str.matches(".*[a-zA-Z]+.*") && str.matches(".*\\d+.*");
+    }
+
+    // 문자열이 순수 숫자인지 확인
+    public static boolean isNumeric(String str) {
+        return str.matches("\\d+"); // 또는 "\\d+"를 사용하여 정수만 검사
+    }
+
+	
 	
 
 

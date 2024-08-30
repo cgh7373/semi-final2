@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.admin.model.service.AdminService;
 import com.kh.admin.model.vo.Chat;
 
@@ -35,6 +36,16 @@ public class AdminChatController extends HttpServlet {
 		
 		ArrayList<Chat> chatList = new AdminService().selectChatList(memId); 
 		
+		// System.out.println(chatList);
+		response.setContentType("application/json; charset=utf-8");
+		
+		if(chatList.isEmpty()) {
+			new Gson().toJson(chatList, response.getWriter());
+		
+		}else {
+			
+			new Gson().toJson(chatList, response.getWriter());
+		}
 				
 	}
 

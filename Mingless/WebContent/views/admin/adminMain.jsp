@@ -4,6 +4,8 @@
 ArrayList<Integer> memberCount = (ArrayList<Integer>)request.getAttribute("memberCount");
 // 월별 회원 수 1-12월 
 ArrayList<Integer> postCount = (ArrayList<Integer>)request.getAttribute("postCount");
+// 월별 게시글 수 공지사항 포함
+ArrayList<Integer> payCount = (ArrayList<Integer>)request.getAttribute("payCount");
 %>
 <!DOCTYPE html>
 <html>
@@ -55,6 +57,7 @@ ArrayList<Integer> postCount = (ArrayList<Integer>)request.getAttribute("postCou
                             <script>
                                 const memberCount = <%=memberCount %>;
                                 const postCount = <%=postCount %>; 
+                                const payCount = <%=payCount %>;
                             </script>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -80,6 +83,21 @@ ArrayList<Integer> postCount = (ArrayList<Integer>)request.getAttribute("postCou
                                     <div class="statisticsPost">
                                         <div>
                                             <canvas id="myChart2" class="col-lg-12"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-xl-5 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">결제 차트</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="statisticsPost">
+                                        <div>
+                                            <canvas id="myChart3" class="col-lg-12"></canvas>
                                         </div>
                                     </div>
                                 </div>

@@ -253,3 +253,111 @@ COMMENT ON COLUMN CHAT.TO_MEMNO IS '채팅받는사람';
 COMMENT ON COLUMN CHAT.CHAT_CONTENT IS '채팅내용';
 COMMENT ON COLUMN CHAT.CHAT_TIME IS '채팅보낸시간';
 
+INSERT
+  INTO CHAT
+     (
+       CHAT_ID
+     , FROM_MEMNO
+	 , TO_MEMNO
+	 , CHAT_CONTENT
+	 )
+VALUES
+     (
+	   15 -- 상대방
+     , 4 -- 나
+	 , 15 -- 상대방
+	 , '관리자가 두개 보낼때 테스트' -- 컨텐츠
+	 )
+;
+
+INSERT
+  INTO CHAT
+     (
+       CHAT_ID
+     , FROM_MEMNO
+	 , TO_MEMNO
+	 , CHAT_CONTENT
+	 )
+VALUES
+     (
+	   4 -- 상대방
+     , 15 -- 나
+	 , 4 -- 상대방
+	 , 'user14가 보낸 내용222' -- 컨텐츠
+	 )
+;
+
+
+commit;
+SELECT 
+       CHAT_ID
+     , FROM_MEMNO
+     , TO_MEMNO
+     , PROFILE_PIC
+     , CHAT_CONTENT
+     , CHAT_TIME
+FROM CHAT
+JOIN MEMBER ON (MEM_NO = TO_MEMNO)
+WHERE 
+      (FROM_MEMNO = 4 AND TO_MEMNO = (SELECT MEM_NO 
+                                        FROM MEMBER 
+                                       WHERE MEM_ID = 'user14'))
+   OR (FROM_MEMNO = (SELECT MEM_NO 
+                       FROM MEMBER 
+                      WHERE MEM_ID = 'user14') AND TO_MEMNO = 4)
+ORDER
+   BY CHAT_TIME
+   ;
+   
+INSERT INTO CHAT (
+    CHAT_ID,
+    FROM_MEMNO,
+    TO_MEMNO,
+    CHAT_CONTENT
+)
+VALUES (
+    (SELECT MEM_NO FROM MEMBER WHERE MEM_ID = 'user14'), -- CHAT_ID를 위한 자리표시자
+    4, -- FROM_MEMNO는 하드코딩된 값
+    (SELECT MEM_NO FROM MEMBER WHERE MEM_ID = 'user14'), -- TO_MEMNO를 위한 서브쿼리
+    '관리자가 두개 보낼때 테스트2222'
+)
+;
+
+CREATE TABLE EGGPAYMENT(
+PAY_NO NUMBER PRIMARY KEY,
+MEM_NO NUMBER NOT NULL,
+PRICE NUMBER NOT NULL,
+POINT NUMBER NOT NULL,
+PAYOPTION VARCHAR2(30) NOT NULL,
+PAYDATE DATE DEFAULT SYSDATE NOT NULL,
+PAYSTATUS CHAR(1) DEFAULT 'Y' NOT NULL,
+CATEGORY VARCHAR2(10) NOT NULL,
+FOREIGN KEY (MEM_NO) REFERENCES MEMBER(MEM_NO)
+);
+
+CREATE SEQUENCE SEQ_EPNO NOCACHE;
+
+INSERT INTO EGGPAYMENT
+          (
+            PAY_NO
+          , MEM_NO
+          , PRICE
+          , POINT
+          , PAYOPTION
+          , CATEGORY
+          )
+     VALUES
+          (
+            SEQ_EPNO.NEXTVAL
+          , 8
+          , 10000
+          , 100
+          , '간편결제'
+          , '본인'
+          )
+          ;
+SELECT SUM(PRICE) PRICE
+  FROM EGGPAYMENT
+ WHERE EXTRACT(MONTH FROM PAYDATE) = 8
+		   AND PAYSTATUS = 'Y'
+  ;
