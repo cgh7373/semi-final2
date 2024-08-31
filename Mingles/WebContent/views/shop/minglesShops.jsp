@@ -106,7 +106,7 @@
                         </span>
                     </div>
                     <div class="content-main">
-                        <ul> 
+                        <ul class = "floating"> 
 						  <% for(Item it: list){%>
                             <!-- 이게 template -->
                            <li>

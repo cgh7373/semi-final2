@@ -23,12 +23,11 @@ public class MusicInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String saveDir = "/resources/music_upfiles";
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MusicInsertController() {
-        super();
-        // TODO Auto-generated constructor stub
+    private String replaceTitle(String fileName) {
+        if (fileName == null) {
+            return null;
+        }
+        return fileName.replace(" ", "_");
     }
 
 	/**
@@ -46,8 +45,8 @@ public class MusicInsertController extends HttpServlet {
 		
 		if(musicFile != null && musicThumbnail != null) {
 			
-			String musicFileName = musicFile.getSubmittedFileName();
-			String musicThumbnailName = musicThumbnail.getSubmittedFileName();
+			String musicFileName = replaceTitle(musicFile.getSubmittedFileName());
+			String musicThumbnailName = replaceTitle(musicThumbnail.getSubmittedFileName());
 			
 			String uploadPath = getServletContext().getRealPath("")+File.separator + saveDir;
 			File uploadDir = new File(uploadPath);

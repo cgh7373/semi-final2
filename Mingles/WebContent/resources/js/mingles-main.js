@@ -84,7 +84,6 @@ $(function() {
 		//(음악 있으면 만약에) list 보여주기 위한 함수
 		selectAllMusic();
 	
-	
         // MP3 FILE INSERT -> COLOR CHANGE
         $('#file').change(function() {
             if (this.files && this.files[0].type === 'audio/mpeg') {
@@ -135,7 +134,7 @@ $(function() {
 				
 				        $.ajax({
 				            url: '/Mingles/insertMusic.msc',
-				            type: 'post',
+				            method: 'post',
 				            data: formData,
 				            contentType: false,
 				            processData: false,
@@ -169,28 +168,6 @@ $(function() {
             flag = !flag;
         });
 
-        $('.music--list').on('click', '.trashcan', function() {
-            $(this).parent().remove();
-            alert("음악이 성공적으로 삭제되었습니다.");
-        });
-
-        // 음악 선택 시 동적으로 표시
-        $('.music--list').on('click', '.selectMusic', function() {
-            let index = $(this).parent().index();
-            let selectedMusic = musicList[index];
-            
-            if (selectedMusic) {
-                $('#musicImg').attr('src', selectedMusic.musicThumbnail);
-                $('#music--element').attr('src', selectedMusic.musicFile);
-                $('.music--title').text(selectedMusic.title);
-                $('.music--singer').text(selectedMusic.singer);
-                $('#play-pause-button').text('Play!');
-                console.log(selectedMusic);
-            }
-        });
-
-  
-
         // 화면 켜졌을 때 음악파일 전체 select하는 함수
         function selectAllMusic(){
             $.ajax({
@@ -198,30 +175,84 @@ $(function() {
                 data : {memNo : memNo},
                 method : 'post',
                 success: function(result){
-					console.log("가져오기 성공~", result);
 					setMusicList(result);
 				},
 				error : function(result){
 					console.error("개같이 멸망잼", result)
 				}
-                
             });//ajax
         }// selectAllMusic()
 
+
 	function setMusicList(result){
-	
-	let listHtml = '';
-        result.forEach((music, index) => {
-        listHtml += `
+
+    let musicListContainer = document.querySelector(".music--list");// 선택을 li가 아니라 그 위 상위 요소 ul에 두어서 반복문으로 내리찍어야 한다.
+    musicListContainer.innerHTML = ''; // 선택된 지점을 한번 공백으로 정리해줘야 한다. 
+    let musicListHtml = '';
+
+    for (let i = 0; i < result.length; i++) {
+        let list = result[i];
+        musicListHtml += `
             <li class="song">
                 <div class="material-icons selectMusic" style="color:#07BEB8; font-size:18px; cursor:pointer;">play_arrow</div>
-                ${music.title} - ${music.singer}
-                <div class="material-icons trashcan" style="color:#dc3545; font-size:16px; visibility:hidden; cursor:pointer;">delete_outline</div>
+                ${list.musicTitle} - ${list.musicSinger}
+                <div class="material-icons trashcan" style="color:#dc3545; font-size:16px; visibility:hidden; cursor:pointer;"data-music-no="${list.musicNo}">delete_outline</div>
             </li>
         `;
-        });
-        $('.music--list').html(listHtml);
+    }
+    musicListContainer.innerHTML = musicListHtml;
+  
+
+    // 음악 선택 시 동적으로 표시
+    $('.music--list').on('click', '.selectMusic', function() {
+        let index = $(this).parent().index();
+        
+        if (result && index >= 0 && index < result.length) {
+            let selectedMusic = result[index];
+            $('#musicImg').attr('src', '../..' + selectedMusic.musicThumbnail);
+            $('#music--element').attr('src', '../..' + selectedMusic.musicFilepath);
+            $('.music--title').text(selectedMusic.musicTitle);
+            $('.music--singer').text(selectedMusic.musicSinger);
+            $('#play-pause-button').text('Play!');
+
+        }
+    });
+
 	};// setMusicList
+	
+		// deleteMusic
+        $('.music--list').on('click', '.trashcan', function () {
+            let musicNo = $(this).data("musicNo");
+            let deleteSign = $(this).parent();
+            deleteMusic(musicNo, deleteSign);
+        });
+
+		function deleteMusic(musicNo, deleteSign) {
+			
+			console.log(musicNo);
+			
+			confirm("정말로 삭제하시겠습니까?");
+			
+			if(confirm){
+				
+			    $.ajax({
+		        url: '/Mingles/deleteMusic.msc',
+		        method: 'POST',
+		        data: { memNo: memNo, musicNo: musicNo },
+		        success: function(result) {
+		            console.log(result);
+		            if (deleteSign) {
+		                deleteSign.remove(); 
+		                alert("성공적으로 삭제하였습니다.");
+		            };
+		        },
+		        error: function(){},
+		    });
+				
+			};
+			
+		}//deleteMusic
+		    
 	
 
     });// document.ready 

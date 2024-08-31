@@ -34,4 +34,18 @@ public class MusicService {
 		return list;
 	}// selectAllMusic
 
+	public int deleteMusic(int memNo, int musicNo) {
+		Connection conn = getConnection();
+		
+		int result = new MusicDao().deleteMusic(conn, memNo, musicNo);
+
+		if(result >0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}// deleteMusic
+
 }

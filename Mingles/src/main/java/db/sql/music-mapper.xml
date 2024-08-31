@@ -36,4 +36,13 @@ SELECT
  WHERE MEM_NO = ?
 </entry>
 
+<entry key = "deleteMusic">
+DELETE 
+  FROM MUSIC
+ WHERE 
+        MEM_NO = ?
+   AND MUSIC_NO = ?
+</entry>
+
+
 </properties>

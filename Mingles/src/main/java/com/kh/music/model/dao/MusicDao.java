@@ -83,6 +83,28 @@ public class MusicDao {
 		return list;
 	}// selectAllMusic
 	
+	public int deleteMusic(Connection conn, int memNo, int musicNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteMusic");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, musicNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}// deleteMusic
+	
 	
 	
 }

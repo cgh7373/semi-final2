@@ -180,22 +180,23 @@
                     <!-- img 클릭하면 이 창 뜸 -->
                     <div class ="popover-content" id = "show">
                         <div class = "musicThumbnail" id="musicThumbnail">
-                            <img id="musicImg" src = "../../resources/images/Mingles 심볼 png(크기키움).png">
+                            <img id="musicImg" src = "../../resources/music_upfiles/music3.jpg">
                         </div>
                         <div class = "music--info">
+                            <div class="music--info2">
                             <p class="music--title">basicSong</p>
                             <p class="music--singer">hiphopRockstar</p>
                             <button id="play-pause-button">Play!</button>
-
+                        </div>
                             <!-- MUSIC BAR -->
-                            <span class="current-time">0:0</span>
+                             <div class="music--bar">
+                            <div class="current-time">0:0</div>
                             <input type="range" id="music-bar" value="0">
-                            <span class="duration">0:0</span>
-                            <audio id="music--element" src="https://p.scdn.co/mp3-preview/0ba9d38f5d1ad30f0e31fc8ee80c1bebf0345a0c" controls="1" style="visibility:hidden;"></audio>
+                            <div class="duration">0:0</div>
+                            <audio id="music--element" src="../../resources/music_upfiles/ETA.mp3" controls="1" style="visibility:hidden;"></audio>
+                            </div>
                         </div>
                         <!-- PLAYLIST BUTTON -->
-                        <button class="material-icons">expand_less</button>
-                        <button class="material-icons">expand_more</button>
                         <button class="material-icons" id="playlist" data-toggle="modal" data-target="#myModal">playlist_play</button>
                     </div>
     
