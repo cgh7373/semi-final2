@@ -142,12 +142,15 @@ div, img {
 #settings .left .mid .promotion .swiper-slide {
     overflow: hidden;
     width: 300px;
+    border-radius: 10px;
+    
 }
 
 #settings .left .mid .promotion .swiper-slide img {
     display: block;
     width: 100%;
     height: auto;
+    border-radius: 10px;
 }
 
 #settings .left .mid .promotion .swiper-container .btn {
@@ -174,12 +177,10 @@ div, img {
     justify-content: center;
     transition: .5s;
     &.swiper-prev {
-        left: 56%;
-        margin-left: -200px;
+        left: 30%;
     }
     &.swiper-next {
-        right: 56%;
-        margin-right: -200px;
+        right: 30%;
     }
     &>div {
         font-size: 35px;
@@ -218,6 +219,8 @@ div, img {
     display: block;
     width: 100%;
     height: auto;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 #settings .left .bot .promotion .swiper-container .btn {
@@ -244,12 +247,10 @@ div, img {
     justify-content: center;
     transition: .5s;
     &.swiper-prev {
-        left: 56%;
-        margin-left: -200px;
+        left: 30%;
     }
     &.swiper-next {
-        right: 56%;
-        margin-right: -200px;
+        right: 30%;
     }
     &>div {
         font-size: 35px;

@@ -137,12 +137,15 @@
 	</entry>
 	
 	<entry key="selectRecentRepliedPosts">
-			  SELECT POST_NUM
+			  SELECT 
+			DISTINCT POST_NUM
 			       , POST_TITLE
+			       , POST_THUMBNAIL
 				FROM 
 				   (
 					 SELECT A.POST_TITLE
 					      , A.POST_NUM
+					      , A.POST_THUMBNAIL
 					   FROM POST A
 					   JOIN REPLY B 
 					     ON (A.POST_NUM = B.REPLY_OWN_POST)

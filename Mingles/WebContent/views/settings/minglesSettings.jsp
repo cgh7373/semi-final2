@@ -488,7 +488,7 @@
 
                         <div class="promotion">
 
-                            <div class="promo-tag">최근 댓글이 달린 게시글</div>
+                            <div class="promo-tag">조회수 top3</div>
 
                             <div class="swiper-container">
 
@@ -528,7 +528,7 @@
 
                         <div class="promotion">
 
-                            <div class="promo-tag">최근 댓글이 달린 게시글</div>
+                            <div class="promo-tag">최신댓글 top3</div>
 
                             <div class="swiper-container">
 

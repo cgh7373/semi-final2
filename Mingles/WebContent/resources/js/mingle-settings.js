@@ -83,28 +83,40 @@ function renderRecentReplied() {
 			
 			for (let i in result) {
 				
-				result[i].postTitle = result[i].postTitle ?? "제목 없음";
+				value += "<div class='swiper-slide'><img src='" + result[i].postThumbnail + "' /><span data-pno='" + result[i].postNum + "'></span></div>"
 						
-				value += "<li>" + result[i].postTitle + "<span data-pno=" + result[i].postNum + "></span></li>";
-				
 			}
 			
-
 			while (j < 3) {
-				value += "<li>게시글을 작성해보세요!</li>"
+				value += "<div class='swiper-slide'><img src='../../resources/images/Mingles-움직임.gif'/></div>"
 				j++;
-			};
+			}
 			
+			$(".swiper-wrapper.recentRPost").html(value);
 			
-			$("#recent ul").html(value);
-			
+			new Swiper('.bot .promotion .swiper-container', {
+	
+			    slidesPerView: 3,
+			    spaceBetween: 20,
+			    centeredSlides: true, // 1번 슬라이드를 가운데 두기
+			    loop: true,
+			    speed: 1300,
+			    autoplay: {
+			        delay: 2500,
+			        disableOnInteraction: false,
+			    },
+						navigation: {
+			            prevEl: '.bot .promotion .swiper-prev',
+			            nextEl: '.bot .promotion .swiper-next',
+			        }
+			})
 		}
 		
 	});
 	
 };
 
-$(".swiper-wrapper.favPost").on('click', '.swiper-slide', function() {
+$(".swiper-wrapper").on('click', '.swiper-slide', function() {
 	
 	 let dataPno = $(this).find('span').data('pno') ?? 0;
 	 
@@ -115,22 +127,22 @@ $(".swiper-wrapper.favPost").on('click', '.swiper-slide', function() {
 });
 
 renderFavoritePosts();
- 
+renderRecentReplied();
 
 
-new Swiper('.bot .promotion .swiper-container', {
-        slidesPerView: 3,
-        spaceBetween: 20,
-        centeredSlides: true, // 1번 슬라이드를 가운데 두기
-        loop: true,
-        speed: 1300,
-        autoplay: {
-            delay: 2500,
-            disableOnInteraction: false,
-        },
-        navigation: {
-            prevEl: '.bot .promotion .swiper-prev',
-            nextEl: '.bot .promotion .swiper-next',
-        }
-})
+// new Swiper('.bot .promotion .swiper-container', {
+//         slidesPerView: 3,
+//         spaceBetween: 20,
+//         centeredSlides: true, // 1번 슬라이드를 가운데 두기
+//         loop: true,
+//         speed: 1300,
+//         autoplay: {
+//             delay: 2500,
+//             disableOnInteraction: false,
+//         },
+//         navigation: {
+//             prevEl: '.bot .promotion .swiper-prev',
+//             nextEl: '.bot .promotion .swiper-next',
+//         }
+// })
 

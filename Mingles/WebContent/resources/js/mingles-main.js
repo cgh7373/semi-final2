@@ -844,12 +844,6 @@ mp3button.addEventListener("click", function () {
 
 });
 
-$("#con3 ul").on('click', 'li', function() {
-	 
-	 location.href="/Mingles/toOthersPost.mi?owner=" + owner;
-	
-})
-
 function renderFavoritePosts() {
                         	
 	let value = "";
@@ -921,3 +915,14 @@ function renderRecentReplied() {
 	})
 	
 };
+
+$("#con3 ul").on('click', 'li', function() {
+	
+  let dataPno = $(this).find('span').data('pno') ?? 0;
+	 
+  if (dataPno > 0) {
+    location.href="/Mingles/toOthersPost.mi?owner=" + owner + "&modal=on&pNum=" + dataPno;
+    };
+ 
+})
+	
