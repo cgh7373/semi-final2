@@ -1,6 +1,8 @@
-package com.kh.common.controller;
+package com.kh.posts.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,18 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.posts.model.service.PostsService;
+import com.kh.posts.model.vo.Post;
 
 /**
- * Servlet implementation class IframeShowController
+ * Servlet implementation class RenderRecentRepliedPostsController
  */
-@WebServlet("/iframeShow.mi")
-public class IframeShowController extends HttpServlet {
+@WebServlet("/recentReplied.mi")
+public class RenderRecentRepliedPostsController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public IframeShowController() {
+    public RenderRecentRepliedPostsController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,45 +33,13 @@ public class IframeShowController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String iSrc = request.getParameter("iSrc");
-		String responseType = request.getParameter("type"); 
+		int owner = Integer.parseInt(request.getParameter("owner"));
 		
-		String page = "";
-		
-		switch (iSrc) {
-		
-		case "settings" : 
-			page = "/Mingles/views/settings/minglesSettings.jsp";
-			break;
-			
-		case "main" :
-			page = "/Mingles/views/main/minglesMain.jsp";
-			break;
-			
-		case "shop" :
-			page = "/Mingles/list.it?category=IC100&cpage=1";
-			break;
-			
-		case "style" :
-			page = "/Mingles/views/style/minglesStyle.jsp";
-			break;
-		
-		case "chat" :
-			page = "/Mingles/views/chat/minglesChat.jsp";
-			break;
-			
-		case "posts" : 
-			page = "/Mingles/views/posts/minglesPosts.jsp";
-			break;
-			
-		}
-		
-		if (iSrc.equals("posts")) {
-			// 게시글리스트 따와서 request로 날리기
-		}
+		ArrayList<Post> list = new PostsService().selectRecentRepliedPosts(owner);
 		
 		response.setContentType("json/application; charset=utf-8;");
-		new Gson().toJson(page, response.getWriter());
+		
+		new Gson().toJson(list, response.getWriter());
 		
 	}
 

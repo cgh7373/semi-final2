@@ -63,6 +63,8 @@
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
     	 
+    	
+    	 
     	 // 유저 검색함수
     	 function loadData(type) {
       	   
@@ -454,6 +456,7 @@
                             <!-- 사진첨부할 인풋 -->
                             <form id="proPic" method="post" enctype="multipart/form-data" action="<%=request.getContextPath() %>/updatePic.mi">
                             <input type="hidden" name="memId" value="<%=m.getMemId()%>">
+                            <input type="hidden" name="memNo" id="memNo" value="<%=m.getMemNo()%>">
                             <label for="file">
                                 <div class="btn-upload">
                                     <span class="material-icons">
@@ -485,11 +488,11 @@
 
                         <div class="promotion">
 
-                            <div class="promo-tag">최근 방문</div>
+                            <div class="promo-tag">조회수 top3</div>
 
                             <div class="swiper-container">
 
-                                <div class="swiper-wrapper">
+                                <div class="swiper-wrapper favPost">
 
                                     <!-- 여기 이미지 -->
                                     <div class="swiper-slide">
@@ -525,15 +528,16 @@
 
                         <div class="promotion">
 
-                            <div class="promo-tag">~~~</div>
+                            <div class="promo-tag">최신댓글 top3</div>
 
                             <div class="swiper-container">
 
                                 <!-- 여기 이미지 -->
-                                <div class="swiper-wrapper">
+                                <div class="swiper-wrapper recentRPost">
 
                                     <div class="swiper-slide">
-                                        <img src="../../resources/images/Mingles-움직임.gif" alt="2024 뉴이어, 스타벅스와 함께" />
+                                        <img src="../../resources/images/Mingles-움직임.gif" alt="2024 뉴이어, 스타벅스와 함께" 
+                                        onclick="tooo();"/>
                                     </div>
 
                                     <div class="swiper-slide">
@@ -968,7 +972,7 @@
                                     <div class="modal-body" align="center">
                                    
                                     <form action="/Mingles/statusMsg.mi" method="post">
-                                   
+                                   	
                                            <input type="hidden" name="userId" value="<%= m.getMemId() %>">
                                            <table>
                                            
@@ -1168,6 +1172,10 @@
                                     });
                                 }
                             
+                                function tooo() {
+                                	location.href='/Mingles/toOthersPost.mi?owner=' + <%=m.getMemNo()%> + "&openModal=true&pNum=1";
+                                }
+                                
                                 function validatePwd() {
                                     
                                     if ($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()) {

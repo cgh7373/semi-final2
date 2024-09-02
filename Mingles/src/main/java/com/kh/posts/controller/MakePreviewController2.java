@@ -1,26 +1,28 @@
-package com.kh.member.controller;
+package com.kh.posts.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
+import com.google.gson.Gson;
+import com.kh.posts.model.vo.Post;
 
 /**
- * Servlet implementation class OthersMainController
+ * Servlet implementation class MakePreviewController2
  */
-@WebServlet("/othersMain.mi")
-public class OthersMainController extends HttpServlet {
+@WebServlet("/makePreview2.mi")
+public class MakePreviewController2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OthersMainController() {
+    public MakePreviewController2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,9 +32,25 @@ public class OthersMainController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int memNo = Integer.parseInt(request.getParameter("oMemNo"));
-		
-		response.sendRedirect(request.getContextPath() + "/views/main/minglesMain.jsp?memNo=" + memNo);
+		String title = request.getParameter("title"); 
+        String color = request.getParameter("color");
+        String tag = request.getParameter("tag");
+        int size = Integer.parseInt(request.getParameter("size"));
+        
+        ArrayList<Post> list = new ArrayList<Post>();
+        
+        Post p = new Post();
+        
+        p.setPostTitle(title);
+        p.setPostTitleColor(color);
+        p.setPostTag(tag);
+        p.setPostCount(size);
+        
+        list.add(p);
+        
+        response.setContentType("json/application; charset=utf-8;");
+        
+        new Gson().toJson(list, response.getWriter());
 		
 	}
 

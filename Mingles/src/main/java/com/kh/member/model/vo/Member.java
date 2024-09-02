@@ -231,22 +231,6 @@ public class Member {
 		this.memNo = memNo;
 	}
 	
-	public String getABO() {
-		return ABO;
-	}
-	
-	public void setABO(String ABO) {
-		this.ABO = ABO;
-	}
-	
-	public String getMBTI() {
-		return MBTI;
-	}
-	
-	public void setMBTI(String MBTI) {
-		this.MBTI = MBTI;
-	}
-
 	public String getMemId() {
 		return memId;
 	}
@@ -343,7 +327,18 @@ public class Member {
 		this.egg = egg;
 	}
 	
+	public String getABO() {
+		return ABO;
+	}
 
+
+	public String getKakaoNo() {
+		return kakaoNo;
+	}
+
+	public void setKakaoNo(String kakaoNo) {
+		this.kakaoNo = kakaoNo;
+	}
 
 
 	@Override

@@ -122,7 +122,7 @@
                                         <div class="form_group">
                                             <label class="sub_title" for="password">Password</label>
                                             <input placeholder="비밀번호를 입력하세요" id="password" class="form_style"
-                                                type="password" name="userPwd" value = "123" required>
+                                                type="password" name="userPwd" value = "" required>
                                         </div>
                                         <!-- 로그인 area -->
                                         <div class="login-area">
@@ -351,7 +351,8 @@
             	    	}
             	    })
             	    
-            	}
+            	};
+            	
             </script>
 
         

@@ -1,4 +1,4 @@
-package com.kh.member.controller;
+package com.kh.common.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
-
 /**
- * Servlet implementation class OthersMainController
+ * Servlet implementation class ToOthersPostController
  */
-@WebServlet("/othersMain.mi")
-public class OthersMainController extends HttpServlet {
+@WebServlet("/toOthersPost.mi")
+public class ToOthersPostController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OthersMainController() {
+    public ToOthersPostController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,9 +27,15 @@ public class OthersMainController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int memNo = Integer.parseInt(request.getParameter("oMemNo"));
+		int owner = Integer.parseInt(request.getParameter("owner"));
+		String modal = request.getParameter("modal");
+		int pNum = 0;
 		
-		response.sendRedirect(request.getContextPath() + "/views/main/minglesMain.jsp?memNo=" + memNo);
+		if (request.getParameter("pNum") != null) {
+			pNum = Integer.parseInt(request.getParameter("pNum"));
+		}
+		
+		response.sendRedirect(request.getContextPath() + "/views/posts/minglesPosts.jsp?owner=" + owner + "&pNum=" + pNum + "&modal=" + modal);
 		
 	}
 
