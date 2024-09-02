@@ -241,10 +241,9 @@
                     });
                         },
                 fail: function (err) {
-                    console.log(err);
+                    console.log("실패");
                 }
             });
-      
           }
 
         </script>

@@ -326,11 +326,14 @@ public class Member {
 	public void setEgg(int egg) {
 		this.egg = egg;
 	}
-	
+
 	public String getABO() {
 		return ABO;
 	}
 
+	public void setABO(String aBO) {
+		ABO = aBO;
+	}
 
 	public String getKakaoNo() {
 		return kakaoNo;
@@ -339,7 +342,15 @@ public class Member {
 	public void setKakaoNo(String kakaoNo) {
 		this.kakaoNo = kakaoNo;
 	}
+	
 
+	public String getMBTI() {
+		return MBTI;
+	}
+
+	public void setMBTI(String mBTI) {
+		MBTI = mBTI;
+	}
 
 	@Override
 	public String toString() {
