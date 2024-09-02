@@ -133,5 +133,92 @@
 		        )
 		 WHERE RNUM BETWEEN ? AND ?
 	</entry>
+	
+	<entry key="selectItemListCount"> 
+	SELECT COUNT(*)AS "COUNT" 
+	  FROM ITEM 
+	 WHERE ITEM_STATUS = 'Y' 
+	 </entry>
+	 
+	<entry key="selectItemList">
+	SELECT * 
+	  FROM 
+  ( SELECT ROWNUM RNUM, A.* 
+      FROM 
+  ( SELECT 
+            ITEM_NUM 
+          , CATEGORYNAME 
+          , ITEM_NAME 
+          , PRICE 
+          , ITEM_INTRO 
+          , ITEM_DATE 
+          , ITEM_STATUS 
+          , FILE_PATH || CHANGE_NAME AS SAVE_FILE 
+      FROM ITEM 
+      JOIN ITEMCATEGORY 
+      USING(ITEM_CATEGORY) 
+      JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO) 
+      WHERE ITEM_STATUS = 'Y' 
+      ORDER BY ITEM_NUM DESC )
+               A ) 
+      WHERE RNUM BETWEEN ? AND ? 
+      </entry>
+      
+	<entry key="selectListWithCategoryCount">
+	SELECT COUNT(*) AS "COUNT" 
+	  FROM ITEM 
+	 WHERE ITEM_STATUS = 'Y' AND ITEM_CATEGORY = ? 
+	 </entry>
+	<entry key="selectListWithCategory"> 
+	SELECT * 
+	  FROM ( 
+	       SELECT ROWNUM RNUM, A.* 
+	         FROM ( 
+	             SELECT 
+	                      ITEM_NUM 
+	                    , CATEGORYNAME 
+	                    , ITEM_NAME 
+	                    , PRICE 
+	                    , ITEM_INTRO 
+	                    , ITEM_DATE 
+	                    , ITEM_STATUS 
+	                    , FILE_PATH || CHANGE_NAME AS SAVE_FILE 
+	               FROM ITEM 
+	               JOIN ITEMCATEGORY 
+	               USING(ITEM_CATEGORY) 
+	               JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO) 
+	              WHERE ITEM_STATUS = 'Y' 
+	                AND ITEM_CATEGORY = ? 
+	              ORDER 
+	                 BY ITEM_NUM DESC )A )
+	           WHERE RNUM BETWEEN ? AND ? 
+	           </entry>
+	           
+	<entry key="purchaseItem"> 
+	SELECT 
+	        ITEM_NUM 
+	      , ITEM_CATEGORY 
+	      , ITEM_NAME 
+	      , PRICE 
+	      , ITEM_INTRO 
+	      , ITEM_DATE 
+	      , ITEM_STATUS 
+	      , FILE_PATH || CHANGE_NAME AS SAVE_FILE
+	  FROM ITEM 
+	  JOIN ITEMCATEGORY 
+	  USING (ITEM_CATEGORY) 
+	  JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO) 
+	 WHERE ITEM_STATUS = 'Y' 
+	   AND ITEM_NUM = ? 
+	   AND PRICE = ? 
+	   </entry>
+	   
+	<entry key="decreaseEgg"> 
+	UPDATE MEMBER
+	   SET EGG = EGG - ?
+	 WHERE MEM_NO = ? 
+	 </entry>
+	
+	
 
 </properties>

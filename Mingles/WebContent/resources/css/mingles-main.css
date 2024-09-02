@@ -20,6 +20,7 @@ div, img {
 body {
   margin: 0;
   font-family: "omyu_pretty", sans-serif;
+}
 
 html, body {
     overflow: hidden;
@@ -500,11 +501,6 @@ color: #08817d;
 font-size: 30px;
 text-align: center;
 font-weight:600;
-#myModal .modal-title {
-  color: #08817d;
-  font-size: 30px;
-  text-align: center;
-  font-weight: 600;
 }
 
 .modal-body .music--update,
@@ -512,25 +508,15 @@ font-weight:600;
 margin:5px;
 padding:5px;
 font-size:15px;
-#myModal .modal-body .music--update,
-#myModal .modal-body .music--sequence {
-  margin: 5px;
-  padding: 5px;
-  font-size: 15px;
 }
 
 .modal-body p{
 font-size:25px;
-font-weight:400;
-#myModal .modal-body p {
-  font-size: 25px;
-  font-weight: 400;
+font-weight: 400;
 }
 
 .music--list{
 font-size:20px;
-.music--list {
-  font-size: 20px;
 }
 
 #music--icon, #music--thumbnail{
@@ -538,28 +524,18 @@ color: black;
 font-size:30px;
 margin-top:10px;
 cursor:pointer;
-#music--icon,
-#music--icon {
-  color: black;
-  font-size: 30px;
-  margin-top: 10px;
 }
 
 input[type="file"]{
 display: none;
 }
 
-#myModal input[type="file"] {
-  display: none;
-}
 
 table input[type="text"]{
 width: 130px;
 margin:4px;
-#myModal table input[type="text"] {
-  width: 130px;
-  margin: 4px;
 }
+
 
 .btn {
   width: 80px;

@@ -57,8 +57,8 @@
                     integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
                     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- SweetAlert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                <!-- SweetAlert -->
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                 <!-- 내부파일 -->
                 <link rel="stylesheet" href="../../resources/css/mingles-main.css">
