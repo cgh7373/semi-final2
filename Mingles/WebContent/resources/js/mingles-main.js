@@ -1,6 +1,3 @@
-const show = document.getElementById("show");
-const mp3button = document.getElementById("mp3Button");
-let isShow = false;
 
 const calendarDates = document.getElementById("calendarDates");
 const currentMonthElement = document.getElementById("currentMonth");
@@ -305,7 +302,6 @@ $(document).ready(function () {
 			
 		}//deleteMusic
 		    
-	
 
     });// document.ready 
 
