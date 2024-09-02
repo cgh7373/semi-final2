@@ -31,6 +31,7 @@ public class IframeShowController extends HttpServlet {
 		
 		String iSrc = request.getParameter("iSrc");
 		String responseType = request.getParameter("type"); 
+		String responseType = request.getParameter("type"); 
 		
 		String page = "";
 		
@@ -45,6 +46,7 @@ public class IframeShowController extends HttpServlet {
 			break;
 			
 		case "shop" :
+			page = "/Mingles/list.it?category=IC100&cpage=1";
 			page = "/Mingles/list.it?category=IC100&cpage=1";
 			break;
 			

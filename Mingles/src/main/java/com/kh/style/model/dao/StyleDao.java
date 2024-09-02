@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 import static com.kh.common.JDBCTemplate.*;
 
+import com.kh.style.model.vo.PurItem;
 import com.kh.style.model.vo.Style;
 
 public class StyleDao {
@@ -153,5 +155,63 @@ public class StyleDao {
 		
 		return st;
 	}// selectStyle
+	
+	public int insertItem(Connection conn, PurItem pitem) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertItem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, pitem.getItemNo());
+			pstmt.setString(2, pitem.getItemCategory());
+			pstmt.setString(3, pitem.getItemName());
+			pstmt.setString(4, pitem.getFileName());
+			pstmt.setInt(5, pitem.getMemNo());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}// insertItem
+
+	public ArrayList<PurItem> selectAllItem(Connection conn, int userNo) {
+		ArrayList<PurItem> pitem = new ArrayList<PurItem>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+	
+		String sql = prop.getProperty("selectAllItem");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pitem.add(new PurItem(
+						rset.getInt("mem_no"),
+						rset.getInt("pitem_no"),
+						rset.getInt("item_num"),
+						rset.getString("item_category"),
+						rset.getString("item_name"),
+						rset.getString("file_name")
+						));
+			};
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pitem;
+	}
 
 }
