@@ -33,10 +33,10 @@ public class AdminChatController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String memId = request.getParameter("memId");
+		int adminNo = Integer.parseInt(request.getParameter("fromNo"));
+		ArrayList<Chat> chatList = new AdminService().selectChatList(memId, adminNo); 
 		
-		ArrayList<Chat> chatList = new AdminService().selectChatList(memId); 
-		
-		// System.out.println(chatList);
+	
 		response.setContentType("application/json; charset=utf-8");
 		
 		if(chatList.isEmpty()) {

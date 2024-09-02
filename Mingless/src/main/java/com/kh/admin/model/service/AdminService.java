@@ -128,10 +128,10 @@ public class AdminService {
 		return count;
 	}
 
-	public int insertBlackList(int memNo) {
+	public int insertBlackList(int memNo, int adminNo, int bkCount) {
 		Connection conn = getConnection();
 		
-		int result = new AdminDao().insertBlackList(conn, memNo);
+		int result = new AdminDao().insertBlackList(conn, memNo, adminNo, bkCount);
 		
 		int result2 = new AdminDao().updateBkStatus(conn, memNo);
 				
@@ -373,20 +373,20 @@ public class AdminService {
 		return result;
 	}
 
-	public ArrayList<Chat> selectChatList(String memId) {
+	public ArrayList<Chat> selectChatList(String memId, int adminNo) {
 		Connection conn = getConnection();
 		
-		ArrayList<Chat> chatList = new AdminDao().selectChatList(conn, memId);
+		ArrayList<Chat> chatList = new AdminDao().selectChatList(conn, memId, adminNo);
 		
 		close(conn);
 		
 		return chatList;
 	}
 
-	public int insertAdminChat(String sendMsg, String toMem) {
+	public int insertAdminChat(String sendMsg, String toMem, int fromNo) {
 		Connection conn = getConnection();
 		
-		int result = new AdminDao().insertAdminChat(conn, sendMsg, toMem);
+		int result = new AdminDao().insertAdminChat(conn, sendMsg, toMem, fromNo);
 		
 		if(result > 0) {
 			commit(conn);

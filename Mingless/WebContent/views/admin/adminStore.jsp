@@ -388,5 +388,18 @@
             </div>
         </div>
     </div>
+    
+   	<script>
+	    window.onload = function() {
+	        const url = window.location.href;
+	        const urlWithoutQueryString = window.location.origin + window.location.pathname;
+	
+	        // 현재 URL이 쿼리 문자열을 포함하고 있는지 확인합니다.
+	        if (url !== urlWithoutQueryString) {
+	            // 쿼리 문자열이 제거된 URL로 브라우저의 URL을 업데이트합니다.
+	            window.history.replaceState({}, document.title, urlWithoutQueryString);
+	        }
+	    };
+    </script>
 </body>
 </html>

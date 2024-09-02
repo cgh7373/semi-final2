@@ -30,7 +30,8 @@ public class AjaxInsertAdminChatController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String sendMsg = request.getParameter("sendMsg");
 		String toMem = request.getParameter("toMem");
-		int result = new AdminService().insertAdminChat(sendMsg, toMem);
+		int fromNo = Integer.parseInt(request.getParameter("fromNo"));
+		int result = new AdminService().insertAdminChat(sendMsg, toMem, fromNo);
 		
 		if(result > 0) {
 			response.setContentType("html/text; charset=utf-8");

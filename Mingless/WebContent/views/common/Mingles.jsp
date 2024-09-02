@@ -104,14 +104,14 @@
                                         <!-- 아이디 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="name">ID</label>
-                                            <input placeholder="아이디를 입력하세요." value="admin" class="form_style" type="text" name="userId" required>
+                                            <input placeholder="아이디를 입력하세요." class="form_style" type="text" name="userId" required>
                                         </div>
 
                                         <!-- 비밀번호 버튼 -->
                                         <div class="form_group">
                                             <label class="sub_title" for="password">Password</label>
                                             <input placeholder="비밀번호를 입력하세요" id="password" class="form_style"
-                                                type="password" name="userPwd" required value="123">
+                                                type="password" name="userPwd" required>
                                         </div>
                                         <!-- 로그인 area -->
                                         <div class="login-area">
@@ -228,7 +228,7 @@
 
             <!-- 아무탭7, 관리자 -->
             <%if(loginUser != null) {%>
-				<%if(loginUser.getMemId().equals("admin")){ %>
+				<%if(loginUser.getStatus().equals("A")){ %>
             		<a href="<%=contextPath %>/main.am" class="material-icons anyTab7" style="text-decoration: none; color: black;">manage_accounts</a>
                 <%}else{ %>
                 	<span class="material-icons anyTab7">add_circle_outline</span>

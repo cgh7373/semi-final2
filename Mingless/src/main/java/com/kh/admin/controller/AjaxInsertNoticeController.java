@@ -35,11 +35,12 @@ public class AjaxInsertNoticeController extends HttpServlet {
 		String content = request.getParameter("nContent");
 		String imgPath = request.getParameter("nImg");
 		String html = request.getParameter("html");
+		String writer = request.getParameter("writer");
 		
 		title = title.substring(title.indexOf(":") +2);
 		content = content.substring(content.indexOf(":") + 2);
 
-		Notice notice = new Notice(title, content, imgPath);
+		Notice notice = new Notice(title, content, imgPath, writer);
 		
 		// 공지사항 미리보기를 위한 저장, 공지사항작성된 html 저장
 		int result = new AdminService().insertNotice(notice, html);

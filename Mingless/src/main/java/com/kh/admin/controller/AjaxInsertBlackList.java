@@ -29,13 +29,16 @@ public class AjaxInsertBlackList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		int adminNo = Integer.parseInt(request.getParameter("admin"));
+		int bkCount = Integer.parseInt(request.getParameter("bkCount"));
 		
-		int result = new AdminService().insertBlackList(memNo);
+		int result = new AdminService().insertBlackList(memNo, adminNo, bkCount);
 		if(result > 0) {
+			request.setAttribute("alertMsg", "블랙리스트가 등록되었습니다!");
 			response.sendRedirect("member.am?cpage=1");
 		}else {
 			request.getSession().setAttribute("errorMsg", "블랙 전송실패");
-			request.getRequestDispatcher("views/admin/adminMain.jsp").forward(request, response);
+			response.sendRedirect("member.am?cpage=1");
 		}
 	}
 

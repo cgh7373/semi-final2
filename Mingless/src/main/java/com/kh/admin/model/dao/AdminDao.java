@@ -311,14 +311,15 @@ public class AdminDao {
 			
 			while(rset.next()) {
 				list.add(new Member(rset.getInt("mem_no")
-						, rset.getString("mem_id")
-						, rset.getString("nickname")
-						, rset.getString("birthday")
-						, rset.getString("email")
-						, rset.getString("gender")
-						, rset.getString("enroll_date")
-						, rset.getInt("egg")
-						, rset.getString("status")));				
+								  , rset.getString("mem_id")
+								  , rset.getString("nickname")
+								  , rset.getString("birthday")
+								  , rset.getString("email")
+								  , rset.getString("gender")
+								  , rset.getString("enroll_date")
+								  , rset.getInt("egg")
+								  , rset.getString("status")
+								  , rset.getInt("block_count")));				
 			}
 			
 		} catch (SQLException e) {
@@ -354,35 +355,43 @@ public class AdminDao {
 		return count;
 	}
 
-	public int insertBlackList(Connection conn, int memNo) {
+	public int insertBlackList(Connection conn, int memNo, int adminNo, int bkCount) {
 		int result1 = 0;
 		int result2 = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("insertBlackList");
 		String sql2 = prop.getProperty("updateBlockCount");
+		String sql3 = prop.getProperty("updateBlockCounts");
 		String getSeqSql = "SELECT SEQ_BLACKLIST.CURRVAL AS BLACKLIST_NO FROM DUAL";
 		try {
 			// insert
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, memNo);
-			
-			result1 = pstmt.executeUpdate();
-			
-			// 시퀀스 가져오기
-			pstmt = conn.prepareStatement(getSeqSql);
-			int blackListNo = 0;
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				blackListNo = rset.getInt("BLACKLIST_NO");
-			}
-			
-			// count update
-			if(blackListNo > 0) {
-				pstmt = conn.prepareStatement(sql2);
-				pstmt.setInt(1, blackListNo);
+			if(bkCount == 0 ) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, memNo);
+				pstmt.setInt(2, adminNo);
+				result1 = pstmt.executeUpdate();
+				
+				// 시퀀스 가져오기
+				pstmt = conn.prepareStatement(getSeqSql);
+				int blackListNo = 0;
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					blackListNo = rset.getInt("BLACKLIST_NO");
+				}
+				
+				// count update
+				if(blackListNo > 0) {
+					pstmt = conn.prepareStatement(sql2);
+					pstmt.setInt(1, blackListNo);
+					result2 = pstmt.executeUpdate();
+				}
+				
+			}else {
+				pstmt = conn.prepareStatement(sql3);
+				pstmt.setInt(1, memNo);
 				
 				result2 = pstmt.executeUpdate();
 			}
@@ -420,7 +429,6 @@ public class AdminDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateBkStatus");
-		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);
@@ -669,10 +677,12 @@ public class AdminDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, notice.getTitle());
 			pstmt.setString(2, notice.getContent());
+			pstmt.setString(3, notice.getWriter());
 			if (fileNo > 0 ) {
-				pstmt.setInt(3, fileNo);
+				pstmt.setInt(4, fileNo);
 			}else {
-				pstmt.setInt(3, 28);
+				// 사진 기본값 파일 번호 찾아서 변경
+				pstmt.setInt(4, 28);
 			}
 			postNo = pstmt.executeUpdate();
 			
@@ -909,7 +919,7 @@ public class AdminDao {
 		return result;
 	}
 
-	public ArrayList<Chat> selectChatList(Connection conn, String memId) {
+	public ArrayList<Chat> selectChatList(Connection conn, String memId, int adminNo) {
 		ArrayList<Chat> chatList = new ArrayList<Chat>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -917,9 +927,10 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, memId);
+			pstmt.setInt(1, adminNo);
 			pstmt.setString(2, memId);
-			
+			pstmt.setString(3, memId);
+			pstmt.setInt(4, adminNo);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				chatList.add(new Chat(rset.getInt("chat_id")
@@ -940,7 +951,7 @@ public class AdminDao {
 		return chatList;
 	}
 
-	public int insertAdminChat(Connection conn, String sendMsg, String toMem) {
+	public int insertAdminChat(Connection conn, String sendMsg, String toMem, int fromNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertAdminChatId");
@@ -950,16 +961,18 @@ public class AdminDao {
 				if(isMixed(toMem)) { // 아이디일때
 					pstmt = conn.prepareStatement(sql);
 					pstmt.setString(1, toMem);
-					pstmt.setString(2, toMem);
-					pstmt.setString(3, sendMsg);
+					pstmt.setInt(2, fromNo);
+					pstmt.setString(3, toMem);
+					pstmt.setString(4, sendMsg);
 				
 					result = pstmt.executeUpdate();
 					
 				}else if(isNumeric(toMem)) { // 숫자만 있을때
 					pstmt = conn.prepareStatement(sql2);
 					pstmt.setInt(1, Integer.parseInt(toMem));
-					pstmt.setInt(2, Integer.parseInt(toMem));
-					pstmt.setString(3, sendMsg);
+					pstmt.setInt(2, fromNo);
+					pstmt.setInt(3, Integer.parseInt(toMem));
+					pstmt.setString(4, sendMsg);
 					
 					result = pstmt.executeUpdate();
 							

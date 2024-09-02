@@ -5,14 +5,25 @@ public class Notice {
 	private String title;
 	private String content;
 	private String savePath;
+	private String writer;
 	
 	public Notice () {}
 
-	public Notice(String title, String content, String savePath) {
+	public Notice(String title, String content, String savePath, String writer) {
 		super();
 		this.title = title;
 		this.content = content;
 		this.savePath = savePath;
+		this.writer = writer;
+	}
+
+	
+	public String getWriter() {
+		return writer;
+	}
+
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 
 	public String getTitle() {

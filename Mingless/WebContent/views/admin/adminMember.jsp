@@ -65,7 +65,6 @@
 							
 							input.on('keydown', function(e){
 								if(e.key === 'Enter'){
-									
                                     $.ajax({
                                         url:"searchMember.am",
                                         data:{
@@ -75,7 +74,7 @@
                                         dataType: 'json',
                                         success:function(a){
                                             console.log("search ajax");
-                                            
+                                      
                                             if(a.length === 0){ // 검색된 결과 없을 때 
                                                 let value1 = "";
                                                 $("#memberTableCard").html("");
@@ -93,12 +92,13 @@
                                                                     <th>성별</th>
                                                                     <th>회원가입일</th>
                                                                     <th>보유거북알</th>
+                                                                    <th>블랙횟수</th>
                                                                     <th>블랙리스트</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
+                                                            <tbody id="memberCardBody">
                                                                 <tr align='center'>
-                                                                    <td colspan="9">검색된 회원이 없습니다</td>
+                                                                    <td colspan="10">검색된 회원이 없습니다</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -106,6 +106,7 @@
                                                         `;
                                                 $("#memberTableCard").html(value1)
                                             }else{ // 검색된 결과 있을 때 
+                                            	console.log("테스트");
                                                 let value2 = "";
                                                 $("#memberCardBody").html("");
                                                 $("#card-table-member .card-footer").html("");
@@ -120,7 +121,8 @@
                                                         <td>\${a[u].email}</td>
                                                         <td>\${a[u].gender}</td>
                                                         <td>\${a[u].enrollDate}</td>
-                                                        <td>\${a[u].egg}</td>    
+                                                        <td>\${a[u].egg}</td>
+                                                        <td>\${a[u].blockCount}</td>
                                                         <td align="center">
                                                             <div class="custom-control custom-switch">
                                                                 <input type="checkbox" class="custom-control-input" id="switch\${a[i].memNo}" value="\${a[i].memNo}" onchange="insertBlack(this);" \${isChecked}>
@@ -129,6 +131,7 @@
                                                         </td>    
                                                     </tr>`;  
                                                 }
+                                                    
                                                 $("#memberCardBody").html(value2);
                                             }
                                         },
@@ -163,13 +166,14 @@
                                                     <th>성별</th>
                                                     <th>회원가입일</th>
                                                     <th>보유거북알</th>
+                                                    <th>블랙횟수</th>
                                                     <th>블랙리스트</th>
                                                 </tr>
                                             </thead>
                                             <tbody id='memberCardBody'>
                                             <%if(memList.isEmpty()) {%>
                                                 <tr>
-                                                    <td colspan="9">조회된 회원이 없습니다</td>
+                                                    <td colspan="10">조회된 회원이 없습니다</td>
                                                 </tr>
                                             <%}else{ %>
                                                 <%for(Member m : memList) {%>
@@ -181,10 +185,11 @@
                                                         <td><%=m.getEmail() %></td>
                                                         <td><%=m.getGender() %></td>
                                                         <td><%=m.getEnrollDate() %></td>
-                                                        <td><%=m.getEgg() %></td>    
+                                                        <td><%=m.getEgg() %></td>
+                                                        <td><%=m.getBlockCount() %></td>    
                                                         <td align="center">
                                                             <div class="custom-control custom-switch">
-                                                                <input <%if(m.getStatus().equals("B")){ %>checked<%} %> type="checkbox" class="custom-control-input" id="switch<%=m.getMemNo()%>" value="<%=m.getMemNo() %>" onchange="insertBlack(this);">
+                                                                <input <%if(m.getStatus().equals("B")){ %>checked<%} %> type="checkbox" class="custom-control-input" id="switch<%=m.getMemNo()%>" value="<%=m.getMemNo() %>" onchange="insertBlack(this, <%=m.getBlockCount()%>);">
                                                                 <label class="custom-control-label" for="switch<%=m.getMemNo()%>"></label>
                                                             </div>
                                                         </td>    
@@ -196,8 +201,11 @@
                                     </div>
                                 </div>
                                 <script>
-                                        function insertBlack(el){
+                                        function insertBlack(el, count){
                                     		// 체크되었을때 블랙리스트(기본3일)로 변경
+                                    		const admin = <%=loginUser.getMemNo()%>;
+                                    		const counts = count;
+                                    		console.log(counts);
 											if(el.checked){
 												Swal.fire({
 													  title: "블랙리스트에 등록하시겠습니까?",
@@ -209,8 +217,8 @@
 													 
 													}).then((result) => {
 													  	if (result.isConfirmed) {
-														  Swal.fire("블랙리스트가 등록되었습니다!", {
-													      icon: "success",
+													  		 Swal.fire("블랙리스트가 등록되었습니다!", {
+															      icon: "success",
 													    });
 													  } else if(result.idDismissed) {
 														  Swal.fire("블랙리스트등록을 취소했습니다", {
@@ -221,7 +229,11 @@
 													});
 												$.ajax({
 													url:"insertBk.am",
-													data:{memNo:el.value},
+													data:{
+														memNo:el.value,
+														admin:admin,
+														bkCount:counts,
+														},
 													success:function(){
 														console.log("ajax insertBlack");
 													},

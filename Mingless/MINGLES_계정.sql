@@ -283,7 +283,7 @@ CREATE TABLE MEMBER_BLACKLIST (
     BLOCK_DATE DATE DEFAULT SYSDATE NOT NULL , -- 회원 블락 설정 날짜
     BLOCK_COUNT NUMBER DEFAULT 0 NOT NULL , -- 회원 블락 횟수
     EXPIRY_DATE DATE NOT NULL, -- 블랙리스트 만료일
-
+    BLACK_STATUS VARCHAR2(1) DEFAULT 'Y' NOT NULL, -- 블랙리스트 상태 Y 블랙 N 블랙해제
     -- Primary Key 설정
     CONSTRAINT PK_MEMBER_BLACKLIST PRIMARY KEY (BLACKLIST_NO),
     -- Foreign Key 설정
@@ -293,6 +293,9 @@ CREATE TABLE MEMBER_BLACKLIST (
     CONSTRAINT FK_MEMBER_BLACKLIST_REPORTMEM FOREIGN KEY (REPORTMEM_NO)
         REFERENCES MEMBER (MEM_NO)
 );
+
+ALTER TABLE MEMBER_BLACKLIST ADD BLACK_STATUS VARCHAR2(1) DEFAULT 'Y' NOT NULL;
+COMMIT;
 
 CREATE SEQUENCE SEQ_BLACKLIST
 START WITH 1
@@ -373,4 +376,31 @@ VALUES (SEQ_POST.NEXTVAL, 1, 'Fifth Post', 'This is the content of the fifth pos
 commit;
 
 
+SELECT BLACKLIST_NO
+  FROM MEMBER_BLACKLIST
+ WHERE MEM_NO = 2
+ ;
  
+SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		               SELECT 
+		                      M.MEM_NO AS "MEM_NO"
+		                    , MEM_ID
+		                    , NICKNAME
+		                    , TO_CHAR(BIRTHDATE, 'MM/DD') AS BIRTHDAY
+		                    , EMAIL
+		                    , DECODE(GENDER, 'M', '남자', 'F', '여자') AS GENDER
+		                    , TO_CHAR(ENROLL_DATE, 'YYMMDD')
+		                    , EGG
+		                    , STATUS
+		                    , BLOCK_COUNT
+		                 FROM MEMBER M
+		                 LEFT JOIN MEMBER_BLACKLIST MB ON (M.MEM_NO = MB.MEM_NO)
+		                WHERE MEM_ID != 'admin'
+		                ORDER
+		                   BY MEM_NO ASC
+		               ) A
+		       )
+		       WHERE RNUM BETWEEN 1 AND 10

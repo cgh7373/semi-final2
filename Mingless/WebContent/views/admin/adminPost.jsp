@@ -176,6 +176,7 @@
                                 const img = imgElement ? imgElement.src : '';
 
 								const urls = "<%=contextPath %>";
+								const writer = <%=loginUser.getMemNo()%>
 								// 공지사항 등록 ajax 
                                 $.ajax({
                                     url:"insertNotice.am",
@@ -185,6 +186,7 @@
                                         "nContent": content,
                                         "nImg":img,
                                         "html":htmlContent,
+                                        "writer":writer,
                                     },
                                     success:function(e){
                                         console.log("ajax insertNotice");
@@ -426,6 +428,7 @@
 				</div>
 
                 <script defer>
+                	// 공지사항 자세히보기
                     function postDetail(event, no){
                         const modalBody = $("#postDetailContent");
                         const modal = $("#postDetailModal");
@@ -526,7 +529,7 @@
                         memId = el.name;
                         let value = "";
                         let sendChat = "";
-                        
+                        const adminNo = <%=loginUser.getMemNo()%>;
                         let toNoIn = "";
                         let lastDate = null; // 마지막으로 표시한 날짜
                         const chatLists = $('#chat-list');
@@ -538,6 +541,7 @@
                             url: "adminChat.am",
                             data: {
                                 memId: memId,
+                                fromNo: adminNo,
                             },
                             dataType: 'json',
                             success: (chatList) => {
@@ -640,7 +644,9 @@
                     $(() => {
                         const sendMsgInput = $("#chat-message"); // 인풋(엔터, 버튼 클릭시 안에 밸류넘기기)
                         const sendMsgBtn = $("#send-message-btn"); // 버튼(클릭이벤트)
+						const fromNo = <%=loginUser.getMemNo()%>;
                         let sendMsg = "";
+                        
                         // 엔터 눌렀을 때
                         sendMsgInput.on('keydown',(e)=>{
                             let toMem = $('#toNoBox').val();
@@ -651,6 +657,7 @@
                                     data:{
                                         sendMsg:sendMsg,
                                         toMem: toMem,
+                                        fromNo: fromNo,
                                     },
                                     success:(e)=>{
                                         console.log("insert chat success");
@@ -729,5 +736,18 @@
             </div>
         </div>
     </div>
+    
+   	<script>
+	    window.onload = function() {
+	        const url = window.location.href;
+	        const urlWithoutQueryString = window.location.origin + window.location.pathname;
+	
+	        // 현재 URL이 쿼리 문자열을 포함하고 있는지 확인합니다.
+	        if (url !== urlWithoutQueryString) {
+	            // 쿼리 문자열이 제거된 URL로 브라우저의 URL을 업데이트합니다.
+	            window.history.replaceState({}, document.title, urlWithoutQueryString);
+	        }
+	    };
+    </script>
 </body>
 </html>

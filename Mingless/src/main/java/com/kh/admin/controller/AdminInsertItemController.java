@@ -109,9 +109,9 @@ public class AdminInsertItemController extends HttpServlet {
 				if (!uploadDir.exists()) {
 				    boolean dirCreated = uploadDir.mkdirs();
 				    if (dirCreated) {
-				        System.out.println("Directory created successfully.");
+				        System.out.println("폴더 생성 성공");
 				    } else {
-				        System.out.println("Failed to create directory.");
+				        System.out.println("폴더 생성 실패");
 				    }
 				}
                 

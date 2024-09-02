@@ -47,8 +47,8 @@
 		     , ITEM_INTRO
 		     , ITEM_DATE
 		     , ITEM_STATUS
-		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
 		     , ITEM_TAG
+		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
 		     , CHANGE_NAME
 		  FROM ITEM
 		  JOIN ITEMCATEGORY USING(ITEM_CATEGORY)
@@ -73,8 +73,8 @@
 		     , ITEM_INTRO
 		     , ITEM_DATE
 		     , ITEM_STATUS
-		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
 		     , ITEM_TAG
+		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
 		  FROM ITEM I
 		  JOIN ITEMCATEGORY IC USING(ITEM_CATEGORY)
           JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
@@ -154,17 +154,18 @@
 		        SELECT ROWNUM RNUM, A.*
 		          FROM (
 		               SELECT 
-		                      MEM_NO
+		                      M.MEM_NO AS "MEM_NO"
 		                    , MEM_ID
 		                    , NICKNAME
 		                    , TO_CHAR(BIRTHDATE, 'MM/DD') AS BIRTHDAY
 		                    , EMAIL
 		                    , DECODE(GENDER, 'M', '남자', 'F', '여자') AS GENDER
-		                    , ENROLL_DATE
+		                    , TO_CHAR(ENROLL_DATE, 'YY"년"MM"월"DD"일"') AS "ENROLL_DATE"
 		                    , EGG
 		                    , STATUS
-		                 FROM 
-		                      MEMBER
+		                    , BLOCK_COUNT
+		                 FROM MEMBER M
+		                 LEFT JOIN MEMBER_BLACKLIST MB ON (M.MEM_NO = MB.MEM_NO)
 		                WHERE MEM_ID != 'admin'
 		                ORDER
 		                   BY MEM_NO ASC
@@ -195,7 +196,7 @@
 		VALUES (
 		       SEQ_BLACKLIST.NEXTVAL
 		       , ?
-		       , 4
+		       , ?
 		       , '불법 행위로 인한 블랙리스트 등록'
 		       , SYSDATE
 		       , 0
@@ -209,6 +210,14 @@
 		 WHERE BLACKLIST_NO = ?
 	</entry>
 	
+	<entry key="updateBlockCounts">
+		UPDATE MEMBER_BLACKLIST
+		   SET BLOCK_COUNT = BLOCK_COUNT + 1
+		 WHERE BLACKLIST_NO = (SELECT BLACKLIST_NO
+                                 FROM MEMBER_BLACKLIST
+                                WHERE MEM_NO = ?)
+	</entry>
+	
 	<entry key="updateBkStatus">
 		UPDATE MEMBER
 		   SET STATUS = 'B'
@@ -216,30 +225,48 @@
 		   AND STATUS = 'Y'
 	</entry>
 	
+	<entry key="deleteBlack">
+		UPDATE MEMBER_BLACKLIST
+		   SET BLACK_STATUS = 'N'
+	 	 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="updateBkStatusY">
+		UPDATE MEMBER
+		   SET STATUS = 'Y'
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'B'
+	</entry>
+	
+	
 	<entry key="deleteItem">
 		UPDATE ITEM
 		   SET ITEM_STATUS = 'N',
-		   	   ITEM_CATEGORY = 'IC13'
+		   	   ITEM_CATEGORY = 'IC13',
+		   	   ITEM_UPDATE = SYSDATE
 		 WHERE ITEM_NUM = ?
 	</entry>
 	
 	<entry key="cancelDeleteItem">
 		UPDATE ITEM
 		   SET ITEM_STATUS = 'Y',
-		   	   ITEM_CATEGORY = ?
+		   	   ITEM_CATEGORY = ?,
+		   	   ITEM_UPDATE = SYSDATE
 		 WHERE ITEM_NUM = ?
 	</entry>
 	
 	<entry key="updatePrice">
 		UPDATE ITEM
-		   SET PRICE = ?
+		   SET PRICE = ?,
+		   	   ITEM_UPDATE = SYSDATE
 		 WHERE ITEM_NUM = ?
 	</entry>
 	
 	<entry key="updateItemImg">
 		UPDATE ATTACHMENT
 		   SET ORIGIN_NAME = ?,
-      	   	   CHANGE_NAME = ?
+      	   	   CHANGE_NAME = ?,
+		   	   ITEM_UPDATE = SYSDATE
 		 WHERE FILE_NO = (SELECT 
 		                         ATTACHMENT_NO
 		                    FROM ITEM
@@ -268,17 +295,6 @@
 		    OR NICKNAME like ?
 	</entry>
 	
-	<entry key="deleteBlack">
-		DELETE FROM MEMBER_BLACKLIST
-	 	 WHERE MEM_NO = ?
-	</entry>
-	
-	<entry key="updateBkStatusY">
-		UPDATE MEMBER
-		   SET STATUS = 'Y'
-		 WHERE MEM_NO = ?
-		   AND STATUS = 'B'
-	</entry>
 	
 	<entry key="selectPostList">
 		SELECT 
@@ -339,7 +355,7 @@
 		          , 2
 		          , ?
 		          , ?
-		          , 4
+		          , ?
 		          , SYSDATE
 		          , ?
 		       )
@@ -435,25 +451,7 @@
 		 WHERE POST_TYPE = 1
 		   AND POST_NUM = ?
 	</entry>
-	
-	<entry key="insertChat">
-		INSERT
-		  INTO CHAT
-		  (
-		    CHAT_ID
-		  , FROM_MEMNO
-		  , TO_MEMNO
-		  , CHAT_CONTENT
-		  )
-		  VALUES
-		  (
-		    ? // 상대방
-		  , 4 // 나
-		  , ? // 상대방
-		  , ? // 컨텐츠
-		  )
-	</entry>
-	
+		
 	<entry key="selectChatList">
 		SELECT 
 		       CHAT_ID
@@ -465,12 +463,12 @@
 		FROM CHAT
 		JOIN MEMBER ON (MEM_NO = TO_MEMNO)
 		WHERE 
-		      (FROM_MEMNO = 4 AND TO_MEMNO = (SELECT MEM_NO 
+		      (FROM_MEMNO = ? AND TO_MEMNO = (SELECT MEM_NO 
 		                                        FROM MEMBER 
 		                                       WHERE MEM_ID = ?))
 		   OR (FROM_MEMNO = (SELECT MEM_NO 
 		                       FROM MEMBER 
-		                      WHERE MEM_ID = ?) AND TO_MEMNO = 4)
+		                      WHERE MEM_ID = ?) AND TO_MEMNO = ?)
 		ORDER
 		   BY CHAT_TIME
 	</entry>
@@ -487,7 +485,7 @@
 		VALUES 
 		     (
 		       ( SELECT MEM_NO FROM MEMBER WHERE MEM_ID = ?)
-		     , 4
+		     , ?
 		     , ( SELECT MEM_NO FROM MEMBER WHERE MEM_ID = ?)
 		     , ?
 		)
@@ -505,7 +503,7 @@
 		VALUES 
 		     (
 		       ?
-		     , 4
+		     , ?
 		     , ?
 		     , ?
 		)

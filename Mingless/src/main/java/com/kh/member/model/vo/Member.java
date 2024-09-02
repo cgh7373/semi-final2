@@ -19,8 +19,57 @@ public class Member {
 	private String MBTI;
 	private String profilePic;
 	private String statusMsg;
+	private int blockCount;
 	
 	public Member() {}
+	
+	// 전체
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO, String mBTI,
+			String profilePic, String statusMsg, int blockCount) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.egg = egg;
+		this.zodiac = zodiac;
+		this.ABO = aBO;
+		this.MBTI = mBTI;
+		this.profilePic = profilePic;
+		this.statusMsg = statusMsg;
+		this.blockCount = blockCount;
+	}
+	
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO, String mBTI,
+			String profilePic, String statusMsg) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.egg = egg;
+		this.zodiac = zodiac;
+		this.ABO = aBO;
+		this.MBTI = mBTI;
+		this.profilePic = profilePic;
+		this.statusMsg = statusMsg;
+	}
 	
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
 			String gender, String enrollDate, String modifyDate, String status, String zodiac, String ABO,
@@ -140,29 +189,6 @@ public class Member {
 		this.egg = egg;
 		this.zodiac = zodiac;
 	}
-	
-	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
-			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO,
-			String mBTI, String profilePic, String statusMsg) {
-		super();
-		this.memNo = memNo;
-		this.memId = memId;
-		this.memPwd = memPwd;
-		this.nickname = nickname;
-		this.birthdate = birthdate;
-		this.phone = phone;
-		this.email = email;
-		this.gender = gender;
-		this.enrollDate = enrollDate;
-		this.modifyDate = modifyDate;
-		this.status = status;
-		this.egg = egg;
-		this.zodiac = zodiac;
-		ABO = aBO;
-		MBTI = mBTI;
-		this.profilePic = profilePic;
-		this.statusMsg = statusMsg;
-	}
 
 	public Member(String memId, String memPwd, String nickname) {
 		super();
@@ -174,7 +200,7 @@ public class Member {
 	
 	//	회원관리 조회
 	public Member(int memNo, String memId, String nickname, String birthdate, String email, String gender,
-			String enrollDate, int egg, String status) {
+			String enrollDate, int egg, String status, int blockCount) {
 		super();
 		this.memNo = memNo;
 		this.memId = memId;
@@ -185,6 +211,32 @@ public class Member {
 		this.enrollDate = enrollDate;
 		this.egg = egg;
 		this.status = status;
+		this.blockCount = blockCount;	
+	}
+	
+	public Member(int memNo, String memId, String nickname, String birthdate, String email, String gender,
+			String enrollDate, int egg, String status) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.egg = egg;
+		this.status = status;	
+	}
+	
+	
+	
+
+	public int getBlockCount() {
+		return blockCount;
+	}
+
+	public void setBlockCount(int blockCount) {
+		this.blockCount = blockCount;
 	}
 
 	public String getProfilePic() {
@@ -329,9 +381,11 @@ public class Member {
 	public String toString() {
 		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", nickname=" + nickname
 				+ ", birthdate=" + birthdate + ", phone=" + phone + ", email=" + email + ", gender=" + gender
-				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + ", zodiac="
-				+ zodiac + ", ABO=" + ABO + ", MBTI=" + MBTI + "]";
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + ", egg=" + egg
+				+ ", zodiac=" + zodiac + ", ABO=" + ABO + ", MBTI=" + MBTI + ", profilePic=" + profilePic
+				+ ", statusMsg=" + statusMsg + ", blockCount=" + blockCount + "]";
 	}
+
 
 	
 	
