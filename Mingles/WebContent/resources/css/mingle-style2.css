@@ -269,18 +269,6 @@ footer .pagination-container {
     }
 }
 
-.bal:after {
-    content: '';
-    position: absolute;
-    border-style: solid;
-    border-width: 20px 16px 0 17.5px;
-    border-color: #FFFFFF transparent;
-    display: block;
-    width: 0;
-    z-index: 1;
-    top: 95%;
-}
-
 .bal:before {
     content: '';
     position: absolute;
@@ -291,6 +279,18 @@ footer .pagination-container {
     width: 0;
     z-index: 0;
     top: 100%;
+}
+
+.bal:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 20px 16px 0 17.5px;
+    border-color: #FFFFFF transparent;
+    display: block;
+    width: 0;
+    z-index: 1;
+    top: 95%;
 }
 
 .bal.bal1.onoffTo {
@@ -313,6 +313,15 @@ footer .pagination-container {
 }
 
 /* MINIHOMPI BOX */
+
+/* FLOOR : Z-INDEX 70s */
+
+.minihompi .floor-skin img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 71;
+}
 
 /* AVATAR : Z-INDEX 90s */
 
@@ -365,13 +374,4 @@ footer .pagination-container {
     position: relative;
     left: 20%;
     top: 30%;
-}
-
-/* FLOOR : Z-INDEX 70s */
-
-.minihompi .floor-skin img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 71;
 }

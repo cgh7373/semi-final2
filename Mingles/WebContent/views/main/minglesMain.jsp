@@ -390,7 +390,10 @@
                                                         <td>
                                                             <select id="memoScopeSelect">
                                                                 <option value='P'>전체공개</option>
-                                                                <option value='F'>친구공개</option>
+                                                                <option value='D'>친구공개</option>
+                                                                <option value='A'>A공개</option>
+                                                                <option value='B'>~B공개</option>
+                                                                <option value='C'>~C공개</option>
                                                                 <option value='M'>비공개</option>
                                                             </select>
                                                         </td>

@@ -323,11 +323,11 @@ public class MemberService {
 		return list;
 	}
 
-	public int updateFriendLevel(int memNo, String setLv) {
+	public int updateFriendLevel(int memNo, int frNo, String setLv) {
 		
 		Connection conn = getConnection();
 		
-		int result = new MemberDao().updateFriendLevel(conn, memNo, setLv);
+		int result = new MemberDao().updateFriendLevel(conn, memNo, frNo, setLv);
 		
 		if (result > 0) {
 			commit(conn);

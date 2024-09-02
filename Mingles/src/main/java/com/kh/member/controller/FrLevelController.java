@@ -31,9 +31,10 @@ public class FrLevelController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int memNo = Integer.parseInt(request.getParameter("memNo"));
+		int frNo = Integer.parseInt(request.getParameter("frNo"));
 		String setLv = request.getParameter("setLv");
 		
-		int result = new MemberService().updateFriendLevel(memNo, setLv);
+		int result = new MemberService().updateFriendLevel(memNo, frNo, setLv);
 		
 		response.setContentType("json/application; charset=utf-8;");
 		
