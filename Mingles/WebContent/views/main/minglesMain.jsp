@@ -41,7 +41,7 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <!-- SweetAlert -->
-<script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!-- 내부파일 -->
 <link rel="stylesheet" href="../../resources/css/mingles-main.css">
@@ -175,7 +175,7 @@
             </div>
             <!-- MP3 BUTTON-->
             <div class="music">
-                <img src="../../resources/images/cd.png" alt="cd그림" id ="mp3Button">
+                <img src="../../resources/images/mp3icon.png" alt="cd그림" id ="mp3Button">
     
                     <!-- img 클릭하면 이 창 뜸 -->
                     <div class ="popover-content" id = "show">
@@ -184,8 +184,8 @@
                         </div>
                         <div class = "music--info">
                             <div class="music--info2">
-                            <p class="music--title">basicSong</p>
-                            <p class="music--singer">hiphopRockstar</p>
+                            <p class="music--title">ETA</p>
+                            <p class="music--singer">NewJeans</p>
                             <button id="play-pause-button">Play!</button>
                         </div>
                             <!-- MUSIC BAR -->

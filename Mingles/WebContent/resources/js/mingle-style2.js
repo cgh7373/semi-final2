@@ -6,7 +6,6 @@
 		// shop에서 물건을 구매했다면 내가 가지고 있는 거북알도 업데이트 해야 한다.
 		function updateEgg(itemPrice){
 
-			console.log("updateEgg에서 잘 price가 담기는가 : ",itemPrice);
 			$.ajax({
 				url : '/Mingles/decreaseEgg.it',
 				method : 'post',
@@ -18,8 +17,6 @@
 				error : function(){},
 			})
 		}// updateEgg
-
-	    
 		
 		// shop에서 구매 후 값을 받아와서 style의 pagination에 반영할 예정이다.
 		function sendItem(result){

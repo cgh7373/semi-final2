@@ -60,8 +60,6 @@ $(function() {
             var ds = parseInt(music.duration % 60);
             var dm = parseInt((music.duration / 60) % 60);
             duration.innerHTML = dm + ':' + ds;
-        } else {
-            console.error("오디오 파일의 길이를 가져올 수 없습니다.");
         }
     });
 
@@ -74,8 +72,11 @@ $(function() {
     });
 
     music.addEventListener('timeupdate', function() {
-        var cs = parseInt(music.currentTime % 60);
-        var cm = parseInt((music.currentTime / 60) % 60);
+        const progress = (music.currentTime / music.duration)*100;
+        musicBar.value = music.currentTime;
+        musicBar.style.background = `linear-gradient(to right, #8cbcfe ${progress}%, #b9d7ff ${progress}%, #ececec ${progress}%, #ececec 100%)`;
+        let cs = parseInt(music.currentTime % 60);
+        let cm = parseInt((music.currentTime / 60) % 60);
         currentTime.innerHTML = cm + ':' + cs;
     }, false);
 
@@ -88,7 +89,6 @@ $(function() {
         $('#file').change(function() {
             if (this.files && this.files[0].type === 'audio/mpeg') {
                 $('#music--icon').css('color', '#68D8D6');
-                console.log("음악파일 들어감");
             } 
         });
 
@@ -100,7 +100,6 @@ $(function() {
 
                 if (allowedExt.includes(fileExt)) {
                     $('#music--thumbnail').css('color', '#68D8D6');
-                	console.log("썸네일 들어감");
                 } 
             }
         });
@@ -115,12 +114,22 @@ $(function() {
 
             // 추가는 최대 10개
             if ($('.music--list li').length >= 10) {
-                alert('최대 10개까지 추가 가능합니다.');
+                Swal.fire({
+                    title : "최대 10개까지만 가능합니다.",
+                    icon : "warning",
+                    confirmButtonColor: "#72DDF7",
+                    confirmButtonText: "확인했어요",
+                })
                 return;
             }
 
             if (title === '' || singer === '') {
-                alert('제목과 가수를 모두 입력해주세요.');
+                Swal.fire({
+                    title : "제목과 가수 모두 적어주세요.",
+                    icon : "warning",
+                    confirmButtonColor: "#72DDF7",
+                    confirmButtonText: "확인했어요",
+                })
                 return;
             } else if (title !== '' && singer !== '') { // 값을 모두 올바르게 넣어서 삽입됐다면
                 
@@ -140,15 +149,18 @@ $(function() {
 				            processData: false,
 				            success: function(result) {
 				                if(result === 1){
-								alert("성공적으로 삽입되었습니당");
+                                    Swal.fire({
+                                        title : "성공적으로 추가하였습니다!",
+                                        icon : "success",
+                                        confirmButtonColor: "#72DDF7",
+                                    })
+								 $('#music--icon').css('color', 'black');
+                   				 $('#music--thumbnail').css('color', 'black');
+								 selectAllMusic();
 								}
 				            },
-				            error: function(result) {
-				                console.error('멸망이다 이놈아', result);
-				            }
+				            error: function(){} 
 				        });
-                    $('#music--icon').css('color', 'black');
-                    $('#music--thumbnail').css('color', 'black');
 
                     } // 제목과 가수 입력, 파일 업로드가 다 정상적으로 작동됬을 때 작용하는 if문
                 $('#musicTitle').val('');
@@ -177,14 +189,12 @@ $(function() {
                 success: function(result){
 					setMusicList(result);
 				},
-				error : function(result){
-					console.error("개같이 멸망잼", result)
-				}
+				error : function(){}
             });//ajax
         }// selectAllMusic()
 
 
-	function setMusicList(result){
+	function setMusicList(result){ // 선택된 음악파일들 리스트 정리
 
     let musicListContainer = document.querySelector(".music--list");// 선택을 li가 아니라 그 위 상위 요소 ul에 두어서 반복문으로 내리찍어야 한다.
     musicListContainer.innerHTML = ''; // 선택된 지점을 한번 공백으로 정리해줘야 한다. 
@@ -229,27 +239,44 @@ $(function() {
 
 		function deleteMusic(musicNo, deleteSign) {
 			
-			console.log(musicNo);
-			
-			confirm("정말로 삭제하시겠습니까?");
-			
-			if(confirm){
-				
-			    $.ajax({
-		        url: '/Mingles/deleteMusic.msc',
-		        method: 'POST',
-		        data: { memNo: memNo, musicNo: musicNo },
-		        success: function(result) {
-		            console.log(result);
-		            if (deleteSign) {
-		                deleteSign.remove(); 
-		                alert("성공적으로 삭제하였습니다.");
-		            };
-		        },
-		        error: function(){},
-		    });
-				
-			};
+			Swal.fire({
+                title : "정말로 삭제하시겠습니까?",
+                text : "삭제하면 다시 복구할 수 없어요",
+                icon : "warning",
+                confirmButtonColor: "#FCC5D9",
+                confirmButtonText: "삭제할게요",
+            }).then((result)=>{
+
+                if(result.isConfirmed){
+                    $.ajax({
+                        url: '/Mingles/deleteMusic.msc',
+                        method: 'POST',
+                        data: { memNo: memNo, musicNo: musicNo },
+                        success: function(result) {
+                            console.log(result);
+                            if (deleteSign) {
+                                deleteSign.remove(); 
+                                Swal.fire({
+                                    title : "성공적으로 삭제하였습니다.",
+                                    icon : "success",
+                                    confirmButtonColor: "#72DDF7",
+                                    confirmButtonText: "확인했어요",
+                                })
+                                selectAllMusic();
+                            };
+                        },
+                        error: function(){},
+                    });
+                }else{
+                    Swal.fire({
+                        title : "삭제에 실패하였습니다.",
+                        text : "무언가 잘못된 것 같아요",
+                        icon : "error",
+                        confirmButtonColor: "#72DDF7",
+                    })
+                }
+
+            });
 			
 		}//deleteMusic
 		    

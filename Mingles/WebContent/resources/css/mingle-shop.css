@@ -239,8 +239,9 @@ header .hd-menus .menu-content ul li {
     text-overflow: ellipsis;
     -webkit-line-clamp: 5;
     position: absolute;
-    left: 0;right: 0;top: 67%;
+    left: 0;right: 0;top: 62%;
     padding: 10px 10px;
+
 }
 
 .content .content-main .item-container .item-maker {
@@ -258,30 +259,10 @@ header .hd-menus .menu-content ul li {
     right: 0;
 }
 
-.basket{
-    margin-top:10%;
-}
-
-.cart, .jjimkong{
-    color: rgb(138, 170, 181);
-    font-size:30px;
-    cursor: pointer;
-    border: none;
-    background-color: aliceblue;
-    border-radius: 50px;
-    border: 2px solid rgb(134, 173, 187);
-    transition: box-shadow 0.3s;
-}
-
-.cart:hover, .jjimkong:hover{
-    color: #fff86f;
-    background-color: rgb(17, 44, 54);
-    box-shadow: 0 0 5px #fff86f, 0 0 10px #fffbb0, 0 0 15px #fffdd8;
-}
 
 .pay{
     position:relative;
-    top: 50px;
+    top: 110px;
     left:100px;
     width:100px;
     height:40px;

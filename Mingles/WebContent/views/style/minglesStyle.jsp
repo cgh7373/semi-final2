@@ -121,7 +121,7 @@ Member m = (Member)session.getAttribute("loginUser");
 
                             <!-- HAIR -->
                             <div class="hair" id="hairSave">
-                                <img  id = "hair" src="../../resources/stylesources/hair3.png" alt="hair">
+                                <img  id = "hair" src="../../resources/stylesources/hair15.png" alt="hair">
                             </div>
 
                             <!-- FACE -->
@@ -131,17 +131,17 @@ Member m = (Member)session.getAttribute("loginUser");
 
                              <!-- BOTTOM -->
                               <div class="bottom" id ="bottomSave">
-                                 <img id ="bottom" src="../../resources/stylesources/bottom2.png" alt="bottom">
+                                 <img id ="bottom" src="../../resources/stylesources/bottom11.png" alt="bottom">
                               </div>
 
                             <!-- TOP -->
                              <div class="top" id = "topSave">
-                                <img id= "top" src="../../resources/stylesources/top4.png" alt="top">
+                                <img id= "top" src="../../resources/stylesources/top8.png" alt="top">
                              </div>
 
                             <!-- SHOES -->
                             <div class="shoes" id = "shoesSave">
-                                <img id = "shoes" src="../../resources/stylesources/shoes13.png" alt="shoes">
+                                <img id = "shoes" src="../../resources/stylesources/shoes11.png" alt="shoes">
                              </div>
 
                         </div> <!--AVATAR-->
@@ -151,7 +151,7 @@ Member m = (Member)session.getAttribute("loginUser");
 
 							<!-- WALL-->
 							<div class="wall" id = "wallSave">
-								<img id = "wall" src="../../resources/stylesources/wall1.png" alt="wall">
+								<img id = "wall" src="../../resources/stylesources/wall6.png" alt="wall">
 							</div> <!--WALL-->
 
                        		<!-- FLOOR-->

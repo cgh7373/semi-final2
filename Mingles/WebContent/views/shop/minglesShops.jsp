@@ -112,10 +112,6 @@
                            <li>
                                 <div class="item-container">
                                     <div class="img-box"><img src="<%= contextPath %><%= it.getSaveFile()%>"></div>
-                                    <div class="basket">
-                                        <button class="material-icons cart">add_shopping_cart</button>
-                                        <button class="material-icons jjimkong">auto_awesome</button>
-                                    </div>
                                     <div class="item-detail">
                                         <p class="item-name"><%= it.getItemName()%></p>
                                         <p class="item-desc"><%= it.getItemExplan()%></p>
@@ -258,10 +254,6 @@
 		                listItem.innerHTML = 
 		                    '<div class="item-container">' +
 		                    '    <div class="img-box"><img src="'+ contextPath + item.saveFile +'"></div>' +
-		                    '    <div class="basket">' +
-		                    '        <button class="material-icons cart">add_shopping_cart</button>' +
-		                    '        <button class="material-icons jjimkong">auto_awesome</button>' +
-		                    '    </div>' +
 		                    '    <div class="item-detail">' +
 		                    '        <p class="item-name">' + item.itemName + '</p>' +
 		                    '        <p class="item-desc">' + item.itemExplan + '</p>' +
@@ -318,7 +310,7 @@
 		    function purchaseItem(itemNo, itemPrice) {
 				
 		    	Swal.fire({
-		    		  title: "정말로 아이템을 구매하시겠습니까?",
+		    		  title: "아이템을 구매하시겠습니까?",
 		    		  text: "아이템이 좀 예쁘긴 하지요~",
 		    		  icon: "question",
 		    		  showCancelButton: true,
