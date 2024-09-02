@@ -41,7 +41,7 @@ public class EggUpdateController extends HttpServlet {
 		
 		int price = Integer.parseInt(request.getParameter("price"));
 		int point = Integer.parseInt(request.getParameter("point"));
-		String payOption = request.getParameter("payOption");
+		String payOption = "카드, 간편결제";
 		String category = "본인";
 		EggPayMent ep = new EggPayMent(userNo, price, point, payOption, category);
 		int result2 = new ShopService().insertChargeList(ep);
