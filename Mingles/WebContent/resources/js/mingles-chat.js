@@ -5,8 +5,8 @@ const ctx = canvas.getContext("2d");
 
 // 캔버스 사이즈 여기서조정
 
-canvas.width = 2000;
-canvas.height = 4000;
+canvas.width = 4000;
+canvas.height = 6500;
 
 let painting = false;
 
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // canvas click 뜨고 안뜨고
 const newLocal = $(document).ready(function () {
   $(".draw").click(function () {
-    $(".canvas").toggle();
+    $("canvas").toggle();
   });
 });
 
@@ -90,7 +90,7 @@ function handClick() {
 function init() {
   draw.addEventListener("click", handClick);
 }
-init(newLocal);
+init();
 
 // chatting enterKey
 let chattingInput = document.querySelector("input[type=text]");

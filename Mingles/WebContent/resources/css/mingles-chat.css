@@ -404,7 +404,7 @@ div img {
   background-color: red;
   right: 0;
   overflow: hidden;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* 캔버스 버튼 css */
@@ -425,4 +425,13 @@ div img {
   position: absolute;
   color: #82e4e0;
   cursor: default;
+}
+
+.chat-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: rgb(219, 255, 243);
+  border-radius: 10px;
 }

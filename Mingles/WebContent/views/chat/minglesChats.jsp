@@ -4,6 +4,7 @@ import="java.util.ArrayList"%> <%@page import="com.kh.chat.model.vo.Chat"%>
 contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <% Member m = (Member)session.getAttribute("loginUser"); 
 ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend"); 
+String contextPath = request.getContextPath();
 %>
 
     <!DOCTYPE html>
@@ -55,7 +56,7 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
           <!-- 채팅창 -->
           <section class="chat">
             <!-- 친구리스트 -->
-            <a href="#" class="chat-logo"
+            <a href="<%= contextPath %>/friend.ch" class="chat-logo"
               ><img
                 src="./resources/images/Mingles로고-움직임-짤.gif"
                 alt="mingles"
@@ -146,12 +147,15 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
         <script>
           let fromMemprofile = '<%= m.getProfilePic() %>';
           let loginNo = <%= m.getMemNo() %>;
-          let toNo;
+          let toNo = 0;
           let fromNo;
           let isAutoScroll = true; // 자동 스크롤 활성화 상태.
+          let lastDate = null;
+          let sendChat = "";
+          const newCanvas = '<canvas id="jsCanvas" class="canvas" name="canvas"></canvas>';
           
           // 친구 검색
-    	   const originalList = $('.chat-friend').html();
+    	  const originalList = $('.chat-friend').html();
       	 
       	 // enter event
       	 $('.inputSearch').on('keydown', (e)=>{
@@ -162,15 +166,13 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
       					 friendKeyword:$('.inputSearch').val(),
       				 },
       				 success:function(s){
-      					 console.log("친구찾기");
-      					 let sFriend = "";
       					 if(s.length === 0){
-      						 let value = "";
+	      					 let value = "";
       						 value += '<div style="text-align:center">찾으시는 친구가</div>'
       						 		+ '<div style="text-align:center">존재하지 않습니다.</div>';
        					 $('.chat-friend').html(value);
       					 }else{
-      						 
+	      					 let sFriend = "";
       						 $('.chat-friend').html("");
       						 for(let i=0; i<s.length; i++){						 
       							sFriend += `
@@ -185,9 +187,8 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                                     </li>
                                     `;
       						 }
-      						 console.log(sFriend);
-      					 }
       		               	$('.chat-friend').html(sFriend);
+      					 }
       				 },
       				 error:function(){
       					 console.log("친구검색 망해띠");
@@ -209,6 +210,22 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                $('.chat-friend').html(originalList);
            }
        });
+       
+       // 스크롤 위치 감지 함수
+       $('.chatRoom').on('scroll', function(){
+           let chatRoom = $(this);
+           // 사용자가 스크롤 올렸는지 감지
+           if(chatRoom.scrollTop() + chatRoom.innerHeight() >= chatRoom[0].scrollHeight - 10){
+             isAutoScroll = true;
+           }else{
+             isAutoScroll = false;
+           }
+          });   
+       
+       function scrollToBottom(){
+           let chatRoom = $(".chatRoom");
+           chatRoom.scrollTop(chatRoom[0].scrollHeight);
+          }
           
 
             // 친구 리스트 클릭시 값 받기
@@ -216,29 +233,11 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                  toNo = $(this).attr("value");
                  fromNo = loginNo;
                  loadChatting(toNo, fromNo, loginNo); 
+                 setInterval(()=>{
+              		 loadChatting(toNo, fromNo, loginNo);
+              	}, 2000);
                });
 
-            // 스크롤 위치 감지 함수
-            $('.chatRoom').on('scroll', function(){
-                let chatRoom = $(this);
-                // 사용자가 스크롤 올렸는지 감지
-                if(chatRoom.scrollTop() + chatRoom.innerHeight() >= chatRoom[0].scrollHeight - 10){
-                  isAutoScroll = true;
-                }else{
-                  isAutoScroll = false;
-                }
-               });   
-        
-          
-          	setInterval(()=>{
-          		 loadChatting(toNo, fromNo, loginNo);
-          	}, 2000)
-
-               function scrollToBottom(){
-                let chatRoom = $(".chatRoom");
-                chatRoom.scrollTop(chatRoom[0].scrollHeight);
-               }
-               
                // 채팅 로딩하는 함수
                function loadChatting(toNo, fromNo, loginNo) {
                  $.ajax({
@@ -253,6 +252,36 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                    success: function (c) {
                	   let chatContent = "";
                      $.each(c, function (index, chat) {
+                    	 const chatDate = new Date(chat.chatTime);
+                         const year = chatDate.getFullYear();
+                         const month = chatDate.getMonth() + 1;
+                         const date = chatDate.getDate();
+                         const dayIndex = chatDate.getDay();
+                         const hour = chatDate.getHours().toString().padStart(2, '0');
+                         const minute = chatDate.getMinutes().toString().padStart(2, '0');
+               
+                         // 요일을 문자열로 변환
+                         const daysOfWeek = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+                         const dayString = daysOfWeek[dayIndex];
+
+                         // 현재 날짜를 비교할 수 있도록 새 객체로 생성
+                         const currentDate = new Date(chatDate.getFullYear(), chatDate.getMonth(), chatDate.getDate());
+                         
+                         // 같은 날짜의 메시지일 때 날짜를 표시하지 않도록 설정
+                         if (lastDate === null || lastDate.getTime() !== currentDate.getTime()) {
+                             // 날짜를 표시한 후, 그 날짜에 속하는 메시지를 표시하도록 value에 추가
+                             if (sendChat) {
+                            	 chatContent += sendChat;
+                                 sendChat = "";
+                             }
+                             chatContent += `
+                             <div class="message-container chat-date">
+                                 <div class="chat-item chat-date">\${year}년 \${month}월 \${date}일 \${dayString}</div>
+                             </div>`;
+                             lastDate = currentDate;
+                         }
+                         
+                         // 채팅 content만 로드
                      		if(loginNo !== chat.fromNo){
                      			chatContent +=
                                      "<div class='chatting ch1'>" +
@@ -274,9 +303,9 @@ ArrayList<Friend> friend = (ArrayList<Friend>)request.getAttribute("friend");
                                      "</div>" +
                                      "</div>";
                       		}
+                     		
                      });
-
-                     let chatRoom =	$(".chatRoom");
+                     let chatRoom = $(".chatRoom");
                      chatRoom.html(chatContent);
                      if(isAutoScroll){
                        scrollToBottom();

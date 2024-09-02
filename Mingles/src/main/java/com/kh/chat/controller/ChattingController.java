@@ -36,18 +36,45 @@ public class ChattingController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int toNo = Integer.parseInt(request.getParameter("toNo"));
-		int fromNo = Integer.parseInt(request.getParameter("fromNo"));
+//		int toNo = Integer.parseInt(request.getParameter("toNo"));
+//		int fromNo = Integer.parseInt(request.getParameter("fromNo"));
+//		
+//		ArrayList<Chat> chatList = new ChatService().chatList(toNo, fromNo);
+//		
+//		if(chatList.isEmpty()) {
+//			response.setContentType("application/json; charset=utf-8");
+//			new Gson().toJson(chatList, response.getWriter());
+//		}else {
+//			response.setContentType("application/json; charset=utf-8");
+//			new Gson().toJson(chatList, response.getWriter());			
+//		}
 		
-		ArrayList<Chat> chatList = new ChatService().chatList(toNo, fromNo);
-		
-		if(chatList.isEmpty()) {
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(chatList, response.getWriter());
-		}else {
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(chatList, response.getWriter());			
-		}
+		String toNoString = request.getParameter("toNo");
+	    String fromNoString = request.getParameter("fromNo");
+	    String loginNoString = request.getParameter("loginNo");
+	    
+	    int toNo = 0;
+	    int fromNo = 0;
+	    int loginNo = 0;
+
+	    try {
+	        if (toNoString != null && !toNoString.isEmpty()) {
+	            toNo = Integer.parseInt(toNoString);
+	        }
+	        if (fromNoString != null && !fromNoString.isEmpty()) {
+	            fromNo = Integer.parseInt(fromNoString);
+	        }
+	        if (loginNoString != null && !loginNoString.isEmpty()) {
+	            loginNo = Integer.parseInt(loginNoString);
+	        }
+	    } catch (NumberFormatException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    ArrayList<Chat> chatList = new ChatService().chatList(toNo, fromNo);
+	    
+	    response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(chatList, response.getWriter());
 		
 	}
 
