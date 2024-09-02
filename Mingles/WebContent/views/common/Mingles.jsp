@@ -149,7 +149,6 @@
                             function kakaoLogin() {
                                 Kakao.Auth.login({
                                     success: function (authObj) {
-                                        
                                         Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
 
                                         Kakao.API.request({

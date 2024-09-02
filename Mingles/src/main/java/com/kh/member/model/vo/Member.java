@@ -338,7 +338,7 @@ public class Member {
 	public void setEgg(int egg) {
 		this.egg = egg;
 	}
-	
+
 	public String getABO() {
 		return ABO;
 	}
@@ -351,6 +351,8 @@ public class Member {
 	public void setKakaoNo(String kakaoNo) {
 		this.kakaoNo = kakaoNo;
 	}
+	
+
 
 
 	@Override
