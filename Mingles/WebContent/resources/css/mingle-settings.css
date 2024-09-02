@@ -1,4 +1,5 @@
-div, img {
+div,
+img {
     box-sizing: border-box;
 }
 
@@ -55,7 +56,7 @@ div, img {
 
 #settings .left .top {
     width: 100%;
-    height: 40%;    
+    height: 40%;
     display: flex;
 }
 
@@ -78,7 +79,7 @@ div, img {
     overflow: hidden;
 }
 
-#settings .left .top .top__left .profilePhoto img{
+#settings .left .top .top__left .profilePhoto img {
     width: 100%;
     height: 100%;
 }
@@ -86,7 +87,7 @@ div, img {
 #settings .left .top .top__left label {
     position: absolute;
     right: 9%;
-    bottom:6%;
+    bottom: 6%;
 }
 
 #settings .left .top .top__left label span {
@@ -121,7 +122,7 @@ div, img {
 #settings .left .bot {
     width: 100%;
     height: 30%;
-}   
+}
 
 #settings .left .mid .promotion {
     height: 100%;
@@ -143,7 +144,7 @@ div, img {
     overflow: hidden;
     width: 300px;
     border-radius: 10px;
-    
+
 }
 
 #settings .left .mid .promotion .swiper-slide img {
@@ -176,15 +177,19 @@ div, img {
     align-items: center;
     justify-content: center;
     transition: .5s;
+
     &.swiper-prev {
         left: 30%;
     }
+
     &.swiper-next {
         right: 30%;
     }
+
     &>div {
         font-size: 35px;
     }
+
     &:hover {
         color: #fff;
         background-color: #333;
@@ -246,15 +251,19 @@ div, img {
     align-items: center;
     justify-content: center;
     transition: .5s;
+
     &.swiper-prev {
         left: 30%;
     }
+
     &.swiper-next {
         right: 30%;
     }
+
     &>div {
         font-size: 35px;
     }
+
     &:hover {
         color: #fff;
         background-color: #333;
@@ -278,6 +287,7 @@ div, img {
     justify-content: center;
     align-items: center;
 }
+
 #settings .right .right-top span {
     font-size: 55px;
 }
@@ -303,6 +313,7 @@ div, img {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
     &:hover {
         background-color: #f6f5f0;
     }
@@ -312,6 +323,7 @@ div, img {
     &:hover {
         cursor: pointer;
     }
+
     &:active {
         transform: translateX(.6px) translateY(.6px);
     }
@@ -325,11 +337,11 @@ div, img {
     font-size: 24px;
     font-family: 'omyu_pretty';
     font-weight: 700;
-}   
+}
 
 .modal * {
-	font-family: 'omyu_pretty';
-	font-size : 20px;
+    font-family: 'omyu_pretty';
+    font-size: 20px;
 }
 
 .modal-content {
@@ -342,7 +354,7 @@ div, img {
 }
 
 .modal-title {
-	font-family: 'Katuri';
+    font-family: 'Katuri';
     margin-left: 36%;
     font-size: 25px;
 }
@@ -355,13 +367,16 @@ div, img {
     border-radius: 10px;
     background-color: #dbfffd;
     transition: .8s;
+
     &:hover {
         box-shadow: 0 0 4px 2px #07BEB8;
         background-color: #c3f8f5;
     }
 }
 
-#findMemberModal *, #frReceiveModal * , #frListModal * {
+#findMemberModal *,
+#frReceiveModal *,
+#frListModal * {
     vertical-align: middle;
 }
 
@@ -370,19 +385,21 @@ div, img {
 }
 
 .modal-body2 tr {
-    width: 50%;
+    width: 100%;
     height: 10%;
     margin: auto;
 }
 
-.modal-body2 td {
+/* .modal-body2 td {
     width: auto;
-}
+} */
 
-.modal-body2 button, #findMemberModal button {
+.modal-body2 button,
+#findMemberModal button {
     border-radius: 10px;
     background-color: #fff;
     transition: .8s;
+
     &:hover {
         box-shadow: 0 0 4px 2px #07BEB8;
     }
@@ -395,7 +412,7 @@ div, img {
     text-align: center;
     border-radius: 50%;
     overflow: hidden;
-    margin:auto;
+    margin: auto;
 }
 
 .modal-body2 .modal-nickname {
@@ -408,28 +425,17 @@ div, img {
 
 .modal-body2 .btn-plus {
     width: 12%;
+
     &>button {
         font-size: 22px;
     }
 }
 
 .modal-body2 .pagination {
-	display: flex;
-	justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#frListModal .modal-body2 .modal-nickname {
+    width: 65%;
+}

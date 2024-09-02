@@ -61,7 +61,17 @@
 			   AND A.MEMO_OWNER = ?
 			   AND 
 			     ( A.MEMO_SCOPE = 'P'
-			    OR ( A.MEMO_SCOPE = 'F' AND C.FRIEND_LEVEL IN ('A', 'B', 'C', 'D') AND C.SENDER_NO = ? ) 
+			    OR ( 
+			       A.MEMO_SCOPE IN ('A', 'B', 'C', 'D') 
+			       AND C.FRIEND_LEVEL IS NOT NULL 
+			       AND C.SENDER_NO = ? 
+			       AND C.FRIEND_LEVEL <![CDATA[<=]]> CASE A.MEMO_SCOPE 
+			       										    WHEN 'A' THEN 'A'
+			       											WHEN 'B' THEN 'B'
+			       											WHEN 'C' THEN 'C'
+			       											ELSE 'D'
+			       									  END
+			       ) 
 			     )
 			 ORDER 
 			    BY A.MEMO_CREATE_DATE DESC

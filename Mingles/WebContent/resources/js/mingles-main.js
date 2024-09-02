@@ -397,7 +397,9 @@ function selectMemoList(date) {
 }
 
 $(function () {
+	
   $("#calendarDates").on("click", ".date:not(.empty)", function () {
+	
     const date = $(this).data("date");
     $("#bulletinModalLabel").text(date);
 
@@ -408,7 +410,7 @@ $(function () {
     $.ajax({
       url: "/Mingles/readStatusUpdate.mi",
       data: {
-        owner: owner,
+        owner: m,
         date: date,
       },
       success: function () {

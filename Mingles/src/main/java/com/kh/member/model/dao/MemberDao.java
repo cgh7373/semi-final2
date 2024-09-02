@@ -472,7 +472,7 @@ public class MemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
-			pstmt.setString(1, findMem);
+			pstmt.setString(1, "%" + findMem + "%");
 			pstmt.setString(2, memNo);
 			
 			rset = pstmt.executeQuery();
@@ -695,7 +695,7 @@ public class MemberDao {
 		return list;
 	}
 
-	public int updateFriendLevel(Connection conn, int memNo, String setLv) {
+	public int updateFriendLevel(Connection conn, int memNo, int frNo, String setLv) {
 		
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -706,8 +706,7 @@ public class MemberDao {
 			
 			pstmt.setString(1, setLv);
 			pstmt.setInt(2, memNo);
-			pstmt.setString(3, setLv);
-			pstmt.setInt(4, memNo);
+			pstmt.setInt(3, frNo);
 			
 			result = pstmt.executeUpdate();
 			
