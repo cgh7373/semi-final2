@@ -20,6 +20,8 @@
 				, MBTI
 				, PROFILE_PIC
 				, STATUS_MSG
+				, KAKAO_NO
+				, BACKGROUNDIMAGE
 		     FROM MEMBER
 			WHERE MEM_ID = ?
 			  AND MEM_PWD = ?

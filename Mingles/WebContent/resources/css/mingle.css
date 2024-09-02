@@ -1,5 +1,6 @@
 body div,
-img, iframe {
+img,
+iframe {
     box-sizing: border-box;
 }
 
@@ -24,19 +25,16 @@ html {
 }
 
 #wrapper {
-     /* background-image: url('../images/bgi1.png'); */
-     background-image: url(../images/bgi2.jpg);
-     /* background-image: url(../images/bgi4\ \(1\)\ \(1\).jpg); */
-     /* background-image: url(../images/bgi4.jfif); */
-     /* background-image: url(../images/bgi6.jfif); */
-     /* background-image: url(../images/bgi7.jfif); */
-    /* background-image: url(resources/images/Untitled\ \(3\).png); */
-    /* background-image: url(resources/images/573832045864709.jpg); */
+    /* background-image: url('../images/bgi1.png'); */
+    background-image: url(../images/bgi2.jpg);
+    /* background-image: url(../images/bgi4\ \(1\).jpg); */
+    /* background-image: url(../images/bgi6.jfif); */
+    /* background-image: url(../images/bgi7.jfif); */
     width: 100vw;
     height: 300vh;
     background-repeat: no-repeat;
     background-size: cover;
-    
+
 }
 
 ::-webkit-scrollbar {
@@ -100,7 +98,7 @@ iframe {
     width: auto;
     left: 33%;
     top: 18%;
-    
+
     border-radius: 20px;
 }
 
@@ -158,7 +156,7 @@ iframe {
     width: 290px;
     height: 50px;
     font-size: 23px;
-    background-image: url(https://i.makeagif.com/media/6-26-2022/Kcv935.gif) ;
+    background-image: url(https://i.makeagif.com/media/6-26-2022/Kcv935.gif);
     border-radius: 10px;
     font-weight: 800;
     box-shadow: 3px 3px 0px 0px #5390D9;
@@ -218,6 +216,7 @@ iframe {
     opacity: 0;
     visibility: hidden;
 }
+
 .middle {
     position: relative;
     width: 100%;
@@ -229,6 +228,7 @@ iframe {
     height: 200px;
     bottom: 50px;
     right: 50px;
+
     &:hover {
         cursor: pointer;
     }
@@ -401,105 +401,124 @@ iframe {
         scale: 1;
     }
 }
+
 @-webkit-keyframes jello-horizontal {
-                0% {
-                    -webkit-transform: scale3d(1,1,1);
-                    transform: scale3d(1,1,1);
-                }
-                30% {
-                    -webkit-transform: scale3d(1.25,.75,1);
-                    transform: scale3d(1.25,.75,1);
-                }
-                40% {
-                    -webkit-transform: scale3d(.75,1.25,1);
-                    transform: scale3d(.75,1.25,1);
-                }
-                50% {
-                    -webkit-transform: scale3d(1.15,.85,1);
-                    transform: scale3d(1.15,.85,1);
-                }
-                65% {
-                    -webkit-transform: scale3d(.95,1.05,1);
-                    transform: scale3d(.95,1.05,1);
-                }
-                75% {
-                    -webkit-transform: scale3d(1.05,.95,1);
-                    transform: scale3d(1.05,.95,1);
-                }
-                100% {
-                    -webkit-transform: scale3d(1,1,1);
-                    transform: scale3d(1,1,1);
-                }
-            }
-            @keyframes jello-horizontal {
-                0% {
-                    -webkit-transform: scale3d(1,1,1);
-                    transform: scale3d(1,1,1);
-                }
-                30% {
-                    -webkit-transform: scale3d(1.25,.75,1);
-                    transform: scale3d(1.25,.75,1);
-                }
-                40% {
-                    -webkit-transform: scale3d(.75,1.25,1);
-                    transform: scale3d(.75,1.25,1);
-                }
-                50% {
-                    -webkit-transform: scale3d(1.15,.85,1);
-                    transform: scale3d(1.15,.85,1);
-                }
-                65% {
-                    -webkit-transform: scale3d(.95,1.05,1);
-                    transform: scale3d(.95,1.05,1);
-                }
-                75% {
-                    -webkit-transform: scale3d(1.05,.95,1);
-                    transform: scale3d(1.05,.95,1);
-                }
-                100% {
-                    -webkit-transform: scale3d(1,1,1);
-                    transform: scale3d(1,1,1);
-                }
-            }
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
 
-            h1 {
-                height: 100px;
-            }
+    30% {
+        -webkit-transform: scale3d(1.25, .75, 1);
+        transform: scale3d(1.25, .75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(.75, 1.25, 1);
+        transform: scale3d(.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, .85, 1);
+        transform: scale3d(1.15, .85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(.95, 1.05, 1);
+        transform: scale3d(.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, .95, 1);
+        transform: scale3d(1.05, .95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes jello-horizontal {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        -webkit-transform: scale3d(1.25, .75, 1);
+        transform: scale3d(1.25, .75, 1);
+    }
+
+    40% {
+        -webkit-transform: scale3d(.75, 1.25, 1);
+        transform: scale3d(.75, 1.25, 1);
+    }
+
+    50% {
+        -webkit-transform: scale3d(1.15, .85, 1);
+        transform: scale3d(1.15, .85, 1);
+    }
+
+    65% {
+        -webkit-transform: scale3d(.95, 1.05, 1);
+        transform: scale3d(.95, 1.05, 1);
+    }
+
+    75% {
+        -webkit-transform: scale3d(1.05, .95, 1);
+        transform: scale3d(1.05, .95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+h1 {
+    height: 100px;
+}
 
 
-            h1 span {
-                position: relative;
-                top: 10%;
-                display: inline-block;
-                animation: jello-horizontal 0.5s both;
-                font-family: 'omyu_pretty', cursive;
-                font-size: 120px;
-                color: aliceblue;
-                text-shadow: 0 1px 0 #CCC, 0 2px 0 #CCC, 0 3px 0 #CCC, 0 4px 0 #CCC, 0 5px 0 #CCC, 0 6px 0 transparent, 0 7px 0 transparent, 0 8px 0 transparent, 0 9px 0 transparent, 0 10px 10px rgba(0, 0, 0, .4);
-            }
+h1 span {
+    position: relative;
+    top: 10%;
+    display: inline-block;
+    animation: jello-horizontal 0.5s both;
+    font-family: 'omyu_pretty', cursive;
+    font-size: 120px;
+    color: aliceblue;
+    text-shadow: 0 1px 0 #CCC, 0 2px 0 #CCC, 0 3px 0 #CCC, 0 4px 0 #CCC, 0 5px 0 #CCC, 0 6px 0 transparent, 0 7px 0 transparent, 0 8px 0 transparent, 0 9px 0 transparent, 0 10px 10px rgba(0, 0, 0, .4);
+}
 
-            h1 span:nth-child(2) {
-                animation-delay: 0.1s;
-            }
-            h1 span:nth-child(3) {
-                animation-delay: 0.2s;
-            }
-            h1 span:nth-child(4) {
-                animation-delay: 0.3s;
-            }
-            h1 span:nth-child(5) {
-                animation-delay: 0.4s;
-            }
-            h1 span:nth-child(6) {
-                animation-delay: 0.5s;
-            }
-            h1 span:nth-child(7) {
-                animation-delay: 0.6s;
-            }
+h1 span:nth-child(2) {
+    animation-delay: 0.1s;
+}
 
-            @keyframes bounce {
-                100% {
-                    top: -20px;
-                    text-shadow: 0 1px 0 #CCC, 0 2px 0 #CCC, 0 3px 0 #CCC, 0 4px 0 #CCC, 0 5px 0 #CCC, 0 6px 0 #CCC, 0 7px 0 #CCC, 0 8px 0 #CCC, 0 9px 0 #CCC, 0 50px 25px rgba(0, 0, 0, .2);
-                }
-            }
+h1 span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+h1 span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+h1 span:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+h1 span:nth-child(6) {
+    animation-delay: 0.5s;
+}
+
+h1 span:nth-child(7) {
+    animation-delay: 0.6s;
+}
+
+@keyframes bounce {
+    100% {
+        top: -20px;
+        text-shadow: 0 1px 0 #CCC, 0 2px 0 #CCC, 0 3px 0 #CCC, 0 4px 0 #CCC, 0 5px 0 #CCC, 0 6px 0 #CCC, 0 7px 0 #CCC, 0 8px 0 #CCC, 0 9px 0 #CCC, 0 50px 25px rgba(0, 0, 0, .2);
+    }
+}

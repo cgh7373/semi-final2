@@ -63,6 +63,8 @@ public class MemberDao {
 								, rset.getString(15)
 								, rset.getString(16)
 								, rset.getString(17)
+								, rset.getString(18)
+								, rset.getString(19)
 							  );
 				
 			}
@@ -784,6 +786,12 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int UpdateBgi(Connection conn, int memNo, String bgi) {
+		
+		String sql = prop.getProperty("UpdateBgi");
+		return 0;
 	}
 	
 	

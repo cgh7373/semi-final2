@@ -130,19 +130,3 @@ renderFavoritePosts();
 renderRecentReplied();
 
 
-// new Swiper('.bot .promotion .swiper-container', {
-//         slidesPerView: 3,
-//         spaceBetween: 20,
-//         centeredSlides: true, // 1번 슬라이드를 가운데 두기
-//         loop: true,
-//         speed: 1300,
-//         autoplay: {
-//             delay: 2500,
-//             disableOnInteraction: false,
-//         },
-//         navigation: {
-//             prevEl: '.bot .promotion .swiper-prev',
-//             nextEl: '.bot .promotion .swiper-next',
-//         }
-// })
-
