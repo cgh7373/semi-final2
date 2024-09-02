@@ -343,9 +343,6 @@ public class Member {
 		return ABO;
 	}
 
-	public void setABO(String aBO) {
-		ABO = aBO;
-	}
 
 	public String getKakaoNo() {
 		return kakaoNo;
@@ -356,13 +353,7 @@ public class Member {
 	}
 	
 
-	public String getMBTI() {
-		return MBTI;
-	}
 
-	public void setMBTI(String mBTI) {
-		MBTI = mBTI;
-	}
 
 	@Override
 	public String toString() {
