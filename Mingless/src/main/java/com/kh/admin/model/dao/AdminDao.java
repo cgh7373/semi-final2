@@ -429,6 +429,7 @@ public class AdminDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateBkStatus");
+		String sql2 = prop.getProperty("updateMemberBkStatus");
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, memNo);

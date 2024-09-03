@@ -360,9 +360,21 @@ VALUES (SEQ_POST.NEXTVAL, 1, 'First Post', 'This is the content of the first pos
 
 commit;
 
-
-SELECT BLACKLIST_NO
-  FROM MEMBER_BLACKLIST
- WHERE MEM_NO = 2
- ;
- 
+SELECT
+		        m.MEM_ID AS "MEM_ID",
+		        m.NICKNAME AS "NICKNAME",
+		        b.BLOCK_TYPE AS "BLOCK_TYPE",
+		        b.BLOCK_COUNT AS "BLOCK_COUNT",
+		        r.MEM_ID "REPORT_ID",
+		        b.BLOCK_DATE "BLOCK_DATE"
+		  FROM
+		        MEMBER_BLACKLIST b
+		  JOIN
+		        MEMBER m ON b.MEM_NO = m.MEM_NO 
+		  JOIN
+		        MEMBER r ON b.REPORTMEM_NO = r.MEM_NO  
+          WHERE BLACK_STATUS = 'Y'
+		  ORDER
+		     BY
+		        b.BLOCK_DATE DESC
+                ;
