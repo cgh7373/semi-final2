@@ -137,7 +137,7 @@
                     },
                     orderId: "faMOdjVdbHNEIHd0Shh0n",
                     orderName: point+"거북알",
-                    customerEmail: "end821@naver.com",
+                    customerEmail: "",
                     customerName: "차은우",
                     customerMobilePhone: "01012345678",
                     windowTarget: "iframe",

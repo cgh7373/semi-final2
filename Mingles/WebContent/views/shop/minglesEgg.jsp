@@ -236,7 +236,7 @@
 
                 function openPop(userNo, egg, price, point){
                         // 새로운 팝업창 띄워줄 예정
-                            var option = 'top=70, left=680, width=500, height=802, status=no, menubar=no, toolbar=no, resizable=no';
+                            var option = 'top=70, left=680, width=700, height=802, status=no, menubar=no, toolbar=no, resizable=no';
                             window.open('chargeEgg.mi?price='+price+"&egg="+egg+"&userNo="+userNo+"&point="+point, '_blank', option);
                         // 매개변수 price로 해당 가격 받아와서 결제페이지로 넘겨줄 예정
                         // "/Mingles/egg충전.mi?price=" + price 
@@ -353,7 +353,7 @@
     <script>
         function openGiftPop(price, point){
             var userId = document.getElementById("input-userId").value;
-            var option = 'top=70, left=680, width=500, height=802, status=no, menubar=no, toolbar=no, resizable=no';
+            var option = 'top=70, left=680, width=700, height=802, status=no, menubar=no, toolbar=no, resizable=no';
             window.open('giftEgg.mi?price='+price+"&point="+point+"&userId="+userId, '_blank', option);
 
         };
