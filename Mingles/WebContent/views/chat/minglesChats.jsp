@@ -127,7 +127,8 @@ String contextPath = request.getContextPath();
                   id="input-file"
                   name="originFileNo"
                   style="display: none"
-                  accept="image/*"
+                  multiple="multiple"
+                  accept=".png, .jpg, .jpeg"
                 />
                 
                 <span class="material-icons draw">draw</span>
@@ -238,6 +239,7 @@ String contextPath = request.getContextPath();
               	}, 2000);
                });
 
+
                // 채팅 로딩하는 함수
                function loadChatting(toNo, fromNo, loginNo) {
                  $.ajax({
@@ -283,6 +285,7 @@ String contextPath = request.getContextPath();
                          
                          // 채팅 content만 로드
                      		if(loginNo !== chat.fromNo){
+                     			
                      			chatContent +=
                                      "<div class='chatting ch1'>" +
                                      "<div class='icon'><img src='" +
@@ -303,7 +306,7 @@ String contextPath = request.getContextPath();
                                      "</div>" +
                                      "</div>";
                       		}
-                     		
+
                      });
                      let chatRoom = $(".chatRoom");
                      chatRoom.html(chatContent);
@@ -329,16 +332,16 @@ String contextPath = request.getContextPath();
              		  },
              		  type:"post",
              		  success:function(inChat){
-             			  if(inChat > 0){ // 채팅 보내기 성공 => 갱신 리스트 조회
-             			  loadChatting(toNo, fromNo, loginNo);
-             			  $("#messageInput").val("");
-             			  }
+                      	if(inChat > 0){ // 채팅 보내기 성공 => 갱신 리스트 조회
+             			    loadChatting(toNo, fromNo, loginNo);
+             			    $("#messageInput").val("");
+             			    }
              		  },
              		  error:function(){
              			  console.log("응 채팅 보내는거 실패해띠~");
              		  },
              	  });
-               }
+               }  
 
         </script>
       </body>

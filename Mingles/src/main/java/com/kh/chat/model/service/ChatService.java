@@ -37,6 +37,7 @@ public class ChatService {
 	}
 	
 	public int insertChat(Chat c) {
+		
 		Connection conn = getConnection();
 		
 		int inChat = new ChatDao().insertChat(conn, c);

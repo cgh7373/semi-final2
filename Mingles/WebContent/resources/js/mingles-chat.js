@@ -45,18 +45,6 @@ ctx.strokeStyle = "orange";
 ctx.lineWidth = 2.5;
 ctx.lineCap = "round";
 
-// 첨부파일 사진넣기
-function setThumbnail(event) {
-  let reader = new FileReader();
-
-  reader.onload = function (event) {
-    let img = document.createElement("img");
-    img.setAttribute("src", event.target.result);
-    document.querySelector(".chatting.ch2").appendChild(img);
-  };
-  reader.readAsDataURL(event.target.files[0]);
-}
-
 // 친구 리스트 클릭 이벤트
 document.addEventListener("DOMContentLoaded", function () {
   const friendLists = document.querySelectorAll(".friendList");
@@ -91,6 +79,15 @@ function init() {
   draw.addEventListener("click", handClick);
 }
 init();
+
+// 빈입력창 보낼때
+$("#chatForm").addEventListener("submit", (e) => {
+  let message = $("input{type=text").value;
+  if (message.trim() === "") {
+    alert("메세지를 입력해주세요~");
+    e.preventDefault();
+  }
+});
 
 // chatting enterKey
 let chattingInput = document.querySelector("input[type=text]");

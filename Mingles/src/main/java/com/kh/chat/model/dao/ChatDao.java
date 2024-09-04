@@ -137,7 +137,7 @@ public class ChatDao {
 			pstmt.setInt(3, c.getToNo());
 			pstmt.setString(4, c.getChatContent());
 			
-			inChat = pstmt.executeUpdate();
+			inChat = pstmt.executeUpdate();				
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
