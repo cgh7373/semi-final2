@@ -683,7 +683,7 @@ public class AdminDao {
 				pstmt.setInt(4, fileNo);
 			}else {
 				// 사진 기본값 파일 번호 찾아서 변경
-				pstmt.setInt(4, 28);
+				pstmt.setInt(4, 1001);
 			}
 			postNo = pstmt.executeUpdate();
 			

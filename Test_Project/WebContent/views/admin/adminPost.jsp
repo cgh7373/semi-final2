@@ -545,8 +545,9 @@
                             },
                             dataType: 'json',
                             success: (chatList) => {
-                                console.log("loadChat success");
-                                console.log(chatList);
+                                
+                            	// console.log("loadChat success");
+                                // console.log(chatList);
                                 if (chatList.length === 0) {
                                     value += `
                                     <div class="message-container chat-empty">
@@ -555,8 +556,8 @@
                                     <input type='hidden' id='toNoBox' value='\${memId}'  />
                                     `;
                                 } else {
-                                    
                                     chatList.forEach(chat => {
+
                                         const chatDate = new Date(chat.chatTime);
                                         const year = chatDate.getFullYear();
                                         const month = chatDate.getMonth() + 1;
@@ -586,15 +587,15 @@
                                             lastDate = currentDate;
                                         }
 
-                                        // 메시지 표시
-                                        if (chat.fromNo === 4) {
+                                        // 메시지 표시(관리자 번호변경)
+                                        if (chat.fromNo === 2) {
                                             toNo = `\${chat.toNo}`;
                                             sendChat += `
                                             <div class="message-container">
                                                 <h6 class="time">\${hour}:\${minute}</h6>
                                                 <div class="chat-item sent">\${chat.chatContent}</div>
                                             </div>`;
-                                        } else if (chat.toNo === 4) {
+                                        } else if (chat.toNo === 2) {
                                             sendChat += `
                                             <div class="message-container">
                                                 <div class="chat-item received">\${chat.chatContent}</div>
@@ -605,6 +606,7 @@
 
                                     // 마지막으로 남은 메시지 추가
                                     if (sendChat) {
+                                    	
                                         value += sendChat;
                                     }
                                 }
