@@ -226,9 +226,15 @@
             <!-- 게시글탭 -->
             <span class="material-icons postsTab" title="게시글">article</span>
 
-            <!-- 아무탭7 -->
-            <span class="material-icons anyTab7">add_circle_outline</span>
-
+            <!-- 아무탭7, 관리자 -->
+            <%if(loginUser != null) {%>
+				<%if(loginUser.getStatus().equals("A")){ %>
+            		<a href="<%=contextPath %>/main.am" class="material-icons anyTab7" style="text-decoration: none; color: black;">manage_accounts</a>
+                <%}else{ %>
+                	<span class="material-icons anyTab7">add_circle_outline</span>
+                <%} %>
+            <%} %>
+            
             <!-- 로그아웃탭 -->
             <span class="material-icons logoutTab" onclick="logout()" title="로그아웃">logout</span>
             

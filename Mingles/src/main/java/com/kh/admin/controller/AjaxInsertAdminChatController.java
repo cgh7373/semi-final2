@@ -1,0 +1,53 @@
+package com.kh.admin.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.kh.admin.model.service.AdminService;
+
+/**
+ * Servlet implementation class AjaxInsertAdminChatController
+ */
+@WebServlet("/insertChat.am")
+public class AjaxInsertAdminChatController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AjaxInsertAdminChatController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String sendMsg = request.getParameter("sendMsg");
+		String toMem = request.getParameter("toMem");
+		int fromNo = Integer.parseInt(request.getParameter("fromNo"));
+		int result = new AdminService().insertAdminChat(sendMsg, toMem, fromNo);
+		
+		if(result > 0) {
+			response.setContentType("html/text; charset=utf-8");
+			response.getWriter().print("YYYI");
+		}else {
+			response.setContentType("html/text; charset=utf-8");
+			response.getWriter().print("YYYN");
+		}
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}
