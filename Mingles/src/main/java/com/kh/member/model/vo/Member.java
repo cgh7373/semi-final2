@@ -20,6 +20,7 @@ public class Member {
 	private String profilePic;
 	private String statusMsg;
 	private String kakaoNo;
+	private String backgroundImage;
 	
 	public Member() {}
 	
@@ -43,6 +44,31 @@ public class Member {
 		this.MBTI = MBTI;
 		this.ABO = ABO;
 		this.MBTI = MBTI;
+	}
+
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO,
+			String mBTI, String profilePic, String statusMsg, String kakaoNo, String backgroundImage) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.egg = egg;
+		this.zodiac = zodiac;
+		ABO = aBO;
+		MBTI = mBTI;
+		this.profilePic = profilePic;
+		this.statusMsg = statusMsg;
+		this.kakaoNo = kakaoNo;
+		this.backgroundImage = backgroundImage;
 	}
 
 	public Member(String memId, String memPwd, String nickname, String birthdate, String phone, String email,
@@ -183,6 +209,14 @@ public class Member {
 		this.statusMsg = statusMsg;
 	}
 	
+	public String getBackgroundImage() {
+		return backgroundImage;
+	}
+
+	public void setBackgroundImage(String backgroundImage) {
+		this.backgroundImage = backgroundImage;
+	}
+
 	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
 			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO,
 			String mBTI, String profilePic, String statusMsg, String kakaoNo) {
@@ -213,6 +247,18 @@ public class Member {
 
 	public void setProfilePic(String profilePic) {
 		this.profilePic = profilePic;
+	}
+
+	public String getMBTI() {
+		return MBTI;
+	}
+
+	public void setMBTI(String mBTI) {
+		MBTI = mBTI;
+	}
+
+	public void setABO(String aBO) {
+		ABO = aBO;
 	}
 
 	public String getStatusMsg() {
@@ -326,22 +372,11 @@ public class Member {
 	public void setEgg(int egg) {
 		this.egg = egg;
 	}
-	
+
 	public String getABO() {
 		return ABO;
 	}
 
-	public void setABO(String ABO) {
-		this.ABO = ABO;
-	}
-
-	public String getMBTI() {
-		return MBTI;
-	}
-
-	public void setMBTI(String mBTI) {
-		this.MBTI = MBTI;
-	}
 
 	public String getKakaoNo() {
 		return kakaoNo;
@@ -350,6 +385,8 @@ public class Member {
 	public void setKakaoNo(String kakaoNo) {
 		this.kakaoNo = kakaoNo;
 	}
+	
+
 
 
 	@Override

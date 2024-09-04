@@ -358,6 +358,16 @@ public class MemberService {
 		return result;
 	}
 
+	public int UpdateBgi(int memNo, String bgi) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().UpdateBgi(conn, memNo, bgi);
+		
+		
+		return 0;
+	}
+
 
 }
 

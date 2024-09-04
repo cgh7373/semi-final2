@@ -63,127 +63,150 @@
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
 
+                                        $("#bgiModal #bgiSelector").on('change', function () {
+
+                                            var img = $(this).val();
+
+                                            $("#bgiModal img").attr('src', img);
+
+                                        })
+
+                                    $("#bgiModal #bgiAdBtn").on('click', function () {
+
+										$.ajax({
+											url : "/Mingles/updateBgi.mi",
+											data : {
+												memNo : <%=m.getMemNo()%>,
+												image : $("#bgiSelector").val(),
+											},
+											success : (result) => {
+												console.log(result);
+											} 
+										})
 
 
-                                        // 유저 검색함수
-                                        function loadData(type) {
+                                    })
 
-                                            let url;
-                                            let data;
 
-                                            switch (type) {
+                                    // 유저 검색함수
+                                    function loadData(type) {
 
-                                                case 'mbti':
-                                                    url = '/Mingles/frFromMbti.mi';
-                                                    data = {
-                                                        myMBTI: "<%=m.getMBTI()%>",
-                                                        myMemNo: "<%=m.getMemNo()%>"
-                                                    };
-                                                    break;
+                                        let url;
+                                        let data;
 
-                                                case 'findMember':
-                                                    url = '/Mingles/memberFind.mi';
-                                                    data = {
-                                                        findMem: $("input[name=findMember]").val(),
-                                                        myMemNo: "<%=m.getMemNo()%>"
-                                                    };
-                                                    break;
+                                        switch (type) {
 
-                                                default:
-                                                    console.error('Unknown type:', type);
-                                                    return;
+                                            case 'mbti':
+                                                url = '/Mingles/frFromMbti.mi';
+                                                data = {
+                                                    myMBTI: "<%=m.getMBTI()%>",
+                                                    myMemNo: "<%=m.getMemNo()%>"
+                                                };
+                                                break;
 
-                                            }
+                                            case 'findMember':
+                                                url = '/Mingles/memberFind.mi';
+                                                data = {
+                                                    findMem: $("input[name=findMember]").val(),
+                                                    myMemNo: "<%=m.getMemNo()%>"
+                                                };
+                                                break;
 
-                                            $.ajax({
-                                                url: url,
-                                                data: data,
-                                                type: 'post',
-                                                success: function (result) {
+                                            default:
+                                                console.error('Unknown type:', type);
+                                                return;
 
-                                                    const itemsPerPage = 10;
-                                                    let currentPage = 1;
-                                                    const totalItems = result.length;
-                                                    const totalPages = Math.ceil(totalItems / itemsPerPage);
-
-                                                    function renderPage(page) {
-
-                                                        const start = (page - 1) * itemsPerPage;
-                                                        const end = start + itemsPerPage;
-                                                        const pageItems = result.slice(start, end);
-
-                                                        let value = "";
-
-                                                        for (let i in pageItems) {
-
-                                                            value += "<tr>"
-                                                                + "<td rowspan='2' class='modal-img'><img src='" + pageItems[i].profilePic + "'></td>"
-                                                                + "<td class='modal-nickname'>" + pageItems[i].nickname + "</td>"
-                                                                + "<td rowspan='2' class='btn-plus visitFriend'><button data-memno='" + pageItems[i].memNo + "'>놀러가기</button></td>"
-                                                                + "<td rowspan='2' class='btn-plus requestFriend'><button data-memno='" + pageItems[i].memNo + "'>친구신청</button></td>"
-                                                                + "</tr>"
-                                                                + "<tr>"
-                                                                + "<td class='modal-statusMsg'>" + pageItems[i].statusMsg + "</td>"
-                                                                + "</tr>";
-
-                                                        }
-
-                                                        $("#findMemberModal .modal-body2 table").html(value);
-                                                        updatePaginationControls();
-                                                    }
-
-                                                    function updatePaginationControls() {
-
-                                                        const pageNumbers = $("#findMemberModal #pageNumbers");
-                                                        pageNumbers.empty();
-
-                                                        if (totalPages === 0) {
-                                                            $("#bulletinModal #prevPage").prop('disabled', true);
-                                                            $("#bulletinModal #nextPage").prop('disabled', true);
-                                                            return;
-                                                        }
-
-                                                        for (let i = 1; i <= totalPages; i++) {
-
-                                                            const button = $("<button>")
-                                                                .text(i)
-                                                                .addClass('page-btn')
-                                                                .data('page', i)
-                                                                .on('click', function () {
-                                                                    currentPage = $(this).data('page');
-                                                                    renderPage(currentPage);
-                                                                });
-                                                            pageNumbers.append(button);
-                                                        }
-
-                                                        $("#findMemberModal #prevPage").prop('disabled', currentPage === 1);
-                                                        $("#findMemberModal #nextPage").prop('disabled', currentPage === totalPages || totalPages === 0);
-
-                                                    }
-
-                                                    $("#findMemberModal #prevPage").on('click', function () {
-
-                                                        if (currentPage > 1) {
-                                                            currentPage--;
-                                                            renderPage(currentPage);
-                                                        }
-
-                                                    });
-
-                                                    $("#findMemberModal #nextPage").on('click', function () {
-
-                                                        if (currentPage < totalPages) {
-                                                            currentPage++;
-                                                            renderPage(currentPage);
-                                                        }
-
-                                                    });
-
-                                                    renderPage(currentPage);
-
-                                                },
-                                            });
                                         }
+
+                                        $.ajax({
+                                            url: url,
+                                            data: data,
+                                            type: 'post',
+                                            success: function (result) {
+
+                                                const itemsPerPage = 10;
+                                                let currentPage = 1;
+                                                const totalItems = result.length;
+                                                const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+                                                function renderPage(page) {
+
+                                                    const start = (page - 1) * itemsPerPage;
+                                                    const end = start + itemsPerPage;
+                                                    const pageItems = result.slice(start, end);
+
+                                                    let value = "";
+
+                                                    for (let i in pageItems) {
+
+                                                        value += "<tr>"
+                                                            + "<td rowspan='2' class='modal-img'><img src='" + pageItems[i].profilePic + "'></td>"
+                                                            + "<td class='modal-nickname'>" + pageItems[i].nickname + "</td>"
+                                                            + "<td rowspan='2' class='btn-plus visitFriend'><button data-memno='" + pageItems[i].memNo + "'>놀러가기</button></td>"
+                                                            + "<td rowspan='2' class='btn-plus requestFriend'><button data-memno='" + pageItems[i].memNo + "'>친구신청</button></td>"
+                                                            + "</tr>"
+                                                            + "<tr>"
+                                                            + "<td class='modal-statusMsg'>" + pageItems[i].statusMsg + "</td>"
+                                                            + "</tr>";
+
+                                                    }
+
+                                                    $("#findMemberModal .modal-body2 table").html(value);
+                                                    updatePaginationControls();
+                                                }
+
+                                                function updatePaginationControls() {
+
+                                                    const pageNumbers = $("#findMemberModal #pageNumbers");
+                                                    pageNumbers.empty();
+
+                                                    if (totalPages === 0) {
+                                                        $("#bulletinModal #prevPage").prop('disabled', true);
+                                                        $("#bulletinModal #nextPage").prop('disabled', true);
+                                                        return;
+                                                    }
+
+                                                    for (let i = 1; i <= totalPages; i++) {
+
+                                                        const button = $("<button>")
+                                                            .text(i)
+                                                            .addClass('page-btn')
+                                                            .data('page', i)
+                                                            .on('click', function () {
+                                                                currentPage = $(this).data('page');
+                                                                renderPage(currentPage);
+                                                            });
+                                                        pageNumbers.append(button);
+                                                    }
+
+                                                    $("#findMemberModal #prevPage").prop('disabled', currentPage === 1);
+                                                    $("#findMemberModal #nextPage").prop('disabled', currentPage === totalPages || totalPages === 0);
+
+                                                }
+
+                                                $("#findMemberModal #prevPage").on('click', function () {
+
+                                                    if (currentPage > 1) {
+                                                        currentPage--;
+                                                        renderPage(currentPage);
+                                                    }
+
+                                                });
+
+                                                $("#findMemberModal #nextPage").on('click', function () {
+
+                                                    if (currentPage < totalPages) {
+                                                        currentPage++;
+                                                        renderPage(currentPage);
+                                                    }
+
+                                                });
+
+                                                renderPage(currentPage);
+
+                                            },
+                                        });
+                                    }
 
                                     loadData('mbti');
 
@@ -401,8 +424,8 @@
 
                                     $("#frListModal").on('change', ".setFriendLevel select", function () {
 
-                                        const memNo = <%=m.getMemNo()%>;
-                                    	const frNo = $(this).data('memno');
+                                        const memNo = <%=m.getMemNo() %>;
+                                        const frNo = $(this).data('memno');
                                         const setLv = $(this).val();
 
                                         $.ajax({
@@ -678,9 +701,61 @@
                                                     }
                                                 </script>
 
-                                                <div class="setbox">
-                                                    <span class="material-icons"></span>
-                                                    <span class="set-tag"></span>
+                                                <div class="setbox" data-toggle="modal" data-target="#bgiModal">
+                                                    <span class="material-icons">panorama</span>
+                                                    <span class="set-tag">배경화면 설정</span>
+                                                </div>
+
+                                                <!-- 배경화면 Modal -->
+                                                <div class="modal fade" id="bgiModal">
+                                                    <div class="modal-dialog modal-dialog-centered modal-m">
+                                                        <div class="modal-content">
+
+                                                            <!-- Modal Header -->
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">배경화면 설정</h4>
+                                                                <button type="button" class="close"
+                                                                    data-dismiss="modal">&times;</button>
+                                                            </div>
+
+                                                            <!-- Modal body -->
+                                                            <div class="modal-body" align="center">
+
+                                                                <div class="modal-left">
+
+                                                                    <div class="modal-post">
+                                                                        <img src="../../resources/images/bgi1.png">
+                                                                        <div class="post-cover">
+                                                                            <select id="bgiSelector">
+                                                                                <option
+                                                                                    value="../../resources/images/bgi1.png">
+                                                                                    1</option>
+                                                                                <option
+                                                                                    value="../../resources/images/bgi2.jpg">
+                                                                                    2</option>
+                                                                                <option
+                                                                                    value="../../resources/images/bgi4 (1) (1).jpg">
+                                                                                    3</option>
+                                                                                <option
+                                                                                    value="../../resources/images/bgi6.jfif">
+                                                                                    4</option>
+                                                                                <option
+                                                                                    value="../../resources/images/bgi7.jfif">
+                                                                                    5</option>
+                                                                                <option
+                                                                                    value="../../resources/images/bgi3.jfif">
+                                                                                    6</option>
+                                                                            </select>
+
+                                                                            <button id="bgiAdBtn">적용</button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div class="setbox">

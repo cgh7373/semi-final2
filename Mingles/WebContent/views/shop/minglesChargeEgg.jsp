@@ -21,15 +21,22 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
+    <script src="https://js.tosspayments.com/v2/standard"></script>
+
     <link rel="stylesheet" href="./resources/css/minglesChargeEgg.css">
 
+    <style> 
+    
+
+    </style>
 
 </head>
 <body>
@@ -46,7 +53,7 @@
                 결제
             </div>
             <div id="right">
-                <button><span class="material-icons">X</span></button>
+                <button><span class="material-icons"></span></button>
             </div>
         </header>
 
@@ -58,95 +65,94 @@
 
         <!--  -->
         <section class="charge">
-            <div id="charge-text">결제수단</div>
-
-            <div id="charge-content">
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          간편 결제
-                        </button>
-                      </h2>
-                      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="swiper-help">
-                                <swiper-container class="mySwiper" navigation="true" pagination="true" keyboard="true" mousewheel="true" css-mode="true">
-                                    <swiper-slide>Slide 1</swiper-slide>
-                                    <swiper-slide>Slide 2</swiper-slide>
-                                    <swiper-slide>Slide 3</swiper-slide>
-                                    <swiper-slide>Slide 4</swiper-slide>
-                                </swiper-container>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          간편 결제
-                        </button>
-                      </h2>
-                      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="swiper-help">
-                                <swiper-container class="mySwiper" navigation="true" pagination="true" keyboard="true" mousewheel="true" css-mode="true">
-                                    <swiper-slide>Slide 1</swiper-slide>
-                                    <swiper-slide>Slide 2</swiper-slide>
-                                    <swiper-slide>Slide 3</swiper-slide>
-                                    <swiper-slide>Slide 4</swiper-slide>
-                                </swiper-container>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          일반 결제
-                        </button>
-                      </h2>
-                      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="swiper-help">
-                                <swiper-container class="mySwiper" navigation="true" pagination="true" keyboard="true" mousewheel="true" css-mode="true">
-                                    <swiper-slide>Slide 1</swiper-slide>
-                                    <swiper-slide>Slide 2</swiper-slide>
-                                    <swiper-slide>Slide 3</swiper-slide>
-                                    <swiper-slide>Slide 4</swiper-slide>
-                                </swiper-container>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            <div id="charge-text">
+              <div style="background-color: rgb(226, 255, 254);">이용 가능한 간편결제</div>
+              <div class="swiper mySwiper swiper-top">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/TOSSPAY.png" alt=""></div>
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/SAMSUNGPAY.png" alt=""></div>
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/NAVERPAY.png" alt=""></div>
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/LPAY.png" alt=""></div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+              </div>
+              <div style="background-color: rgb(226, 255, 254);">이용 가능한 카드결제</div>
+              <div class="swiper mySwiper swiper-bottom">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/삼성.png" alt=""></div>
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/신한.png" alt=""></div>
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/현대.png" alt=""></div>
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/kb.png" alt=""></div>
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/롯데.png" alt=""></div>
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/비씨.png" alt=""></div>
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/24.png" alt=""></div>
+                  <div class="swiper-slide"><img src="./resources/images/결제수단 이미지/농협.png" alt=""></div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+              </div>
             </div>
         </section>
+
+        <script>
+           var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 'auto',
+                observer: true,
+                observeParents: true,
+                navigation: {
+                  nextEl: ".swiper-button-next",
+                  prevEl: ".swiper-button-prev",
+                },
+              });
+        </script>
 
 
         <footer class="finish">
             <div id="fin-text">주문 내용을 확인하였으며, 정보 제공 등에 동의합니다.</div>
             <div id="fin-content">
-                <button class="fin-btn" onclick="charge(<%= userNo %>, <%= sum %>);">결제하기</button>
+                <button class="fin-btn" onclick="charge()">결제하기</button>
             </div>
             
         </footer>
         
             <script>
-	            var payOption = '간편결제'
-	                $(function(){
-	                  $(".accordion-button").click(function(){
-	                    payOption = $(this).text();
-	                  })
-	                })
+             
 
-                const userNo = <%= m.getMemNo() %>;
-                const price = <%= price %>;
-                const point = <%= point %>;
-                
-              function charge(userNo, sum){
-	              location.href= "eggUpdate.mi?userNo="+userNo+"&sum="+sum+"&price="+price+"&point="+point+"&payOption="+payOption;;
+              const tossPayments = TossPayments("test_ck_GePWvyJnrK2K7KR4BPjLVgLzN97E");
+              const payment = tossPayments.payment({ customerKey :"fdsafdsai923f2rdfsar3ds" });
+              
+              const userNo = <%= userNo %>;
+              const sum = <%= sum %>;
+              const price = <%= price %>;
+              const point = <%= point %>;
+              
+             
+              function charge(){
+                payment.requestPayment({
+                    method: "CARD",
+                    amount: {
+                        currency: "KRW",
+                        value: price,
+                    },
+                    orderId: "faMOdjVdbHNEIHd0Shh0n",
+                    orderName: point+"거북알",
+                    customerEmail: "",
+                    customerName: "차은우",
+                    customerMobilePhone: "01012345678",
+                    windowTarget: "iframe",
+                    card: {
+                        useEscrow: false,
+                        flowMode: "DEFAULT",
+                        useCardPoint: false,
+                        useAppCardOnly: false,
+                    },
+                    successUrl:"http://localhost:8254/Mingles/eggUpdate.mi?userNo="+userNo+"&sum="+sum+"&price="+price+"&point="+point,
+                    failUrl:"http://www.naver.com",
+                });
               }
+              
+             
               
             </script>
     

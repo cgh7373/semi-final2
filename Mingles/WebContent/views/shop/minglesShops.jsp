@@ -1,10 +1,13 @@
+<%@page import="com.kh.member.model.vo.Member"%>
 <%@page import="com.kh.common.model.vo.PageInfo"%>
 <%@page import="com.kh.admin.model.vo.Item"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String contextPath = request.getContextPath(); %>
-<% ArrayList<Item> list = (ArrayList<Item>)request.getAttribute("list"); 
+<% 	Member m = (Member)session.getAttribute("loginUser");
+	String contextPath = request.getContextPath(); 
+	String defaultCategory = (String)request.getAttribute("defaultCategory");
+	ArrayList<Item> list = (ArrayList<Item>)request.getAttribute("list"); 
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -29,13 +32,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
     integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+	
+	<!-- SweetAlert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- 내부파일 -->
 	<link rel="stylesheet" href="<%= contextPath %>/resources/css/mingle-shop.css">
 	<script defer src="<%= contextPath %>/resources/js/mingle-shop.js"></script>
+	<script type="text/javascript"> let memNo = <%= m.getMemNo() %>;</script>
+	<script defer src = "<%= contextPath%>/resources/js/mingle-style2.js"></script>
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="icon" href="<%= contextPath %>/resources/images/Mingles아이콘-removebg-preview.png">
 
@@ -98,19 +106,23 @@
                         </span>
                     </div>
                     <div class="content-main">
-                        <ul> 
+                        <ul class = "floating"> 
 						  <% for(Item it: list){%>
                             <!-- 이게 template -->
                            <li>
                                 <div class="item-container">
                                     <div class="img-box"><img src="<%= contextPath %><%= it.getSaveFile()%>"></div>
-                                    <div class="basket">
-                                        <button class="material-icons" id ="cart">add_shopping_cart</button>
-                                        <button class="material-icons" id="jjimkong">auto_awesome</button>
-                                    </div>
                                     <div class="item-detail">
                                         <p class="item-name"><%= it.getItemName()%></p>
                                         <p class="item-desc"><%= it.getItemExplan()%></p>
+										<button type="button" class="btn btn-info pay purchaseBtn" onclick = "purchaseItem(<%= it.getItemNo()%>,<%= it.getPrice() %>)">
+											<img src="<%= contextPath %>/resources/images/거북알.png" style = "width:30px; height:30px;">
+											<p
+											data-item-no="<%= it.getItemNo() %>" 
+											data-item-price="<%= it.getPrice() %>">
+											<%= it.getPrice()%>
+											</p>
+										</button>
                                         <p class="item-date"><span>출시일 : </span><%=it.getItemEnrollDate() %></p>
                                     </div>
                                 </div>
@@ -123,19 +135,19 @@
 
 						<%if(currentPage != 1){ %>
 						
-							<a href ="<%=contextPath %>/list.it?category=aa&cpage=<%=currentPage-1%>" class="page-button">&lt;</a>
+							<a href ="<%=contextPath %>/list.it?category=<%=defaultCategory%>&cpage=<%=currentPage-1%>" class="page-button">&lt;</a>
 						<%} %>
 						
 						<% for(int p=startPage; p<=endPage; p++){ %>
 						<% if(p==currentPage){ %>
-							<span><%=p%></span>
+							<span class = "currentpage"><%=p%></span>
                         	<%}else{ %>
-                        	<a href="<%=contextPath %>/list.it?category=aa&cpage=<%=p %>"class="page-button"><%=p %></a>
+                        	<a href="<%=contextPath %>/list.it?category=<%=defaultCategory%>&cpage=<%=p %>"class="page-button"><%=p %></a>
                         	<%} %>
                           <%} %>
                           
                           <%if(currentPage != maxPage){ %>
-                          <a href="<%=contextPath%>/list.it?category=aa&cpage=<%=currentPage +1%>" class="page-button">&gt;</a>
+                          <a href="<%=contextPath%>/list.it?category=<%=defaultCategory%>&cpage=<%=currentPage +1%>" class="page-button">&gt;</a>
                           <%}%>
                     </div>
                 </footer>
@@ -150,7 +162,7 @@
 			
 		    // 카테고리, 페이지를 별도로 처리해야 한다.
 		    let currentPage = 1; // 기본 페이지
-		    let currentCategory = '';
+		    let currentCategory = "<%=defaultCategory%>";
 		    const tag = document.getElementById('tag');
 
 		    function setCurrentCategory(category) {
@@ -213,70 +225,134 @@
 		    	}
 		    
 		    	ajaxRequest = $.ajax({
-		            url: contextPath + '/list.it',
+		            url: contextPath + '/listCa.it?',
 		            data: { category: currentCategory, cpage: currentPage},
-		            method: 'get',
+		            method: 'post',
+		            dataType:'json',
 		            success: function(result) {
-		            	console.log("왜 두번 출력되는 거임 :" , result);
 		            	updatePage(result);
 		                // ArrayList<Item> list, PageInfo pi가 담겨있음.
 		            },
 		        });
-		    }
+		    }// selectItem
 			
 		    function updatePage(result) {
 		        var contentBar = document.querySelector('.content-main ul');
 		        var pagingArea = document.querySelector('.paging-area'); 
 
+		        if (typeof result === 'string') {
+		            result = JSON.parse(result); // 문자열인 경우 JSON으로 변환
+		        }
+		        
 		        contentBar.innerHTML = '';
-
+		        
 		        if (Array.isArray(result.list) && result.list.length > 0) {
 		            for(var i=0; i<result.list.length; i++){
 		            	var item = result.list[i]
 		                var listItem = document.createElement('li');
 		                listItem.classList.add('item-class');
 		                listItem.innerHTML = 
-						'<div class="item-container">' +
-						'    <div class="img-box"><img src="' + item.saveFile + '></div>' +
-						'    <div class="basket">' +
-						'        <button class="material-icons" id="cart">add_shopping_cart</button>' +
-						'        <button class="material-icons" id="jjimkong">auto_awesome</button>' +
-						'    </div>' +
-						'    <div class="item-detail">' +
-						'        <p class="item-name">' + item.itemName + '</p>' +
-						'        <p class="item-desc">' + item.itemExplan + '</p>' +
-						'        <p class="item-date"><span>출시일 : </span>' + item.itemEnrollDate + '</p>' +
-						'    </div>' +
-						'</div>';
+		                    '<div class="item-container">' +
+		                    '    <div class="img-box"><img src="'+ contextPath + item.saveFile +'"></div>' +
+		                    '    <div class="item-detail">' +
+		                    '        <p class="item-name">' + item.itemName + '</p>' +
+		                    '        <p class="item-desc">' + item.itemExplan + '</p>' +
+		                    '        <button type="button" class="btn btn-info pay purchaseBtn" onclick = "purchaseItem('+ item.itemNo + ',' + item.price +')">' +
+		                    '            <img src="' + contextPath + '/resources/images/거북알.png" style="width:30px; height:30px;">' +
+		                    '            <p data-item-no = "' + item.itemNo + '" data-item-price = "' + item.price+ '">' + item.price + '</p>' +
+		                    '        </button>' +
+		                    '        <p class="item-date"><span>출시일 : </span>' + item.itemEnrollDate + '</p>' +
+		                    '    </div>' +
+		                    '</div>';
 		                contentBar.appendChild(listItem);
 		            };
 		        }
 
 		        pagingArea.innerHTML = '';
-
 		        if (result.pi.currentPage !== 1) {
-		            var prevButton = document.createElement('a');
-		            prevButton.href = contextPath + '/list.it?category=' + currentCategory + '&cpage=' + (result.pi.currentPage - 1);
+		            var prevButton = document.createElement('span');
+		            prevButton.classList.add('page-button');
+		            prevButton.style.cursor = 'pointer';
 		            prevButton.textContent = '<';
+		            prevButton.addEventListener('click', function() {
+		                selectItem(currentCategory, result.pi.currentPage - 1);
+		            });
 		            pagingArea.appendChild(prevButton);
 		        }
 
 		        for (var p = result.pi.startPage; p <= result.pi.endPage; p++) {
-		            var pageButton = document.createElement('a');
-		            pageButton.href = contextPath + '/list.it?category=' + currentCategory + '&cpage=' + p;
+		            var pageButton = document.createElement('span');
+		            pageButton.classList.add('page-button');
+		            pageButton.style.cursor = 'pointer';
 		            pageButton.textContent = p;
 		            if (p === result.pi.currentPage) {
-		                pageButton.classList.add('current-page');
+		                pageButton.classList.add('currentpage');
+		            } else {
+		                pageButton.addEventListener('click', function() {
+		                    selectItem(currentCategory, parseInt(this.textContent));
+		                });
 		            }
 		            pagingArea.appendChild(pageButton);
 		        }
 
 		        if (result.pi.currentPage < result.pi.maxPage) {
-		            var nextButton = document.createElement('a');
-		            nextButton.href = contextPath + '/list.it?category=' + currentCategory + '&cpage=' + (result.pi.currentPage + 1);
+		            var nextButton = document.createElement('span');
+		            nextButton.classList.add('page-button');
+		            nextButton.style.cursor = 'pointer';
 		            nextButton.textContent = '>';
+		            nextButton.addEventListener('click', function() {
+		                selectItem(currentCategory, result.pi.currentPage + 1);
+		            });
 		            pagingArea.appendChild(nextButton);
 		        }
-		    }
+		    } // updatePage
+		    
+		    function purchaseItem(itemNo, itemPrice) {
+				
+		    	Swal.fire({
+		    		  title: "아이템을 구매하시겠습니까?",
+		    		  text: "아이템이 좀 예쁘긴 하지요~",
+		    		  icon: "question",
+		    		  showCancelButton: true,
+		    		  confirmButtonColor: "#72DDF7",
+		    		  cancelButtonColor: " #FCC5D9",
+		    		  confirmButtonText: "완전 예뻐요 살래요",
+					  cancelButtonText: "좀만 더 고민할래요",
+		    		}).then((result) => {
+		    		  if (result.isConfirmed) {
+			            	updateEgg(itemPrice);
+			                $.ajax({
+			                    url: contextPath + '/payItem.it',
+			                    method: 'POST',
+			                    dataType: 'json',
+			                    data: {itemNo: itemNo, itemPrice: itemPrice }, 
+			                    success: function(result) {
+			                    	sendItem(result);
+			                    	if(<%=m.getEgg()%><100){
+			    		    		    Swal.fire({
+			    			    		      title: "구입에 실패하였습니다",
+			    			    		      text: "거북알을 충전해주세요!",
+			    			    		      icon: "warning",
+											  confirmButtonColor: "#75DAD7",
+											  confirmButtonText: "충전할게요",
+			    			    		    });
+			                    	}else{
+			    		    		    Swal.fire({
+			    			    		      title: "성공적으로 구입했습니다",
+			    			    		      text: "꾸미기 화면에서 확인하세요!",
+			    			    		      icon: "success",
+											  confirmButtonColor: "#75DAD7",
+											  confirmButtonText: "당장 갈래요",
+			    			    		    });
+			                    	}
+			                    },
+			                    error: function() {}
+			                });
+		    		  }
+		    		});
+		    	
+		            
+		    }// purchaseItem
+
 		</script>
 			

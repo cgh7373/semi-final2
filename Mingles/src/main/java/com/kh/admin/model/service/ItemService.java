@@ -47,5 +47,27 @@ public class ItemService {
 		return list;
 	}// selectListWithCategory
 
+	public Item purchaseItem( int itemNo, int itemPrice) {
+		Connection conn = getConnection();
+		Item it = new ItemDao().purchaseItem(conn, itemNo, itemPrice);
+		
+		close(conn);
+		return it;
+	}// purchaseItem
+
+	public int decreaseEgg(int userNo, int price) {
+		Connection conn = getConnection();
+		int result = new ItemDao().decreaseEgg(conn, userNo, price);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}// decreaseEgg
+
 	
 }

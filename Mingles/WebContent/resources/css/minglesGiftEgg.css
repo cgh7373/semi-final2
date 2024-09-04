@@ -12,7 +12,7 @@ div, section{
 }
 
 .wrap{
-    width: 500px;
+    width: 700px;
     height: 800px;
     border: 1px solid #e5e5e5;
     position: relative;
@@ -79,21 +79,45 @@ header>#right>button{
 
 .charge{
     width: 95%;
-    margin-left: 12px;   
+    margin-left: 12px; 
+    height: 55%;  
+    position: relative;
 }
 
 .charge>#charge-text{
-    font-size: 30px;
-    padding-left: 10px;
+    font-size: 20px;
     margin-bottom: 10px;
     border-radius: 10px;
     background-color: #fff;
     border: 1px solid #e5e5e5;
+    height: 90%;
+    overflow: hidden;
+    text-align: center;
 }
-.charge>#charge-content{
-    font-size: 20px;
-    font-weight: 700;
+
+.swiper {
+    width: 90%;
+    height: 40%;
 }
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 30%;
+    height: 70%;
+    object-fit: contain;
+}
+
+
+
 
 
 .finish{
@@ -130,50 +154,6 @@ header>#right>button{
 .finish .fin-btn:hover{
     background-color: #68d8d6;
 }
-
-
-/*  */
-
-html,
-    body {
-    position: relative;
-    height: 100%;
-    }
-
-    .swiper-help {
-    background: #eee;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-    margin: 0;
-    padding: 0;
-    }
-
-    swiper-container {
-    width: 100%;
-    height: 100%;
-    }
-
-    swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 150px;
-    }
-
-    swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    }
-
-
-
-
 
 
 
