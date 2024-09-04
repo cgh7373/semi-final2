@@ -15,7 +15,7 @@ public class Item {
 	private String changeName;
 	private String itemTag;
 	
-	public Item () {};
+	public Item () {}
 
 	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
 			Date itemUpdate, String itemStatus, String saveFile, String changeName,String itemTag) {
@@ -32,6 +32,8 @@ public class Item {
 		this.changeName = changeName;
 		this.itemTag = itemTag;
 	}
+	
+	
 
 	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
 			String itemStatus, String saveFile, String changeName , String itemTag) {
@@ -60,22 +62,9 @@ public class Item {
 		this.itemStatus = itemStatus;
 		this.saveFile = saveFile;
 		this.itemTag = itemTag;
-	}	
-
-	// selectItemList
-	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
-			String itemStatus, String saveFile) {
-		super();
-		this.itemNo = itemNo;
-		this.itemCategory = itemCategory;
-		this.itemName = itemName;
-		this.price = price;
-		this.itemExplan = itemExplan;
-		this.itemEnrollDate = itemEnrollDate;
-		this.itemStatus = itemStatus;
-		this.saveFile = saveFile;
 	}
-
+	
+	
 	public String getSaveFile() {
 		return saveFile;
 	}
