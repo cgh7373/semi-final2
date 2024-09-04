@@ -58,7 +58,7 @@
                     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
                 <!-- SweetAlert -->
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                 <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
                 <!-- 내부파일 -->
                 <link rel="stylesheet" href="../../resources/css/mingles-main.css">
@@ -69,34 +69,33 @@
 
                 <body>
 
-                    <!-- 게시글 관련 파일 만들때 이거 통으로 복붙한다음에 만들어요 절대 이파일은 수정하지 말것 -->
-
-                    <script>
-
-                        document.addEventListener("DOMContentLoaded", function () {
-                   
-		// 성공메시지
-		 <% if (alertMsg != null) { %>
-                                swal({
-                                    icon: 'success',
-                                    title: '<%=alertMsg%>',
-                                });
-         <% session.removeAttribute("alertMsg"); %>
-   		 <% } %>
-
-   		 <% if (errorMsg != null) { %>
-                                swal({
-                                    icon: 'error',
-                                    title: '<%=errorMsg%>',
-                                });
-         <% session.removeAttribute("errorMsg"); %>
-    	 <% } %>
-    	 
-    	 renderFavoritePosts();
-     	renderRecentReplied();
-		
-		 });
-                    </script>
+						<!-- 게시글 관련 파일 만들때 이거 통으로 복붙한다음에 만들어요 절대 이파일은 수정하지 말것 -->
+						
+						<script>
+						document.addEventListener("DOMContentLoaded", function () {
+						                 
+						// 성공메시지
+						 <% if (alertMsg != null) { %>
+						 swal({
+						     icon: 'success',
+						     title: '<%=alertMsg%>',
+						 });
+						<% session.removeAttribute("alertMsg"); %>
+						<% } %>
+						
+						<% if (errorMsg != null) { %>
+						 swal({
+						     icon: 'error',
+						     title: '<%=errorMsg%>',
+						 });
+						<% session.removeAttribute("errorMsg"); %>
+						<% } %>
+						 	 
+						 	 renderFavoritePosts();
+						  	renderRecentReplied();
+						
+						});
+						 </script>
 
                     <!-- PLAYLIST UPDATE MODAL-->
 
@@ -316,7 +315,6 @@
                     return direction;
                 }
             </script>
-
 
                                 <!-- 오른쪽 화면 - 미니홈피 -->
                                 <div class="minihompi">

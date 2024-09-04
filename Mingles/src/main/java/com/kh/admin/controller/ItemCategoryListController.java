@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.admin.model.service.ItemService;
-import com.kh.admin.model.vo.Item;
+import com.kh.item.model.service.ItemService;
 import com.kh.common.model.vo.ItemListResponse;
 import com.kh.common.model.vo.PageInfo;
 

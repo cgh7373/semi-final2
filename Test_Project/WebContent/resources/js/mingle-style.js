@@ -45,6 +45,34 @@ document.querySelector('.bal-shoes').addEventListener('click',function() {
     updateCategory();
 })
 
+function updateItemList(result){
+	if(Array.isArray(result)){
+		result.forEach((item)=>{
+			let fileName = item.fileName.replace(/^\//, '');
+
+	 		if (fileName.includes("wall-shop")) {
+                walldata.push({ itemImg: fileName });
+            } else if (fileName.includes("floor-shop")) {
+                floordata.push({ itemImg: fileName });
+            } else if (fileName.includes("theme-shop")) {
+                themedata.push({ itemImg: fileName });
+            } else if (fileName.includes("hair-shop")) {
+                hairdata.push({ itemImg: fileName });
+            } else if (fileName.includes("face-shop")) {
+                facedata.push({ itemImg: fileName });
+            } else if (fileName.includes("top-shop")) {
+                topdata.push({ itemImg: fileName });
+            } else if (fileName.includes("bottom-shop")) {
+                bottomdata.push({ itemImg: fileName });
+            } else if (fileName.includes("shoes-shop")) {
+                shoesdata.push({ itemImg: fileName });
+            }
+		});
+	}
+}
+// switch문이 되지 않은 이유 : case 라벨은 'switch'의 값과 직접 비교되는 리터럴 값 또는 표현식이어야 한다. 메소드가 포함되면 안됨
+//fileName.includes("wall-shop")은 switch 문에서 직접 사용할 수 있는 특정 값이 아닌 부울(true 또는 false)임. 부울은 switch의 case라벨에서 사용할 수 없음
+
 // AVATAR DATA PAGINATION
 
 const hairdata = [
@@ -156,13 +184,13 @@ const themedata = [
 ]
 
 
-
 // count_per_page = boardLimit = 한 페이지에 보여질 개수
 const count_per_page = 6;
 
 let currentData = "";
 
 function updateCategory(){
+	updateItemList();
     const category = document.querySelector('.style-tag').innerHTML;
 
     switch(category){
@@ -180,7 +208,6 @@ function updateCategory(){
     setPage(1);
 
 }
-
 
 // GET TOTAL PAGE = MAXPAGE
 // data.length = listCount = 현재 총 게시글 수
@@ -318,117 +345,6 @@ document.querySelector('.avatar').addEventListener('click',function() {
 })
 
 
-// SELECT ITEMS WITH CLICK
-
-// document.addEventListener("DOMContentLoaded", function(){
-//     // Function to handle image selection
-
-//     // HAIR SELECT
-//     function handleImageClick(event) {
-//         const target = event.target;
-//         if (target.tagName === 'IMG') {
-//             const characterHair = document.getElementById('hair');
-//             characterHair.src = target.src;
-//         }
-//     };
-
-//     // HAIR CHANGE
-//     document.querySelector(".bal-hair").addEventListener("click", function() {
-//         const hairOptions = document.querySelector(".item-container");
-//         if (hairOptions) {
-//             hairOptions.addEventListener('click', handleImageClick);
-//         }
-//         initializePagination();
-//     });
-
-// });
-
-// document.addEventListener("DOMContentLoaded", function(){
-//     // FACE SELECT
-//     function handleImageClick(event) {
-//     const target = event.target;
-//     if (target.tagName === 'IMG') {
-//     const characterFace = document.getElementById('face');
-//     characterFace.src = target.src;
-//     }
-//     };
-
-//     // FACE CHANGE
-//     document.querySelector(".bal-face").addEventListener("click", function() {
-//     const eyeOptions = document.querySelector(".item-container");
-//     if (eyeOptions) {
-//     eyeOptions.addEventListener('click', handleImageClick);
-//     }
-//     initializePagination();
-//     });
-
-// });
-
-
-// document.addEventListener("DOMContentLoaded", function(){
-//     // BOTTOM SELECT
-//     function handleImageClick(event) {
-//     const target = event.target;
-//     if (target.tagName === 'IMG') {
-//     const characterBottom = document.getElementById('bottom');
-//     characterBottom.src = target.src;
-//     }
-//     };
-
-//     // BOTTOM CHANGE
-//     document.querySelector(".bal-pants").addEventListener("click", function() {
-//     const bottomOption = document.querySelector(".item-container");
-//     if (bottomOption) {
-//     bottomOption.addEventListener('click', handleImageClick);
-//     }
-//     initializePagination();
-//     });
-
-// });
-
-// document.addEventListener("DOMContentLoaded", function(){
-//     // TOP SELECT
-//     function handleImageClick(event) {
-//     const target = event.target;
-//     if (target.tagName === 'IMG') {
-//     const characterTop = document.getElementById('top');
-//     characterTop.src = target.src;
-//     }
-//     };
-
-//     // TOP CHANGE
-//     document.querySelector(".bal-outer").addEventListener("click", function() {
-//     const topOption = document.querySelector(".item-container");
-//     if (topOption) {
-//         topOption.addEventListener('click', handleImageClick);
-//     }
-//     initializePagination();
-//     });
-
-// });
-
-
-// document.addEventListener("DOMContentLoaded", function(){
-//     // SHOES SELECT
-//     function handleImageClick(event) {
-//     const target = event.target;
-//     if (target.tagName === 'IMG') {
-//     const characterShoes = document.getElementById('shoes');
-//     characterShoes.src = target.src;
-//     }
-//     };
-
-//     // SHOES CHANGE
-//     document.querySelector(".bal-shoes").addEventListener("click", function() {
-//     const shoesOption = document.querySelector(".item-container");
-//     if (shoesOption) {
-//         shoesOption.addEventListener('click', handleImageClick);
-//     }
-//     initializePagination();
-//     });
-
-// });
-
 document.addEventListener("DOMContentLoaded", function() {
 
     function handleImageClick(event) {
@@ -482,5 +398,6 @@ document.addEventListener("DOMContentLoaded", function() {
         handleImageClick({ target: elementToUpdate }); 
       }
     }
+
   });
   

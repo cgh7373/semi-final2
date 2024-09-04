@@ -3,9 +3,7 @@
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-Member mem = (Member)session.getAttribute("loginUser");
-%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,6 +20,8 @@ Member mem = (Member)session.getAttribute("loginUser");
 </head>
 
 <body>
+
+<!-- 메인화면에 보이는 미니홈피입니다. 절대 절대 지우지 말것!!!!!!!!! -->
 
     <div id="wrap">
 
@@ -91,7 +91,7 @@ Member mem = (Member)session.getAttribute("loginUser");
                         </div>
 
                     </div>
-                       <!-- MINIHOMPI ROOM-->
+                                           <!-- MINIHOMPI ROOM-->
                     <div class="vis-room">
 
                         <!-- AVATAR : 90-->
@@ -104,7 +104,7 @@ Member mem = (Member)session.getAttribute("loginUser");
 
                             <!-- HAIR -->
                             <div class="hair" id="hairSave">
-                                <img  id = "hair" src="../../resources/stylesources/hair3.png" alt="hair">
+                                <img  id = "hair" src="../../resources/stylesources/hair15.png" alt="hair">
                             </div>
 
                             <!-- FACE -->
@@ -114,17 +114,17 @@ Member mem = (Member)session.getAttribute("loginUser");
 
                              <!-- BOTTOM -->
                               <div class="bottom" id ="bottomSave">
-                                 <img id ="bottom" src="../../resources/stylesources/bottom2.png" alt="bottom">
+                                 <img id ="bottom" src="../../resources/stylesources/bottom11.png" alt="bottom">
                               </div>
 
                             <!-- TOP -->
                              <div class="top" id = "topSave">
-                                <img id= "top" src="../../resources/stylesources/top4.png" alt="top">
+                                <img id= "top" src="../../resources/stylesources/top8.png" alt="top">
                              </div>
 
                             <!-- SHOES -->
                             <div class="shoes" id = "shoesSave">
-                                <img id = "shoes" src="../../resources/stylesources/shoes13.png" alt="shoes">
+                                <img id = "shoes" src="../../resources/stylesources/shoes11.png" alt="shoes">
                              </div>
 
                         </div> <!--AVATAR-->
@@ -134,7 +134,7 @@ Member mem = (Member)session.getAttribute("loginUser");
 
 							<!-- WALL-->
 							<div class="wall" id = "wallSave">
-								<img id = "wall" src="../../resources/stylesources/wall1.png" alt="wall">
+								<img id = "wall" src="../../resources/stylesources/wall6.png" alt="wall">
 							</div> <!--WALL-->
 
                        		<!-- FLOOR-->
@@ -148,6 +148,8 @@ Member mem = (Member)session.getAttribute("loginUser");
 							</div>
 
 						</div><!-- ROOM -->
+
+                    </div> <!-- MINIHOMPI ROOM-->
 
                     <div class="bot-box">
                         <div class="btn btn1">mingleShop</div>
@@ -166,11 +168,11 @@ Member mem = (Member)session.getAttribute("loginUser");
     </div>
 	
 	<script>
-	const memNo = <%= m.getMemNo()%>
-	
+
+	let memNo = <%= m.getMemNo()%>
+
 	// 페이지 로드 시 select됬던 요소 실행
 	window.onload= function(){
-		console.log("select 저장 성공");
 		selectAvatar();
 	}
 	
@@ -187,7 +189,6 @@ Member mem = (Member)session.getAttribute("loginUser");
 			floor: document.getElementById('floorSave').querySelector('img').src,
 			theme : document.getElementById('themeSave').querySelector('img').src,
 		};
-		
 	}// getValues()
 
 	// COOKIE 만들기 - cookie도 getter, setter이 있다.
@@ -220,7 +221,6 @@ Member mem = (Member)session.getAttribute("loginUser");
 	// 선택된 값을 saveAvatar을 이용해 Servlet으로 옮기기 - insert, update문
 	function saveAvatar(){
 		let selected = getValues();
-		console.log(selected);
 
 		// 사용자가 아바타가 있는지 없는지 확인하는 ajax문
 		$.ajax({
@@ -231,7 +231,6 @@ Member mem = (Member)session.getAttribute("loginUser");
 			type :"post",
 			success : function(result){
 				let flag = result.flag;
-				console.log("hasAvatar여부 성공!");
  			
 				// 사용자에게 아바타가 있을 경우 == hasAvatar의 flag가 true일 경우 == update문 쏘기
 				if(flag == true){
@@ -250,8 +249,14 @@ Member mem = (Member)session.getAttribute("loginUser");
 					},
 					type : "post",
 					success : function(){
-						console.log("ajax update avatar 통신 success");
 						selectAvatar();
+						Swal.fire({
+						title: "성공적으로 저장하였습니다",
+						text: "내 아바타를 자랑해봐요!",
+						icon: "success",
+						confirmButtonColor: "#75DAD7",
+						confirmButtonText: "당장 갈래요",
+						});
 					},
 					error : function(){
 						console.log("ajax update avatar 통신 fail");
@@ -275,8 +280,12 @@ Member mem = (Member)session.getAttribute("loginUser");
 					type : "post",
 					success : function(result){
 						// select문을 통해서 저장된 상태를 유지하기
-						console.log("ajax insert avatar 통신 success");
 						selectAvatar();
+						Swal.fire({
+						title: "성공적으로 저장하였습니다",
+						text: "내 아바타를 자랑해봐요!",
+						icon: "success"
+						});
 					},
 					error : function(result){
 						console.log("ajax insert avatar 통신 fail");
@@ -292,7 +301,6 @@ Member mem = (Member)session.getAttribute("loginUser");
 	}
 	
 	function selectAvatar(){ // select문
-		console.log("selectAvatar시작");
 		let selected = getValues();
 
 		// url 형식 바꾸기
@@ -316,14 +324,14 @@ Member mem = (Member)session.getAttribute("loginUser");
 		}// getAvatarFromCookies()
 		
 		let avatarData = getAvatarFromCookie();
-		console.log("ajax call 시도");
-
+		
 		$.ajax({
 			url : "/Mingles/selectAvatar.st",
 			data : {memno : selected.userNo,},
 			type : "post",
 			success : function(result){
-				console.log("select ajax result 성공" );
+				console.log(changeURL(result.top));
+				console.log(changeURL(result.bottom));
 				if(result.hair || result.face || result.top || result.bottom || result.shoes || result.wall || result.floor || result.theme){
 			
 					setCookie('hair',changeURL(result.hair), 365);
@@ -343,9 +351,7 @@ Member mem = (Member)session.getAttribute("loginUser");
 					$('#wall').attr('src', changeURL(result.wall));
 					$('#floor').attr('src', changeURL(result.floor));
 					$('#theme').attr('src', changeURL(result.theme));
-					
-					console.log("avatardata가 서버에 적용되고 쿠키에 저장됨");
-					
+										
 				}
 			},
 			error : function(result){
@@ -355,8 +361,31 @@ Member mem = (Member)session.getAttribute("loginUser");
 		
 	}// selectAvatar();
 	
-	</script>
 
+	document.addEventListener("DOMContentLoaded", function() {
+		
+			selectItem();	
+		
+    		// shop에서 사온 아이템들 전체 select하고 값 뿌리기 위해선
+    		function selectItem(){
+    			$.ajax({
+    			url : '/Mingles/selectItem.st',
+    			method : 'post',
+    			data : {userNo : memNo},
+    			success:function(result){
+    				updateItemList(result);
+    			},
+    			error :function(result){
+    				console.log("select 실패", result);
+    			},
+    			});
+    		}// selectItem
+    		
+		 });
+	
+	
+	</script>
+	
 </body>
 
 </html>

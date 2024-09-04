@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key = "insertMusic">
+INSERT
+  INTO MUSIC
+      (
+      	MEM_NO
+      , MUSIC_NO
+      , MUSIC_TITLE
+      , MUSIC_SINGER
+      , MUSIC_THUMBNAIL
+      , MUSIC_FILEPATH
+      )
+VALUES
+     ( 
+       ?
+     , SEQ_MUSIC.NEXTVAL
+     , ?
+     , ?
+     , ?
+     , ?
+     )
+</entry>
+
+<entry key = "selectAllMusic">
+SELECT 
+        MEM_NO
+      , MUSIC_NO
+      , MUSIC_TITLE
+      , MUSIC_SINGER
+      , MUSIC_THUMBNAIL
+      , MUSIC_FILEPATH
+  FROM MUSIC
+ WHERE MEM_NO = ?
+</entry>
+
+<entry key = "deleteMusic">
+DELETE 
+  FROM MUSIC
+ WHERE 
+        MEM_NO = ?
+   AND MUSIC_NO = ?
+</entry>
+
+
+</properties>

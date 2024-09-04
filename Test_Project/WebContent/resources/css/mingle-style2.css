@@ -345,6 +345,9 @@ position:absolute;
 width:300px;
 height:300px;
 z-index:95;
+top:15px;
+right:484px;
+overflow:visible;
 }
 
 .top img{
@@ -353,7 +356,6 @@ width:300px;
 height:300px;
 z-index:96;
 }
-
 
 .avatar-box{
 position:relative;
