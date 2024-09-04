@@ -41,7 +41,7 @@ $(function () {
     stop = !stop;
   });
 
-  weather();
+  // weather();
 });
 
 $(document).ready(function () {

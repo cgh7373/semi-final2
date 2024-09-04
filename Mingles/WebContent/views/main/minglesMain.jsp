@@ -92,8 +92,8 @@
          <% session.removeAttribute("errorMsg"); %>
     	 <% } %>
     	 
-    	 renderFavoritePosts();
-     	renderRecentReplied();
+    	 // renderFavoritePosts();
+     	// renderRecentReplied();
 		
 		 });
                     </script>
@@ -124,7 +124,7 @@
                                         <table class="music--insert">
                                             <tr>
                                                 <td>
-                                                <input type = "hidden" name = "memNo" value="<%= m.getMemNo() %>">
+                                                <input type = "hidden" name = "memNo" value="<%-- <%= m.getMemNo() %> --%>">
                                                     <label for="file">
                                                         <div class="material-icons" id="music--icon">
                                                             music_note
@@ -156,6 +156,36 @@
                         </div>
                         </div>
                     </div>
+                    
+                    <!-- 캘린더 Modal -->
+                                <div class="modal fade" id="calendarModal">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+
+                                            <div class="modal-body" align="center">
+                                                <div class="calendar-container">
+                                                    <div class="calendar-header">
+                                                        <a id="prevBtn" class="btn">이전</a>
+                                                        <h2 id="currentMonth"></h2>
+                                                        <a id="nextBtn" class="btn">다음</a>
+                                                    </div>
+                                                    <div class="calendar-days">
+                                                        <div class="day">일</div>
+                                                        <div class="day">월</div>
+                                                        <div class="day">화</div>
+                                                        <div class="day">수</div>
+                                                        <div class="day">목</div>
+                                                        <div class="day">금</div>
+                                                        <div class="day">토</div>
+                                                    </div>
+                                                    <div class="calendar-dates" id="calendarDates"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    
 	
 	 <div id="wrap">
         <div id="container">
@@ -198,6 +228,125 @@
                     </div>
                 </div>
             </div>
+            
+                                   <div class="weatherCard">
+                                    <div id="card">
+                                        <div class="icon">
+                                            <img id="weatherImg" src="" id="weather_img" />
+                                        </div>
+
+                                        <div class="detatils">
+                                            <div class="weather">
+                                                <h3><span id="temperate"></span>℃</h3>
+                                                <h3 id="skyStatus"></h3>
+                                            </div>
+                                            <div class="bottom">
+                                                <sapn id="wYear"></sapn>년
+                                                <span id="wMonth"></span>월
+                                                <span id="wDay"></span>일
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="weatherList">
+                                        <div class="swiper">
+                                            <div class="swiper-wrapper">
+                                                <div class="swiper-slide">
+                                                    <div id="weatherListTop"><span class="weatherListTop__time"
+                                                            id="no0"></span><span>시</span></div>
+                                                    <div id="weatherListCenter"><img src="" alt="" id="no0"></div>
+                                                    <div id="weatherListBottom"><span class="weatherListBottom__tmp"
+                                                            id="no0"></span><span>℃</span></div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <div id="weatherListTop"><span class="weatherListTop__time"
+                                                            id="no1"></span><span>시</span></div>
+                                                    <div id="weatherListCenter"><img src="" alt="" id="no1"></div>
+                                                    <div id="weatherListBottom"><span class="weatherListBottom__tmp"
+                                                            id="no1"></span><span>℃</span></div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <div id="weatherListTop"><span class="weatherListTop__time"
+                                                            id="no2"></span><span>시</span></div>
+                                                    <div id="weatherListCenter"><img src="" alt="" id="no2"></div>
+                                                    <div id="weatherListBottom"><span class="weatherListBottom__tmp"
+                                                            id="no2"></span><span>℃</span></div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <div id="weatherListTop"><span class="weatherListTop__time"
+                                                            id="no3"></span><span>시</span></div>
+                                                    <div id="weatherListCenter"><img src="" alt="" id="no3"></div>
+                                                    <div id="weatherListBottom"><span class="weatherListBottom__tmp"
+                                                            id="no3"></span><span>℃</span></div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <div id="weatherListTop"><span class="weatherListTop__time"
+                                                            id="no4"></span><span>시</span></div>
+                                                    <div id="weatherListCenter"><img src="" alt="" id="no4"></div>
+                                                    <div id="weatherListBottom"><span class="weatherListBottom__tmp"
+                                                            id="no4"></span><span>℃</span></div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <div id="weatherListTop"><span class="weatherListTop__time"
+                                                            id="no5"></span><span>시</span></div>
+                                                    <div id="weatherListCenter"><img src="" alt="" id="no5"></div>
+                                                    <div id="weatherListBottom"><span class="weatherListBottom__tmp"
+                                                            id="no5"></span><span>℃</span></div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <div id="weatherListTop"><span class="weatherListTop__time"
+                                                            id="no6"></span><span>시</span></div>
+                                                    <div id="weatherListCenter"><img src="" alt="" id="no6"></div>
+                                                    <div id="weatherListBottom"><span class="weatherListBottom__tmp"
+                                                            id="no6"></span><span>℃</span></div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <div id="weatherListTop"><span class="weatherListTop__time"
+                                                            id="no7"></span><span>시</span></div>
+                                                    <div id="weatherListCenter"><img src="" alt="" id="no7"></div>
+                                                    <div id="weatherListBottom"><span class="weatherListBottom__tmp"
+                                                            id="no7"></span><span>℃</span></div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <div id="weatherListTop"><span class="weatherListTop__time"
+                                                            id="no8"></span><span>시</span></div>
+                                                    <div id="weatherListCenter"><img src="" alt="" id="no8"></div>
+                                                    <div id="weatherListBottom"><span class="weatherListBottom__tmp"
+                                                            id="no8"></span><span>℃</span></div>
+                                                </div>
+                                                <div class="swiper-slide">
+                                                    <div id="weatherListTop"><span class="weatherListTop__time"
+                                                            id="no9"></span><span>시</span></div>
+                                                    <div id="weatherListCenter"><img src="" alt="" id="no9"></div>
+                                                    <div id="weatherListBottom"><span class="weatherListBottom__tmp"
+                                                            id="no9"></span><span>℃</span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    var swiper = new Swiper('.swiper', {
+                                        slidesPerView: 'auto',
+                                        direction: getDirection(),
+                                        navigation: {
+                                            nextEl: '.swiper-button-next',
+                                            prevEl: '.swiper-button-prev',
+                                        },
+                                        on: {
+                                            resize: function () {
+                                                swiper.changeDirection(getDirection());
+                                            },
+                                        },
+                                    });
+
+                                    function getDirection() {
+                                        var windowWidth = window.innerWidth;
+                                        var direction = window.innerWidth <= 300 ? 'vertical' : 'horizontal';
+
+                                        return direction;
+                                    }
+                                </script>
+            
 
             <div class="weatherCard">
                 <div id="card">
@@ -455,6 +604,8 @@
 
                   
                 <script>
+                
+                
                     const show = document.getElementById("show");
                     const mp3button = document.getElementById("mp3Button");
         
@@ -469,6 +620,8 @@
                         }
         
                     });
-                    </script>
+                	
+          
+                </script>
 
             </html>

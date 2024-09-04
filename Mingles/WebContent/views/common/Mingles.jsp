@@ -108,7 +108,7 @@
                             </div>
                         </div>
                         
-                        <script>
+                        <!-- <script> -->
 
                                 <% if (loginUser==null) { %>
                                     <!-- gif 로고 띄우기, 로그인 화면 띄우기 -->
