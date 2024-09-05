@@ -39,7 +39,6 @@ String contextPath = request.getContextPath();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js" integrity="sha512-1PKqXBz2ju2JcAerHKL0ldg0PT/1vr3LghYAtc59+9xy8e19QEtaNUyt1gprouyWnpOPqNJjL4gXMRMEpHYyLQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" integrity="sha512-8E3KZoPoZCD+1dgfqhPbejQBnQfBXe8FuwL4z/c8sTrgeDMFEnoyTlH3obB4/fV+6Sg0a0XF+L/6xS4Xx1fUEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
         <!-- 내부파일 -->
         <link
           rel="stylesheet"
@@ -279,8 +278,8 @@ String contextPath = request.getContextPath();
 
             <!-- 대화창 -->
             <div class="chat-right">
+              <canvas id="jsCanvas" class="canvas" name="canvas"></canvas>
               <div class="chatRoom">
-                <canvas id="jsCanvas" class="canvas" name="canvas"></canvas>
                 <img
                   src="./resources/images/채팅 초기 배경.webp"
                   alt=""
@@ -290,9 +289,9 @@ String contextPath = request.getContextPath();
               </div>
 
               <!-- send부분 -->
-              <div
+              <form
                 id="chat-form"
-                class="chat-form"
+                method="post"
                 enctype="multipart/form-data"
               >
               <div class="inputContainer">
@@ -309,6 +308,7 @@ String contextPath = request.getContextPath();
                   type="file"
                   id="input-file"
                   name="originFileNo"
+                  onchange="loadImg(this)"
                   style="display: none"
                   multiple="multiple"
                   accept=".png, .jpg, .jpeg"
@@ -322,7 +322,6 @@ String contextPath = request.getContextPath();
                   </div>
                 </button>
                 
-              </div>
               </form>
             </div>
           </section>

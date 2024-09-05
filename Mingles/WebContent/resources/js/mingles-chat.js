@@ -5,8 +5,8 @@ const ctx = canvas.getContext("2d");
 
 // 캔버스 사이즈 여기서조정
 
-canvas.width = 4000;
-canvas.height = 6500;
+canvas.width = 850;
+canvas.height = 500;
 
 let painting = false;
 
@@ -80,21 +80,18 @@ function init() {
 }
 init();
 
-// 빈입력창 보낼때
-$("#chatForm").addEventListener("submit", (e) => {
-  let message = $("input{type=text").value;
-  if (message.trim() === "") {
-    alert("메세지를 입력해주세요~");
-    e.preventDefault();
-  }
-});
-
 // chatting enterKey
 let chattingInput = document.querySelector("input[type=text]");
+let trimInput = chattingInput.value.trim();
 let chatbtn = document.querySelector(".send_btn");
 
 chattingInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") {
-    chatbtn.onclick();
+    if (trimInput === "") {
+      alert("메세지를 입력해주세요 :)");
+      e.preventDefault();
+    } else {
+      chatbtn.onclick();
+    }
   }
 });

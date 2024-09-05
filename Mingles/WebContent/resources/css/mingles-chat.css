@@ -273,14 +273,14 @@ input:hover {
 }
 
 /* 첨부파일 */
-.chat-form label {
+#chat-form label {
   position: absolute;
   top: 10px;
   right: 150px;
   color: #98cdff;
 }
 
-.chat-form label:hover {
+#chat-form label:hover {
   position: absolute;
   color: #82e4e0;
 }
@@ -434,4 +434,9 @@ div img {
   text-align: center;
   background-color: rgb(219, 255, 243);
   border-radius: 10px;
+}
+
+img {
+  width: 20px;
+  height: 20px;
 }
