@@ -753,19 +753,19 @@
                                                                                     value="../../resources/images/2024090509360141012.jpg">
                                                                                     3</option>
                                                                                 <option
-                                                                                    value="../../resources/images/bgi6.jfif">
+                                                                                    value="../../resources/images/2024090517301384653.jpg">
                                                                                     4</option>
                                                                                 <option
-                                                                                    value="../../resources/images/bgi7.jfif">
+                                                                                    value="../../resources/images/2024090517342222833.jpg">
                                                                                     5</option>
                                                                                 <option
-                                                                                    value="../../resources/images/bgi3.jfif">
+                                                                                    value="../../resources/images/2024090517354319896.jpg">
                                                                                     6</option>
                                                                                 <option
-                                                                                    value="../../resources/images/2024090509355058168.jpg">
+                                                                                    value="../../resources/images/2024090517362510792.jpg">
                                                                                     7</option>
                                                                                 <option
-                                                                                    value="../../resources/images/2024082816503036202.jpeg">
+                                                                                    value="../../resources/images/2024090517433031192.jpg">
                                                                                     8</option>
                                                                                 <option
                                                                                     value="../../resources/images/2024090510425453324.jpg">
