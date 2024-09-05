@@ -788,6 +788,21 @@
                                                                                 <option
                                                                                     value="../../resources/images/2024090512303577187.gif">
                                                                                     15</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090517150151567.gif">
+                                                                                    16</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090517150644252.gif">
+                                                                                    17</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090517151442424.gif">
+                                                                                    18</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090517151832939.gif">
+                                                                                    19</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090517183083146.jpg">
+                                                                                    20</option>
                                                                             </select>
 
                                                                             <button id="bgiAdBtn">적용</button>

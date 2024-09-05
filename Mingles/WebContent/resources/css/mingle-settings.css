@@ -317,8 +317,11 @@ img {
 }
 
 #settings .right .right-bot .setbox span {
+    transition: .4s;
+
     &:hover {
         cursor: pointer;
+        transform: scale(1.1);
     }
 
     &:active {
