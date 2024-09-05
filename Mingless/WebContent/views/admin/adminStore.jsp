@@ -128,7 +128,7 @@
                                 contentType: false, 
                                 cache: false,
                                 success:function(){
-                                    consloe.log("Ajax insertItem success")
+                                    console.log("Ajax insertItem success")
                                 },
                                 error:function(){
                                     console.log("Ajax insertItem error");
@@ -232,7 +232,7 @@
                                                     <div class="dropdown-menu ">
                                                     \${itemStatus === 'Y' ? 
                                                         `<button class="dropdown-item" id="deleteItem" name="\${itemNo}" onclick="deleteItem(this);">상품삭제</button>`
-                                                       : `<button class="dropdown-item" id="deleteItem" name="\${itemNo}" onclick="cancelDeleteItem(this);">상품재등록</button>`}
+                                                        : `<button class="dropdown-item" id="deleteItem" name="\${itemNo}" onclick="cancelDeleteItem(this);">상품재등록</button>`}
                                                         <button class="dropdown-item" id="resetItem" name="\${itemNo}" onclick="updatePrice(this);">가격설정</button>
                                                         <button class="dropdown-item" id="settingPhoto" name="\${itemNo}, \${originFileName}" onclick="changePicture(this);">상품사진변경</button>
                                                     </div>
@@ -253,18 +253,18 @@
                         // 상품 삭제
                         function deleteItem(el){
 							let itemNo = el.name;
-                        	Swal.fire({
-                        		title: "상품을 삭제 하시겠습니까?",
-                        		showCancelButton: true,
-                        		confirmButtonText: "삭제",
-                        		cancelButtonText: "취소",
-                        	}).then((result)=>{
-                        		if(result.isConfirmed){
-                            		location.href = "deleteItem.am?itemNo=" + itemNo;						
-                        		}else if(result.isDismissed){
-                        			return;
-                        		}
-                        	})
+                            Swal.fire({
+                                title: "상품을 삭제 하시겠습니까?",
+                                showCancelButton: true,
+                                confirmButtonText: "삭제",
+                                cancelButtonText: "취소",
+                            }).then((result)=>{
+                                if(result.isConfirmed){
+                                    location.href = "deleteItem.am?itemNo=" + itemNo;						
+                                }else if(result.isDismissed){
+                                    return;
+                                }
+                            })
                         }
                         
                         // 상품 재등록

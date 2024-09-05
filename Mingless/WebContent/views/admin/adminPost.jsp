@@ -145,7 +145,7 @@
 
                         editor.setHTML('<h2 id="notice-title">제목: </h2> <hr> <div id="notice-content">내용: </div>');
 
-						console.log(editor.getHTML());
+						
 						
 						document.getElementById('noticeResetButton').addEventListener('click', function() {
 					        editor.setHTML('<h2 id="notice-title">제목: </h2> <hr> <div id="notice-content">내용: </div>'); // 초기 상태로 되돌리기
@@ -244,7 +244,7 @@
                             const isUserPost = postType === 1;
                             const modalId = isUserPost ? 'userPostDetailModal' : 'postDetailModal';
                             const clickHandler = isUserPost ? `userPostDetail(event, \${postNum})` : `postDetail(event, \${postNum})`;
-                            console.log(postTag);
+                            
                             return `
                                 <div class="card postCard" data-toggle="modal" data-target="#\${modalId}" onclick="\${clickHandler}">
                                     <img class="card-img-top" src=".\${postAttachment}" alt="post image1" style="width:100%">
@@ -366,6 +366,20 @@
                             <div class="modal-body" id="userPostDetailContent">
 
                             </div>
+                            <div class="modal-footer" id="userPostDetailReply">
+                                <table class="post-footer">
+                                    <thead>
+                                        <tr>
+                                            <th>댓글작성시간</th>
+                                            <th>댓글내용</th>
+                                            <th>댓글작성자</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="postReply">
+
+                                    </tbody>
+                                </table> 
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -426,16 +440,16 @@
                         </div>
                     </div>
 				</div>
-
                 <script defer>
                 	// 공지사항 자세히보기
                     function postDetail(event, no){
                         const modalBody = $("#postDetailContent");
                         const modal = $("#postDetailModal");
+                        
                         let value = "";
                         
                         if ($(event.target).closest('.dropdown').length > 0) {
-                               return; // 드롭다운 클릭 시 모달 열기 방지
+                            return; // 드롭다운 클릭 시 모달 열기 방지
                         }
 
                         $.ajax({
@@ -467,7 +481,9 @@
                     function userPostDetail(event, no){
                         const userPostModal = $("userPostDetailModal");
                         const userPostModalBody = $("#userPostDetailContent");
+                        const userPostModalFooter = $("#postReply");
                         let value = "";
+                        let value2 = "";
                         
                         if ($(event.target).closest('.dropdown').length > 0) {
                         	return; // 드롭다운 클릭 시 모달 열기 방지
@@ -478,24 +494,67 @@
                             data:{postNo:no},
                             success:function(e){
                                 console.log("userPost ajax success");
+                                let post = e.post;
+                                let replies = e.reply;
+                                let error = e.error;
+
+                                if(replies.length === 0){
+
+                                    value += `
+                                        <div id="post-header">
+                                        <h2 id="post-title">제목 : \${post.postTitle}</h2>
+                                        <h5 id="post-tags">태그 : \${post.postTag}</h5>
+                                    </div>
+                                    <div id="post-enroll">
+                                        <h5>작성자(ID) : \${post.postWriter}</h5>
+                                        <h5>작성일 : \${post.postRegdate}</h5>
+                                    </div>
+                                    <hr>
+                                    <div class="post-content" align="center">
+                                        <img id="post-img" src=".\${post.postAttachment}" alt="">
+                                        <div id="post-text" align="start">\${post.postContent}</div>
+                                    </div>
+                                    `;
+                                    value2 += `<tr><td colspan=3><span class="reply-text relply-none" >댓글이없습니다...</span></td></tr>`;
+                                }else{
+                                    value += `
+                                        <div id="post-header">
+                                        <h2 id="post-title">제목 : \${post.postTitle}</h2>
+                                        <h5 id="post-tags">태그 : \${post.postTag}</h5>
+                                    </div>
+                                    <div id="post-enroll">
+                                        <h5>작성자(ID) : \${post.postWriter}</h5>
+                                        <h5>작성일 : \${post.postRegdate}</h5>
+                                    </div>
+                                    <hr>
+                                    <div class="post-content" align="center">
+                                        <img id="post-img" src=".\${post.postAttachment}" alt="">
+                                        <div id="post-text" align="start">\${post.postContent}</div>
+                                    </div>
+                                    `;
+                                    replies.forEach(reply => {
+                                        let replyDate = new Date(reply.replyCreateDate);
+                                        const hours = replyDate.getHours().toString().padStart(2, '0');
+                                        const minutes = replyDate.getMinutes().toString().padStart(2, '0');
+
+                                        value2 += `         
+                                    
+                                        <tr>
+                                            <td><span class="reply-date">\${hours} : \${minutes}</span> </td>
+                                            <td><span class="reply-text">\${reply.replyContent}</span> </td>
+                                            <td><span class="reply-writer">\${reply.replyWriter}</span></td>
+                                        </tr>                   
+                                `;	                                	
+                                    })
+                                    
+                                }
                                 
-                                value += `
-                                    <div id="post-header">
-                                    <h2 id="post-title">제목 : \${e.postTitle}</h2>
-                                    <h5 id="post-tags">태그 : \${e.postTag}</h5>
-                                </div>
-                                <div id="post-enroll">
-                                    <h5>작성자(ID) : \${e.postWriter}</h5>
-                                    <h5>작성일 : \${e.postRegdate}</h5>
-                                </div>
-                                <hr>
-                                <div class="post-content" align="center">
-                                    <img id="post-img" src=".\${e.postAttachment}" alt="">
-                                    <div id="post-text" align="start">\${e.postContent}</div>
-                                </div>
-                                `;
+                                
                                 userPostModalBody.html("");
+                                userPostModalFooter.html("");
                                 userPostModalBody.html(value);
+                                userPostModalFooter.html(value2);
+                                
                             },
                             error:function(){
                                 console.log("userPost ajax faild");
@@ -546,7 +605,7 @@
                             dataType: 'json',
                             success: (chatList) => {
                                 console.log("loadChat success");
-                                console.log(chatList);
+                            
                                 if (chatList.length === 0) {
                                     value += `
                                     <div class="message-container chat-empty">
@@ -682,18 +741,18 @@
                                 $.ajax({
                                     url:"insertChat.am",
                                     data:{
-                                    	sendMsg:sendMsg,
+                                        sendMsg:sendMsg,
                                         toMem: toMem,
                                     },
                                     success:()=>{
-                                    	 console.log("insert chat success");
-                                         if(e === 'YYYI'){
- 											sendMsgInput.val("");
- 											
- 											delayedSendMessage({name: memId});
- 										}else{
- 											
- 										}
+                                        console.log("insert chat success");
+                                        if(e === 'YYYI'){
+                                            sendMsgInput.val("");
+                                            
+                                            delayedSendMessage({name: memId});
+                                        }else{
+                                            
+                                        }
                                     },
                                     error:()=>{
                                         console.log("insert chat faild");
@@ -737,17 +796,17 @@
         </div>
     </div>
     
-   	<script>
-	    window.onload = function() {
-	        const url = window.location.href;
-	        const urlWithoutQueryString = window.location.origin + window.location.pathname;
+    <script>
+        window.onload = function() {
+            const url = window.location.href;
+            const urlWithoutQueryString = window.location.origin + window.location.pathname;
 	
 	        // 현재 URL이 쿼리 문자열을 포함하고 있는지 확인합니다.
-	        if (url !== urlWithoutQueryString) {
-	            // 쿼리 문자열이 제거된 URL로 브라우저의 URL을 업데이트합니다.
-	            window.history.replaceState({}, document.title, urlWithoutQueryString);
-	        }
-	    };
+            if (url !== urlWithoutQueryString) {
+                // 쿼리 문자열이 제거된 URL로 브라우저의 URL을 업데이트합니다.
+                window.history.replaceState({}, document.title, urlWithoutQueryString);
+            }
+        };
     </script>
 </body>
 </html>

@@ -74,7 +74,7 @@
                                         dataType: 'json',
                                         success:function(a){
                                             console.log("search ajax");
-                                      
+                                    
                                             if(a.length === 0){ // 검색된 결과 없을 때 
                                                 let value1 = "";
                                                 $("#memberTableCard").html("");
@@ -106,7 +106,7 @@
                                                         `;
                                                 $("#memberTableCard").html(value1)
                                             }else{ // 검색된 결과 있을 때 
-                                            	console.log("테스트");
+                                            
                                                 let value2 = "";
                                                 $("#memberCardBody").html("");
                                                 $("#card-table-member .card-footer").html("");
@@ -201,79 +201,81 @@
                                     </div>
                                 </div>
                                 <script>
-                                        function insertBlack(el, count){
-                                    		// 체크되었을때 블랙리스트(기본3일)로 변경
-                                    		const admin = <%=loginUser.getMemNo()%>;
-                                    		const counts = count;
-                                    		console.log(counts);
-											if(el.checked){
-												Swal.fire({
-													  title: "블랙리스트에 등록하시겠습니까?",
-													  icon: "warning",
-													  showCancelButton: true,
-													  confirmButtonText: "확인",
-													  cancelButtonText: "취소",
-													  reverseButtons: true,
-													 
-													}).then((result) => {
-													  	if (result.isConfirmed) {
-													  		 Swal.fire("블랙리스트가 등록되었습니다!", {
-															      icon: "success",
-													    });
-													  } else if(result.idDismissed) {
-														  Swal.fire("블랙리스트등록을 취소했습니다", {
-													      icon: "info",
-													    });
-													    el.checked = false;
-													  }
-													});
-												$.ajax({
-													url:"insertBk.am",
-													data:{
-														memNo:el.value,
-														admin:admin,
-														bkCount:counts,
+                                function insertBlack(el, count){
+                            		// 체크되었을때 블랙리스트(기본3일)로 변경
+                                    const admin = <%=loginUser.getMemNo()%>;
+                                    const counts = count;
+                            
+									if(el.checked){
+										Swal.fire({
+                                                title: "블랙리스트에 등록하시겠습니까?",
+                                                icon: "warning",
+                                                showCancelButton: true,
+                                                confirmButtonText: "확인",
+                                                cancelButtonText: "취소",
+                                                reverseButtons: true,
+
+											}).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    $.ajax({
+														url:"insertBk.am",
+														data:{
+															memNo:el.value,
+															admin:admin,
+															bkCount:counts,
+															},
+														success:function(){
+															console.log("ajax insertBlack");
 														},
-													success:function(){
-														console.log("ajax insertBlack");
-													},
-													error:function(){
-														console.log("insertBlack faild");
-													},		                                         		
-												});                
-											}else{
-												Swal.fire({
-                                                        title: "블랙리스트를 해제하시겠습니까?",
-                                                        icon: "warning",
-                                                        showCancelButton: true,
-                                                        confirmButtonText: "확인",
-                                                        cancelButtonText: "취소",
-  													  	reverseButtons: true,
-													}).then((result) => {
-                                                        if (result.isConfirmed) {
-                                                            Swal.fire("블랙리스트가 해제되었습니다!", {
+														error:function(){
+															console.log("insertBlack faild");
+														},		                                         		
+													});                
+                                                        Swal.fire("블랙리스트가 등록되었습니다!", {
                                                             icon: "success",
-                                                        });
-                                                        el.checked = false;
-                                                        } else if(result.isDismissed){
-                                                        	Swal.fire("블랙리스트해제를 취소했습니다",{
-                                                            icon: "info",									    	
-                                                        });
-                                                        el.checked = true;
-                                                    	}   
+                                                });
+                                                } else if(result.idDismissed) {
+                                                    Swal.fire("블랙리스트등록을 취소했습니다", {
+                                                    icon: "info",
+                                                });
+                                                el.checked = false;
+                                                }
+											});
+										
+									}else{
+										Swal.fire({
+                                                title: "블랙리스트를 해제하시겠습니까?",
+                                                icon: "warning",
+                                                showCancelButton: true,
+                                                confirmButtonText: "확인",
+                                                cancelButtonText: "취소",
+                                                reverseButtons: true,
+											}).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    $.ajax({
+                                                        url:"deleteBk.am",
+                                                        data:{memNo:el.value},
+                                                        success:function(){
+                                                            console.log("ajax deleteBlack");
+                                                        },
+                                                        error:function(){
+                                                            console.log("ajax deleteBlack faild");
+                                                        }
                                                     });
-												$.ajax({
-													url:"deleteBk.am",
-													data:{memNo:el.value},
-													success:function(){
-														console.log("ajax deleteBlack");
-													},
-													error:function(){
-														console.log("ajax deleteBlack faild");
-													}
-												})
-											}
-                                        }
+                                                    Swal.fire("블랙리스트가 해제되었습니다!", {
+                                                    icon: "success",
+                                                });
+                                                el.checked = false;
+                                                } else if(result.isDismissed){
+                                                    Swal.fire("블랙리스트해제를 취소했습니다",{
+                                                    icon: "info",									    	
+                                                });
+                                                el.checked = true;
+                                                }   
+                                            });
+										
+									}
+                                }
                                 </script>
                 
                                 <div class="card-footer">

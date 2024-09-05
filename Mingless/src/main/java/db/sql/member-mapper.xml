@@ -23,8 +23,7 @@
 		     FROM MEMBER
 			WHERE MEM_ID = ?
 			  AND MEM_PWD = ?
-			  AND STATUS = 'Y'
-			   OR STATUS = 'A'		  
+			  AND (STATUS = 'Y' OR STATUS = 'A')		  
 	</entry>
 	
 	<entry key="selectNoMember">

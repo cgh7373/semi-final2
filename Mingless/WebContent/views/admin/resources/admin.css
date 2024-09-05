@@ -950,6 +950,22 @@ h1 span:nth-child(7) {
   height: 500px;
 }
 
+#userPostDetailModal #userPostDetailReply{
+  justify-content: space-between;
+}
+
+#userPostDetailModal #userPostDetailReply .post-footer{
+  width: 100%;
+  
+}
+
+#userPostDetailModal #userPostDetailReply .post-footer th{
+  color: #333;
+  border-bottom: 1px solid rgb(230, 230, 230);
+  
+}
+
+
 div:where(.swal2-icon) {
   position: relative;
   box-sizing: content-box;

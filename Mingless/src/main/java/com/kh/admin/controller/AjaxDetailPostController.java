@@ -1,6 +1,10 @@
 package com.kh.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.admin.model.service.AdminService;
 import com.kh.admin.model.vo.Post;
+import com.kh.admin.model.vo.Reply;
 
 /**
  * Servlet implementation class AjaxDetailPostController
@@ -34,14 +39,23 @@ public class AjaxDetailPostController extends HttpServlet {
 		int postNo = Integer.parseInt(request.getParameter("postNo"));
 		
 		Post p = new AdminService().selectpost(postNo);
+		ArrayList<Reply> replyList = new AdminService().selectReply(postNo);
+		
+		System.out.println(replyList);
+		
+		response.setContentType("application/json; charset=utf-8");
+		Map<String, Object> result = new HashMap<String, Object>();
 		
 		if(p != null) {
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(p, response.getWriter());
+			result.put("post", p);
+			result.put("reply", (replyList != null) ? replyList : new ArrayList<Reply>());
 		}else {
-			response.setContentType("text/html; charset=utf-8");
-			response.getWriter().print("NNNN");
+			result.put("nodata", "NNNN");
 		}
+		
+		Gson gson = new Gson();
+		String jsonResponse = gson.toJson(result);
+		response.getWriter().print(jsonResponse);
 	}
 
 	/**

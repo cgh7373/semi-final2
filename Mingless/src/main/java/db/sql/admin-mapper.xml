@@ -182,6 +182,7 @@
 		 WHERE STATUS != 'N'
 	</entry>
 	
+	<!-- 멤버블랙리스트 등록 -->
 	<entry key="insertBlackList">
 		INSERT
 		  INTO MEMBER_BLACKLIST 
@@ -205,12 +206,7 @@
 		       )
 	</entry>
 	
-	<entry key="updateBlockCount">
-		UPDATE MEMBER_BLACKLIST
-		   SET BLOCK_COUNT = BLOCK_COUNT + 1
-		 WHERE BLACKLIST_NO = ?
-	</entry>
-	
+	<!-- 멤버블랙의 카운트 증가 -->
 	<entry key="updateBlockCounts">
 		UPDATE MEMBER_BLACKLIST
 		   SET BLOCK_COUNT = BLOCK_COUNT + 1
@@ -219,6 +215,15 @@
                                 WHERE MEM_NO = ?)
 	</entry>
 	
+	<!-- 멤버블랙의 상태 Y로 업데이트(블랙등록) -->
+	<entry key="updateMemberBkStatusY">
+		UPDATE MEMBER_BLACKLIST
+		   SET BLACK_STATUS = 'Y'
+		 WHERE MEM_NO = ?
+		   AND BLACK_STATUS = 'N'
+	</entry>
+	
+	<!-- 멤버의 상태 B로 업데이트 -->
 	<entry key="updateBkStatus">
 		UPDATE MEMBER
 		   SET STATUS = 'B'
@@ -226,13 +231,15 @@
 		   AND STATUS = 'Y'
 	</entry>
 	
+	<!-- 멤버블랙의 상태 N으로 업데이트 -->
 	<entry key="updateMemberBkStatus">
 		UPDATE MEMBER_BLACKLIST
-		   SET STATUS = 'N'
+		   SET BLACK_STATUS = 'N'
 		 WHERE MEM_NO = ?
-		   AND STATUS = 'Y'
+		   AND BLACK_STATUS = 'Y'
 	</entry>
 	
+	<!-- 블랙 해제 할 때 -->
 	<entry key="deleteBlack">
 		UPDATE MEMBER_BLACKLIST
 		   SET BLACK_STATUS = 'N'
@@ -458,6 +465,21 @@
 		  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
 		 WHERE POST_TYPE = 1
 		   AND POST_NUM = ?
+	</entry>
+	
+	<entry key="selectReply">
+		SELECT REPLY_NO
+		     , REPLY_OWN_POST
+		     , MEM_ID
+		     , REPLY_CONTENT
+		     , REPLY_SCOPE
+		     , REPLY_CREATE_DATE
+		     , REPLY_STATUS
+		  FROM REPLY
+		  JOIN MEMBER ON (REPLY_WRITER = MEM_NO)
+		 WHERE REPLY_OWN_POST = ?
+		 ORDER
+		    BY REPLY_CREATE_DATE DESC
 	</entry>
 		
 	<entry key="selectChatList">
