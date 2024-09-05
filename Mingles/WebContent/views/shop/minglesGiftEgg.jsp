@@ -146,7 +146,7 @@
                       useCardPoint: false,
                       useAppCardOnly: false,
                   },
-                  successUrl:"http://localhost:8254/Mingles/eggGiftUpdate.mi?giftUserNo="+giftUserNo+"&sum="+sum+"&userNo="+userNo+"&price="+price+"&point="+point+"&payOption="+payOption,
+                  successUrl:"http://192.168.20.52:8005/Mingles/eggGiftUpdate.mi?giftUserNo="+giftUserNo+"&sum="+sum+"&userNo="+userNo+"&price="+price+"&point="+point+"&payOption="+payOption,
                   failUrl:"http://www.naver.com",
               });
             
