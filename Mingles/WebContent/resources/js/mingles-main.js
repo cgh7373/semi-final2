@@ -186,7 +186,7 @@ $(document).ready(function () {
               selectAllMusic();
             }
           },
-          error: function () {},
+          error: function () { },
         });
       } // 제목과 가수 입력, 파일 업로드가 다 정상적으로 작동됬을 때 작용하는 if문
       $("#musicTitle").val("");
@@ -214,7 +214,7 @@ $(document).ready(function () {
       success: function (result) {
         setMusicList(result);
       },
-      error: function () {},
+      error: function () { },
     }); //ajax
   } // selectAllMusic()
 
@@ -285,7 +285,7 @@ $(document).ready(function () {
               selectAllMusic();
             }
           },
-          error: function () {},
+          error: function () { },
         });
       } else {
         Swal.fire({
@@ -669,4 +669,423 @@ function weather() {
       }
     }
   }
+};
+
+function readStatus() {
+  $.ajax({
+    url: "/Mingles/readStatus.mi",
+    data: {
+      owner: owner,
+      year: currentYear,
+      month: currentMonth + 1,
+    },
+    success: function (result) {
+      const readStatuses = result.reduce((acc, item) => {
+        acc[item.readDate] = item.readStatus === "T";
+
+        return acc;
+      }, {});
+
+      renderCalendar(readStatuses);
+    },
+  });
 }
+
+function renderCalendar(readStatuses) {
+  const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const startDayOfWeek = firstDayOfMonth.getDay();
+  currentMonthElement.textContent = `${currentYear}년 ${currentMonth + 1}월`;
+
+  calendarDates.innerHTML = "";
+
+  // 빈 날짜(이전 달)
+  for (let i = 0; i < startDayOfWeek; i++) {
+    const emptyDate = document.createElement("div");
+    emptyDate.classList.add("date", "empty");
+    calendarDates.appendChild(emptyDate);
+  }
+
+  // 현재 달의 날짜
+  for (let i = 1; i <= daysInMonth; i++) {
+    const dateStr = currentYear + "-" + (currentMonth + 1) + "-" + i;
+    const isToday = today.getDate() === i && today.getMonth() === currentMonth;
+    const isUnread = readStatuses[dateStr] === false;
+
+    const dateElement = document.createElement("div");
+    dateElement.classList.add("date");
+    dateElement.textContent = i;
+    dateElement.setAttribute("data-date", dateStr);
+
+    if (isToday) {
+      dateElement.classList.add("today");
+    }
+
+    dateElement.classList.toggle("unread", isUnread);
+
+    calendarDates.appendChild(dateElement);
+  }
+
+  updateMemoCounts();
+}
+
+function updateMemoCounts() {
+  const dateEls = document.querySelectorAll("#calendarDates .date:not(.empty)");
+
+  dateEls.forEach((dateEl) => {
+    const date = dateEl.getAttribute("data-date");
+    const countElement = document.createElement("span");
+    countElement.classList.add("memoCount");
+
+    $.ajax({
+      url: "/Mingles/memoCount.mi",
+      data: {
+        owner: owner,
+        date: date,
+      },
+      success: function (result) {
+        if (result > 0) {
+          countElement.textContent = `📝 ${result}`;
+          dateEl.appendChild(countElement);
+        }
+      },
+    });
+  });
+}
+
+readStatus();
+
+prevBtn.addEventListener("click", () => {
+  currentMonth--;
+  if (currentMonth < 0) {
+    currentMonth = 11;
+    currentYear--;
+  }
+  readStatus();
+});
+
+nextBtn.addEventListener("click", () => {
+  currentMonth++;
+  if (currentMonth > 11) {
+    currentMonth = 0;
+    currentYear++;
+  }
+  readStatus();
+});
+
+$("#my_info__3").on("click", function () {
+  const zodiac = document.getElementById("zodiac").getAttribute("data-zodiac");
+
+  const encodedZodiac = encodeURIComponent(zodiac);
+
+  const searchUrl = `https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&qvt=0&query=${encodedZodiac}%20%EC%9A%B4%EC%84%B8`;
+
+  window.open(searchUrl, "_blank");
+});
+
+function parseCustomDate(dateStr) {
+  const [datePart, timePart] = dateStr.split(" ");
+  const [year, month, day] = datePart
+    .split("/")
+    .map((num) => parseInt(num, 10));
+  const [hours, minutes, seconds] = timePart
+    .split(":")
+    .map((num) => parseInt(num, 10));
+
+  const fullYear = year + 2000;
+
+  return new Date(fullYear, month - 1, day, hours, minutes, seconds);
+}
+
+function selectMemoList(date) {
+
+  let url = "";
+  let data;
+
+  if (m === owner) {
+    url = "/Mingles/calendarMemo.mi";
+    data = { date: date, memNo: owner };
+  } else {
+    url = "/Mingles/visCalendarMemo.mi";
+    data = { date: date, memNo: owner, visNo: m }
+  }
+
+  $.ajax({
+    url: url,
+    data: data,
+    success: function (result) {
+      const itemsPerPage = 10;
+      let currentPage = 1;
+      const totalItems = result.length;
+      const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+      function renderPage(page) {
+        const start = (page - 1) * itemsPerPage;
+        const end = start + itemsPerPage;
+        const pageItems = result.slice(start, end);
+
+        let value = "";
+
+        const now = new Date();
+
+        if (pageItems.length === 0) {
+          $("#bulletinModal .modal-body table").html(
+            "<tr><td class='center-text'>아직 아무것도 없어요</td></tr>"
+          );
+        } else {
+          for (let i in pageItems) {
+            const memoStatusStr = pageItems[i].memoStatus;
+            const memoStatus = parseCustomDate(memoStatusStr);
+            const timeDiff = now - memoStatus;
+
+            let timeAgo = "";
+
+            const seconds = Math.floor(timeDiff / 1000);
+            const minutes = Math.floor(seconds / 60);
+            const hours = Math.floor(minutes / 60);
+            const days = Math.floor(hours / 24);
+            const months = Math.floor(days / 30);
+            const years = Math.floor(days / 365);
+
+            if (years > 0) {
+              timeAgo = years + "년 전";
+            } else if (months > 0) {
+              timeAgo = months + "달 전";
+            } else if (days > 0) {
+              timeAgo = days + "일 전";
+            } else if (hours > 0) {
+              timeAgo = hours + "시간 전";
+            } else if (minutes > 0) {
+              timeAgo = minutes + "분 전";
+            } else if (seconds > 0) {
+              timeAgo = seconds + "초 전";
+            } else {
+              timeAgo = "방금 전";
+            }
+
+            value +=
+              "<tr>" +
+              "<td rowspan='2' class='memo-img'><img class='bullImg' src='" +
+              pageItems[i].profilePic +
+              "'></td>" +
+              "<td rowspan='2' class='memo-content'>" +
+              pageItems[i].memoContent +
+              "</td>" +
+              "<td class='memo-nickname memo-else'>" +
+              pageItems[i].nickname +
+              "</td>" +
+              "</tr>" +
+              "<tr class='memo-dist'>" +
+              "<td class='memo-statusMsg memo-else'>" +
+              timeAgo +
+              "</td>" +
+              "</tr>";
+          }
+
+          $("#bulletinModal .modal-body table").html(value);
+        }
+
+        updatePaginationControls();
+      }
+
+      function updatePaginationControls() {
+        const pageNumbers = $("#bulletinModal #pageNumbers");
+        pageNumbers.empty();
+
+        if (totalPages === 0) {
+          $("#bulletinModal #prevPage").prop("disabled", true);
+          $("#bulletinModal #nextPage").prop("disabled", true);
+          return;
+        }
+
+        for (let i = 1; i <= totalPages; i++) {
+          const button = $("<button>")
+            .text(i)
+            .addClass("page-btn")
+            .data("page", i)
+            .on("click", function () {
+              currentPage = $(this).data("page");
+              renderPage(currentPage);
+            });
+          pageNumbers.append(button);
+        }
+
+        $("#bulletinModal #prevPage").prop("disabled", currentPage === 1);
+        $("#bulletinModal #nextPage").prop(
+          "disabled",
+          currentPage === totalPages || totalPages === 0
+        );
+      }
+
+      $("#bulletinModal #prevPage").on("click", function () {
+        if (currentPage > 1) {
+          currentPage--;
+          renderPage(currentPage);
+        }
+      });
+
+      $("#bulletinModal #nextPage").on("click", function () {
+        if (currentPage < totalPages) {
+          currentPage++;
+          renderPage(currentPage);
+        }
+      });
+
+      renderPage(currentPage);
+    },
+  });
+}
+
+$(function () {
+
+  $("#calendarDates").on("click", ".date:not(.empty)", function () {
+
+    const date = $(this).data("date");
+    $("#bulletinModalLabel").text(date);
+
+    selectMemoList(date);
+
+    $("#bulletinModal").modal("show");
+
+    $.ajax({
+      url: "/Mingles/readStatusUpdate.mi",
+      data: {
+        owner: m,
+        date: date,
+      },
+      success: function () {
+        readStatus();
+      },
+    });
+  });
+});
+
+function insertReply() {
+
+  const replyContent = $("#replyContent").val().trim();
+  const selectedDate = $("#bulletinModalLabel").text();
+
+  let memoScope;
+
+  if (m == owner) {
+    memoScope = $("#memoScopeSelect").val();
+  } else {
+    memoScope = 'P'
+  }
+
+
+  if (!replyContent) {
+    swal({
+      icon: "error",
+      title: "아무것도 적지 않았어요",
+    });
+    return;
+  }
+
+  $.ajax({
+    url: "/Mingles/memoInsert.mi",
+    data: {
+      content: replyContent,
+      date: selectedDate,
+      owner: owner,
+      writer: m,
+      scope: memoScope,
+      year: currentYear,
+      month: currentMonth + 1,
+    },
+    type: "post",
+    success: function (result) {
+      if (result > 0) {
+        selectMemoList($("#bulletinModalLabel").text());
+        $("#replyContent").val("");
+        readStatus();
+      }
+    },
+    error: function () {
+      console.log("댓글작성용 ajax 통신실패");
+    },
+  });
+}
+
+function renderFavoritePosts() {
+
+  let value = "";
+
+  $.ajax({
+    url: "/Mingles/favPosts.mi",
+    data: {
+      owner: owner,
+    },
+    success: (result) => {
+
+      let j = 0;
+      j = result.length;
+
+      for (let i in result) {
+
+        result[i].postTitle = result[i].postTitle ?? "제목 없음"
+
+        value += "<li>" + result[i].postTitle + "<span data-pno=" + result[i].postNum + "></span></li>"
+
+      }
+
+      while (j < 3) {
+        value += "<li>게시글을 작성해보세요!</li>"
+        j++;
+      }
+
+      $("#popular ul").html(value);
+
+    }
+
+  })
+
+};
+
+function renderRecentReplied() {
+
+  let value = "";
+
+  $.ajax({
+    url: "/Mingles/recentReplied.mi",
+    data: {
+      owner: owner,
+    },
+    success: (result) => {
+
+      let j = 0;
+      j = result.length;
+
+      for (let i in result) {
+
+        result[i].postTitle = result[i].postTitle ?? "제목 없음"
+
+        value += "<li>" + result[i].postTitle + "<span data-pno=" + result[i].postNum + "></span></li>"
+
+      }
+
+
+      while (j < 3) {
+        value += "<li>게시글을 작성해보세요!</li>"
+        j++;
+      }
+
+
+      $("#recent ul").html(value);
+
+    }
+
+  })
+
+};
+
+$("#con3 ul").on('click', 'li', function () {
+
+  let dataPno = $(this).find('span').data('pno') ?? 0;
+
+  if (dataPno > 0) {
+    location.href = "/Mingles/toOthersPost.mi?owner=" + owner + "&modal=on&pNum=" + dataPno;
+  };
+
+})
+
