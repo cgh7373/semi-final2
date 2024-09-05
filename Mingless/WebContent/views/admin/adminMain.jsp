@@ -51,14 +51,13 @@ ArrayList<Integer> payCount = (ArrayList<Integer>)request.getAttribute("payCount
 
                     <!-- 페이지 콘텐츠 -->
                     <div class="row">
+                        <!-- 차트 -->
+                        <script>
+                            const memberCount = <%=memberCount %>;
+                            const postCount = <%=postCount %>; 
+                            const payCount = <%=payCount %>;
+                        </script>
                         <div class="col-lg-5 mb-1">
-
-                            <!-- 차트 -->
-                            <script>
-                                const memberCount = <%=memberCount %>;
-                                const postCount = <%=postCount %>; 
-                                const payCount = <%=payCount %>;
-                            </script>
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">회원 차트</h6>
@@ -74,7 +73,7 @@ ArrayList<Integer> payCount = (ArrayList<Integer>)request.getAttribute("payCount
 
                         </div>
 						
-                        <div class="col-xl-5">
+                        <div class="col-lg-5 mb-1">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">게시글 차트</h6>
