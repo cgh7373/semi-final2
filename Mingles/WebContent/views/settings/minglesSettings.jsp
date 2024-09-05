@@ -786,11 +786,8 @@
                                                                                     value="../../resources/images/2024090512302143134.jpg">
                                                                                     14</option>
                                                                                 <option
-                                                                                    value="../../resources/images/2024090512302761737.jpg">
-                                                                                    15</option>
-                                                                                <option
                                                                                     value="../../resources/images/2024090512303577187.gif">
-                                                                                    16</option>
+                                                                                    15</option>
                                                                             </select>
 
                                                                             <button id="bgiAdBtn">적용</button>

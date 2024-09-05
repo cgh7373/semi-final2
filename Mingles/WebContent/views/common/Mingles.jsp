@@ -9,9 +9,6 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mingles Frame</title>
 
     <!-- 외부파일 -->
@@ -61,12 +58,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
 
     <!-- 내부파일 -->
     <link rel="stylesheet" href="./resources/css/mingle.css" />
-    <link rel="stylesheet" href="./resources/css/mingle.css" />
     <script defer src="<%=contextPath %>/resources/js/mingle.js"></script>
-    <link
-      rel="icon"
-      href="./resources/images/Mingles아이콘-removebg-preview.png"
-    />
     <link
       rel="icon"
       href="./resources/images/Mingles아이콘-removebg-preview.png"
@@ -78,48 +70,44 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
   </head>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-    />
-  </head>
 
   <body>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+          document.addEventListener("DOMContentLoaded", function () {
         // 성공메시지
         <% if (alertMsg != null) { %>
-                            swal({
-                                icon: 'success',
-                                title: '<%=alertMsg%>',
-                            });
+              swal({
+                icon: 'success',
+                title: '<%=alertMsg%>',
+              });
         <% session.removeAttribute("alertMsg"); %>
         <% } %>
 
         <% if (errorMsg != null) { %>
-                            swal({
-                                icon: 'error',
-                                title: '<%=errorMsg%>',
-                            });
+              swal({
+                icon: 'error',
+                title: '<%=errorMsg%>',
+              });
         <% session.removeAttribute("errorMsg"); %>
         <% } %>
 
                           <%if (loginUser != null) {%>
-                          document.getElementById("wrapper").style.backgroundImage = "url(<%=loginUser.getBackgroundImage() %>)";
+              document.getElementById("wrapper").style.backgroundImage = "url(<%=loginUser.getBackgroundImage() %>)";
                        <%}%>
 
       });
 
-                    window.addEventListener('message', function (event) {
-                        if (event.data === 'membershipCanceled') {
-                            scrollToSection(0);
-                        }
+          window.addEventListener('message', function (event) {
+            if (event.data === 'membershipCanceled') {
+              scrollToSection(0);
+            }
 
-                        <%if (loginUser != null) {%>
-                            document.getElementById("wrapper").style.backgroundImage = "url(<%=loginUser.getBackgroundImage() %>)";
-                            <%}%>
+            if (event.data.type === 'updateBackgroundImage') {
+              const newImageUrl = event.data.imageUrl;
+              document.getElementById("wrapper").style.backgroundImage = "url(" + newImageUrl.substring(4) + ")";
+            }
 
-                    });
+          });
     </script>
 
     <!-- 바탕화면 -->
@@ -312,24 +300,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
             frameborder="0"
           ></iframe>
         </div>
-      <!-- 가운데 화면 -->
-      <section class="middle">
-        <!-- 탐색창 틀 -->
-        <div class="explore-wrap">
-          <iframe
-            src="./views/community/minglesCommunity.jsp"
-            style="visibility: visible; opacity: 1"
-            frameborder="0"
-          ></iframe>
-        </div>
 
-        <div class="diver float">
-          <img
-            src="./resources/images/173526028-젊은-남자-캐릭터-스쿠버-다이빙-또는-오리발과-고글-벡터-일러스트와-함께-수중-removebg-preview.png"
-            alt=""
-          />
-        </div>
-      </section>
         <div class="diver float">
           <img
             src="./resources/images/173526028-젊은-남자-캐릭터-스쿠버-다이빙-또는-오리발과-고글-벡터-일러스트와-함께-수중-removebg-preview.png"
@@ -377,21 +348,13 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
 
         <!-- 메인탭 -->
         <span class="material-icons mainTab" title="메인">home</span>
-        <!-- 메인탭 -->
-        <span class="material-icons mainTab" title="메인">home</span>
 
-        <!-- 환경설정 -->
-        <span class="material-icons settings" title="설정"> settings</span>
         <!-- 환경설정 -->
         <span class="material-icons settings" title="설정"> settings</span>
 
         <!-- 아무탭1 -->
         <span class="material-icons anyTab"> sentiment_very_satisfied </span>
-        <!-- 아무탭1 -->
-        <span class="material-icons anyTab"> sentiment_very_satisfied </span>
 
-        <!-- 상점탭 -->
-        <span class="material-icons shopTab" title="상점"> storefront </span>
         <!-- 상점탭 -->
         <span class="material-icons shopTab" title="상점"> storefront </span>
 
@@ -399,15 +362,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
         <span class="material-icons explore-tab" title="탐색"
           >travel_explore</span
         >
-        <!-- 탐색탭 -->
-        <span class="material-icons explore-tab" title="탐색"
-          >travel_explore</span
-        >
 
-        <!-- 꾸미기탭 -->
-        <span class="material-icons styleTab" title="꾸미기"
-          >accessibility</span
-        >
         <!-- 꾸미기탭 -->
         <span class="material-icons styleTab" title="꾸미기"
           >accessibility</span
@@ -418,11 +373,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
 
         <!-- 게시글탭 -->
         <span class="material-icons postsTab" title="게시글">article</span>
-        <!-- 게시글탭 -->
-        <span class="material-icons postsTab" title="게시글">article</span>
 
-        <!-- 아무탭7 -->
-        <span class="material-icons anyTab7">add_circle_outline</span>
         <!-- 아무탭7 -->
         <span class="material-icons anyTab7">add_circle_outline</span>
 
@@ -501,6 +452,4 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
       </section>
     </div>
   </body>
-  </body>
 </html>
-

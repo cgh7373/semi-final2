@@ -360,6 +360,8 @@ footer .pagination-container {
     width: 300px;
     height: 300px;
     z-index: 95;
+    top: 10px;
+    right: 484px;
 }
 
 .minihompi .top img {
