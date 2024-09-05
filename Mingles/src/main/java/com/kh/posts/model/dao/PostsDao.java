@@ -87,6 +87,7 @@ public class PostsDao {
 				p.setPostTitleColor(rset.getString(6));
 				p.setPostTitleSize(rset.getInt(7));
 				p.setPostThumbnail(rset.getString(8));
+				p.setReplyCount(rset.getInt(9));
 				
 				list.add(p);
 				

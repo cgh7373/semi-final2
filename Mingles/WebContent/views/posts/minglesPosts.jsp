@@ -177,10 +177,10 @@
                                                                     src="../../resources/images/2024082616142217358.jfif">
                                                                 <div class="post-titles" style="font-size: 30px;"></div>
                                                                 <div class="post-cover">
-                                                                    <div class="post-cover-tag-boxes">🏷️태그1</div>
-                                                                    <div class="post-cover-tag-boxes">🏷️태그2</div>
-                                                                    <div class="post-cover-tag-boxes">🏷️태그3</div>
-                                                                    <div class="post-cover-tag-boxes">🏷️태그4</div>
+                                                                    <div class="post-cover-tag-boxes">🏷️ 태그1</div>
+                                                                    <div class="post-cover-tag-boxes">🏷️ 태그2</div>
+                                                                    <div class="post-cover-tag-boxes">🏷️ 태그3</div>
+                                                                    <div class="post-cover-tag-boxes">🏷️ 태그4</div>
                                                                 </div>
                                                             </div>
 
@@ -398,8 +398,8 @@
                                             data: formData,
                                             processData: false,
                                             contentType: false,
-                                            success: function (response) {
-                                                $("#writePostModal img").attr("src", response);
+                                            success: function (result) {
+                                                $("#writePostModal img").attr("src", result);
                                             },
                                         });
 
@@ -474,6 +474,7 @@
                                                     $("#post-tag").val("")
                                                     $("#post-content").val("")
                                                     $("#post-thumbnail").val("");
+                                                    $("#writePostModal img").attr("src", "../../resources/images/2024082616142217358.jfif");
                                                     renderPostsList();
                                                 }
 
@@ -490,7 +491,7 @@
                                                 writer: <%= mem.getMemNo() %>,
                                             },
                                             success: (result) => {
-
+                                            	
                                                 const itemsPerPage = 6;
                                                 let currentPage = 1;
                                                 const totalItems = result.length;
@@ -522,19 +523,33 @@
 
                                                             for (let tag of tArr) {
                                                                 if (tag != "") {
-                                                                    tagsHtml += '<div class="post-cover-tag-boxes">🏷️' + tag.trim() + '</div>';
+                                                                    tagsHtml += '<div class="post-cover-tag-boxes">🏷️ ' + tag.trim() + '</div>';
                                                                 }
                                                             }
+                                                            
+                                                            let replyHtml = "";
+                                                            
+                                                            if (item.replyCount > 0) {
+                                                            	replyHtml += '<div class="post-reply-count">💭 ' + item.replyCount + '</div>'
+                                                            }
+                                                            
+                                                            let pCountHtml = "";
+                                                            
+                                                            if (item.postCount > 0) {
+                                                            	pCountHtml += '<div class="post-count">⭐️ ' + item.postCount + '</div>'
+                                                            }
+                                                            
                                                             value += `
-                                                         <div class="posts" data-pNum="\${item.postNum}">
-                                                            <img src="\${item.postThumbnail}" alt="Post Thumbnail">
-                                                            <div class="post-titles" style="font-size: \${item.postTitleSize}px; color:\${item.postTitleColor}">\${item.postTitle}</div>
-                                                            <div class="post-cover">
-                                                                <div class="post-regdate">\${item.postRegdate}</div>
-                                                                <div class="post-count">⭐️\${item.postCount}</div>
-                                                                \${tagsHtml}
-                                                            </div>
-                                                         </div>
+	                                                         <div class="posts" data-pNum="\${item.postNum}">
+	                                                            <img src="\${item.postThumbnail}" alt="Post Thumbnail">
+	                                                            <div class="post-titles" style="font-size: \${item.postTitleSize}px; color:\${item.postTitleColor}">\${item.postTitle}</div>
+	                                                            <div class="post-cover">
+                                                                	<div class="post-regdate">\${item.postRegdate}</div>
+	                                                                \${pCountHtml}
+	                                                                \${replyHtml}
+	                                                                \${tagsHtml}
+                                                            	</div>
+                                                         	</div>
                                                          `;
                                                         }
                                                         $("#right .post-container").html(value);
