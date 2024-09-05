@@ -1,0 +1,373 @@
+div,
+img {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+#wrap {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    border-radius: 20px;
+    margin: auto;
+    position: relative;
+    display: flex;
+    box-sizing: border-box;
+}
+
+#container {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    /*색상 변경*/
+    border-radius: 20px;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-left {
+    height: 100%;
+    width: 28%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 2%;
+}
+
+.logo {
+    margin: 8% 0 3%;
+}
+
+.title {
+    font-family: 'Katuri';
+    font-size: 50px;
+    text-align: center;
+    color: #7aecbc;
+    margin-bottom: 5%;
+    text-shadow: 5px 5px 10px rgb(215, 215, 215);
+}
+
+.style-tag {
+    font-family: 'omyu_pretty';
+    color: #64DFDF;
+    font-size: 33px;
+    margin-left: 10%;
+}
+
+.item-container {
+	width : 90%;
+	height : 60%;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5%;
+    margin-left:10%;
+    border-top: 5px solid #80ffdb;
+    border-bottom: 5px solid #80ffdb;
+    padding-bottom: 10%;
+}
+
+.item-container .items {
+    width: 30%;
+    height: 30%;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    margin-left: 10%;
+    margin-top: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 0 3px 3px #f6f5f0;
+    cursor: pointer;
+    transition: .6s;
+    overflow: hidden;
+    box-sizing:border-box;
+    &:hover {
+        box-shadow: 0 0 4px 4px #80FFDB;
+    }
+
+    &:active {
+        transform: translateX(2px) translateY(2px);
+        transition: .2s;
+    }
+}
+
+.item-container .items img {
+    width: 100%;
+    height: 100%;
+    transition: .3s;
+}
+
+footer .pagination-container {
+    width: 28%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    font-family: 'omyu_pretty';
+    font-size: 30px;
+    position: absolute;
+    bottom: 1.5%;
+
+    &>div {
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    &>div>span {
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    &>div>span:hover {
+        font-weight: 700;
+    }
+
+    & .prev-button:hover {
+        font-weight: 700;
+    }
+
+    & .next-button:hover {
+        font-weight: 700;
+    }
+
+    & * {
+        color: #07BEB8;
+    }
+}
+
+.number-btn.selected {
+    font-weight: 700;
+    font-size: 33px;
+}
+
+.main-right {
+    height: 100%;
+    width: 70%;
+}
+
+.main-right .right-wrapper {
+    width: 85%;
+    height: 95%;
+    margin: 1.8% auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.main-right .right-wrapper .style-shop {
+    height: 18%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: space-between;
+}
+
+.main-right .right-wrapper .style-shop .bal div {
+    margin: auto 15px;
+    /* text-align:center; */
+    &:hover {
+        color: #07BEB8;
+        cursor: pointer;
+    }
+}
+
+.main-right .right-wrapper .style-shop .catB {
+    width: 32%;
+    height: 38%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background-color: #d2efff;
+    border-top: 3px solid #89c2ff;
+    border-bottom: 3px solid #89c2ff;
+}
+
+.main-right .right-wrapper .style-shop .catB .catTitle {
+    font-family: 'Katuri';
+    font-size: 35px;
+    margin: 20px;
+    &:hover {
+        cursor: pointer;
+        color:#0b77eb;
+    }
+    &:active {
+        transform: translateX(.8px) translateY(.8px);
+    }
+}
+
+.main-right .right-wrapper .vis-room {
+    position:relative;
+    height: 74%;
+    border-radius: 20px;
+    border: 2px solid #7F7F7F;
+    margin-top: 1%;
+    overflow: hidden;
+    background-color:#ceffea;
+    background-size: cover;
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+}
+
+.main-right .right-wrapper .bot-box {
+    height: 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.bal {
+    height: 48%;
+	position: relative;
+	padding: 10px 20px 10px 20px;
+	background: #FFFFFF;
+	border-radius: 10px;
+	border: #89c2ff solid 3px;
+	/* position: absolute; */
+	font-size: 28px;
+	text-align: left;
+    font-family: 'omyu_pretty';
+    align-items: center;
+    display: flex;
+}
+
+
+.bal.bal2 {
+    display: none;
+    width: 33%;
+    &::after, 
+    &::before {
+        left: 100px;
+    }
+}
+
+.bal.bal3 {
+    display: none;
+    width: 45%;
+    &::after, 
+    &::before {
+        left: 220px;
+    }
+}
+
+.bal:after {
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 20px 16px 0 17.5px;
+	border-color: #FFFFFF transparent;
+	display: block;
+	width: 0;
+	z-index: 1;
+	top: 95%; 
+}
+	
+.bal:before {
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 20px 16px 0 17.5px;
+	border-color: #89c2ff transparent;
+	display: block;
+	width: 0;
+	z-index: 0;
+	top: 100%;
+}
+
+.bal.bal1.onoffTo {
+    display: flex;
+}
+
+.bal.bal2.onoffTo {
+    display: flex;
+}
+
+.bal.bal3.onoffTo {
+    display: flex;
+}
+
+.btn {
+    width:60px;
+    height:30px;
+    margin:3px;
+    float:left;
+}
+
+/* MINIHOMPI BOX */
+
+/* AVATAR : Z-INDEX 90s */
+
+.body img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:91;
+}
+
+.face img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:92;
+}
+
+
+.hair img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:93;
+}
+
+.shoes img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:94;
+}
+
+
+.bottom img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:95;
+top:15px;
+right:484px;
+overflow:visible;
+}
+
+.top img{
+position:absolute;
+width:300px;
+height:300px;
+z-index:96;
+}
+
+.avatar-box{
+position:relative;
+left:20%;
+top:30%;
+}
+
+/* FLOOR : Z-INDEX 70s */
+
+.floor-skin img{
+position:absolute;
+width:100%;
+height:100%;
+z-index:71;
+}

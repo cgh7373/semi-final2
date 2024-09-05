@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="loginMember">
+		   SELECT MEM_NO
+		   		, MEM_ID
+				, MEM_PWD
+				, NICKNAME
+				, BIRTHDATE
+				, PHONE
+				, EMAIL
+				, GENDER
+				, ENROLL_DATE
+				, MODIFY_DATE
+				, STATUS
+				, EGG
+				, ZODIAC
+				, ABO
+				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
+		     FROM MEMBER
+			WHERE MEM_ID = ?
+			  AND MEM_PWD = ?
+			  AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectNoMember">
+		   SELECT MEM_NO
+		   		, MEM_ID
+				, MEM_PWD
+				, NICKNAME
+				, BIRTHDATE
+				, PHONE
+				, EMAIL
+				, GENDER
+				, ENROLL_DATE
+				, MODIFY_DATE
+				, STATUS
+				, EGG
+				, ZODIAC
+				, ABO
+				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
+		     FROM MEMBER
+			WHERE MEM_NO = ?
+			  AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectIdMember">
+		   SELECT MEM_NO
+		   		, MEM_ID
+				, MEM_PWD
+				, NICKNAME
+				, BIRTHDATE
+				, PHONE
+				, EMAIL
+				, GENDER
+				, ENROLL_DATE
+				, MODIFY_DATE
+				, STATUS
+				, EGG
+				, ZODIAC
+				, ABO
+				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
+		     FROM MEMBER
+			WHERE MEM_ID = ?
+			  AND STATUS = 'Y'
+	</entry>
+
+	<entry key="insertMember">
+		INSERT INTO 
+					MEMBER
+				  (
+				  	MEM_NO
+				  , MEM_ID
+				  , MEM_PWD
+				  , NICKNAME
+				  , BIRTHDATE
+				  , PHONE
+				  , EMAIL
+				  , GENDER
+				  , ZODIAC
+				  , ABO
+				  , MBTI
+				  , KAKAO_NO
+				  )
+				    VALUES 
+				  (
+				  	SEQ_MEM.NEXTVAL
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  )
+	</entry>
+
+	<entry key="updatePwd">
+			UPDATE MEMBER
+			   SET MEM_PWD = ?
+			     , MODIFY_DATE = SYSDATE
+			 WHERE
+			       MEM_ID = ?
+			   AND MEM_PWD =?
+	</entry>
+
+	<entry key="updateNick">
+			UPDATE MEMBER
+			   SET NICKNAME = ?
+			     , MODIFY_DATE = SYSDATE
+		     WHERE
+				   MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
+
+	<entry key="selectMember">
+		   SELECT MEM_NO
+		   		, MEM_ID
+				, MEM_PWD
+				, NICKNAME
+				, BIRTHDATE
+				, PHONE
+				, EMAIL
+				, GENDER
+				, ENROLL_DATE
+				, MODIFY_DATE
+				, STATUS
+				, ZODIAC
+				, ABO
+				, MBTI
+				, PROFILE_PIC
+				, STATUS_MSG
+		     FROM MEMBER
+			WHERE MEM_ID = ?
+			  AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="updateEmail">
+			UPDATE MEMBER
+			   SET EMAIL = ?
+			     , MODIFY_DATE = SYSDATE
+		     WHERE
+				   MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
+	
+	<entry key="quitMember">
+			UPDATE MEMBER
+			   SET STATUS = 'N'
+			 WHERE MEM_ID = ?
+			   AND MEM_PWD = ?
+	</entry>
+	
+	<entry key="updateMBTI">
+			UPDATE MEMBER
+			   SET MBTI = ?
+			 WHERE MEM_ID = ?
+	</entry>
+	
+	<entry key="updateMsg">
+			UPDATE MEMBER
+			   SET STATUS_MSG = ?
+			 WHERE MEM_ID = ?
+	</entry>
+
+	<entry key="updatePic">
+			UPDATE MEMBER
+			   SET PROFILE_PIC = ?
+			 WHERE MEM_ID = ?
+	</entry>
+
+	<entry key="chargeEgg">
+		UPDATE MEMBER
+		   SET EGG = ?
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+
+	<entry key="idCheck">
+		SELECT
+		       COUNT(*) "COUNT"
+		  FROM MEMBER
+		 WHERE MEM_ID = ?
+		   AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="findMember">
+			SELECT A.MEM_NO
+			     , A.NICKNAME
+			     , A.PROFILE_PIC
+			     , A.STATUS_MSG
+			  FROM MEMBER A
+		 LEFT JOIN FRIEND B
+		        ON (A.MEM_NO = B.SENDER_NO)
+			 WHERE A.STATUS = 'Y'
+			   AND A.NICKNAME = ?
+			   AND A.MEM_NO != ?
+		  ORDER BY B.FRIEND_LEVEL
+	</entry>
+	
+	<entry key="selectMemberByMBTI">
+			SELECT A.MEM_NO
+			     , A.NICKNAME
+			     , A.PROFILE_PIC
+			     , A.STATUS_MSG
+			  FROM MEMBER A
+		 LEFT JOIN FRIEND B
+		        ON (A.MEM_NO = B.SENDER_NO)
+			 WHERE A.STATUS = 'Y'
+			   AND A.MBTI = ?
+			   AND A.MEM_NO != ?
+		  ORDER BY B.FRIEND_LEVEL
+	</entry>
+	
+	<entry key="requestFriend">
+			INSERT 
+			  INTO FRIEND
+			     (
+			       SENDER_NO
+			     , RECEIVER_NO
+			     )
+			VALUES
+			     (
+			       ?
+			     , ?
+			     )
+	</entry>
+	
+	<entry key="selectRequests">
+			SELECT A.MEM_NO
+			     , A.NICKNAME
+			     , A.PROFILE_PIC
+			     , A.STATUS_MSG
+			  FROM MEMBER A
+			  JOIN FRIEND B
+			    ON (A.MEM_NO = B.SENDER_NO)
+			 WHERE B.RECEIVER_NO = ?
+			   AND B.REQUEST_STATUS = 'P'
+	</entry>
+	
+	<entry key="acceptRequest">
+			UPDATE FRIEND
+			   SET REQUEST_STATUS = 'A'
+			     , FRIEND_LEVEL = 'D'
+			 WHERE SENDER_NO = ?
+			   AND RECEIVER_NO = ?
+	</entry>
+		
+	<entry key="declineRequest">
+			UPDATE FRIEND
+			   SET REQUEST_STATUS = 'R'
+			 WHERE SENDER_NO = ?
+			   AND RECEIVER_NO = ?
+	</entry>
+	
+	<entry key="enrollFriend">
+			INSERT 
+			  INTO FRIEND
+			     (
+			       SENDER_NO
+			     , RECEIVER_NO
+			     , REQUEST_STATUS
+			     , FRIEND_LEVEL
+			     )
+			       VALUES
+			     (
+			       ?
+			     , ?
+			     , 'A'
+			     , 'D'
+			     )  
+	</entry>
+	
+	<entry key="selectFriendList">
+			SELECT A.MEM_NO
+			     , A.NICKNAME
+			     , A.PROFILE_PIC
+			     , A.STATUS_MSG
+			  FROM MEMBER A
+			  JOIN FRIEND B
+			    ON (A.MEM_NO = B.RECEIVER_NO)
+			 WHERE B.SENDER_NO = ?
+			   AND B.RECEIVER_NO != ?
+			   AND B.REQUEST_STATUS = 'A'
+			   AND B.FRIEND_LEVEL <![CDATA[<]]> 'E'
+		     ORDER
+		        BY B.FRIEND_LEVEL
+	</entry>
+	
+	<entry key="updateFriendLevel">
+			BEGIN
+	
+			UPDATE FRIEND
+			   SET FRIEND_LEVEL = ?
+			 WHERE REQUEST_STATUS = 'A'
+			   AND SENDER_NO = ?;
+			   
+			UPDATE FRIEND
+			   SET FRIEND_LEVEL = ?
+			 WHERE REQUEST_STATUS = 'A'
+			   AND RECEIVER_NO = ?;   
+			   
+			END;
+	</entry>
+	
+	<entry key="selectKakaoNo">
+		SELECT MEM_NO
+	         , MEM_ID
+	         , MEM_PWD
+	         , NICKNAME
+	         , BIRTHDATE
+	         , PHONE
+	         , EMAIL
+	         , GENDER
+	         , ENROLL_DATE
+	         , MODIFY_DATE
+	         , STATUS
+	         , EGG
+	         , ZODIAC
+	         , ABO
+	         , MBTI
+	         , PROFILE_PIC
+	         , STATUS_MSG
+	         , KAKAO_NO
+	      FROM MEMBER
+	     WHERE KAKAO_NO = ?
+	       AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="UpdateKakaoNo">
+		UPDATE MEMBER
+		   SET KAKAO_NO = ?
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+	
+</properties>

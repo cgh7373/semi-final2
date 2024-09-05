@@ -105,6 +105,11 @@
                                     </div>
                                 </div>
 
+                            </div>
+                        </div>
+                        
+
+
                                 <% if (loginUser==null) { %>
                                     <!-- gif 로고 띄우기, 로그인 화면 띄우기 -->
                                     <div class="appearBox">
@@ -382,5 +387,4 @@
                 </div>
 
             </body>
-
             </html>

@@ -20,7 +20,9 @@
 
 					</head>
 
-					<body>
+<body>
+
+<!-- 메인화면에 보이는 미니홈피입니다. 절대 절대 지우지 말것!!!!!!!!! -->
 
 						<div id="wrap">
 
@@ -89,9 +91,9 @@
 												<div class="catTitle avatar">아바타</div>
 											</div>
 
-										</div>
-										<!-- MINIHOMPI ROOM-->
-										<div class="vis-room">
+                    </div>
+                                           <!-- MINIHOMPI ROOM-->
+                    <div class="vis-room">
 
 											<!-- AVATAR : 90-->
 											<div class="avatar-box">
@@ -102,11 +104,10 @@
 														alt="body">
 												</div>
 
-												<!-- HAIR -->
-												<div class="hair" id="hairSave">
-													<img id="hair" src="../../resources/stylesources/hair3.png"
-														alt="hair">
-												</div>
+                            <!-- HAIR -->
+                            <div class="hair" id="hairSave">
+                                <img  id = "hair" src="../../resources/stylesources/hair15.png" alt="hair">
+                            </div>
 
 												<!-- FACE -->
 												<div class="face" id="faceSave">
@@ -114,33 +115,30 @@
 														alt="eyes">
 												</div>
 
-												<!-- BOTTOM -->
-												<div class="bottom" id="bottomSave">
-													<img id="bottom" src="../../resources/stylesources/bottom2.png"
-														alt="bottom">
-												</div>
+                             <!-- BOTTOM -->
+                              <div class="bottom" id ="bottomSave">
+                                 <img id ="bottom" src="../../resources/stylesources/bottom11.png" alt="bottom">
+                              </div>
 
-												<!-- TOP -->
-												<div class="top" id="topSave">
-													<img id="top" src="../../resources/stylesources/top4.png" alt="top">
-												</div>
+                            <!-- TOP -->
+                             <div class="top" id = "topSave">
+                                <img id= "top" src="../../resources/stylesources/top8.png" alt="top">
+                             </div>
 
-												<!-- SHOES -->
-												<div class="shoes" id="shoesSave">
-													<img id="shoes" src="../../resources/stylesources/shoes13.png"
-														alt="shoes">
-												</div>
+                            <!-- SHOES -->
+                            <div class="shoes" id = "shoesSave">
+                                <img id = "shoes" src="../../resources/stylesources/shoes11.png" alt="shoes">
+                             </div>
 
 											</div> <!--AVATAR-->
 
 											<!-- ROOM : 80 -->
 											<div class="room-box">
 
-												<!-- WALL-->
-												<div class="wall" id="wallSave">
-													<img id="wall" src="../../resources/stylesources/wall1.png"
-														alt="wall">
-												</div> <!--WALL-->
+							<!-- WALL-->
+							<div class="wall" id = "wallSave">
+								<img id = "wall" src="../../resources/stylesources/wall6.png" alt="wall">
+							</div> <!--WALL-->
 
 												<!-- FLOOR-->
 												<div class="floor" id="floorSave">
@@ -154,7 +152,9 @@
 														alt="theme">
 												</div>
 
-											</div><!-- ROOM -->
+						</div><!-- ROOM -->
+
+                    </div> <!-- MINIHOMPI ROOM-->
 
 											<div class="bot-box">
 												<div class="btn btn1">mingleShop</div>

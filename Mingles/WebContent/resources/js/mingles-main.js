@@ -12,6 +12,9 @@ const m = document.getElementById("member").getAttribute("data-member");
 const owner = document.getElementById("owner").getAttribute("data-owner");
 
 $(function() {
+
+    weather();
+
     let bounce;
     let stop = true;
 
@@ -112,7 +115,17 @@ $(function() {
             if (this.files && this.files[0]) {
                 let fileExt = this.files[0].name.split('.').pop().toLowerCase();
                 let allowedExt = ['jpg', 'jpeg', 'png'];
+        // THUMBNAIL FILE INSERT -> COLOR CHANGE
+        $('#thumbnail').change(function() {
+            if (this.files && this.files[0]) {
+                let fileExt = this.files[0].name.split('.').pop().toLowerCase();
+                let allowedExt = ['jpg', 'jpeg', 'png'];
 
+                if (allowedExt.includes(fileExt)) {
+                    $('#music--thumbnail').css('color', '#68D8D6');
+                } 
+            }
+        });
                 if (allowedExt.includes(fileExt)) {
                     $('#music--thumbnail').css('color', '#68D8D6');
                 } 
@@ -137,7 +150,81 @@ $(function() {
                 })
                 return;
             }
+        // MUSIC PLAYLIST ADD
+        $('#music--add').click(function() {
+            let memNo = $('input[name="memNo"]').val();
+            let title = $('#musicTitle').val().trim();
+            let singer = $('#singer').val().trim();
+            let musicFile = $('#file')[0].files[0];
+            let musicThumbnail = $('#thumbnail')[0].files[0];
 
+            // 추가는 최대 10개
+            if ($('.music--list li').length >= 10) {
+                Swal.fire({
+                    title : "최대 10개까지만 가능합니다.",
+                    icon : "warning",
+                    confirmButtonColor: "#72DDF7",
+                    confirmButtonText: "확인했어요",
+                })
+                return;
+            }
+
+            if (title === '' || singer === '') {
+                Swal.fire({
+                    title : "제목과 가수 모두 적어주세요.",
+                    icon : "warning",
+                    confirmButtonColor: "#72DDF7",
+                    confirmButtonText: "확인했어요",
+                })
+                return;
+            } else if (title !== '' && singer !== '') { // 값을 모두 올바르게 넣어서 삽입됐다면
+                
+                    if(musicFile && musicThumbnail){
+				 		let formData = new FormData();
+				        formData.append('memNo', memNo);
+				        formData.append('title', title);
+				        formData.append('singer', singer);
+				        formData.append('musicFile', musicFile);
+				        formData.append('musicThumbnail', musicThumbnail);
+				
+				        $.ajax({
+				            url: '/Mingles/insertMusic.msc',
+				            method: 'post',
+				            data: formData,
+				            contentType: false,
+				            processData: false,
+				            success: function(result) {
+				                if(result === 1){
+                                    Swal.fire({
+                                        title : "성공적으로 추가하였습니다!",
+                                        icon : "success",
+                                        confirmButtonColor: "#72DDF7",
+                                    })
+								 $('#music--icon').css('color', 'black');
+                   				 $('#music--thumbnail').css('color', 'black');
+								 selectAllMusic();
+								}
+				            },
+				            error: function(){} 
+				        });
+
+                    } // 제목과 가수 입력, 파일 업로드가 다 정상적으로 작동됬을 때 작용하는 if문
+                $('#musicTitle').val('');
+                $('#singer').val('');
+
+            }
+        });
+        
+        let flag = false;
+        // MUSIC PLAYLIST DELETE
+        $('#music--delete').click(function() {
+            if (flag) {
+                $('.trashcan').css('visibility', 'hidden');
+            } else {
+                $('.trashcan').css('visibility', 'visible');
+            }
+            flag = !flag;
+        });
             if (title === '' || singer === '') {
                 Swal.fire({
                     title : "제목과 가수 모두 적어주세요.",

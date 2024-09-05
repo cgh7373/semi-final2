@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+
+<entry key = "updateStyle">
+UPDATE STYLE
+   SET AVATAR_HAIR = ?
+     , AVATAR_FACE = ?
+     , AVATAR_TOP = ?
+     , AVATAR_BOTTOM = ?
+     , AVATAR_SHOES = ?
+     , AVATAR_WALL = ?
+     , AVATAR_FLOOR = ?
+     , AVATAR_THEME = ?
+ WHERE MEM_NO = ?
+
+</entry>
+
+<entry key = "insertStyle">
+INSERT 
+  INTO STYLE
+      (
+        MEM_NO
+      , AVATAR_HAIR
+      , AVATAR_FACE
+      , AVATAR_TOP
+      , AVATAR_BOTTOM
+      , AVATAR_SHOES
+      , AVATAR_WALL
+      , AVATAR_FLOOR
+      , AVATAR_THEME
+     )
+VALUES
+    (
+       ?
+     , ?
+     , ?
+     , ?
+     , ?
+     , ?
+     , ?
+     , ?
+     , ?
+     )
+</entry>
+
+<entry key = "selectStyle">
+SELECT * 
+  FROM STYLE
+ WHERE MEM_NO = ?
+</entry>
+
+<entry key = "insertItem">
+INSERT 
+  INTO PURCHASE_ITEM
+       (
+         PITEM_NO
+       , ITEM_NUM
+       , ITEM_CATEGORY
+       , ITEM_NAME
+       , FILE_NAME
+       , MEM_NO
+       )
+VALUES (
+          SEQ_PUR_ITEM.NEXTVAL
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        )
+</entry>
+
+<entry key = "selectAllItem">
+SELECT *
+  FROM PURCHASE_ITEM
+ WHERE MEM_NO = ?
+</entry>
+
     <entry key="updateStyle">
         UPDATE STYLE 
         SET 

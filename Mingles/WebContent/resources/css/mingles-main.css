@@ -1,22 +1,22 @@
 /* General Styling */
-div,
-img {
+div, img {
   box-sizing: border-box;
 }
 
 @font-face {
-  font-family: "Katuri";
-  src: url("https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff") format("woff");
+  font-family: 'Katuri';
+  src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "omyu_pretty";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2") format("woff2");
+  font-family: 'omyu_pretty';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
+
 
 html, body {
     overflow: hidden;
@@ -45,7 +45,6 @@ html, body {
 
 #left {
   width: 30%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -53,7 +52,6 @@ html, body {
 
 #right {
   width: 70%;
-  height: 100%;
   padding: 20px;
 }
 
@@ -62,13 +60,13 @@ html, body {
 }
 
 #con1 {
-  width: 70%;
+width: 70%;
   aspect-ratio: 1;
   height: auto;
   text-align: center;
   border-radius: 50%;
   overflow: hidden;
-  margin: auto;
+  margin:auto;
 }
 
 #con1 img {
@@ -79,7 +77,7 @@ html, body {
 
 #con2 {
   height: 25%;
-  border-bottom: 5px solid #80ffdb;
+  border-bottom: 5px solid #80FFDB;
   position: relative;
   padding: 10px;
 }
@@ -87,7 +85,7 @@ html, body {
 #con2__nickname {
   font-size: 30px;
   margin: 15px 0;
-  font-family: "Katuri", sans-serif;
+  font-family: 'Katuri', sans-serif;
 }
 
 #mailIcon,
@@ -176,9 +174,17 @@ html, body {
   padding: 0;
   margin: 0;
   list-style-type: none;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
 #con3 li {
+  font-size: 18px;
+  margin: 3px 0;
+  padding: 5px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
   font-size: 18px;
   margin: 3px 0;
   padding: 5px;
@@ -311,6 +317,13 @@ height:30px;
 top:5%;
 right:8%;
 z-index:50;
+.music{
+position:absolute;
+width:30px;
+height:30px;
+top:5%;
+right:8%;
+z-index:50;
 }
 
 .music>img{
@@ -354,6 +367,18 @@ flex-wrap: wrap;
   border-radius:50%;
   overflow:hidden;
 
+#musicThumbnail{
+  position:relative;
+  top:5%;
+  width:100px;
+  height:100px;
+  border:2px solid rgb(254, 255, 187);
+  box-shadow: 0 3px 5px rgb(254, 255, 216), 0 5px 7px rgb(253, 255, 114);
+  position:relative;
+  left:-5%;
+  border-radius:50%;
+  overflow:hidden;
+
 }
 
 #musicImg{
@@ -373,8 +398,24 @@ flex-wrap: wrap;
 .music--info2{
   position:relative;
   left:-30%;
+.music--info{
+  position:relative;
+  display:inline-block;
+  width:auto;
+  height:auto;
+  left:50px;
+  top:40px;
+
+}
+.music--info2{
+  position:relative;
+  left:-30%;
 }
 
+.music--title{
+  font-size:27px;
+  font-weight:600;
+  font-family:'omyu_pretty';
 .music--title{
   font-size:27px;
   font-weight:600;
@@ -382,6 +423,60 @@ flex-wrap: wrap;
 }
 
 
+
+.music--singer{
+  padding-top:15px;
+  font-size:18px;
+  font-family:'omyu_pretty';
+}
+
+#play-pause-button{
+  position:relative;
+  top:10px;
+  left:35px;
+}
+
+.music--bar{
+  position:relative;
+  left:10px;
+}
+
+#music--element{
+  height:10px;
+  width:200%;
+  background-color:transparent;
+  position:relative;
+  top:47.5%;
+  left:-110%;
+}
+
+#music-bar{
+  -webkit-appearance: none;
+  position:relative;
+  width:180px;
+  height:2px;
+  right:120px;
+  outline: none;
+  background-color:#afc1d9;
+  transition: background 450ms ease-in;
+  accent-color: rgb(74, 170, 255);
+}
+
+.current-time, .duration{
+  position:relative;
+  width:25px;
+  top:28%;
+  left:-110%;
+}
+
+.current-time{
+  top:20px;
+  left:-150px;
+}
+
+.duration{
+  bottom:15px;
+  left:80px;
 .music--singer{
   padding-top:15px;
   font-size:18px;
@@ -460,26 +555,27 @@ flex-wrap: wrap;
 .tooltip-inner {
   background-color: #fff !important;
   color: #08817d !important;
-  border: 2px dotted #3dccc7 !important;
+  border: 2px dotted #3DCCC7 !important;
   width: auto;
   height: auto;
   border-radius: 20px !important;
   font-size: 20px;
-  font-family: "omyu_pretty";
+  font-family: 'omyu_pretty';
 }
 
 .custom-tooltip .tooltip-inner {
   font-size: 15px !important;
   width: 200px !important;
   height: 25px !important;
+
 }
 
-.tooltip .arrow::before,
-.tooltip .arrow::after {
+.tooltip .arrow::before, .tooltip .arrow::after {
   border: transparent !important;
 }
 
 .tooltip.bs-tooltip-top .arrow::before {
+  border: transparent !important;
   border: transparent !important;
 }
 
@@ -507,8 +603,15 @@ font-weight:400;
 
 .music--list{
 font-size:20px;
+.music--list{
+font-size:20px;
 }
 
+#music--icon, #music--thumbnail{
+color: black;
+font-size:30px;
+margin-top:10px;
+cursor:pointer;
 #music--icon, #music--thumbnail{
 color: black;
 font-size:30px;
@@ -518,12 +621,15 @@ cursor:pointer;
 
 input[type="file"]{
 display: none;
+input[type="file"]{
+display: none;
 }
 
 table input[type="text"]{
 width: 130px;
 margin:4px;
 }
+
 
 .btn {
   width: 80px;
