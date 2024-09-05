@@ -2,7 +2,7 @@ package com.kh.common.model.vo;
 
 import java.util.ArrayList;
 
-import com.kh.admin.model.vo.Item;
+import com.kh.item.model.vo.Item;
 
 public class ItemListResponse {
 	// JSON으로 jsp에 응답 시 ArrayList<Item>과 PageInfo를 같이 담아서 보내기 위해 만든 클래스입니당

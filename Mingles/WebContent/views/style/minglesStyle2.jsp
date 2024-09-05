@@ -177,7 +177,6 @@
 
 									// 페이지 로드 시 select됬던 요소 실행
 									window.onload= function() {
-										console.log("select 저장 성공");
 										selectAvatar();
 									}
 
@@ -239,7 +238,6 @@
 										type: "post",
 										success: function (result) {
 											let flag = result.flag;
-											console.log("hasAvatar여부 성공!");
 
 											// 사용자에게 아바타가 있을 경우 == hasAvatar의 flag가 true일 경우 == update문 쏘기
 											if (flag == true) {
@@ -300,7 +298,6 @@
 								}
 
 								function selectAvatar() { // select문
-									console.log("selectAvatar시작");
 									let selected = getValues();
 
 									// url 형식 바꾸기
@@ -324,14 +321,12 @@
 									}// getAvatarFromCookies()
 
 									let avatarData = getAvatarFromCookie();
-									console.log("ajax call 시도");
 
 									$.ajax({
 										url: "/Mingles/selectAvatar.st",
 										data: { memno: selected.userNo, },
 										type: "post",
 										success: function (result) {
-											console.log("select ajax result 성공");
 											if (result.hair || result.face || result.top || result.bottom || result.shoes || result.wall || result.floor || result.theme) {
 
 												setCookie('hair', changeURL(result.hair), 365);
@@ -352,7 +347,6 @@
 												$('#floor').attr('src', changeURL(result.floor));
 												$('#theme').attr('src', changeURL(result.theme));
 
-												console.log("avatardata가 서버에 적용되고 쿠키에 저장됨");
 
 											}
 										},

@@ -36,21 +36,5 @@ public class ShopService {
 		}
 		return result;
 	}
-	
-	public int selectSearchListCount(int userNo, String startDate, String endDate) {
-		Connection conn = getConnection();
-		int listCount = new ShopDao().selectSearchListCount(conn, userNo, startDate, endDate);
-		close(conn);
-		return listCount;
-	}
-	
-	public ArrayList<EggPayMent> selectSearchList(PageInfo pi, int userNo,String startDate, String endDate){
-		
-		Connection conn = getConnection();
-		ArrayList<EggPayMent> list = new ShopDao().selectSearchList(conn, pi, userNo, startDate, endDate);
-		close(conn);
-		return list;
-		
-	}
 
 }

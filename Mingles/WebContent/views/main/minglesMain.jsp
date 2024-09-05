@@ -59,6 +59,9 @@
 
                 <!-- SweetAlert -->
                 <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                
+                <!-- SweetAlert2 -->
+                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                 <!-- 내부파일 -->
                 <link rel="stylesheet" href="../../resources/css/mingles-main.css">
@@ -98,68 +101,62 @@
 		 });
                     </script>
 
-                    <!-- PLAYLIST UPDATE MODAL-->
+        <!-- PLAYLIST UPDATE MODAL-->
 
-                    <div class="modal fade" id="myModal" role="dialog">
-                        <div class="modal-dialog modal-dialog-scrollable">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h2 class="modal-title">플레이리스트 관리</h2>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <div class="music--update">
-                                        <div>
-                                            좋아하는 음악을 추가해보세요! (최대 10개 가능)
-                                            <br><br>
-                                            <ul class="music--list">
-
-                                            </ul>
-                                            <br><br>
-                                            <table class="music--insert">
-                                                <tr>
-                                                    <td>
-                                                        <label for="file">
-                                                            <div class="material-icons" id="music--icon">
-                                                                music_note
-                                                            </div>
-                                                            <input type="file" name="music" accept=".MP3" id="file">
-                                                        </label>
-
-                                                        <label for="thumbnail">
-                                                            <div class="material-icons" id="music--thumbnail">
-                                                                smart_display
-                                                            </div>
-                                                            <input type="file" name="musicThumbnail" id="thumbnail">
-                                                        </label>
-                                                    </td>
-                                                    <td width="360px">
-                                                        &nbsp;
-                                                        제목 : <input type="text" name="title" id="musicTitle" required />
-                                                        가수 : <input type="text" name="singer" id="singer" required />
-                                                        <br>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                            <br><br>
-                                            <div class="btn btn-sm btn-info" id="music--add">
-                                                추가
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h2 class="modal-title">플레이리스트 관리</h2>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                
+                    <div class ="music--update">
+                       <div>
+                            좋아하는 음악을 추가해보세요! (최대 10개 가능)
+                            <br><br>
+							<ul class="music--list">
+							<li class="song">
+							
+							</li>
+                            </ul>
+                            <br><br>
+                            <table class="music--insert">
+                                <tr>
+                                    <td>
+                                    <input type = "hidden" name = "memNo" value="<%= m.getMemNo() %>">
+                                        <label for="file">
+                                            <div class="material-icons" id="music--icon">
+                                                music_note
                                             </div>
-                                            <div class="btn btn-sm btn-warning" id="music--seq">
-                                                순서변경
-                                            </div>
-                                            <div class="btn btn-sm btn-danger" id="music--delete">
-                                                삭제
-                                            </div>
-                                        </div>
-                                    </div>
+                                            <input type="file" name="musicFile" accept=".MP3" id="file">
+                                        </label>
 
-                                </div>
-                            </div>
-                        </div>
+                                        <label for ="thumbnail">
+                                            <div class="material-icons" id ="music--thumbnail">
+                                                smart_display
+                                            </div>
+                                            <input type="file" name="musicThumbnail" id="thumbnail">
+                                        </label>
+                                    </td>
+                                    <td width="360px">
+                                        &nbsp;
+                                        제목 : <input type="text" name="title" id = "musicTitle" required />
+                                        가수 : <input type="text" name= "singer" id = "singer" required />
+                                        <br>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br><br>
+                            <div class="btn btn-sm btn-info" id = "music--add">추가</div>
+                            <div class="btn btn-sm btn-danger" id = "music--delete">삭제</div>
+                       </div> 
                     </div>
-
+                </div>
+            </div>
+            </div>
+        </div>
                     <!-- 캘린더 Modal -->
                     <div class="modal fade" id="calendarModal">
                         <div class="modal-dialog modal-dialog-centered">
@@ -360,8 +357,36 @@
                                         return direction;
                                     }
                                 </script>
-
-
+                                
+		            <!-- MP3 BUTTON-->
+		            <div class="music">
+		                <img src="../../resources/images/mp3icon.png" alt="cd그림" id ="mp3Button">
+		    
+		                    <!-- img 클릭하면 이 창 뜸 -->
+		                    <div class ="popover-content" id = "show">
+		                        <div class = "musicThumbnail" id="musicThumbnail">
+		                            <img id="musicImg" src = "../../resources/music_upfiles/music3.jpg">
+		                        </div>
+		                        <div class = "music--info">
+		                            <div class="music--info2">
+		                            <p class="music--title">ETA</p>
+		                            <p class="music--singer">NewJeans</p>
+		                            <button id="play-pause-button">Play!</button>
+		                        </div>
+		                            <!-- MUSIC BAR -->
+		                             <div class="music--bar">
+		                            <div class="current-time">0:0</div>
+		                            <input type="range" id="music-bar" value="0">
+		                            <div class="duration">0:0</div>
+		                            <audio id="music--element" src="../../resources/music_upfiles/ETA.mp3" controls="1" style="visibility:hidden;"></audio>
+		                            </div>
+		                        </div>
+		                        <!-- PLAYLIST BUTTON -->
+		                        <button class="material-icons" id="playlist" data-toggle="modal" data-target="#myModal">playlist_play</button>
+		                    </div>
+		    
+		                </div>
+			
                                 <!-- 오른쪽 화면 - 미니홈피 -->
                                 <div class="minihompi">
                                    <jsp:include page="../style/minglesStyle2.jsp"/>
@@ -395,56 +420,6 @@
                                         </svg>
                                     </div>
                                 </div><!--좋아요 div 끝-->
-
-                                <!-- MP3 BUTTON-->
-                                <div class="music">
-                                    <img src="../../resources/images/cd.png" alt="cd그림" id="mp3Button">
-
-                                    <!-- img 클릭하면 이 창 뜸 -->
-                                    <div class="popover-content" id="show">
-                                        <div class="musicThumbnail" id="musicThumbnail">
-                                            <!-- 여기에 썸네일 이미지 추가 -->
-                                        </div>
-                                        <div class="music--info">
-                                            <p class="music--title">ETA <!--여기에 jsp로 제목 입력할것--> </p>
-                                            <p class="music--singer">뉴진스<!--여기에 jsp로 가수 입력할것--> </p>
-                                        </div>
-                                        <!-- PLAYLIST BUTTON -->
-                                        <button class="material-icons">expand_less</button>
-                                        <button class="material-icons">expand_more</button>
-                                        <button class="material-icons" id="playlist" data-toggle="modal"
-                                            data-target="#myModal">playlist_play</button>
-                                    </div>
-
-                                </div>
-
-                                <!--mp3 음악 버튼-->
-                                <div class="music">
-                                    <img src="../../resources/images/cd.png" alt="cd그림" id="mp3Button">
-
-                                    <!-- img 클릭하면 이 창 뜸 -->
-                                    <div class="popover-content" id="show">
-                                        <div class="iframe-container" id="player">
-                                            <!-- <iframe src="https://www.youtube.com/embed/?autoplay=1&mute=1" allow="autoplay"></iframe> -->
-                                            <iframe width="1280" height="720"
-                                                src=""
-                                                title="NewJeans (뉴진스) &#39;ETA&#39; Official MV" frameborder="0"
-                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                referrerpolicy="strict-origin-when-cross-origin"
-                                                allowfullscreen></iframe>
-                                                //https://www.youtube.com/embed/jOTfBlKSQYY?autoplay=1
-                                        </div>
-                                        <div class="music--info">
-                                            <p class="music--title">ETA</p>
-                                            <p class="music--singer">뉴진스</p>
-                                        </div>
-                                        <!-- 플리 버튼 -->
-                                        <button class="material-icons">expand_less</button>
-                                        <button class="material-icons">expand_more</button>
-                                        <button class="material-icons" id="playlist">playlist_play</button>
-                                    </div>
-
-                                </div>
 
                                 <!-- Bulletin Board Modal -->
                                 <div class="modal fade" id="bulletinModal" tabindex="-1"
@@ -517,75 +492,7 @@
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- PLAYLIST UPDATE MODAL-->
-
-                                <div class="modal fade" id="myModal" role="dialog">
-                                    <div class="modal-dialog modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h2 class="modal-title">플레이리스트 관리</h2>
-                                                <button type="button" class="close"
-                                                    data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-
-                                                <div class="music--update">
-                                                    <div>
-                                                        좋아하는 음악을 추가해보세요! (최대 10개 가능)
-                                                        <br><br>
-                                                        <ul class="music--list">
-
-                                                        </ul>
-                                                        <br><br>
-                                                        <table class="music--insert">
-                                                            <tr>
-                                                                <td>
-                                                                    <label for="file">
-                                                                        <div class="material-icons" id="music--icon">
-                                                                            music_note
-                                                                        </div>
-                                                                        <input type="file" name="music" accept=".MP3"
-                                                                            id="file">
-                                                                    </label>
-
-                                                                    <label for="thumbnail">
-                                                                        <div class="material-icons"
-                                                                            id="music--thumbnail">
-                                                                            smart_display
-                                                                        </div>
-                                                                        <input type="file" name="musicThumbnail"
-                                                                            id="thumbnail">
-                                                                    </label>
-                                                                </td>
-                                                                <td width="360px">
-                                                                    &nbsp;
-                                                                    제목 : <input type="text" name="title" id="musicTitle"
-                                                                        required />
-                                                                    가수 : <input type="text" name="singer" id="singer"
-                                                                        required />
-                                                                    <br>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                        <br><br>
-                                                        <div class="btn btn-sm btn-info" id="music--add">
-                                                            추가
-                                                        </div>
-                                                        <div class="btn btn-sm btn-warning" id="music--seq">
-                                                            순서변경
-                                                        </div>
-                                                        <div class="btn btn-sm btn-danger" id="music--delete">
-                                                            삭제
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+    
                         </div>
                         <% } %>
                 </body>
