@@ -20,6 +20,7 @@ import com.kh.admin.model.vo.ItemCategory;
 import com.kh.admin.model.vo.Notice;
 import com.kh.admin.model.vo.Post;
 import com.kh.admin.model.vo.PostType;
+import com.kh.admin.model.vo.Reply;
 import com.kh.common.model.vo.PageInfo;
 import com.kh.member.model.vo.Member;
 
@@ -355,46 +356,19 @@ public class AdminDao {
 		return count;
 	}
 
-	public int insertBlackList(Connection conn, int memNo, int adminNo, int bkCount) {
-		int result1 = 0;
-		int result2 = 0;
+	public int insertBlackList(Connection conn, int memNo, int adminNo) {
+		int result = 0;
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("insertBlackList");
-		String sql2 = prop.getProperty("updateBlockCount");
-		String sql3 = prop.getProperty("updateBlockCounts");
-		String getSeqSql = "SELECT SEQ_BLACKLIST.CURRVAL AS BLACKLIST_NO FROM DUAL";
+
 		try {
-			// insert
-			if(bkCount == 0 ) {
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, memNo);
-				pstmt.setInt(2, adminNo);
-				result1 = pstmt.executeUpdate();
-				
-				// 시퀀스 가져오기
-				pstmt = conn.prepareStatement(getSeqSql);
-				int blackListNo = 0;
-				
-				rset = pstmt.executeQuery();
-				
-				if(rset.next()) {
-					blackListNo = rset.getInt("BLACKLIST_NO");
-				}
-				
-				// count update
-				if(blackListNo > 0) {
-					pstmt = conn.prepareStatement(sql2);
-					pstmt.setInt(1, blackListNo);
-					result2 = pstmt.executeUpdate();
-				}
-				
-			}else {
-				pstmt = conn.prepareStatement(sql3);
-				pstmt.setInt(1, memNo);
-				
-				result2 = pstmt.executeUpdate();
-			}
+			// insert 첫 블랙일때
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			pstmt.setInt(2, adminNo);
+			result = pstmt.executeUpdate();	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -403,18 +377,17 @@ public class AdminDao {
 			close(pstmt);
 		}
 		
-		
-		
-		return result1 * result2;
+		return result;
 	}
 
-	public int updateBlockCount(Connection conn) {
+	public int updateBlockCount(Connection conn, int memNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateBlockCount");
+		String sql = prop.getProperty("updateBlockCounts");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -429,9 +402,16 @@ public class AdminDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("updateBkStatus");
-		String sql2 = prop.getProperty("updateMemberBkStatus");
+		String sql2 = prop.getProperty("updateMemberBkStatusY");
 		try {
+			// Member 테이블 업데이트
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memNo);
+			
+			result = pstmt.executeUpdate();
+			
+			// Member_Black 업데이트
+			pstmt = conn.prepareStatement(sql2);
 			pstmt.setInt(1, memNo);
 			
 			result = pstmt.executeUpdate();
@@ -444,6 +424,7 @@ public class AdminDao {
 		
 		return result;
 	}
+
 	
 
 	public int deleteItem(Connection conn, int itemNo) {
@@ -898,6 +879,39 @@ public class AdminDao {
 		}
 		return p;
 	}
+	
+	public ArrayList<Reply> selectReply(Connection conn, int postNo) {
+		ArrayList<Reply> replyList = new ArrayList<Reply>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectReply");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, postNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				replyList.add(new Reply( rset.getInt("reply_no")
+									   , rset.getInt("reply_own_post")
+									   , rset.getString("mem_id")
+									   , rset.getString("reply_content")
+									   , rset.getString("reply_scope")
+									   , rset.getString("reply_create_date")
+									   , rset.getString("reply_status")));
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return replyList;
+	}
 
 	public int cancelDeleteItem(Connection conn, int itemNo, String itemCategory) {
 		int result = 0;
@@ -998,6 +1012,8 @@ public class AdminDao {
     public static boolean isNumeric(String str) {
         return str.matches("\\d+"); // 또는 "\\d+"를 사용하여 정수만 검사
     }
+
+	
 
 	
 	

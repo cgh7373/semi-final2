@@ -12,6 +12,7 @@ import com.kh.admin.model.vo.ItemCategory;
 import com.kh.admin.model.vo.Notice;
 import com.kh.admin.model.vo.Post;
 import com.kh.admin.model.vo.PostType;
+import com.kh.admin.model.vo.Reply;
 import com.kh.common.model.vo.PageInfo;
 import com.kh.member.model.dao.MemberDao;
 import com.kh.member.model.vo.Member;
@@ -130,12 +131,23 @@ public class AdminService {
 
 	public int insertBlackList(int memNo, int adminNo, int bkCount) {
 		Connection conn = getConnection();
+		int result = 1;
+		int result2 = 0;
+		int result3 = 0;
 		
-		int result = new AdminDao().insertBlackList(conn, memNo, adminNo, bkCount);
+		// 첫등록 blackCount 없을때
+		if(bkCount == 0) {
+			result = new AdminDao().insertBlackList(conn, memNo, adminNo);			
+			result2 = new AdminDao().updateBlockCount(conn, memNo);			
+			result3 = new AdminDao().updateBkStatus(conn, memNo);
+		}else {			
+			// 이미 블랙리스트에 등록 됐을때
+			result2 = new AdminDao().updateBlockCount(conn, memNo);			
+			result3 = new AdminDao().updateBkStatus(conn, memNo);
+			
+		}
 		
-		int result2 = new AdminDao().updateBkStatus(conn, memNo);
-				
-		if(result > 0 && result2 > 0) {
+		if(result > 0 && result2 > 0 && result3 > 0) {
 			commit(conn);
 		}else {
 			rollback(conn);
@@ -143,7 +155,7 @@ public class AdminService {
 		
 		close(conn);
 		
-		return result * result2;
+		return result * result2 * result3;
 	}
 
 	public int deleteItem(int itemNo) {
@@ -340,6 +352,15 @@ public class AdminService {
 		
 		return p;
 	}
+	
+	public ArrayList<Reply> selectReply(int postNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Reply> replyList = new AdminDao().selectReply(conn, postNo);
+		
+		close(conn);
+		return replyList;
+	}
 
 	public int canclePostBlock(int postNo) {
 		Connection conn = getConnection();
@@ -398,6 +419,9 @@ public class AdminService {
 		
 		return result;
 	}
+
+	
+
 
 	
 
