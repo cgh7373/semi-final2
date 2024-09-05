@@ -41,8 +41,6 @@ public class AjaxDetailPostController extends HttpServlet {
 		Post p = new AdminService().selectpost(postNo);
 		ArrayList<Reply> replyList = new AdminService().selectReply(postNo);
 		
-		System.out.println(replyList);
-		
 		response.setContentType("application/json; charset=utf-8");
 		Map<String, Object> result = new HashMap<String, Object>();
 		
