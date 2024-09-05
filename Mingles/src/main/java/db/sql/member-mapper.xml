@@ -339,4 +339,10 @@
 		   AND STATUS = 'Y'
 	</entry>
 	
+	<entry key="UpdateBgi">
+		UPDATE MEMBER
+		   SET BACKGROUNDIMAGE = ?
+		 WHERE MEM_NO = ?
+	</entry>
+	
 </properties>

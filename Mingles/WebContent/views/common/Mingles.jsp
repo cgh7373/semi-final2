@@ -1,8 +1,11 @@
-<%@page import="com.kh.member.model.vo.Member" %>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-        <% Member loginUser=(Member)session.getAttribute("loginUser"); String contextPath=request.getContextPath();
-            String alertMsg=(String)session.getAttribute("alertMsg"); String
-            errorMsg=(String)session.getAttribute("errorMsg"); %>
+<%@ page import="com.kh.member.model.vo.Member" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%  
+	Member loginUser=(Member)session.getAttribute("loginUser"); 
+	String contextPath=request.getContextPath();
+	String alertMsg=(String)session.getAttribute("alertMsg"); 
+	String errorMsg=(String)session.getAttribute("errorMsg"); 
+%>
             <!DOCTYPE html>
             <html lang="en">
 
@@ -47,35 +50,40 @@
 
                 <script>
                     document.addEventListener("DOMContentLoaded", function () {
-		// 성공메시지
-		 <% if (alertMsg != null) { %>
-                            swal({
-                                icon: 'success',
-                                title: '<%=alertMsg%>',
-                            });
-         <% session.removeAttribute("alertMsg"); %>
-   		 <% } %>
+						// 성공메시지
+						 <% if (alertMsg != null) { %>
+				                            swal({
+				                                icon: 'success',
+				                                title: '<%=alertMsg%>',
+				                            });
+				         <% session.removeAttribute("alertMsg"); %>
+				   		 <% } %>
+				
+				   		 <% if (errorMsg != null) { %>
+				                            swal({
+				                                icon: 'error',
+				                                title: '<%=errorMsg%>',
+				                            });
+				         <% session.removeAttribute("errorMsg"); %>
+				    	 <% } %>
 
-   		 <% if (errorMsg != null) { %>
-                            swal({
-                                icon: 'error',
-                                title: '<%=errorMsg%>',
-                            });
-         <% session.removeAttribute("errorMsg"); %>
-    	 <% } %>
-
-    	 
-		 });
+                        <%if (loginUser != null) {%>
+	                       document.getElementById("wrapper").style.backgroundImage = "url(<%=loginUser.getBackgroundImage() %>)";
+	                    <%}%>
+	                     
+		 	});
 
                     window.addEventListener('message', function (event) {
+                    	
                         if (event.data === 'membershipCanceled') {
                             scrollToSection(0);
                         }
                         
-                        <%if (loginUser != null) {%>
-	                        document.getElementById("wrapper").style.backgroundImage = "url(<%=loginUser.getBackgroundImage() %>)";
-	                        <%}%>
-
+	                    if (event.data.type === 'updateBackgroundImage') {
+	                        const newImageUrl = event.data.imageUrl;
+	                        document.getElementById("wrapper").style.backgroundImage = "url(" + newImageUrl.substring(4) + ")";
+	                    }
+                        
                     });
                 </script>
 

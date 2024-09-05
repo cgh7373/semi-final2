@@ -19,6 +19,7 @@ public class Post {
 	private String postTitleColor;
 	private int postTitleSize;
 	private String postThumbnail;
+	private int replyCount;
 	
 	public Post() {}
 
@@ -45,6 +46,14 @@ public class Post {
 
 	public void setPostTitleSize(int postTitleSize) {
 		this.postTitleSize = postTitleSize;
+	}
+
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
 	}
 
 	public int getPostNum() {
