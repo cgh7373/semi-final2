@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="insertPosts">
+			INSERT
+			  INTO POST
+			     (
+			       POST_NUM
+			     , POST_TYPE
+			     , POST_TITLE
+			     , POST_CONTENT
+			     , POST_TAG
+			     , POST_SCOPE
+			     , POST_WRITER
+			     , POST_REGDATE
+			     , POST_TITLE_COLOR
+			     , POST_TITLE_SIZE
+			     , POST_THUMBNAIL
+			     )
+			       VALUES
+			     (
+			       SEQ_POST.NEXTVAL
+			     , 1
+			     , ?
+			     , ?
+			     , ?
+			     , ?
+			     , ?
+			     , SYSDATE
+			     , ?
+			     , ?
+			     , ?
+			     )
+	</entry>
+
+	<entry key="selectPostsList">
+			SELECT
+				   POST_NUM
+			     , POST_TITLE
+			     , POST_TAG
+			     , POST_COUNT
+				 , POST_REGDATE
+				 , POST_TITLE_COLOR
+				 , POST_TITLE_SIZE
+				 , POST_THUMBNAIL
+			  FROM POST
+			 WHERE POST_WRITER = ?
+			   AND POST_TYPE = 1
+			   AND POST_STATUS = 'Y'
+			   AND POST_BLOCK = 'N'
+			 ORDER 
+			    BY POST_REGDATE DESC
+	</entry>
+	
+	<entry key="updatePostCount">
+			UPDATE POST
+			   SET POST_COUNT = POST_COUNT + 1
+			 WHERE POST_NUM = ?
+	</entry>
+
+	<entry key="selectMemberFromPostNum">
+			SELECT 
+				   NICKNAME
+			     , PROFILE_PIC
+			     , STATUS_MSG
+			  FROM MEMBER
+			  JOIN POST
+			    ON (MEM_NO = POST_WRITER)
+			 WHERE POST_NUM = ?
+	</entry>
+
+	<entry key="getPostContent">
+			SELECT
+				   POST_TITLE
+				 , POST_CONTENT
+			     , POST_TAG
+			     , POST_TITLE_COLOR
+				 , POST_TITLE_SIZE
+				 , POST_THUMBNAIL
+			  FROM POST
+			 WHERE POST_NUM = ?
+	</entry>
+	
+	<entry key="selectReplyList">
+			SELECT A.REPLY_NO
+			     , A.REPLY_WRITER
+			     , A.REPLY_CONTENT
+			     , B.PROFILE_PIC
+			     , TO_CHAR(A.REPLY_CREATE_DATE, 'YY/MM/DD HH24:MI:SS') "REPLY_CREATE_DATE"
+			     , B.NICKNAME
+			  FROM REPLY A
+			  JOIN MEMBER B
+			    ON (A.REPLY_WRITER=B.MEM_NO)
+			 WHERE A.REPLY_STATUS = 'Y'
+			   AND A.REPLY_OWN_POST = ?
+			 ORDER 
+			    BY A.REPLY_CREATE_DATE DESC
+	</entry>
+	
+	<entry key="insertReply">
+			INSERT 
+			  INTO REPLY
+			     (
+			       REPLY_NO
+			     , REPLY_OWN_POST
+			     , REPLY_WRITER
+			     , REPLY_CONTENT
+			     , REPLY_SCOPE
+			     )
+			       VALUES
+			     (
+			       SEQ_REPLY.NEXTVAL
+			     , ?
+			     , ?
+			     , ?
+			     , ?
+			     )
+	</entry>
+
+
+</properties>
