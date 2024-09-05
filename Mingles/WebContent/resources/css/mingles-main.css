@@ -1,19 +1,18 @@
 /* General Styling */
-div,
-img {
+div, img {
   box-sizing: border-box;
 }
 
 @font-face {
-  font-family: "Katuri";
-  src: url("https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff") format("woff");
+  font-family: 'Katuri';
+  src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "omyu_pretty";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2") format("woff2");
+  font-family: 'omyu_pretty';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
@@ -21,6 +20,13 @@ img {
 body {
   margin: 0;
   font-family: "omyu_pretty", sans-serif;
+}
+
+html, body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: 'omyu_pretty', sans-serif;
 }
 
 #wrap {
@@ -43,7 +49,6 @@ body {
 
 #left {
   width: 30%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -51,7 +56,6 @@ body {
 
 #right {
   width: 70%;
-  height: 100%;
   padding: 20px;
 }
 
@@ -60,13 +64,13 @@ body {
 }
 
 #con1 {
-  width: 70%;
+width: 70%;
   aspect-ratio: 1;
   height: auto;
   text-align: center;
   border-radius: 50%;
   overflow: hidden;
-  margin: auto;
+  margin:auto;
 }
 
 #con1 img {
@@ -77,7 +81,7 @@ body {
 
 #con2 {
   height: 25%;
-  border-bottom: 5px solid #80ffdb;
+  border-bottom: 5px solid #80FFDB;
   position: relative;
   padding: 10px;
 }
@@ -85,7 +89,7 @@ body {
 #con2__nickname {
   font-size: 30px;
   margin: 15px 0;
-  font-family: "Katuri", sans-serif;
+  font-family: 'Katuri', sans-serif;
 }
 
 #mailIcon,
@@ -174,9 +178,17 @@ body {
   padding: 0;
   margin: 0;
   list-style-type: none;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
 #con3 li {
+  font-size: 18px;
+  margin: 3px 0;
+  padding: 5px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
   font-size: 18px;
   margin: 3px 0;
   padding: 5px;
@@ -302,164 +314,228 @@ body {
 
 /* mp3음악 버튼 */
 
-.music {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  top: 5%;
-  right: 8%;
+.music{
+position:absolute;
+width:30px;
+height:30px;
+top:5%;
+right:8%;
+z-index:50;
 }
 
-.music>img {
-  width: 70px;
-  height: 70px;
-  cursor: pointer;
+.music>img{
+  width:73px;
+  height: 73px;
+  cursor:pointer;
+
 }
 
-/* mp3창 */
-.popover-content {
-  position: absolute;
-  border: 1px solid black;
-  border-radius: 20px;
-  top: 20%;
-  right: 40px;
-  width: 300px;
-  height: 120px;
-  justify-content: center;
-  flex-wrap: wrap;
-  z-index: 5;
-  background-color: #68d8d6;
-  opacity: 0;
-  display: none;
-  transition: opacity 0.5s ease;
+  /* mp3창 */
+.popover-content { 
+position:absolute;
+top:20%;
+right:40px;
+width:350px;
+height:180px;
+justify-content:center;
+flex-wrap:wrap;
+z-index:5;
+background-color:#d6ecffde;
+opacity:0;
+display:none;
+transition: opacity .5s ease;
+flex-wrap: wrap;
 }
 
-.popover-content.youShow {
-  opacity: 1;
-  display: flex;
+.popover-content.youShow{
+  opacity:1;
+  display:flex;
 }
 
-.iframe-container {
-  position: relative;
-  width: 90px;
-  height: 90px;
-  right: 8px;
-  top: 13px;
-  overflow: hidden;
-  border-radius: 50px;
-  background-color: #07beb8;
+#musicThumbnail{
+  position:relative;
+  top:5%;
+  width:100px;
+  height:100px;
+  border:2px solid rgb(254, 255, 187);
+  box-shadow: 0 3px 5px rgb(254, 255, 216), 0 5px 7px rgb(253, 255, 114);
+  position:relative;
+  left:-5%;
+  border-radius:50%;
+  overflow:hidden;
+
 }
 
-.iframe-container iframe {
-  width: 180%;
-  height: 100%;
-  position: absolute;
+#musicImg{
+  width: 100%; 
+  height: 100%; 
 }
 
-.music--info {
-  position: relative;
-  display: inline-block;
-  width: 120px;
-  height: 70px;
-  left: 50px;
-  top: 25px;
+.music--info{
+  position:relative;
+  display:inline-block;
+  width:auto;
+  height:auto;
+  left:50px;
+  top:40px;
+
+}
+.music--info2{
+  position:relative;
+  left:-30%;
 }
 
-.music--title {
-  font-size: 27px;
-  font-weight: 500;
-  font-family: "omyu_pretty";
+.music--title{
+  font-size:27px;
+  font-weight:600;
+  font-family:'omyu_pretty';
 }
 
-.music--singer {
-  padding-top: 10px;
-  font-size: 18px;
-  font-family: "omyu_pretty";
+
+.music--singer{
+  padding-top:15px;
+  font-size:18px;
+  font-family:'omyu_pretty';
+}
+
+#play-pause-button{
+  position:relative;
+  top:10px;
+  left:35px;
+}
+
+.music--bar{
+  position:relative;
+  left:10px;
+}
+
+#music--element{
+  height:10px;
+  width:200%;
+  background-color:transparent;
+  position:relative;
+  top:47.5%;
+  left:-110%;
+}
+
+#music-bar{
+  -webkit-appearance: none;
+  position:relative;
+  width:180px;
+  height:2px;
+  right:120px;
+  outline: none;
+  background-color:#afc1d9;
+  transition: background 450ms ease-in;
+  accent-color: rgb(74, 170, 255);
+}
+
+.current-time, .duration{
+  position:relative;
+  width:25px;
+  top:28%;
+  left:-110%;
+}
+
+.current-time{
+  top:20px;
+  left:-150px;
+}
+
+.duration{
+  bottom:15px;
+  left:80px;
 }
 
 /* 플리 버튼 */
-.popover-content button {
-  width: 10px;
+.popover-content button{
+  width:10px;
   height: 10px;
-  padding: 10px;
   border: transparent;
-  background-color: transparent;
-  color: #08817d;
+  background-color:transparent;
+  color:rgb(74, 170, 255);
 }
 
-#playlist {
-  position: absolute;
-  top: 78px;
-  left: 257px;
+.material-icons{
+  margin:5px;
+}
+
+#playlist{
+  position:absolute;
+  top:150px;
+  left:310px;
 }
 
 /* Tooltip */
 .tooltip-inner {
   background-color: #fff !important;
   color: #08817d !important;
-  border: 2px dotted #3dccc7 !important;
+  border: 2px dotted #3DCCC7 !important;
   width: auto;
   height: auto;
   border-radius: 20px !important;
   font-size: 20px;
-  font-family: "omyu_pretty";
+  font-family: 'omyu_pretty';
 }
 
 .custom-tooltip .tooltip-inner {
   font-size: 15px !important;
   width: 200px !important;
   height: 25px !important;
+
 }
 
-.tooltip .arrow::before,
-.tooltip .arrow::after {
+.tooltip .arrow::before, .tooltip .arrow::after {
   border: transparent !important;
 }
 
 .tooltip.bs-tooltip-top .arrow::before {
   border: transparent !important;
+  border: transparent !important;
 }
 
 /* PLAYLIST UPDATE MODAL */
 
-#myModal .modal-title {
-  color: #08817d;
-  font-size: 30px;
-  text-align: center;
-  font-weight: 600;
+.modal .modal-title {
+color: #08817d;
+font-size: 30px;
+text-align: center;
+font-weight:600;
 }
 
-#myModal .modal-body .music--update,
-#myModal .modal-body .music--sequence {
-  margin: 5px;
-  padding: 5px;
-  font-size: 15px;
+.modal-body .music--update,
+.modal-body .music--sequence{
+margin:5px;
+padding:5px;
+font-size:15px;
 }
 
-#myModal .modal-body p {
-  font-size: 25px;
-  font-weight: 400;
+.modal-body p{
+font-size:25px;
+font-weight: 400;
 }
 
-.music--list {
-  font-size: 20px;
+.music--list{
+font-size:20px;
 }
 
-#music--icon,
-#music--icon {
-  color: black;
-  font-size: 30px;
-  margin-top: 10px;
+#music--icon, #music--thumbnail{
+color: black;
+font-size:30px;
+margin-top:10px;
+cursor:pointer;
 }
 
-#myModal input[type="file"] {
-  display: none;
+input[type="file"]{
+display: none;
 }
 
-#myModal table input[type="text"] {
-  width: 130px;
-  margin: 4px;
+
+table input[type="text"]{
+width: 130px;
+margin:4px;
 }
+
 
 .btn {
   width: 80px;

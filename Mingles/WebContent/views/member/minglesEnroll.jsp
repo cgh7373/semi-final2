@@ -55,10 +55,10 @@
     <div id="container">
       
       <!-- 애니메이션 배경 화면 -->
-      <img class="background" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExcnNpeng2dTFhbnExeHlpMG5kN3k5eXYzcHFvMXJhcmJvM3BpOGllcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/l0CRCxtNyUteI6hI4/giphy.webp" alt="">
+      <img class="background" src="./resources/images/enrollbackground.gif" >
 
       <!-- 애니메이션 효과 화면 -->
-      <div class="animate__animated animate__zoomInDown" id="parent">
+      <div class="animate__animated animate__zoomIn" id="parent">
         
         <!-- form 태그 시작 -->
         <form action="<%=request.getContextPath()%>/insert.mi">
@@ -66,7 +66,7 @@
        <!-- 회원가입 화면 -->
       <div class="form_area" id="basicInfoForm" >
 
-        <p class="title">회원 가입</p>
+        <p class="title" id = "firsttitle">회원 가입</p>
         <!-- 아이디 입력 -->
         <div class="form_group">
           <label class="sub_title" for="id">ID</label>
@@ -83,9 +83,6 @@
         <div class="form_group">
           <label class="sub_title" for="name">이름 (닉네임)</label>
           <input placeholder="한글, 영문 사용 8자 이내(특수문자x)" class="form_style" id="name" type="text" name="enrollNickname" required />
-          <button class = "verification">
-            <span class="text">본인인증</span>
-          </button>
         </div>
 
         <!-- 생년월일 입력 -->
@@ -244,10 +241,9 @@
                     });
                         },
                 fail: function (err) {
-                    console.log(err);
+                    console.log("실패");
                 }
             });
-      
           }
 
         </script>

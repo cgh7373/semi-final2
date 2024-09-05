@@ -59,29 +59,8 @@ public class ItemListController extends HttpServlet {
 		// 페이징바 마지막 수
 		endPage = startPage + pageLimit-1;
 		
-		if(category != null) { // 카테고리가 선택된 경우
-			// 총 게시글 수 : categoryListCount
-			categoryListCount = new ItemService().selectListWithCategoryCount(category);
-			// 총 페이지 수
-			categorymaxPage = (int)Math.ceil((double)categoryListCount/boardLimit);
-			// endPage = categorymaxPage로 변경
-			if(endPage>categorymaxPage) {
-				endPage = categorymaxPage;
-			}// 내부 if문
-			
-			// 1. pageInfo 가공(조회, 페이징바 선택시)
-			PageInfo pi = new PageInfo(categoryListCount, currentPage, pageLimit, boardLimit, categorymaxPage, startPage, endPage);
-			// 2. 서비스에게 정보 요청(카테고리 포함된 것)
-			ArrayList<Item> list = new ItemService().selectListWithCategory(pi, category);
-			
-			// pi와 list를 같이 담기 위해 만든 야매 메소드
-			ItemListResponse result = new ItemListResponse(pi, list);
-			
-			// 3. 응답 던지기
-			response.setContentType("application/json; charset=utf-8");			
-			new Gson().toJson(result, response.getWriter());
-			
-		}else { // 선택 안된 경우
+		if(category.equals("IC100")) { 
+			// 선택 안된 경우
 			// 총 게시글 수 : listCount
 			listCount = new ItemService().selectListCount();
 			// 총 페이지 수
@@ -97,13 +76,12 @@ public class ItemListController extends HttpServlet {
 			ArrayList<Item> list = new ItemService().selectItemList(pi);
 	
 			// 3. 응답 던지기
+			request.setAttribute("defaultCategory", category);
 			request.setAttribute("pi", pi);
 			request.setAttribute("list", list); // 아이템 리스트 객체
 			request.getRequestDispatcher("/views/shop/minglesShops.jsp").forward(request, response);
-			
-			
-		};
-				
+		
+		}
 	}
 
 	/**
