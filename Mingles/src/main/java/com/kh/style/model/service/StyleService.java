@@ -2,11 +2,7 @@ package com.kh.style.model.service;
 import static com.kh.common.JDBCTemplate.*;
 import java.sql.Connection;
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
 
-import static com.kh.common.JDBCTemplate.*;
->>>>>>> f6766e114c4378a25132224d0ac34e4a2900a17d
 import com.kh.style.model.dao.StyleDao;
 import com.kh.style.model.vo.PurItem;
 import com.kh.style.model.vo.Style;
@@ -87,10 +83,7 @@ public class StyleService {
 		close(conn);
 		return pitem;
 	}// selectAllItem
-<<<<<<< HEAD
 
-=======
->>>>>>> f6766e114c4378a25132224d0ac34e4a2900a17d
 	
 	
 }
