@@ -364,8 +364,14 @@ public class MemberService {
 		
 		int result = new MemberDao().UpdateBgi(conn, memNo, bgi);
 		
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
 		
-		return 0;
+		return result;
 	}
 
 

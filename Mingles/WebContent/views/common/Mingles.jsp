@@ -73,37 +73,40 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
 
   <body>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-      // 성공메시지
-      <% if (alertMsg != null) { %>
-                          swal({
-                              icon: 'success',
-                              title: '<%=alertMsg%>',
-                          });
-      <% session.removeAttribute("alertMsg"); %>
-      <% } %>
+        document.addEventListener("DOMContentLoaded", function () {
+        // 성공메시지
+        <% if (alertMsg != null) { %>
+                            swal({
+                                icon: 'success',
+                                title: '<%=alertMsg%>',
+                            });
+        <% session.removeAttribute("alertMsg"); %>
+        <% } %>
 
-      <% if (errorMsg != null) { %>
-                          swal({
-                              icon: 'error',
-                              title: '<%=errorMsg%>',
-                          });
-      <% session.removeAttribute("errorMsg"); %>
-      <% } %>
+        <% if (errorMsg != null) { %>
+                            swal({
+                                icon: 'error',
+                                title: '<%=errorMsg%>',
+                            });
+        <% session.removeAttribute("errorMsg"); %>
+        <% } %>
 
+                          <%if (loginUser != null) {%>
+                          document.getElementById("wrapper").style.backgroundImage = "url(<%=loginUser.getBackgroundImage() %>)";
+                       <%}%>
 
       });
 
-                  window.addEventListener('message', function (event) {
-                      if (event.data === 'membershipCanceled') {
-                          scrollToSection(0);
-                      }
+                    window.addEventListener('message', function (event) {
+                        if (event.data === 'membershipCanceled') {
+                            scrollToSection(0);
+                        }
 
-                      <%if (loginUser != null) {%>
-                          document.getElementById("wrapper").style.backgroundImage = "url(<%=loginUser.getBackgroundImage() %>)";
-                          <%}%>
+                        <%if (loginUser != null) {%>
+                            document.getElementById("wrapper").style.backgroundImage = "url(<%=loginUser.getBackgroundImage() %>)";
+                            <%}%>
 
-                  });
+                    });
     </script>
 
     <!-- 바탕화면 -->

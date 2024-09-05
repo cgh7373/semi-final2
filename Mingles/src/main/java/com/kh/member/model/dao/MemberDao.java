@@ -790,8 +790,25 @@ public class MemberDao {
 
 	public int UpdateBgi(Connection conn, int memNo, String bgi) {
 		
+		int result = 0;
+		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("UpdateBgi");
-		return 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, bgi);
+			pstmt.setInt(2, memNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 	

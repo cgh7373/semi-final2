@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+<entry key = "updateStyle">
+UPDATE STYLE
+   SET AVATAR_HAIR = ?
+     , AVATAR_FACE = ?
+     , AVATAR_TOP = ?
+     , AVATAR_BOTTOM = ?
+     , AVATAR_SHOES = ?
+ WHERE MEM_NO = ?
+
+</entry>
+
+<entry key = "insertStyle">
+INSERT 
+  INTO STYLE
+      (
+        MEM_NO
+      , AVATAR_HAIR
+      , AVATAR_FACE
+      , AVATAR_TOP
+      , AVATAR_BOTTOM
+      , AVATAR_SHOES
+     )
+VALUES
+    (
+       ?
+     , ?
+     , ?
+     , ?
+     , ?
+     , ?
+     )
+</entry>
+
+
+
+</properties>

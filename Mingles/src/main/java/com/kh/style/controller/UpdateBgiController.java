@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.kh.member.model.service.MemberService;
 
 /**
@@ -34,7 +35,9 @@ public class UpdateBgiController extends HttpServlet {
 		
 		int result = new MemberService().UpdateBgi(memNo, bgi);
 		
+		response.setContentType("json/application; charset=utf-8;");
 		
+		new Gson().toJson(result, response.getWriter());
 		
 	}
 

@@ -385,17 +385,19 @@ public class Member {
 	public void setKakaoNo(String kakaoNo) {
 		this.kakaoNo = kakaoNo;
 	}
-	
-
-
 
 	@Override
 	public String toString() {
 		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", nickname=" + nickname
 				+ ", birthdate=" + birthdate + ", phone=" + phone + ", email=" + email + ", gender=" + gender
-				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + ", zodiac="
-				+ zodiac + ", ABO=" + ABO + ", MBTI=" + MBTI + "]";
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + ", egg=" + egg
+				+ ", zodiac=" + zodiac + ", ABO=" + ABO + ", MBTI=" + MBTI + ", profilePic=" + profilePic
+				+ ", statusMsg=" + statusMsg + ", kakaoNo=" + kakaoNo + ", backgroundImage=" + backgroundImage + "]";
 	}
+	
+
+
+
 
 	
 	

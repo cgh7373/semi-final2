@@ -15,7 +15,6 @@ $(function () {
   // stop: 애니메이션이 현재 실행중인지 일시중지 되었는지 추적하는데 사용됨.
   // 이미지를 클릭할 때 마다 stop의 값이 전환되어 일시정지 - 재생을 반복함
   let stop = true;
-  console.log("DD");
   weather();
   $(".music>img").ready(function () {
     bounce = gsap.to(".music>img", {

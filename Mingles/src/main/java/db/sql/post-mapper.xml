@@ -44,11 +44,23 @@
 				 , POST_TITLE_COLOR
 				 , POST_TITLE_SIZE
 				 , POST_THUMBNAIL
+                 , COUNT(REPLY_CONTENT) AS "REPLY_COUNT"
 			  FROM POST
+         LEFT JOIN REPLY
+                ON (POST_NUM = REPLY_OWN_POST)
 			 WHERE POST_WRITER = ?
 			   AND POST_TYPE = 1
 			   AND POST_STATUS = 'Y'
 			   AND POST_BLOCK = 'N'
+             GROUP 
+                BY POST_NUM
+			     , POST_TITLE
+			     , POST_TAG
+			     , POST_COUNT
+				 , POST_REGDATE
+				 , POST_TITLE_COLOR
+				 , POST_TITLE_SIZE
+				 , POST_THUMBNAIL
 			 ORDER 
 			    BY POST_REGDATE DESC
 	</entry>

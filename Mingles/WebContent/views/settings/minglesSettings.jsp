@@ -73,16 +73,32 @@
 
                                     $("#bgiModal #bgiAdBtn").on('click', function () {
 
-										$.ajax({
-											url : "/Mingles/updateBgi.mi",
-											data : {
-												memNo : <%=m.getMemNo()%>,
-												image : $("#bgiSelector").val(),
-											},
-											success : (result) => {
-												console.log(result);
-											} 
-										})
+                                    	 const newImage = $("#bgiSelector").val();
+                                    	 
+                                        $.ajax({
+                                            url: "/Mingles/updateBgi.mi",
+                                            data: {
+                                                memNo: <%=m.getMemNo() %>,
+                                                image: newImage,
+                                            },
+                                            success: (result) => {
+
+                                                if (result > 0) {
+
+                                                    swal({
+                                                        icon: 'success',
+                                                        title: '배경화면 설정이 완료되었어요',
+                                                    });
+                                                   
+
+                                                    window.parent.postMessage({
+                                                        type: 'updateBackgroundImage',
+                                                        imageUrl: newImage
+                                                    }, '*')
+
+                                                }
+                                            }
+                                        })
 
 
                                     })
@@ -734,7 +750,7 @@
                                                                                     value="../../resources/images/bgi2.jpg">
                                                                                     2</option>
                                                                                 <option
-                                                                                    value="../../resources/images/bgi4 (1) (1).jpg">
+                                                                                    value="../../resources/images/2024090509360141012.jpg">
                                                                                     3</option>
                                                                                 <option
                                                                                     value="../../resources/images/bgi6.jfif">
@@ -745,6 +761,36 @@
                                                                                 <option
                                                                                     value="../../resources/images/bgi3.jfif">
                                                                                     6</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090509355058168.jpg">
+                                                                                    7</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024082816503036202.jpeg">
+                                                                                    8</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090510425453324.jpg">
+                                                                                    9</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090510430186048.jpeg">
+                                                                                    10</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090510431343223.jpeg">
+                                                                                    11</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090510432685402.jpeg">
+                                                                                    12</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090510433773707.jpeg">
+                                                                                    13</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090512302143134.jpg">
+                                                                                    14</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090512302761737.jpg">
+                                                                                    15</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090512303577187.gif">
+                                                                                    16</option>
                                                                             </select>
 
                                                                             <button id="bgiAdBtn">적용</button>
