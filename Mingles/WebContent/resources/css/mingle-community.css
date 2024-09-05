@@ -1,161 +1,221 @@
 /* 기본 스타일 초기화 */
 @font-face {
-    font-family: 'omyu_pretty';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+  font-family: "omyu_pretty";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2")
+    format("woff2");
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2")
+    format("woff2");
 }
 
-body{
-    font-family: 'omyu_pretty';
-    box-sizing: border-box;
+body {
+  font-family: "omyu_pretty";
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "omyu_pretty";
+  box-sizing: border-box;
 }
 
 a,
 div,
 img {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 a {
-    text-decoration: none;
-    color: #3b3b3b;
+  text-decoration: none;
+  color: #3b3b3b;
+  color: #3b3b3b;
 }
 
 a:hover {
-    color: #64DFDF;
-    text-decoration: none;
+  color: #64dfdf;
+  text-decoration: none;
 }
 
 /* 태그 버튼 */
+/* 태그 버튼 */
 .btn {
-    width: 150px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #2b64b9;
-    cursor: pointer;
-    border-style: none;
-    border-radius: 50px;
-    background-size: 120%;
+  width: 150px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #2b64b9;
+  color: #2b64b9;
+  cursor: pointer;
+  border-style: none;
+  border-radius: 50px;
+  background-size: 120%;
+  border-style: none;
+  border-radius: 50px;
+  background-size: 120%;
 }
 
-.btn:hover{
+.btn:hover {
+  /* border-radius: 20px; */
+
+  .btn:hover {
     /* border-radius: 20px; */
-    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition: .5s;
-}
+    box-shadow: 0 0 5px #64dfdf, 0 0 10px #56cfe1, 0 0 15px #48bfe3;
+    transition: 0.5s;
+  }
 
-.btn--tag.color-7 {
-    background-image: linear-gradient(to right, #ffffeb ,#f7e8ff, #aef8fd);
-}
+  .btn--tag.color-7 {
+    background-image: linear-gradient(to right, #ffffeb, #f7e8ff, #aef8fd);
+  }
 
-/* btn클릭시 디자인 */
-.commselected{
+  /* btn클릭시 디자인 */
+  .commselected {
     border-radius: 20px;
-    color: #48BFE3;
-}
+    color: #48bfe3;
+    transition: 0.5s;
+  }
 
-/* 전체 랩 스타일 */
-#wrap {
+  .btn--tag.color-7 {
+    background-image: linear-gradient(to right, #ffffeb, #f7e8ff, #aef8fd);
+  }
+
+  /* btn클릭시 디자인 */
+  .commselected {
+    border-radius: 20px;
+    color: #48bfe3;
+  }
+
+  /* 전체 랩 스타일 */
+  #wrap {
+    width: 95vw;
+    height: 95.5vh;
     width: 95vw;
     height: 95.5vh;
     margin: auto;
     position: relative;
-}
+  }
 
-/* 메인 컨테이너 스타일 */
-#container {
+  /* 메인 컨테이너 스타일 */
+  #container {
     width: 100%;
     height: 100%;
     border-radius: 20px;
     position: absolute;
-}
+  }
 
-/* header 해쉬태그 */
+  /* header 해쉬태그 */
 
-header .tagList{
+  header .tagList {
     margin: 40px 10px;
-}
+    margin: 40px 10px;
+  }
 
-header .tagList .swiper {
+  header .tagList .swiper {
     width: 100%;
     height: 100%;
-}
+  }
 
-header .tagList .swiper .swiper-wrapper{
+  header .tagList .swiper .swiper-wrapper {
     align-items: center;
-}
+  }
 
-header .tagList .swiper .swiper-wrapper .btn{
-    background-color: #d3f1ff; 
+  header .tagList .swiper .swiper-wrapper .btn {
+    background-color: #d3f1ff;
+    background-color: #d3f1ff;
     width: 100px;
     height: 50px;
     font-size: 20;
-}
+  }
 
-header .tagList .swiper .swiper-wrapper .btn:hover{
+  header .tagList .swiper .swiper-wrapper .btn:hover {
     border-radius: 20px;
     background-color: white;
-    color: #48BFE3;
+    color: #48bfe3;
+  }
+
+  /* 해쉬태그 삭제 */
+
+  height: 50px;
+  font-size: 20;
+}
+
+header .tagList .swiper .swiper-wrapper .btn:hover {
+  border-radius: 20px;
+  background-color: white;
+  color: #48bfe3;
 }
 
 /* 해쉬태그 삭제 */
-
 
 /* 친구 홈피 */
 
 /* 안에 글씨 */
 h5 {
-    color: #5cc2db;
-    font:bold 2.5vw/.3 'omyu_pretty', sans-serif;
-    user-select:none;
+  color: #5cc2db;
+  font: bold 2.5vw/0.3 "omyu_pretty", sans-serif;
+  user-select: none;
 }
 
-h5 span { display:inline-block; animation:float .2s ease-in-out infinite; }
+h5 span {
+  display: inline-block;
+  animation: float 0.2s ease-in-out infinite;
+}
 @keyframes float {
-    0%,100%{ transform:none; }
-    33%{ transform:translateY(-1px) rotate(-2deg); }
-    66%{ transform:translateY(1px) rotate(2deg); }
+  0%,
+  100% {
+    transform: none;
+  }
+  33% {
+    transform: translateY(-1px) rotate(-2deg);
+  }
+  66% {
+    transform: translateY(1px) rotate(2deg);
+  }
 }
 @keyframes bounce {
-    0%,100%{ transform:translate(0); }
-    25%{ transform:rotateX(20deg) translateY(2px) rotate(-3deg); }
-    50%{ transform:translateY(-20px) rotate(3deg) scale(1.1);  }
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  25% {
+    transform: rotateX(20deg) translateY(2px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(3deg) scale(1.1);
+  }
 }
 
-.reload{
-    position: absolute;
-    right: 0;
-    top: 0;
+.reload {
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
-.communityTop{
-    height: 3%;
-    margin: 10px 20px;
-    text-align: center;
+.communityTop {
+  height: 3%;
+  margin: 10px 20px;
+  text-align: center;
 }
 
-.communityTop input{
-    width: 500px;
-    height: 50px;
+.communityTop input {
+  width: 500px;
+  height: 50px;
+  border-radius: 20px;
+}
+
+.communityTop #cateSearch {
+  width: 60px;
+  height: 30px;
+  border-radius: 20px;
+  font-size: 20px;
+  font-family: "omyu_pretty";
+  transition: all 0.5s;
+  box-shadow: none;
+  border: 1px solid #64dfdf;
+  margin-right: 20px;
+  background-color: #fff;
+
+  &:hover {
     border-radius: 20px;
-}
-
-.communityTop #cateSearch{
-    width: 60px;
-    height: 30px;
-    border-radius: 20px;
-    font-size: 20px;
-    font-family: 'omyu_pretty';
-    transition: all .5s;
-    box-shadow: none;
-    border: 1px solid #64DFDF;
-    margin-right: 20px;
-    background-color: #fff;
-
-    &:hover {
-    border-radius:20px;
-    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
-    transition-duration:.5s;
-    } 
+    box-shadow: 0 0 5px #64dfdf, 0 0 10px #56cfe1, 0 0 15px #48bfe3;
+    transition-duration: 0.5s;
+  }
 }

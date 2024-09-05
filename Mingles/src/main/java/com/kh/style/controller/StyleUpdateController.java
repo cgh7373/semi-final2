@@ -11,9 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.kh.style.model.dao.styleDao;
 import com.kh.style.model.service.StyleService;
-import com.kh.style.model.service.styleService;
 import com.kh.style.model.vo.Style;
 
 /**
