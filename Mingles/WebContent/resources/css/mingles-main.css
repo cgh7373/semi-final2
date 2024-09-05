@@ -6,20 +6,30 @@ img {
 
 @font-face {
   font-family: "Katuri";
-  src: url("https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff") format("woff");
+  src: url("https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "omyu_pretty";
-  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2") format("woff2");
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2")
+    format("woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 body {
   margin: 0;
+  font-family: "omyu_pretty", sans-serif;
+}
+
+html,
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
   font-family: "omyu_pretty", sans-serif;
 }
 
@@ -43,7 +53,6 @@ body {
 
 #left {
   width: 30%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -51,7 +60,6 @@ body {
 
 #right {
   width: 70%;
-  height: 100%;
   padding: 20px;
 }
 
@@ -140,7 +148,7 @@ body {
   gap: 5px;
 }
 
-#con2__my_info>div {
+#con2__my_info > div {
   width: auto;
   height: auto;
   display: flex;
@@ -174,9 +182,17 @@ body {
   padding: 0;
   margin: 0;
   list-style-type: none;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
 #con3 li {
+  font-size: 18px;
+  margin: 3px 0;
+  padding: 5px;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  cursor: pointer;
   font-size: 18px;
   margin: 3px 0;
   padding: 5px;
@@ -260,11 +276,11 @@ body {
   stroke-width: 2px;
 }
 
-.heart-container .checkbox:checked~.svg-container .svg-filled {
+.heart-container .checkbox:checked ~ .svg-container .svg-filled {
   display: block;
 }
 
-.heart-container .checkbox:checked~.svg-container .svg-celebrate {
+.heart-container .checkbox:checked ~ .svg-container .svg-celebrate {
   display: block;
 }
 
@@ -308,30 +324,30 @@ body {
   height: 30px;
   top: 5%;
   right: 8%;
+  z-index: 50;
 }
 
-.music>img {
-  width: 70px;
-  height: 70px;
+.music > img {
+  width: 73px;
+  height: 73px;
   cursor: pointer;
 }
 
 /* mp3창 */
 .popover-content {
   position: absolute;
-  border: 1px solid black;
-  border-radius: 20px;
   top: 20%;
   right: 40px;
-  width: 300px;
-  height: 120px;
+  width: 350px;
+  height: 180px;
   justify-content: center;
   flex-wrap: wrap;
   z-index: 5;
-  background-color: #68d8d6;
+  background-color: #d6ecffde;
   opacity: 0;
   display: none;
   transition: opacity 0.5s ease;
+  flex-wrap: wrap;
 }
 
 .popover-content.youShow {
@@ -339,58 +355,116 @@ body {
   display: flex;
 }
 
-.iframe-container {
+#musicThumbnail {
   position: relative;
-  width: 90px;
-  height: 90px;
-  right: 8px;
-  top: 13px;
+  top: 5%;
+  width: 100px;
+  height: 100px;
+  border: 2px solid rgb(254, 255, 187);
+  box-shadow: 0 3px 5px rgb(254, 255, 216), 0 5px 7px rgb(253, 255, 114);
+  position: relative;
+  left: -5%;
+  border-radius: 50%;
   overflow: hidden;
-  border-radius: 50px;
-  background-color: #07beb8;
 }
 
-.iframe-container iframe {
-  width: 180%;
+#musicImg {
+  width: 100%;
   height: 100%;
-  position: absolute;
 }
 
 .music--info {
   position: relative;
   display: inline-block;
-  width: 120px;
-  height: 70px;
+  width: auto;
+  height: auto;
   left: 50px;
-  top: 25px;
+  top: 40px;
+}
+.music--info2 {
+  position: relative;
+  left: -30%;
 }
 
 .music--title {
   font-size: 27px;
-  font-weight: 500;
+  font-weight: 600;
   font-family: "omyu_pretty";
 }
 
 .music--singer {
-  padding-top: 10px;
+  padding-top: 15px;
   font-size: 18px;
   font-family: "omyu_pretty";
+}
+
+#play-pause-button {
+  position: relative;
+  top: 10px;
+  left: 35px;
+}
+
+.music--bar {
+  position: relative;
+  left: 10px;
+}
+
+#music--element {
+  height: 10px;
+  width: 200%;
+  background-color: transparent;
+  position: relative;
+  top: 47.5%;
+  left: -110%;
+}
+
+#music-bar {
+  -webkit-appearance: none;
+  position: relative;
+  width: 180px;
+  height: 2px;
+  right: 120px;
+  outline: none;
+  background-color: #afc1d9;
+  transition: background 450ms ease-in;
+  accent-color: rgb(74, 170, 255);
+}
+
+.current-time,
+.duration {
+  position: relative;
+  width: 25px;
+  top: 28%;
+  left: -110%;
+}
+
+.current-time {
+  top: 20px;
+  left: -150px;
+}
+
+.duration {
+  bottom: 15px;
+  left: 80px;
 }
 
 /* 플리 버튼 */
 .popover-content button {
   width: 10px;
   height: 10px;
-  padding: 10px;
   border: transparent;
   background-color: transparent;
-  color: #08817d;
+  color: rgb(74, 170, 255);
+}
+
+.material-icons {
+  margin: 5px;
 }
 
 #playlist {
   position: absolute;
-  top: 78px;
-  left: 257px;
+  top: 150px;
+  left: 310px;
 }
 
 /* Tooltip */
@@ -418,25 +492,26 @@ body {
 
 .tooltip.bs-tooltip-top .arrow::before {
   border: transparent !important;
+  border: transparent !important;
 }
 
 /* PLAYLIST UPDATE MODAL */
 
-#myModal .modal-title {
+.modal .modal-title {
   color: #08817d;
   font-size: 30px;
   text-align: center;
   font-weight: 600;
 }
 
-#myModal .modal-body .music--update,
-#myModal .modal-body .music--sequence {
+.modal-body .music--update,
+.modal-body .music--sequence {
   margin: 5px;
   padding: 5px;
   font-size: 15px;
 }
 
-#myModal .modal-body p {
+.modal-body p {
   font-size: 25px;
   font-weight: 400;
 }
@@ -446,17 +521,18 @@ body {
 }
 
 #music--icon,
-#music--icon {
+#music--thumbnail {
   color: black;
   font-size: 30px;
   margin-top: 10px;
+  cursor: pointer;
 }
 
-#myModal input[type="file"] {
+input[type="file"] {
   display: none;
 }
 
-#myModal table input[type="text"] {
+table input[type="text"] {
   width: 130px;
   margin: 4px;
 }
@@ -495,14 +571,15 @@ body {
   align-items: center;
   height: 12%;
   /* width: 52%; */
-  width: 17%;
+  width: 16%;
   background: linear-gradient(50deg, #e0feff, #bbfffd);
   position: absolute;
-  left: 31%;
-  top: 4px;
+  left: 36%;
+  top: 20px;
   border-radius: 20px;
   transition: 0.5s;
   overflow: hidden;
+  z-index: 1;
 }
 
 .weatherCard:hover {
@@ -561,7 +638,7 @@ body {
   font-size: 30px;
 }
 
-.weather>h3 {
+.weather > h3 {
   color: #000000;
   margin: 0 10px;
 }
@@ -609,6 +686,11 @@ body {
   top: -2px;
 }
 
+.swiper-slide #weatherListCenter img {
+  width: 100%;
+  height: 90%;
+}
+
 .swiper-slide #weatherListBottom {
   height: 20%;
   bottom: 3px;
@@ -619,7 +701,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
 
 .calendar-container {
   width: 1000px;

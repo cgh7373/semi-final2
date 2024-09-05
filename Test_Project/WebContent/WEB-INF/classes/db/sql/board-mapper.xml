@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="selectMemoList">
+			SELECT A.MEMO_NO
+			     , A.MEMO_WRITER
+			     , A.MEMO_CONTENT
+			     , A.MEMO_SCOPE
+			     , B.PROFILE_PIC
+			     , TO_CHAR(A.MEMO_CREATE_DATE, 'YY/MM/DD HH24:MI:SS') "MEMO_CREATE_DATE"
+			     , B.NICKNAME
+			  FROM MEMO A
+			  JOIN MEMBER B
+			    ON (A.MEMO_WRITER=B.MEM_NO)
+			 WHERE A.MEMO_STATUS = 'Y'
+			   AND A.MEMO_DATE = ?
+			   AND A.MEMO_OWNER = ?
+			 ORDER 
+			    BY A.MEMO_CREATE_DATE DESC
+	</entry>
+
+	<entry key="insertMemo">
+			INSERT INTO
+			  MEMO
+			     (
+			       MEMO_NO
+			     , MEMO_OWNER
+			     , MEMO_WRITER
+			     , MEMO_CONTENT
+			     , MEMO_DATE
+			     , MEMO_SCOPE
+			     )
+			VALUES
+			     (
+			       SEQ_MEMO.NEXTVAL
+			     , ?
+			     , ?
+			     , ?
+			     , ?
+			     , ?
+			     )
+	</entry>
+
+	<entry key="selectVisMemoList">
+			SELECT 
+			       A.MEMO_NO
+			     , A.MEMO_WRITER
+			     , A.MEMO_CONTENT
+			     , A.MEMO_SCOPE
+			     , B.PROFILE_PIC
+			     , TO_CHAR(A.MEMO_CREATE_DATE, 'YY/MM/DD HH24:MI:SS') "MEMO_CREATE_DATE"
+			     , B.NICKNAME
+			  FROM MEMO A
+			  JOIN MEMBER B
+			    ON (A.MEMO_WRITER = B.MEM_NO)
+	     LEFT JOIN FRIEND C
+			    ON (A.MEMO_OWNER = C.RECEIVER_NO)
+			 WHERE A.MEMO_STATUS = 'Y'
+			   AND A.MEMO_DATE = ?
+			   AND A.MEMO_OWNER = ?
+			   AND 
+			     ( A.MEMO_SCOPE = 'P'
+			    OR ( A.MEMO_SCOPE = 'F' AND C.FRIEND_LEVEL IN ('A', 'B', 'C', 'D') AND C.SENDER_NO = ? ) 
+			     )
+			 ORDER 
+			    BY A.MEMO_CREATE_DATE DESC
+	</entry>
+
+	<entry key="countMemo">
+			SELECT COUNT(MEMO_NO)
+			  FROM MEMO
+			 WHERE MEMO_OWNER = ?
+			   AND MEMO_DATE = ?
+	</entry>
+
+	<entry key="selectReadStatuses">
+			SELECT READ_NO
+				 , READ_DATE
+			     , READ_STATUS
+			  FROM READSTATUS
+			 WHERE READ_OWNER_NO = ?
+			   AND READ_YEAR = ?
+			   AND READ_MONTH = ?
+			 ORDER 
+			    BY READ_DATE
+	</entry>
+
+	<entry key="updateReadStatus">
+			UPDATE READSTATUS
+			   SET READ_STATUS = 'T'
+			 WHERE READ_OWNER_NO = ?
+			   AND READ_DATE = ?
+	</entry>
+
+	<entry key="insertReadStatus">
+			INSERT 
+			  INTO READSTATUS
+			     (
+			       READ_NO
+			     , READ_OWNER_NO
+			     , READ_YEAR
+			     , READ_MONTH
+			     , READ_DATE
+			     )
+			      VALUES
+			     (
+			       SEQ_READ.NEXTVAL
+			     , ?
+			     , ?
+			     , ?
+			     , ?
+			     )
+	</entry>
+
+
+
+
+
+
+
+
+
+
+
+</properties>

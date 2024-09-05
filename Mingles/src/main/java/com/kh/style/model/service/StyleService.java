@@ -1,8 +1,11 @@
 package com.kh.style.model.service;
 import static com.kh.common.JDBCTemplate.*;
 import java.sql.Connection;
+import java.util.ArrayList;
+
 import static com.kh.common.JDBCTemplate.*;
 import com.kh.style.model.dao.StyleDao;
+import com.kh.style.model.vo.PurItem;
 import com.kh.style.model.vo.Style;
 
 public class StyleService {
@@ -57,6 +60,30 @@ public class StyleService {
 		return st;
 	}// selectStyle
 	
+	public int insertItem(PurItem pitem) {
+		Connection conn = getConnection();
+		
+		int result = new StyleDao().insertItem(conn, pitem);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}// insertItem
+
+
+	public ArrayList<PurItem> selectAllItem(int userNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<PurItem> pitem = new StyleDao().selectAllItem(conn, userNo);
+
+		close(conn);
+		return pitem;
+	}// selectAllItem
 	
 	
 }

@@ -50,5 +50,31 @@ SELECT *
  WHERE MEM_NO = ?
 </entry>
 
+<entry key = "insertItem">
+INSERT 
+  INTO PURCHASE_ITEM
+       (
+         PITEM_NO
+       , ITEM_NUM
+       , ITEM_CATEGORY
+       , ITEM_NAME
+       , FILE_NAME
+       , MEM_NO
+       )
+VALUES (
+          SEQ_PUR_ITEM.NEXTVAL
+        , ?
+        , ?
+        , ?
+        , ?
+        , ?
+        )
+</entry>
+
+<entry key = "selectAllItem">
+SELECT *
+  FROM PURCHASE_ITEM
+ WHERE MEM_NO = ?
+</entry>
 
 </properties>

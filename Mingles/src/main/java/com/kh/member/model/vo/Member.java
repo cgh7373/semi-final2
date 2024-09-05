@@ -249,6 +249,18 @@ public class Member {
 		this.profilePic = profilePic;
 	}
 
+	public String getMBTI() {
+		return MBTI;
+	}
+
+	public void setMBTI(String mBTI) {
+		MBTI = mBTI;
+	}
+
+	public void setABO(String aBO) {
+		ABO = aBO;
+	}
+
 	public String getStatusMsg() {
 		return statusMsg;
 	}
@@ -360,22 +372,11 @@ public class Member {
 	public void setEgg(int egg) {
 		this.egg = egg;
 	}
-	
+
 	public String getABO() {
 		return ABO;
 	}
 
-	public void setABO(String ABO) {
-		this.ABO = ABO;
-	}
-
-	public String getMBTI() {
-		return MBTI;
-	}
-
-	public void setMBTI(String mBTI) {
-		this.MBTI = MBTI;
-	}
 
 	public String getKakaoNo() {
 		return kakaoNo;
@@ -385,14 +386,18 @@ public class Member {
 		this.kakaoNo = kakaoNo;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Member [memNo=" + memNo + ", memId=" + memId + ", memPwd=" + memPwd + ", nickname=" + nickname
 				+ ", birthdate=" + birthdate + ", phone=" + phone + ", email=" + email + ", gender=" + gender
-				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + ", zodiac="
-				+ zodiac + ", ABO=" + ABO + ", MBTI=" + MBTI + "]";
+				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + ", egg=" + egg
+				+ ", zodiac=" + zodiac + ", ABO=" + ABO + ", MBTI=" + MBTI + ", profilePic=" + profilePic
+				+ ", statusMsg=" + statusMsg + ", kakaoNo=" + kakaoNo + ", backgroundImage=" + backgroundImage + "]";
 	}
+	
+
+
+
 
 	
 	

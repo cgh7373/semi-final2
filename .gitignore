@@ -2,9 +2,10 @@
 # Ignore Servers directory
 /Servers/
 
-/Test_Project/
 /Test2/
 /Test3/
+/MIngless/
 Mingles/build/
 /20240820_Test-Server/
 /20240822_Test22-Server/
+/Test_Project/

@@ -183,6 +183,15 @@ footer .pagination-container {
     }
 }
 
+.main-right .right-wrapper .style-shop .bal2 div {
+    margin: auto 20px;
+    /* text-align:center; */
+    &:hover {
+        color: #0185ae;
+        cursor: pointer;
+    }
+}
+
 .main-right .right-wrapper .style-shop .catB {
     width: 32%;
     height: 38%;
@@ -251,7 +260,7 @@ footer .pagination-container {
     width: 33%;
     &::after, 
     &::before {
-        left: 100px;
+       left:100px;
     }
 }
 
@@ -295,6 +304,8 @@ footer .pagination-container {
 .bal.bal2.onoffTo {
     display: flex;
 }
+
+
 
 .bal.bal3.onoffTo {
     display: flex;

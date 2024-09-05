@@ -172,4 +172,26 @@
 
 </body>
 
+		<script>
+		document.addEventListener("DOMContentLoaded", function() {
+		    // Run this function as soon as the page is loaded
+		    runServletOnLoad();
+		});
+		
+		function runServletOnLoad() {
+		    const xhr = new XMLHttpRequest();
+		    const contextPath = '/Mingles'; // Get the context path
+		    const url = contextPath + '/list.it'; // Servlet URL
+		
+		    xhr.open("GET", url, true); // true for asynchronous 
+		    xhr.onreadystatechange = function () {
+		        if (xhr.readyState === 4 && xhr.status === 200) {
+		            // If the request is successful, update the page content
+		            document.getElementById("content").innerHTML = xhr.responseText;
+		        }
+		    };
+		    xhr.send(); // Send the request
+		}
+		</script>
+
 </html>
