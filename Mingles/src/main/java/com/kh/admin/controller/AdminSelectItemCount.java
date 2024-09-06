@@ -1,6 +1,9 @@
 package com.kh.admin.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,20 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.admin.model.service.ItemService;
+import com.kh.admin.model.service.AdminService;
 import com.kh.admin.model.vo.Item;
 
 /**
- * Servlet implementation class ItemPaymentController
+ * Servlet implementation class AdminSelectItemCount
  */
-@WebServlet("/payItem.it")
-public class ItemPaymentController extends HttpServlet {
+@WebServlet("/getItems.am")
+public class AdminSelectItemCount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ItemPaymentController() {
+    public AdminSelectItemCount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +33,15 @@ public class ItemPaymentController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 구매하는 서블릿 - 정보를 style로 보낼 것임
+		ArrayList<Item> itemCount = new AdminService().selectItemCount();
+		
+		Gson gson = new Gson();
+		String jsonItems = gson.toJson(itemCount);
 
-		int itemNo = Integer.parseInt(request.getParameter("itemNo"));
-		int itemPrice = Integer.parseInt(request.getParameter("itemPrice"));
-		
-		Item it = new ItemService().purchaseItem(itemNo, itemPrice);
-		
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(it, response.getWriter());
+		PrintWriter out = response.getWriter();
+		out.print(jsonItems);
+		out.flush();
 		
 	}
 

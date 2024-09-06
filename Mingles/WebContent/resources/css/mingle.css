@@ -340,8 +340,9 @@ iframe {
 }
 
 .anyTab7 {
-    bottom: 54%;
-    left: 3%;
+    bottom: 19%;
+    left: 5%;
+    
 }
 
 .logoutTab {
@@ -350,8 +351,8 @@ iframe {
 }
 
 .chatTab {
-    bottom: 19%;
-    left: 5%;
+    bottom: 54%;
+    left: 3%;
 }
 
 .turtle {

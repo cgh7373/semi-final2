@@ -204,7 +204,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
                       alt="카톡간편로그인"
                     />
                   </button>
-                  <button>
+                  <button onclick="kakaoLogout()">
                     <img
                       src="./resources/images/네이버로고.png"
                       alt="네이버간편로그인"
@@ -220,6 +220,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
             console.log(Kakao.isInitialized());
 
             function kakaoLogin() {
+              
               Kakao.Auth.login({
                 success: function (authObj) {
                   Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
@@ -228,7 +229,6 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
                     url: "/v2/user/me",
                     success: function (res) {
                       var id = res.id;
-
                       $.ajax({
                         url: "<%=contextPath%>/selectKakaoNo.mi",
                         data: { id: id },
@@ -238,7 +238,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
                           if (m === null) {
                             console.log("회원가입해야함");
                             location.href =
-                              "<%=contextPath%>/enroll.mi?type=kakao";
+                            "<%=contextPath%>/enroll.mi?type=kakao";
                           } else {
                             console.log("회원 있음");
                             $("input#id").val(m.memId);
@@ -263,6 +263,19 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
                   console.log(err);
                 },
               });
+              
+            }
+
+            function kakaoLogout(){
+              Kakao.API.request({
+                url:'/v1/user/unlink',
+                success:function(res){
+                  console.log(res, "탈퇴성공")             
+                },
+                fail:function(){
+                  console.log("안됨")
+                }
+              })
             }
           </script>
         </div>
@@ -374,9 +387,12 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
         <!-- 게시글탭 -->
         <span class="material-icons postsTab" title="게시글">article</span>
 
-        <!-- 아무탭7 -->
-        <span class="material-icons anyTab7">add_circle_outline</span>
-
+       <!-- 아무탭7, 관리자 -->
+            <%if(loginUser != null) {%>
+				<%if(loginUser.getStatus().equals("A")){ %>
+            		<a href="<%=contextPath %>/main.am" class="material-icons anyTab7" style="text-decoration: none; color: black;">manage_accounts</a>
+                <%}%>
+            <%} %>
         <!-- 로그아웃탭 -->
         <span
           class="material-icons logoutTab"
