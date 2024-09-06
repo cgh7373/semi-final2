@@ -14,13 +14,14 @@ public class Post {
 	private String postUpdate;
 	private String postStatus;
 	private String postBlock;
+	private String postThumbnail;
 	private String postAttachment;
 	
 	public Post () {}
 
 	public Post(int postNum, int postType, String postTitle, String postContent, String postTag, String postScope,
 			String postWriter, int postCount, String postRegdate, String postUpdate, String postStatus,
-			String postBlock, String postAttachment) {
+			String postBlock,String postThumbnail, String postAttachment) {
 		super();
 		this.postNum = postNum;
 		this.postType = postType;
@@ -34,13 +35,14 @@ public class Post {
 		this.postUpdate = postUpdate;
 		this.postStatus = postStatus;
 		this.postBlock = postBlock;
+		this.postThumbnail = postThumbnail;
 		this.postAttachment = postAttachment;
 	}
 	
 	
-
+//	postList
 	public Post(int postNum, int postType, String postTitle, String postContent, String postTag, String postScope,
-			String postWriter, int postCount, String postRegdate, String postAttachment, String postBlock) {
+			String postWriter, int postCount, String postRegdate, String postAttachment, String postThumbnail ,String postBlock) {
 		super();
 		this.postNum = postNum;
 		this.postType = postType;
@@ -51,6 +53,7 @@ public class Post {
 		this.postWriter = postWriter;
 		this.postCount = postCount;
 		this.postRegdate = postRegdate;
+		this.postThumbnail = postThumbnail;
 		this.postAttachment = postAttachment;
 		this.postBlock = postBlock;
 	}
@@ -58,8 +61,7 @@ public class Post {
 	
 
 	public Post(int postNum, int postType, String postTitle, String postContent, String postTag, String postScope,
-			String postWriter, int postCount, String postRegdate, String postStatus, String postBlock,
-			String postAttachment) {
+			String postWriter, int postCount, String postRegdate, String postStatus, String postBlock ,String postAttachment, String postThumbnail) {
 		super();
 		this.postNum = postNum;
 		this.postType = postType;
@@ -73,6 +75,16 @@ public class Post {
 		this.postStatus = postStatus;
 		this.postBlock = postBlock;
 		this.postAttachment = postAttachment;
+		this.postThumbnail = postThumbnail;
+	}
+
+	
+	public String getPostThumbnail() {
+		return postThumbnail;
+	}
+
+	public void setPostThumbnail(String postThumbnail) {
+		this.postThumbnail = postThumbnail;
 	}
 
 	public int getPostNum() {
@@ -184,9 +196,11 @@ public class Post {
 		return "Post [postNum=" + postNum + ", postType=" + postType + ", postTitle=" + postTitle + ", postContent="
 				+ postContent + ", postTag=" + postTag + ", postScope=" + postScope + ", postWriter=" + postWriter
 				+ ", postCount=" + postCount + ", postRegdate=" + postRegdate + ", postUpdate=" + postUpdate
-				+ ", postStatus=" + postStatus + ", postBlock=" + postBlock + ", postAttachment=" + postAttachment
-				+ "]";
+				+ ", postStatus=" + postStatus + ", postBlock=" + postBlock + ", postThumbnail=" + postThumbnail
+				+ ", postAttachment=" + postAttachment + "]";
 	}
+
+	
 	
 	
 	

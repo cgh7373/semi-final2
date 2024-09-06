@@ -622,6 +622,7 @@ public class AdminDao {
 						   		   , rset.getInt("post_count")
 						   		   , rset.getString("post_regdate")
 						   		   , rset.getString("post_attachment")
+						   		   , rset.getString("post_thumbnail")
 						   		   , rset.getString("post_block")));
 			}
 			
@@ -866,6 +867,7 @@ public class AdminDao {
 						   		   , rset.getInt("post_count")
 						   		   , rset.getString("post_regdate")
 						   		   , rset.getString("post_attachment")
+						   		   , rset.getString("post_thumnail")
 						   		   , rset.getString("post_block")));
 			}
 		} catch (SQLException e) {
@@ -897,7 +899,8 @@ public class AdminDao {
 				   		   , rset.getString("post_regdate")
 				   		   , rset.getString("post_status")
 				   		   , rset.getString("post_block")
-				   		   , rset.getString("savepath"));
+				   		   , rset.getString("savepath")
+				   		   , rset.getString("post_thumbnail"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
