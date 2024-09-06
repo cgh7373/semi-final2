@@ -1,6 +1,8 @@
 package com.kh.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,19 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
-import com.kh.admin.model.service.ItemService;
+import com.kh.admin.model.service.AdminService;
+import com.kh.admin.model.vo.Chat;
 
 /**
- * Servlet implementation class ItemDecreaseEggController
+ * Servlet implementation class AdminChatController
  */
-@WebServlet("/decreaseEgg.it")
-public class ItemDecreaseEggController extends HttpServlet {
+@WebServlet("/adminChat.am")
+public class AdminChatController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ItemDecreaseEggController() {
+    public AdminChatController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,15 +32,21 @@ public class ItemDecreaseEggController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userNo = Integer.parseInt(request.getParameter("userNo"));
-		int price = Integer.parseInt(request.getParameter("price"));
+		String memId = request.getParameter("memId");
+		int adminNo = Integer.parseInt(request.getParameter("fromNo"));
+		ArrayList<Chat> chatList = new AdminService().selectChatList(memId, adminNo); 
 		
-		int result = new ItemService().decreaseEgg(userNo, price);
-		
+	
 		response.setContentType("application/json; charset=utf-8");
-		new Gson().toJson(result, response.getWriter());
 		
+		if(chatList.isEmpty()) {
+			new Gson().toJson(chatList, response.getWriter());
 		
+		}else {
+			
+			new Gson().toJson(chatList, response.getWriter());
+		}
+				
 	}
 
 	/**
