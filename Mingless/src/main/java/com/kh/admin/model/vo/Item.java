@@ -64,7 +64,14 @@ public class Item {
 		this.itemTag = itemTag;
 	}
 	
-	
+	// itemcount 생성자
+	public Item(String itemCategory, String itemName, int price) {
+		super();
+		this.itemCategory = itemCategory;
+		this.itemName = itemName;
+		this.price = price;
+	}
+
 	public String getSaveFile() {
 		return saveFile;
 	}

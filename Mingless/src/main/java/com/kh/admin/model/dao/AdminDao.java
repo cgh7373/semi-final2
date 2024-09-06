@@ -153,6 +153,34 @@ public class AdminDao {
 		
 		return count;
 	}
+	
+	public ArrayList<Item> selectItemCount(Connection conn) {
+		ArrayList<Item> count = new ArrayList<Item>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectItemCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()){
+				count.add(new Item(rset.getString("ITEM_CATEGORY")
+						         , rset.getString("categoryname")
+						         , rset.getInt("item_count")));
+			}
+					
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
 
 	public ArrayList<Item> selecItem(Connection conn) {
 		ArrayList<Item> list = new ArrayList<Item>();
@@ -1013,6 +1041,7 @@ public class AdminDao {
         return str.matches("\\d+"); // 또는 "\\d+"를 사용하여 정수만 검사
     }
 
+	
 	
 
 	

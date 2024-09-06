@@ -149,3 +149,36 @@ new Chart(ctx3, {
     }
 });
 
+// const ctx4 = document.querySelector("#myChart4");
+
+// new Chart(ctx4, {
+//     type: 'doughnut',
+//     data: {
+//         labels: [
+            
+//         ],
+//         datasets: [
+//             {
+//                 label: '아이템',
+//                 data: [
+//                     ...payCount
+                    
+//                 ],
+//                 borderWidth: 1
+//             }
+//         ]
+//     },
+//     options: {
+//         responsive: true,
+//         plugins: {
+//             legend: {
+//                 position: 'top',
+//             },
+//             title: {
+//                 display : true,
+//                 text: '아이템등록 현황'
+//             }
+//         }
+//     }
+// });
+

@@ -60,6 +60,17 @@ public class AdminService {
 		
 		return count;
 	}
+	
+
+	public ArrayList<Item> selectItemCount() {
+		Connection conn = getConnection();
+		
+		ArrayList<Item> count = new AdminDao().selectItemCount(conn);
+		
+		close(conn);
+		
+		return count;
+	}
 
 	public ArrayList<Item> selectItem() {
 		Connection conn = getConnection();
@@ -419,6 +430,7 @@ public class AdminService {
 		
 		return result;
 	}
+
 
 	
 
