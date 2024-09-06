@@ -40,7 +40,7 @@ public class ChatDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setInt(1, memNo);
-			pstmt.setInt(2, memNo);
+			
 			
 			rset = pstmt.executeQuery();
 			
@@ -159,8 +159,6 @@ public class ChatDao {
 			
 			pstmt.setInt(1, loginMem);
 			pstmt.setString(2, friendKeyword);
-			pstmt.setInt(3, loginMem);
-			pstmt.setString(4, friendKeyword);
 			
 			rset = pstmt.executeQuery();
 			

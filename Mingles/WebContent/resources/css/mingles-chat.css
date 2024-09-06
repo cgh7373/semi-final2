@@ -401,10 +401,9 @@ div img {
   position: absolute;
   background-color: transparent;
   display: none;
-  background-color: red;
   right: 0;
   overflow: hidden;
-  z-index: 2;
+  z-index: 1;
 }
 
 /* 캔버스 버튼 css */
@@ -436,7 +435,3 @@ div img {
   border-radius: 10px;
 }
 
-img {
-  width: 20px;
-  height: 20px;
-}

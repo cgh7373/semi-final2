@@ -3,18 +3,7 @@
 <properties>
 
 	<entry key="friendList">
-		SELECT 
-		       SENDER_NO
-		     , RECEIVER_NO
-		     , MEM_NO
-		     , NICKNAME
-		     , PROFILE_PIC
-		  FROM FRIEND 
-		  JOIN MEMBER ON (RECEIVER_NO = MEM_NO)
-		 WHERE SENDER_NO = ?
-		   AND REQUEST_STATUS = 'A'
-		   AND FRIEND_LEVEL != 'F'
-		UNION
+		
 		SELECT 
 		       SENDER_NO
 		     , RECEIVER_NO
@@ -47,7 +36,7 @@
 		    , CHAT_CONTENT
 		    , CHAT_TIME
 		 FROM CHAT
-         JOIN MEMBER ON (MEM_NO = TO_MEMNO)
+         JOIN MEMBER ON (MEM_NO = FROM_MEMNO)
 		WHERE (FROM_MEMNO = ?
 		  AND TO_MEMNO = ?)
 		   OR (FROM_MEMNO = ?
@@ -75,19 +64,6 @@
 	</entry>
 
 	<entry key="searchFriend">
-		SELECT 
-		       SENDER_NO
-		     , RECEIVER_NO
-		     , MEM_NO
-		     , NICKNAME
-		     , PROFILE_PIC
-		  FROM FRIEND 
-		  JOIN MEMBER ON (RECEIVER_NO = MEM_NO)
-		 WHERE SENDER_NO = ?
-		   AND REQUEST_STATUS = 'A'
-		   AND FRIEND_LEVEL != 'F'
-		   AND NICKNAME LIKE '%' || ? || '%'
-		UNION
 		SELECT 
 		       SENDER_NO
 		     , RECEIVER_NO

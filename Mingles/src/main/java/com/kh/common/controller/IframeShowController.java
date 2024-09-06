@@ -53,7 +53,7 @@ public class IframeShowController extends HttpServlet {
 			break;
 		
 		case "chat" :
-			page = "/Mingles/views/chat/minglesChat.jsp";
+			page = "/Mingles/friend.ch";
 			break;
 			
 		case "posts" : 

@@ -624,7 +624,7 @@
 
                                             <div class="right-top">
 
-                                                <span class="material-icons">settings</span>
+                                                <span class="material-icons" style = "font-size:30px">settings</span>
 
                                                 &nbsp;&nbsp;
 
@@ -1130,7 +1130,7 @@
 
                                                             <!-- Modal Header -->
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" align="center">상태메세지 변경</h4>
+                                                                <h4 class="modal-title" style = " margin-left:150px;">상태메세지 변경</h4>
                                                                 <button type="button" class="close"
                                                                     data-dismiss="modal">&times;</button>
                                                             </div>
@@ -1172,7 +1172,9 @@
                                                             <div class="modal-header">
                                                                 <h4 class="modal-title" align="center"><input
                                                                         type="text" name="findMember" required
-                                                                        placeholder="회원이름을 입력하세요">
+                                                                        placeholder="회원이름을 입력하세요"
+                                                                        style = "width:300px;"
+                                                                        >
                                                                     <button id="findBtn" class="btn btn-sm"
                                                                         style="background-color: white;">검색</button>
                                                                     <button id="resetBtn" class="btn btn-sm"

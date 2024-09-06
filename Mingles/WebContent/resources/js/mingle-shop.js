@@ -1,6 +1,6 @@
 $(function () {
 
-    $(function () {
+   $(function () {
         $('.menu-content').css('display', 'none');
     })
 
@@ -12,7 +12,7 @@ $(function () {
         $('#menuBar').animate({ width: 'toggle' })
     })
 
-    $('.hd-menus').hover(function () {
+    $('.hd-menus').click(function () {
         $('.hd-menus .menu-content').animate({ height: 'toggle' })
     })
 
