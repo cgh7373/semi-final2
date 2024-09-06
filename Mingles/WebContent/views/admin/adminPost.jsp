@@ -135,7 +135,7 @@
                                         const headings = contentElement.querySelectorAll('h2');
                                         headings.forEach((heading) => {
                                             if (!heading.id) {
-                                                heading.id = 'notice-title'; // 원하는 id를 추가
+                                                heading.id = 'notice-title';
                                             }
                                         });                                       
                                     }         

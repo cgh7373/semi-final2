@@ -1,6 +1,7 @@
 package com.kh.admin.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -8,25 +9,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.admin.model.service.AdminService;
-import com.kh.admin.model.vo.Blacklist;
 import com.kh.admin.model.vo.Item;
-import com.kh.member.model.service.MemberService;
-import com.kh.member.model.vo.Member;
 
 /**
- * Servlet implementation class AdminMainController
+ * Servlet implementation class AdminSelectItemCount
  */
-@WebServlet("/main.am")
-public class AdminMainController extends HttpServlet {
+@WebServlet("/getItems.am")
+public class AdminSelectItemCount extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AdminMainController() {
+    public AdminSelectItemCount() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,29 +33,15 @@ public class AdminMainController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		ArrayList<Item> itemCount = new AdminService().selectItemCount();
 		
-		HttpSession session = request.getSession();
-		
-		ArrayList<Blacklist> list = new AdminService().selectBlacklist();
-		ArrayList<Integer> count = new AdminService().selectMemberCount();
-		ArrayList<Integer> postCount = new AdminService().selectPostCount();
-		ArrayList<Integer> payCount = new AdminService().selectPayCount();
-		
-				
-		
-		
-		request.setAttribute("memberCount", count);
-		
-		request.setAttribute("blacklist", list);
-		
-		request.setAttribute("postCount", postCount);
-		
-		request.setAttribute("payCount", payCount);
-		
-		request.getRequestDispatcher("views/admin/adminMain.jsp").forward(request, response);
-		
-		
+		Gson gson = new Gson();
+		String jsonItems = gson.toJson(itemCount);
+
+		response.setContentType("application/json; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.print(jsonItems);
+		out.flush();
 		
 	}
 

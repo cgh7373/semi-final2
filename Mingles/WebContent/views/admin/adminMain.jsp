@@ -1,11 +1,14 @@
+<%@page import="com.kh.admin.model.vo.Item"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-ArrayList<Integer> memberCount = (ArrayList<Integer>)request.getAttribute("memberCount");
 // 월별 회원 수 1-12월 
-ArrayList<Integer> postCount = (ArrayList<Integer>)request.getAttribute("postCount");
+ArrayList<Integer> memberCount = (ArrayList<Integer>)request.getAttribute("memberCount");
 // 월별 게시글 수 공지사항 포함
+ArrayList<Integer> postCount = (ArrayList<Integer>)request.getAttribute("postCount");
+// 월별 사용자 결제 현황
 ArrayList<Integer> payCount = (ArrayList<Integer>)request.getAttribute("payCount");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -57,6 +60,94 @@ ArrayList<Integer> payCount = (ArrayList<Integer>)request.getAttribute("payCount
                             const postCount = <%=postCount %>; 
                             const payCount = <%=payCount %>;
                         </script>
+
+                        <script>
+                            
+                            let url = "<%=contextPath %>";
+                            const categoryName = [];
+                            const itemCount = []
+                            const color = {
+                                red: 'rgba(255, 99, 132, .5)',
+                                orange: 'rgb(255, 159, 64, .5)',
+                                yellow: 'rgb(255, 205, 86, .5)',
+                                beige: 'rgba(238 , 232 , 170, .7)',
+                                brown: 'rgb(139 , 69 , 19, .5)',
+                                lightgreen: 'rgb(144 , 238 , 144, .5)',
+                                green: 'rgb(75, 192, 192, .5)',
+                                skyblue: 'rgb(135 , 206 , 235, .5)',
+                                blue: 'rgb(54, 162, 235, .5)',
+                                navy: 'rgb(65 , 105 , 225, .5)',
+                                purple: 'rgb(153, 102, 255, .5)',
+                                pink: 'rgb(256 , 192 , 203, .5)',
+                                grey: 'rgb(201, 203, 207, .5)'
+                            }
+
+                            const colorName = [
+                                color.red,
+                                color.orange,
+                                color.yellow,
+                                color.beige,
+                                color.brown,
+                                color.lightgreen,
+                                color.green,
+                                color.skyblue,
+                                color.blue,
+                                color.navy,
+                                color.purple,
+                                color.pink,
+                                color.grey,
+                            ]
+                            async function fetchItems() {
+                                try{
+                                    const response = await fetch(url + '/getItems.am');
+                                    if(!response.ok){
+                                        throw new Error("Networt response was not ok");
+                                    }
+                                    const items = await response.json();
+                                
+                                    items.forEach(item => {
+                                                    categoryName.push(item.itemName);
+                                                    itemCount.push(item.price);
+                                                })
+                                                
+                                    console.log(itemCount);
+                                    
+                                    const ctx4 = document.querySelector("#myChart4");
+
+                                    new Chart(ctx4, {
+                                        type: 'polarArea',
+                                        data: {
+                                            labels: [
+                                                ...categoryName
+                                            ],
+                                            datasets: [
+                                                {
+                                                    label: '아이템',
+                                                    data: [ ...itemCount ],
+                                                    backgroundColor: [
+                                                        ...colorName
+
+                                                ]}
+                                            ]
+                                        },
+                                        options: {
+                                            responsive: false,
+                                            
+                                            plugins: {
+                                                legend: {
+                                                    position: 'right',
+                                                },
+                                            }
+                                        }
+                                    });
+                                }catch(error){
+                                    console.log("as")
+                                }
+                                
+                            }
+
+                            window.onload = fetchItems();
+                        </script>
                         <div class="col-lg-5 mb-1">
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
@@ -94,9 +185,24 @@ ArrayList<Integer> payCount = (ArrayList<Integer>)request.getAttribute("payCount
                                     <h6 class="m-0 font-weight-bold text-primary">결제 차트</h6>
                                 </div>
                                 <div class="card-body">
-                                    <div class="statisticsPost">
+                                    <div class="statisticsPay">
                                         <div>
                                             <canvas id="myChart3" class="col-lg-12"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">아이템 현황</h6>
+                                </div>
+                                <div class="card-body">
+                                    <div class="statisticsItem">
+                                        <div>
+                                            <canvas id="myChart4" width="617" height="308"></canvas>
                                         </div>
                                     </div>
                                 </div>
