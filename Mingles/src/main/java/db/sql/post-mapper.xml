@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
+	<entry key="selectListCount">
+		SELECT 
+             COUNT(*) AS COUNT
+        FROM POST
+       WHERE POST_TYPE = 1
+         AND POST_STATUS = 'Y'
+	</entry>
 	<entry key="insertPosts">
 			INSERT
 			  INTO POST
@@ -33,7 +39,42 @@
 			     , ?
 			     )
 	</entry>
-
+	<entry key="selectPost">
+	SELECT POST_TITLE,
+       POST_CONTENT,
+       POST_SCOPE,
+       POST_THUMBNAIL,
+       POST_NUM,
+       POST_TAG
+	FROM POST
+	WHERE POST_NUM = ?
+	</entry>
+	<entry key="selectList">
+ 		SELECT *
+        FROM (
+              SELECT ROWNUM RNUM, A.*
+                FROM (
+                    SELECT 
+                         POST_NUM
+                       , POST_SCOPE
+                       , POST_TITLE
+                       , POST_COUNT
+                       , TO_CHAR(POST_REGDATE, 'YYYY/MM/DD') AS "CREATE_DATE"
+                   FROM POST B
+                  WHERE POST_TYPE = 1
+                    AND B.POST_STATUS = 'Y'
+                    AND B.POST_WRITER = ?
+                  ORDER 
+                     BY POST_NUM DESC
+                     ) A
+              )
+       WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="postDelete">
+	UPDATE POST
+	SET POST_STATUS = 'N'
+	WHERE POST_NUM = ?
+	</entry>
 	<entry key="selectPostsList">
 			SELECT
 				   POST_NUM
@@ -64,13 +105,56 @@
 			 ORDER 
 			    BY POST_REGDATE DESC
 	</entry>
-	
+	<entry key="selectPopularList">
+			SELECT
+				   POST_NUM
+			     , POST_TITLE
+			     , POST_TAG
+			     , POST_COUNT
+				 , POST_REGDATE
+				 , POST_TITLE_COLOR
+				 , POST_TITLE_SIZE
+				 , POST_THUMBNAIL
+			  FROM POST
+			 WHERE POST_TYPE = 1
+			   AND POST_STATUS = 'Y'
+			   AND POST_BLOCK = 'N'
+			 ORDER 
+			    BY POST_COUNT DESC
+	</entry>
+	<entry key="selectPopularListSearch">
+	SELECT
+		   POST_NUM
+	     , POST_TITLE
+	     , POST_TAG
+	     , POST_COUNT
+		 , POST_REGDATE
+		 , POST_TITLE_COLOR
+		 , POST_TITLE_SIZE
+		 , POST_THUMBNAIL
+		 , POST_SCOPE
+	  FROM POST
+	 WHERE POST_TYPE = 1
+	   AND POST_STATUS = 'Y'
+	   AND POST_BLOCK = 'N'
+	   AND POST_TAG LIKE ?
+	 ORDER 
+	    BY POST_COUNT DESC
+	</entry>
+	<entry key="updatePost">
+		UPDATE POST
+   SET POST_SCOPE = ?
+      ,POST_TITLE = ?
+      ,POST_TAG = ?
+      ,POST_CONTENT = ?
+WHERE POST_NUM = ?
+	</entry>
 	<entry key="updatePostCount">
 			UPDATE POST
 			   SET POST_COUNT = POST_COUNT + 1
 			 WHERE POST_NUM = ?
 	</entry>
-
+	
 	<entry key="selectMemberFromPostNum">
 			SELECT 
 				   NICKNAME
@@ -109,7 +193,6 @@
 			 ORDER 
 			    BY A.REPLY_CREATE_DATE DESC
 	</entry>
-	
 	<entry key="insertReply">
 			INSERT 
 			  INTO REPLY

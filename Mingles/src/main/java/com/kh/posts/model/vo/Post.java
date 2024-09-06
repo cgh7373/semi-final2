@@ -12,7 +12,7 @@ public class Post {
 	private String postScope;
 	private int postWriter;
 	private int postCount;
-	private Date postRegdate;
+	private String postRegdate;
 	private Date postUpdate;
 	private String postStatus;
 	private String postBlock;
@@ -24,7 +24,7 @@ public class Post {
 	public Post() {}
 
 	public Post(int postNum, int postType, String postTitle, String postContent, String postTag, String postScope,
-			int postWriter, int postCount, Date postRegdate, Date postUpdate, String postStatus, String postBlock) {
+			int postWriter, int postCount, String postRegdate, Date postUpdate, String postStatus, String postBlock) {
 		super();
 		this.postNum = postNum;
 		this.postType = postType;
@@ -38,6 +38,25 @@ public class Post {
 		this.postUpdate = postUpdate;
 		this.postStatus = postStatus;
 		this.postBlock = postBlock;
+	}
+	
+	public Post( String postTitle, String postContent, String postScope, String postThumbnail,int postNum,String postTag) {
+		super();
+		this.postTitle = postTitle;
+		this.postContent = postContent;
+		this.postScope = postScope;
+		this.postThumbnail = postThumbnail;
+		this.postNum = postNum;
+		this.postTag = postTag;
+	}
+	
+	public Post(int postNum, String postScope, String postTitle, int postCount, String postRegdate) {
+		super();
+		this.postNum = postNum;
+		this.postTitle = postTitle;
+		this.postScope = postScope;
+		this.postCount = postCount;
+		this.postRegdate = postRegdate;
 	}
 
 	public int getPostTitleSize() {
@@ -120,11 +139,11 @@ public class Post {
 		this.postCount = postCount;
 	}
 
-	public Date getPostRegdate() {
+	public String getPostRegdate() {
 		return postRegdate;
 	}
 
-	public void setPostRegdate(Date postRegdate) {
+	public void setPostRegdate(String postRegdate) {
 		this.postRegdate = postRegdate;
 	}
 

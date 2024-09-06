@@ -53,9 +53,6 @@ a:hover {
   background-size: 120%;
 }
 
-.btn:hover {
-  /* border-radius: 20px; */
-
   .btn:hover {
     /* border-radius: 20px; */
     box-shadow: 0 0 5px #64dfdf, 0 0 10px #56cfe1, 0 0 15px #48bfe3;
@@ -95,25 +92,329 @@ a:hover {
 
   /* 메인 컨테이너 스타일 */
   #container {
+@font-face {
+    font-family: 'Katuri';
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0;
+    font-family: 'omyu_pretty', sans-serif;
+}
+
+#wrap {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    box-sizing: border-box;
+}
+
+#container {
     width: 100%;
     height: 100%;
+    background-color: white;
     border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+#con1 {
+    width: 70%;
+    aspect-ratio: 1;
+    height: auto;
+    text-align: center;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: auto;
+}
+
+#con1 img {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+}
+
+#con2 {
+    height: 25%;
+    border-bottom: 5px solid #80FFDB;
+    padding: 20px;
+}
+
+#con2__nickname {
+    font-size: 30px;
+    margin: 15px 0;
+    font-family: 'Katuri', sans-serif;
+}
+
+#mailIcon,
+#writeIcon {
+    font-size: 40px;
+    color: #34c299;
     position: absolute;
-  }
+    top: 37%;
+    right: 72%;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    border-radius: 20px;
+    transition: box-shadow 0.3s;
 
-  /* header 해쉬태그 */
+    &:hover {
+        box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+    }
 
-  header .tagList {
-    margin: 40px 10px;
-    margin: 40px 10px;
-  }
+    &:active {
+        color: #C4FFF9;
+        background-color: #34c299;
+        box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+    }
+}
 
-  header .tagList .swiper {
+#writeIcon {
+    right: 76%;
+}
+
+#con2__my_text {
+    font-size: 20px;
+    line-height: 1.5;
+    margin: 10px 0;
+    height: 35%;
+}
+
+#con2__my_info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    color: #07BEB8;
+}
+
+#con2__my_info>div {
+    width: 25%;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 0;
+    border-radius: 20px;
+    transition: box-shadow 0.3s;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#con2__my_info>div:hover {
+    box-shadow: 0 0 5px #64DFDF, 0 0 10px #56CFE1, 0 0 15px #48BFE3;
+}
+
+.post-box {
+    border: 5px dotted #56CFE1;
+    width: 100%;
+    margin: 10px 0;
+}
+
+/* Popular and Recent Posts */
+#con3 .sub-title {
+    font-family: 'Katuri', sans-serif;
+    font-size: 20px;
+    color: #5390D9;
+    margin-bottom: 10px;
+}
+
+#con3 ul {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#con3 li {
+    font-size: 18px;
+    margin: 3px 0;
+    padding: 5px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+#con3 li:hover {
+    background-color: #e9ffff;
+    box-shadow: 0 0 5px #56CFE1, 0 0 10px #48BFE3, 0 0 15px #4EA8DE;
+    border-radius: 20px;
+}
+
+/* Tooltip */
+.tooltip-inner {
+    background-color: #fff !important;
+    color: #08817d !important;
+    border: 2px dotted #3DCCC7 !important;
+    width: 120px;
+    height: 40px;
+    border-radius: 20px !important;
+    font-size: 20px;
+    font-family: 'omyu_pretty';
+}
+
+.custom-tooltip .tooltip-inner {
+    font-size: 15px !important;
+    width: 200px !important;
+    height: 30px !important;
+}
+
+.tooltip .arrow::before,
+.tooltip .arrow::after {
+    border: transparent !important;
+}
+
+.tooltip.bs-tooltip-top .arrow::before {
+    border: transparent !important;
+}
+
+
+/* Right Screen */
+#right {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+}
+
+#right .post-container {
+    width: 100%;
+    height: 97%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#right .post-container .posts {
+    width: 15%;
+    height: 39%;
+    overflow: hidden;
+    border: 1px solid #07BEB8;
+    margin-top: 1%;
+    margin-left: 1%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+    position: relative;
+
+    &:hover {
+        box-shadow: 0 0 2px 3px #11b1ab;
+    }
+
+    &:hover .post-cover {
+        opacity: .6;
+    }
+}
+
+#right .post-container .posts img {
+    width: 100%;
+    height: 100%;
+    transition: .3s;
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &:hover {
+        transform: scale(1.03);
+    }
+}
+
+.post-cover {
+    width: 100%;
+    height: 100%;
+    background-color: #a7a7a7;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: .3s;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+}
+
+.post-cover-tag-boxes {
+    width: auto;
+    height: auto;
+    background-color: #dbfffd;
+    border-radius: 10px;
+    font-size: 20px;
+    margin: 4px;
+    display: inline-block;
+}
+
+.post-titles {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination {
+    width: 100%;
+    height: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* modal part */
+#writePostModal {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: auto;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+
+    & * {
+        box-sizing: border-box;
+    }
+}
+
+#writePostModal .modal-dialog {
+    width: 95%;
+    height: 90%;
+    border-radius: 20px;
+    background-color: #f2fffb;
+    margin: auto;
+    margin-top: 2.5%;
+    overflow: hidden;
+}
+
+#writePostModal .modal-dialog .modal-content {
     width: 100%;
     height: 100%;
   }
 
-  header .tagList .swiper .swiper-wrapper {
+#writePostModal .modal-dialog .modal-content .modal-header {
+    width: 100%;
+    font-family: 'Katuri';
+    font-size: 30px;
+    height: 9%;
+    background-color: #C4FFF9;
+}
+
+#writePostModal .modal-dialog .modal-content .modal-header .modal-title {
+    display: flex;
+    width: 50%;
+    justify-content: end;
     align-items: center;
   }
 
@@ -125,29 +426,344 @@ a:hover {
     font-size: 20;
   }
 
-  header .tagList .swiper .swiper-wrapper .btn:hover {
+
+#writePostModal .modal-dialog .modal-content .modal-body {
+    width: 100%;
+    height: 91%;
+    padding: 0;
+    position: relative;
+    display: flex;
+}
+
+#writePostModal .modal-dialog .modal-content .modal-body .modal-left {
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+}
+
+#writePostModal .modal-dialog .modal-content .modal-body .modal-left .modal-post {
+    width: 80%;
+    height: 50%;
+    overflow: hidden;
+    border: 1px solid #07BEB8;
+    margin-top: 1%;
+    margin-left: 1%;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: .3s;
+    position: relative;
+    top: 15%;
+
+    &:hover {
+        box-shadow: 0 0 2px 3px #11b1ab;
+    }
+
+    &:hover .post-cover {
+        opacity: .6;
+    }
+
+    & img {
+        width: 100%;
+        height: 100%;
+        transition: .3s;
+        z-index: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        &:hover {
+            transform: scale(1.03);
+        }
+    }
+}
+
+#writePostModal .modal-dialog .modal-content .modal-body .modal-right {
+    width: 70%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+}
+
+#writePostModal .modal-dialog .modal-content .modal-body .modal-right table {
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    margin-top: 5%;
+
+    & tr {
+        width: 100%;
+    }
+
+    & * {
+        font-size: 20px;
+    }
+
+    & input {
+        width: 80%;
+    }
+}
+
+#writePostModal .modal-body button {
+    border-radius: 10px;
+    background-color: #dbfffd;
+    transition: .8s;
+
+    &:hover {
+        box-shadow: 0 0 4px 2px #07BEB8;
+        background-color: #c3f8f5;
+    }
+}
+
+#right .pagination button {
+    background-color: white !important;
+    border: none;
+    margin: 2px;
+    font-size: 20px;
+    color: #11b1ab;
+}
+
+#right .post-regdate {
+    position: absolute;
+    top: 0;
+    font-size: 20px;
+}
+
+#right .post-count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+}
+
+#detailPostModal {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: auto;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+
+    & * {
+        box-sizing: border-box;
+    }
+}
+
+#detailPostModal .modal-dialog {
+    width: 95%;
+    height: 90%;
     border-radius: 20px;
-    background-color: white;
-    color: #48bfe3;
-  }
-
-  /* 해쉬태그 삭제 */
-
-  height: 50px;
-  font-size: 20;
+    background-color: #f2fffb;
+    margin: auto;
+    margin-top: 2%;
+    overflow: hidden;
 }
 
-header .tagList .swiper .swiper-wrapper .btn:hover {
-  border-radius: 20px;
-  background-color: white;
-  color: #48bfe3;
+#detailPostModal .modal-dialog .modal-content {
+    width: 100%;
+    height: 100%;
 }
-
-/* 해쉬태그 삭제 */
 
 /* 친구 홈피 */
 
-/* 안에 글씨 */
+    & img {
+        width: 100%;
+        height: auto;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    & .post-titles {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+    }
+
+    &:hover .post-cover {
+        opacity: .6;
+    }
+}
+
+#detailPostModal .modal-right {
+    width: 40%;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+
+    & .writer-section {
+        width: 100%;
+        height: 10%;
+        display: flex;
+
+        & .post-profile-pic {
+            width: 18%;
+            height: 100%;
+
+            & img {
+                width: 100%;
+                aspect-ratio: 1;
+                height: auto;
+                text-align: center;
+                border-radius: 50%;
+                overflow: hidden;
+                margin: auto;
+            }
+        }
+
+        & .post-writer-info {
+            width: 80%;
+            height: 100%;
+
+            & .post-writer-nickname {
+                width: 100%;
+                height: 50%;
+                font-size: 30px;
+                overflow: hidden;
+            }
+
+            & .post-writer-statusMsg {
+                width: 100%;
+                height: 50%;
+                overflow: hidden;
+                font-size: 20px;
+            }
+        }
+
+        & .close {
+            width: 6%;
+            height: auto;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+
+    & .content-section {
+        width: 100%;
+        height: 30%;
+        font-size: 28px;
+        text-align: left;
+        padding: 3%;
+    }
+
+    & .reply-section {
+        width: 100%;
+        height: 50%;
+        border-top: 1px solid #333;
+    }
+
+    & .reply-insert {
+        width: 100%;
+        height: 7%;
+
+        & img {
+            width: 100%;
+            aspect-ratio: 1;
+            height: auto;
+            text-align: center;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: auto;
+        }
+    }
+}
+
+#detailPostModal .modal-right .pagination {
+    width: 100%;
+    height: 3%;
+
+    & button {
+        background-color: white !important;
+        border: none;
+        margin: 2px;
+        font-size: 20px;
+        color: #11b1ab;
+    }
+}
+
+#detailPostModal .reply-section {
+    width: 100%;
+    height: 48%;
+    box-sizing: border-box;
+
+    & * {
+        box-sizing: border-box;
+        vertical-align: middle;
+        padding: 1px;
+    }
+
+    & tr {
+        width: 100%;
+        height: 10%;
+    }
+
+    & .memo-img {
+        height: 100%;
+        width: 14%;
+
+        & img {
+            width: 100%;
+            aspect-ratio: 1;
+            height: auto;
+            text-align: center;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: auto;
+        }
+    }
+
+    & .memo-content {
+        width: 70%;
+    }
+}
+
+#detailPostModal .reply-insert {
+    padding: 5px;
+}
+
+#detailPostModal .reply-insert * {
+    box-sizing: border-box;
+    vertical-align: middle;
+}
+
+#detailPostModal .reply-insert th {
+    width: 8%;
+}
+
+#detailPostModal .reply-insert input {
+    margin-left: 5%;
+}
+
+#detailPostModal .reply-insert select {
+    margin-left: 28%;
+}
+
+#detailPostModal .reply-insert button {
+    float: right;
+}
+
+#detailPostModal .reply-insert #writeMemo {
+    width: 55%;
+}
+
+#detailPostModal .reply-insert #writeMemo #replyContent {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+.slide-title--homepage
+{
+    margin-left: 2%;
+}
 h5 {
   color: #5cc2db;
   font: bold 2.5vw/0.3 "omyu_pretty", sans-serif;
@@ -188,11 +804,10 @@ h5 span {
   right: 0;
   top: 0;
 }
-
-.communityTop {
-  height: 3%;
-  margin: 10px 20px;
-  text-align: center;
+.communityTop{
+    height: 3%;
+    margin: 10px 20px;
+    text-align: center;
 }
 
 .communityTop input {
