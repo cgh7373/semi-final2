@@ -709,8 +709,8 @@
                                                     }
 
                                                     function toPosts() {
-                                                        location.href = "/Mingles/postsForm.mi";
-                                                    }
+                            			        		location.href="/Mingles/postsForm.mi?cpage=1&writer="+<%=m.getMemNo()%>;
+                            						}
 
                                                     function toNotice() {
                                                         location.href = "/Mingles/notice.mi";

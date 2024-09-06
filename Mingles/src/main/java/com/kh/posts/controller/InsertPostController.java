@@ -59,7 +59,7 @@ public class InsertPostController extends HttpServlet {
 			String filePath = "../../resources/images/";
 			
 			if (changeName == null) {
-				changeName = "2024082616142217358.jfif";
+				changeName = "2024090609460747614.jpg";
 			}
 			
 			String image = filePath + changeName;
