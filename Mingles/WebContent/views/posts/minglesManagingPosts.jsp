@@ -7,6 +7,7 @@
 Member m=(Member)session.getAttribute("loginUser");
 PageInfo pi=(PageInfo)request.getAttribute("pi"); 
 ArrayList<Post> list = (ArrayList<Post>)request.getAttribute("list");
+System.out.println("1:"+list);
 String contextPath = request.getContextPath();
 int currentPage = pi.getCurrentPage();
 int startPage = pi.getStartPage();

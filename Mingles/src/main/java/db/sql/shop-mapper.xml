@@ -216,7 +216,7 @@
 	<entry key="decreaseEgg"> 
 	UPDATE MEMBER
 	   SET EGG = EGG - ?
-	 WHERE MEM_NO = ? 
+	 WHERE MEM_NO = ?
 	 </entry>
 	
 	

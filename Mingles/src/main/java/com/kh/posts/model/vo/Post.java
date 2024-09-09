@@ -58,6 +58,11 @@ public class Post {
 		this.postCount = postCount;
 		this.postRegdate = postRegdate;
 	}
+	
+	public Post(String postContent) {
+		super();
+		this.postContent = postContent;
+	}
 
 	public int getPostTitleSize() {
 		return postTitleSize;

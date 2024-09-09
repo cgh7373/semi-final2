@@ -181,7 +181,7 @@
                             <% if (mem !=null) { %>
                                 <div class="post-list" id="left">
                                     <div class="left__content" id="con1">
-                                        <img src="../.<%=m.getProfilePic() %>" alt="프로필 사진" />
+                                        <img src="<%=m.getProfilePic() %>" alt="프로필 사진" />
                                     </div>
                                     <div class="left__content" id="con2">
                                         <div id="con2__nickname">

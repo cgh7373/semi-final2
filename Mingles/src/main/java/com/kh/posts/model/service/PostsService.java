@@ -28,6 +28,13 @@ public class PostsService {
 		close(conn);
 		return list;
 	}
+	public ArrayList<Post> selectNoticeList(PageInfo pi)
+	{
+		Connection conn = getConnection();
+		ArrayList<Post> list = new PostsDao().selectNoticeList(conn,pi);
+		close(conn);
+		return list;
+	}
 	public int increaseCount(int postNum)
 	{
 		Connection conn = getConnection();
@@ -47,6 +54,14 @@ public class PostsService {
 	{
 		Connection conn = getConnection();
 		Post p = new PostsDao().selectPost(conn, pno);
+		
+		close(conn);
+		return p;
+	}
+	public Post selectNotice(int pno)
+	{
+		Connection conn = getConnection();
+		Post p = new PostsDao().selectNotice(conn, pno);
 		
 		close(conn);
 		return p;

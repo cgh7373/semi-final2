@@ -126,10 +126,18 @@ header .hd-menus .menu-content {
 }
 
 header .hd-menus .menu-content ul {
+
+    font-family: 'omyu_pretty';
     display: flex;
     width: calc(100%/2);
     flex-direction: column;
     align-items: center;
+}
+header .hd-menus .menu-content ul li {
+    font-family: 'omyu_pretty';
+    font-size: 25px;
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 header .hd-menus .menu-content ul li:hover {

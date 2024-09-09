@@ -118,6 +118,35 @@ public class PostsDao {
 		}
 		return p;
 	}
+	public Post selectNotice(Connection conn,int pno)
+	{
+		Post p = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectNotice");
+		try 
+		{
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, pno);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next())
+			{
+				
+				p = new Post( rset.getString("notice_html"));
+			}
+		} 
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally   
+		{
+			close(pstmt);
+			close(rset);
+		}
+		return p;
+	}
 	public ArrayList<Post> selectList(Connection conn,int writer, PageInfo pi)
 	{
 		ArrayList<Post> list = new ArrayList<Post>();
@@ -133,6 +162,42 @@ public class PostsDao {
 			pstmt.setInt(1, writer);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			while(rset.next())
+			{
+				list.add(new Post(rset.getInt("post_num"),
+								  rset.getString("post_scope"),
+								  rset.getString("post_title"),
+								  rset.getInt("post_count"),
+								  rset.getString("create_date")));
+			}
+		} 
+		catch (SQLException e)
+		{
+
+			e.printStackTrace();
+		}
+		finally
+		{
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	public ArrayList<Post> selectNoticeList(Connection conn,PageInfo pi)
+	{
+		ArrayList<Post> list = new ArrayList<Post>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectNoticeList");
+		try 
+		{
+			pstmt=conn.prepareStatement(sql);
+			int startRow =  (pi.getCurrentPage()-1)*pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() -1;
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
 			while(rset.next())
 			{

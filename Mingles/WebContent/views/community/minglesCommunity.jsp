@@ -29,6 +29,7 @@
             src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
         <!-- chart -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <!-- icon -->
         <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -565,7 +566,7 @@
                 console.log("검색어:", searchValue); // 검색어 확인
 
                 $.ajax({
-                    url: "/Mingles/postsearch.mi",
+                    url: "/Mingles/postsearch.po",
                     method: "GET", // GET 요청으로 변경
                     data: {
                         search: searchValue,
