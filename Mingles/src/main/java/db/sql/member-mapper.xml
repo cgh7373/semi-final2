@@ -345,4 +345,15 @@
 		 WHERE MEM_NO = ?
 	</entry>
 	
+	<entry key="toWave">
+		SELECT MEM_NO
+		  FROM MEMBER
+		  JOIN FRIEND
+		    ON (SENDER_NO = MEM_NO)
+		 WHERE RECEIVER_NO = ?
+		   AND REQUEST_STATUS = 'A'
+		 ORDER 
+		    BY DBMS_RANDOM.VALUE
+	</entry>
+	
 </properties>

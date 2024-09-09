@@ -713,7 +713,7 @@
                             						}
 
                                                     function toNotice() {
-                                                        location.href = "/Mingles/notice.mi";
+                                                        location.href = "/Mingles/notice.mi?cpage=1&writer="+<%=m.getMemNo()%>;
                                                     }
                                                 </script>
 

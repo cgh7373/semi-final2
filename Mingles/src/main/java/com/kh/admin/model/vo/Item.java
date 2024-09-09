@@ -64,6 +64,21 @@ public class Item {
 		this.itemTag = itemTag;
 	}
 	
+	
+	
+	public Item(int itemNo, String itemCategory, String itemName, int price, String itemExplan, Date itemEnrollDate,
+			String itemStatus, String saveFile) {
+		super();
+		this.itemNo = itemNo;
+		this.itemCategory = itemCategory;
+		this.itemName = itemName;
+		this.price = price;
+		this.itemExplan = itemExplan;
+		this.itemEnrollDate = itemEnrollDate;
+		this.itemStatus = itemStatus;
+		this.saveFile = saveFile;
+	}
+
 	// itemcount 생성자
 	public Item(String itemCategory, String itemName, int price) {
 		super();

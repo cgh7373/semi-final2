@@ -55,6 +55,7 @@ public class MinglesManagingPostsController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit,maxPage ,startPage, endPage);
 		int writer = Integer.parseInt(request.getParameter("writer")); 
 		ArrayList<Post> list= new PostsService().selectList(writer,pi);
+		System.out.println(list);
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		request.getRequestDispatcher("views/posts/minglesManagingPosts.jsp").forward(request, response);

@@ -82,7 +82,6 @@
                                                 <div id="con2__nickname">
                                                     <%= mem.getNickname() %>
                                                 </div>
-                                                <button id="mailIcon" class="material-icons">mail_outline</button>
                                                 <% if (m.getMemNo()==mem.getMemNo()) { %>
                                                     <button id="writeIcon" data-toggle="modal"
                                                         data-target="#writePostModal"

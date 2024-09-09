@@ -49,6 +49,11 @@
 	FROM POST
 	WHERE POST_NUM = ?
 	</entry>
+	<entry key="selectNotice">
+	SELECT NOTICE_HTML
+	FROM NOTICE
+	WHERE POST_NO = ?
+	</entry>
 	<entry key="selectList">
  		SELECT *
         FROM (
@@ -64,6 +69,26 @@
                   WHERE POST_TYPE = 1
                     AND B.POST_STATUS = 'Y'
                     AND B.POST_WRITER = ?
+                  ORDER 
+                     BY POST_NUM DESC
+                     ) A
+              )
+       WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selectNoticeList">
+ 		SELECT *
+        FROM (
+              SELECT ROWNUM RNUM, A.*
+                FROM (
+                    SELECT 
+                         POST_NUM
+                       , POST_SCOPE
+                       , POST_TITLE
+                       , POST_COUNT
+                       , TO_CHAR(POST_REGDATE, 'YYYY/MM/DD') AS "CREATE_DATE"
+                   FROM POST B
+                  WHERE POST_TYPE = 2
+                    AND B.POST_STATUS = 'Y'
                   ORDER 
                      BY POST_NUM DESC
                      ) A

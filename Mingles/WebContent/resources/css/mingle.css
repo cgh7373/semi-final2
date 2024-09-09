@@ -26,8 +26,8 @@ html {
 
 #wrapper {
 
-    /* background-image: url('../images/bgi1.png'); */
-    background-image: url(../images/bgi2.jpg);
+    background-image: url(../images/bgi1.png);
+    /* background-image: url('../images/bgi2.jpg'); */
     /* background-image: url(../images/bgi4\ \(1\).jpg); */
     /* background-image: url(../images/bgi6.jfif); */
     /* background-image: url(../images/bgi7.jfif); */
@@ -308,7 +308,7 @@ iframe {
     right: 6%;
 }
 
-.anyTab {
+.waveTab {
     bottom: 35%;
     left: 6%;
 }

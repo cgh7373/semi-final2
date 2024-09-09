@@ -693,7 +693,7 @@ public class AdminDao {
 				pstmt.setInt(4, fileNo);
 			}else {
 				// 사진 기본값 파일 번호 찾아서 변경
-				pstmt.setInt(4, 28);
+				pstmt.setInt(4, 1001);
 			}
 			postNo = pstmt.executeUpdate();
 			
@@ -867,7 +867,7 @@ public class AdminDao {
 						   		   , rset.getInt("post_count")
 						   		   , rset.getString("post_regdate")
 						   		   , rset.getString("post_attachment")
-						   		   , rset.getString("post_thumnail")
+						   		   , rset.getString("post_thumbnail")
 						   		   , rset.getString("post_block")));
 			}
 		} catch (SQLException e) {

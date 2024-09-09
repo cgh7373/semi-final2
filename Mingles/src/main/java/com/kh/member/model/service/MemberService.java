@@ -374,6 +374,17 @@ public class MemberService {
 		return result;
 	}
 
+	public int toWave(int no) {
+		
+		Connection conn = getConnection();
+		
+		int result = new MemberDao().toWave(conn, no);
+		
+		close(conn);
+		
+		return result;
+	}
+
 
 }
 

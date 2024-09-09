@@ -262,7 +262,7 @@ String contextPath = request.getContextPath();
                 <% for(Friend f : friend){ %>
                 <li class="friendList" value="<%= f.getfMemNo() %>" rel="friendList">
                   <div class="friend__icon">
-                    <img src="<%= f.getProfilePic() %>" alt="친구프로필" />
+                    <img src="<%= f.getProfilePic().substring(4) %>" alt="친구프로필" />
                   </div>
                   <div class="friend-info">
                     <span class="friend__name" rel="frinedNick"><%= f.getNickName() %></span>
@@ -464,7 +464,7 @@ String contextPath = request.getContextPath();
                      			chatContent +=
                                      "<div class='chatting ch1'>" +
                                      "<div class='icon'><img src='" +
-                                     chat.toNoprofile +
+                                     chat.toNoprofile.substring(4) +
                                      "' alt='Friend Profile'></div>" +
                                      "<div class='textbox'>" +
                                      chat.chatContent +
@@ -474,7 +474,7 @@ String contextPath = request.getContextPath();
                      			chatContent +=
                                      "<div class='chatting ch2'>" +
                                      "<div class='icon'><img src='" +
-                                     fromMemprofile +
+                                     fromMemprofile.substring(4) +
                                      "' alt='My Profile'></div>" +
                                      "<div class='textbox'>" +
                                      chat.chatContent +
