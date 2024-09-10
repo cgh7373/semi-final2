@@ -38,7 +38,7 @@
 &nbsp;- 작업3<br><br>
 &nbsp;- 작업4<br><br>
 <br><br>
-👦정택은[(깃허브 주소)](https://github.com/tak511)<br>
+👦정택은(https://github.com/tak511)<br>
 &nbsp;- 작업1<br><br>
 &nbsp;- 작업2<br><br>
 &nbsp;- 작업3<br><br>
