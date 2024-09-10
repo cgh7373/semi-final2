@@ -51,7 +51,8 @@
 &nbsp;- 실시간 채팅<br><br>
 <br><br>
 👧이주영 (https://github.com/smileJanet)<br>
-&nbsp;- MP3(음악 선택, 추가, 수정)<br><br>
+&nbsp;- MP3(음악 선택, 추가, 수정)<br>
+<img src = "https://file.notion.so/f/f/cb3ee9e6-5800-490d-ba91-63462b2b1481/4c46a074-da76-4cff-af8f-e8ea28009203/Honeycam_2024-09-05_15-53-20.gif?table=block&id=15d431c4-7e65-4565-95b0-1a69ce713d6f&spaceId=cb3ee9e6-5800-490d-ba91-63462b2b1481&expirationTimestamp=1726099200000&signature=2q5xraBZT0OjpWwCiRx5CQVZfw8UoGYb7MJLLSpP1Og" />
 &nbsp;- 상점(아이템 제작 및 메인 홈피 제작)<br><br>
 &nbsp;- 메인화면 미니홈피<br><br>
 <br><br>
@@ -82,11 +83,6 @@
 
 <h1>설계</h1>
 ERD : (https://www.erdcloud.com)
-<br>
-![MINGLE (2) (1)](https://github-production-user-asset-6210df.s3.amazonaws.com/169425428/365882567-f0f45368-cb10-4034-935e-aaae7a91035b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240910%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240910T035207Z&X-Amz-Expires=300&X-Amz-Signature=0a0dccade48f601b540d878ff311c6c2cf9e4202c2836e78024b091296f5dc8a&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=838752094)
-
-
-
 
 <br><br><br>
 
