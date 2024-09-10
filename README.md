@@ -52,7 +52,8 @@
 <br><br>
 👧이주영 (https://github.com/smileJanet)<br>
 &nbsp;- MP3(음악 선택, 추가, 수정)<br>
-![GIF description](https://file.notion.so/f/f/cb3ee9e6-5800-490d-ba91-63462b2b1481/4c46a074-da76-4cff-af8f-e8ea28009203/Honeycam_2024-09-05_15-53-20.gif?table=block&id=15d431c4-7e65-4565-95b0-1a69ce713d6f&spaceId=cb3ee9e6-5800-490d-ba91-63462b2b1481&expirationTimestamp=1726099200000&signature=2q5xraBZT0OjpWwC_iRx5CQVZfw8UoGYb7MJLLSpP1Og)
+![GIF description](![mp3완성](https://github.com/user-attachments/assets/abc8a7db-c98d-4a4b-b050-6ffe8a1d09d0)
+)
 
 
 &nbsp;- 상점(아이템 제작 및 메인 홈피 제작)<br><br>
