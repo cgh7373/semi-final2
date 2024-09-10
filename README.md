@@ -51,7 +51,7 @@
 &nbsp;- 실시간 채팅<br><br>
 <br><br>
 <h3>👧이주영</h3> (https://github.com/smileJanet)<br>
-&nbsp;-<h4> MP3(음악 선택, 추가, 수정)</h4><br>
+&nbsp;-MP3(음악 선택, 추가, 수정)<br>
 <p><b>MP3완성 화면</b></p>
 ![mp3완성](https://github.com/user-attachments/assets/d3285d80-f10d-400b-8aaf-80694524a589)
 
