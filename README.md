@@ -52,11 +52,11 @@
 <br><br>
 <h3>👧이주영</h3> (https://github.com/smileJanet)<br>
 &nbsp;-MP3(음악 선택, 추가, 수정)<br>
-<b>음악 완성 화면</b>
+<b>음악 완성 화면</b><br>
 ![mp3완성](https://github.com/user-attachments/assets/6defe74b-4d75-4cae-8007-20749da31b07)
-<b>음악 삽입, 조회 화면</b>
+<b>음악 삽입, 조회 화면</b><br>
 ![Honeycam 2024-09-06 09-00-21](https://github.com/user-attachments/assets/0c738182-5c89-44eb-9749-93e685f6806d)
-<b>음악 삭제 화면</b>
+<b>음악 삭제 화면</b><br>
 ![Honeycam 2024-09-06 11-11-18](https://github.com/user-attachments/assets/99c4a4bb-29bb-4e30-b853-abd72ed38bcd)
 
 
