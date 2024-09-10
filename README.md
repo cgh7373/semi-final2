@@ -4,6 +4,7 @@
 <br>
 
 <h1>IDEAOT</h1>
+<strong>아이디어를 만드는 사람들이란 뜻으로, 프로그래밍을 배우면서 구현해보고 싶었던 기능들을 다 개발해보고 싶은 신입 개발자들이란 의미를 담았습니다.</strong>
 <br>
 <br>
 <br>
@@ -32,40 +33,40 @@
 
 <h1>👶팀원 : 김상우(Leader), 정택은, 최규호, 김서경, 이주영, 유현동</h1>
 🤴김상우(깃허브 주소)<br>
-- 작업1<br><br>
-- 작업2<br><br>
-- 작업3<br><br>
-- 작업4<br><br>
+&nbsp;- 작업1<br><br>
+&nbsp;- 작업2<br><br>
+&nbsp;- 작업3<br><br>
+&nbsp;- 작업4<br><br>
 <br><br>
 👦정택은(깃허브 주소)<br>
-- 작업1<br><br>
-- 작업2<br><br>
-- 작업3<br><br>
-- 작업4<br><br>
+&nbsp;- 작업1<br><br>
+&nbsp;- 작업2<br><br>
+&nbsp;- 작업3<br><br>
+&nbsp;- 작업4<br><br>
 <br><br>
 🧑최규호(깃허브 주소)<br>
-- 작업1<br><br>
-- 작업2<br><br>
-- 작업3<br><br>
-- 작업4<br><br>
+&nbsp;- 작업1<br><br>
+&nbsp;- 작업2<br><br>
+&nbsp;- 작업3<br><br>
+&nbsp;- 작업4<br><br>
 <br><br>
 👩김서경(깃허브 주소)<br>
-- 작업1<br><br>
-- 작업2<br><br>
-- 작업3<br><br>
-- 작업4<br><br>
+&nbsp;- 작업1<br><br>
+&nbsp;- 작업2<br><br>
+&nbsp;- 작업3<br><br>
+&nbsp;- 작업4<br><br>
 <br><br>
 👧이주영(깃허브 주소)<br>
-- 작업1<br><br>
-- 작업2<br><br>
-- 작업3<br><br>
-- 작업4<br><br>
+&nbsp;- 작업1<br><br>
+&nbsp;- 작업2<br><br>
+&nbsp;- 작업3<br><br>
+&nbsp;- 작업4<br><br>
 <br><br>
 👨‍🦲유현동(깃허브 주소)<br>
-- 작업1<br><br>
-- 작업2<br><br>
-- 작업3<br><br>
-- 작업4<br><br>
+&nbsp;- 작업1<br><br>
+&nbsp;- 작업2<br><br>
+&nbsp;- 작업3<br><br>
+&nbsp;- 작업4<br><br>
 <br><br><br>
 
 <h1>⚙개발 환경</h1>
@@ -87,3 +88,4 @@
 <br><br><br>
 
 <h1>설계</h1>
+ERD :
