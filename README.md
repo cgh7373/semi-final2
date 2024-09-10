@@ -126,16 +126,16 @@ ERD : (https://www.erdcloud.com)
 - 관리자 메인 <br>
 
 ![관리자 메인홈](https://github.com/user-attachments/assets/6ff9ce69-248c-4b67-bc7d-28012d7cc69b)
-<br>
-![사진변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/ad8a41e0-49c4-4baf-bf12-a5b899008c8a/%EC%82%AC%EC%A7%84%EB%B3%80%EA%B2%BD.gif)
-<br>
-![상품등록.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/8ae21435-93fa-460d-b6a1-ed73a9112ecd/%EC%83%81%ED%92%88%EB%93%B1%EB%A1%9D.gif)
-<br>
-![아이템삭제.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/a7ecdd1c-8edd-4b00-9b6e-e28742d9d408/%EC%95%84%EC%9D%B4%ED%85%9C%EC%82%AD%EC%A0%9C.gif)
 
 - 상점 관리(가격변경, 사진변경, 상품등록, 아이템삭제) <br>
 
 ![가격변경](https://github.com/user-attachments/assets/29c3d0f1-a73c-4fb5-9188-fc980616e463)
+
+![사진변경](https://github.com/user-attachments/assets/ad70d2ad-a7b1-45de-a05d-9a453d4ef280)
+
+![상품등록](https://github.com/user-attachments/assets/77ab34d1-3fc1-4a06-84b2-cca7f4a45a5a)
+
+![아이템삭제](https://github.com/user-attachments/assets/97227e38-1162-463c-a475-d689b49a1692)
 
 - 회원 관리 <br>
 
@@ -144,10 +144,10 @@ ERD : (https://www.erdcloud.com)
 - 게시글 관리(게시글 채팅, 게시글 삭제 및 블락, 공지사항 작성) <br>
 
 ![게시글 채팅](https://github.com/user-attachments/assets/88809bc7-0e92-49e5-8ca9-5f01782b5ddc)
-<br>
-![게시글삭제 블락.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/da48ed41-5141-485c-b7e4-f330d675b56d/%EA%B2%8C%EC%8B%9C%EA%B8%80%EC%82%AD%EC%A0%9C_%EB%B8%94%EB%9D%BD.gif)
-<br>
-![공지사항 작성.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/16815091-4891-4175-b998-e20f9b3a0d58/%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD_%EC%9E%91%EC%84%B1.gif)
+
+![게시글삭제 블락](https://github.com/user-attachments/assets/1e4896d1-cf61-46d6-be6b-685ccd516878)
+
+![공지사항 작성](https://github.com/user-attachments/assets/e11d5d55-aada-46c3-bb86-252706df94c7)
 
 </pre>
 </details>
@@ -162,15 +162,17 @@ ERD : (https://www.erdcloud.com)
 
 - 게시글 수정 및 삭제<br>
 
-![Honeycam 2024-09-10 10-35-06](https://github.com/user-attachments/assets/d28320ae-0631-4b43-86ef-fce09033389c)
+![Honeycam 2024-09-10 10-35-06 (1)](https://github.com/user-attachments/assets/69e8a775-e74d-47c1-a18c-49c7ae53b51b)
 
-![Honeycam 2024-09-10 10-36-52.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/f9074882-2b3f-4d88-8df4-f28cdf5915bc/Honeycam_2024-09-10_10-36-52.gif)
+![Honeycam 2024-09-10 10-36-52](https://github.com/user-attachments/assets/d9a78e4a-41dc-4956-b49e-b64a603ab76e)
 
 - 게시글 검색 및 댓글 작성<br>
 
-![Honeycam 2024-09-10 10-38-41.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/a14d7c43-03ae-407e-b959-7108a9d23619/Honeycam_2024-09-10_10-38-41.gif)
+![Honeycam 2024-09-10 10-53-50](https://github.com/user-attachments/assets/0b0b0edc-0347-4b07-bdaa-d3ae15ebe1d8)
 
-![Honeycam 2024-09-10 10-40-34.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/f0a58a4b-63f1-43f9-bf3f-8e0e70e40ded/Honeycam_2024-09-10_10-40-34.gif)
+![Honeycam 2024-09-10 10-38-41](https://github.com/user-attachments/assets/3b5aa7ff-e70e-4a86-afcb-db9781b704ee)
+
+![Honeycam 2024-09-10 10-40-34](https://github.com/user-attachments/assets/4a481764-d0cc-4442-bc56-9c76c6084e78)
 
 </pre>
 </details>
@@ -179,44 +181,49 @@ ERD : (https://www.erdcloud.com)
 <summary>🧑최규호</summary>
 <pre>
 
+- 로그인시 처음 화면<br>
+
+![Honeycam 2024-09-10 11-25-51](https://github.com/user-attachments/assets/02fe06ea-6c13-4f3c-9b7c-18d81fbdc0de)
+
 - 캘린더 & 메모<br>
 
-![캘린더&메모&메모확인.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/6caad537-8328-46cf-8cc9-e5c273a937fb/%EC%BA%98%EB%A6%B0%EB%8D%94%EB%A9%94%EB%AA%A8%EB%A9%94%EB%AA%A8%ED%99%95%EC%9D%B8.gif)
+![캘린더 메모 메모확인](https://github.com/user-attachments/assets/a3d6c07f-f90b-4dc3-89a2-93822036bda8)
 
 - 회원정보 수정(비밀번호 변경, 닉네임 변경, 이메일 변경, MBTI변경, 상태메세지변경, 프로필사진변경, 배경화면변경)<br>
-![비밀번호변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/1aec90d7-bef9-4933-9ab1-2462e776546f/%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8%EB%B3%80%EA%B2%BD.gif)
 
-![닉네임변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/66afc3da-f907-49da-a460-85adaae0d367/%EB%8B%89%EB%84%A4%EC%9E%84%EB%B3%80%EA%B2%BD.gif)
+![비밀번호변경](https://github.com/user-attachments/assets/79b1e3f2-bf15-41a9-b423-3ee84cc2f5a1)
 
-![이메일변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/4f8069c9-3025-470e-b8f7-f2f104aa69dd/%EC%9D%B4%EB%A9%94%EC%9D%BC%EB%B3%80%EA%B2%BD.gif)
+![닉네임변경](https://github.com/user-attachments/assets/839e9039-3c13-42d2-96ad-0a58588d6a8b)
 
-![엠비티아이변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/2bd5e19f-a7c7-4f5a-9728-51241dcddc48/%EC%97%A0%EB%B9%84%ED%8B%B0%EC%95%84%EC%9D%B4%EB%B3%80%EA%B2%BD.gif)
+![이메일변경](https://github.com/user-attachments/assets/99ce3573-6dce-48be-bee1-4039f0954e51)
 
-![상메변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/d440ab03-4f66-46a2-a2dc-5debd2a0bc61/%EC%83%81%EB%A9%94%EB%B3%80%EA%B2%BD.gif)
+![엠비티아이변경](https://github.com/user-attachments/assets/7171c4fa-38b6-4ea9-91cb-cba3b9512fe9)
 
-![프사변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/4538108d-809a-4dd3-a65c-33a1fea659d1/%ED%94%84%EC%82%AC%EB%B3%80%EA%B2%BD.gif)
+![상메변경](https://github.com/user-attachments/assets/45f1c4c5-d068-4a41-bd42-593fb49fdb8e)
 
-![배경화면변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/e7685988-01f2-4d2f-8d75-382dc5bd41ba/%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4%EB%B3%80%EA%B2%BD.gif)
+![프사변경](https://github.com/user-attachments/assets/3c947b64-b929-41f7-81e4-d7b2125358e2)
+
+![배경화면변경](https://github.com/user-attachments/assets/735d7db7-3557-4814-b240-3428d1e11c82)
 
 - 친구 (검색, 친구신청, 요청확인, 요청 수락, 친구등급설정, 방문하기, 친구게시글보기, 파도타기)<br>
 
-![회원검색&친구신청.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/baf338b3-bbf5-496f-b94e-8d1d4a6f8b73/%ED%9A%8C%EC%9B%90%EA%B2%80%EC%83%89%EC%B9%9C%EA%B5%AC%EC%8B%A0%EC%B2%AD.gif)
+![회원검색 친구신청](https://github.com/user-attachments/assets/a7773737-673b-493f-bec7-952180428d24)
 
-![받은요청&수락.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/e5e9d934-02f2-4474-bc20-ae2133e4e321/%EB%B0%9B%EC%9D%80%EC%9A%94%EC%B2%AD%EC%88%98%EB%9D%BD.gif)
+![받은요청 수락](https://github.com/user-attachments/assets/284f3962-8df5-45d3-9a33-83a8d6436280)
 
-![친구등급&방문.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/9d016265-2239-4c7c-a40b-3392ce0bda48/%EC%B9%9C%EA%B5%AC%EB%93%B1%EA%B8%89%EB%B0%A9%EB%AC%B8.gif)
+![친구등급 방문](https://github.com/user-attachments/assets/02efe532-5d0b-4f42-947e-7b7b6443b026)
 
-![친구게시글확인.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/09a34216-01fa-42b1-b8e3-b282e4f846f2/%EC%B9%9C%EA%B5%AC%EA%B2%8C%EC%8B%9C%EA%B8%80%ED%99%95%EC%9D%B8.gif)
+![친구게시글확인](https://github.com/user-attachments/assets/059d7a8e-f2c7-4a16-8339-55711324a083)
 
-![파도타기.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/da679475-8c6d-4c20-8164-14f3d058d379/%ED%8C%8C%EB%8F%84%ED%83%80%EA%B8%B0.gif)
+![파도타기](https://github.com/user-attachments/assets/4807129c-be7f-4d8f-a351-1a828dae2241)
 
 - 게시글(작성, 미리보기, 게시글보기, 댓글, 설정창에서 게시글 확인)<br>
 
-![게시글작성.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/33173e59-609f-4808-98fa-1d298fff44ec/%EA%B2%8C%EC%8B%9C%EA%B8%80%EC%9E%91%EC%84%B1.gif)
+![게시글작성](https://github.com/user-attachments/assets/264617a1-69d4-48d4-8a77-6b6a08f2a7c7)
 
-![게시글확인&댓글.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/00bfbe71-6351-4721-a548-9d5c8d91485f/%EA%B2%8C%EC%8B%9C%EA%B8%80%ED%99%95%EC%9D%B8%EB%8C%93%EA%B8%80.gif)
+![게시글확인 댓글](https://github.com/user-attachments/assets/af20941b-28fe-4096-8620-9f2a90d66958)
 
-![설정게시판이동.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/39396a95-ebd9-4a7c-8db5-45f831db249f/%EC%84%A4%EC%A0%95%EA%B2%8C%EC%8B%9C%ED%8C%90%EC%9D%B4%EB%8F%99.gif)
+![설정게시판이동](https://github.com/user-attachments/assets/21d189d1-0742-4005-9d20-bef7c0d90fec)
 
 </pre>
 </details>
@@ -227,13 +234,13 @@ ERD : (https://www.erdcloud.com)
 
 - 채팅 친구찾기<br>
 
-![Honeycam 2024-09-10 10-33-05.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/4a61191a-2166-437f-a06c-b6d42fb4d0c0/Honeycam_2024-09-10_10-33-05.gif)
+![Honeycam 2024-09-10 10-33-05](https://github.com/user-attachments/assets/5095cad1-faa4-461c-a613-e209b804f721)
 
 - 실시간 채팅<br>
 
-![Honeycam 2024-09-10 10-36-56.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/2836167c-7be9-4e22-a55a-47f024dc6d10/Honeycam_2024-09-10_10-36-56.gif)
+![Honeycam 2024-09-10 10-36-56](https://github.com/user-attachments/assets/ba60de85-7095-4a93-a379-40cc6c83a27a)
 
-![Honeycam 2024-09-10 10-38-24.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/cbabd18e-3d20-4cc9-9a04-01d0d57b84d2/Honeycam_2024-09-10_10-38-24.gif)
+![Honeycam 2024-09-10 10-38-24](https://github.com/user-attachments/assets/c0e43656-b8b5-46bb-bd98-b9e4c25af381)
 
 </pre>
 </details>
@@ -244,29 +251,29 @@ ERD : (https://www.erdcloud.com)
 
 - MP3(음악선택, 음악추가, 음악삭제)<br>
 
-![Honeycam 2024-09-05 15-53-20.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/4c46a074-da76-4cff-af8f-e8ea28009203/Honeycam_2024-09-05_15-53-20.gif)
+![Honeycam 2024-09-05 15-53-20](https://github.com/user-attachments/assets/ac2c45c3-2823-478f-b5e9-340ea43b19f4)
 
-![Honeycam 2024-09-10 09-38-15.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/2c9bd52a-15e9-45bb-9483-70bc1c59ee57/Honeycam_2024-09-10_09-38-15.gif)
+![Honeycam 2024-09-10 09-38-15](https://github.com/user-attachments/assets/5a0c560d-46ee-47c9-8add-6c1b3865a3e1)
 
-![Honeycam 2024-09-06 09-00-21.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/3b39b9f9-d69c-4cc4-9f20-e90207ac2f87/Honeycam_2024-09-06_09-00-21.gif)
+![Honeycam 2024-09-06 09-00-21](https://github.com/user-attachments/assets/8dbe1d55-51da-4ee2-9696-63b98c39b06e)
 
-![Honeycam 2024-09-06 11-11-18.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/d0516d7c-66b6-40bb-b76a-f79add27b799/Honeycam_2024-09-06_11-11-18.gif)
+![Honeycam 2024-09-06 11-11-18](https://github.com/user-attachments/assets/602b369a-2420-445c-87a7-c963425147d3)
 
 - 상점(메인, 아이템확인, 카테고리별 아이템확인)<br>
 
-![Honeycam 2024-09-06 11-15-23.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/6e2ae387-5d73-47cf-859a-d7fb1c39ed36/Honeycam_2024-09-06_11-15-23.gif)
+![Honeycam 2024-09-06 11-15-23](https://github.com/user-attachments/assets/d8ed7f0f-8354-4f94-a55d-a2be3437d945)
 
-![Honeycam 2024-09-06 11-19-42.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/0cf8243d-6df9-43e7-a930-61752c440bf2/Honeycam_2024-09-06_11-19-42.gif)
+![Honeycam 2024-09-06 11-19-42](https://github.com/user-attachments/assets/814e7137-83a6-4743-81e7-b4b5a624c294)
 
-![Honeycam 2024-09-06 11-22-37.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/c447165e-786e-40fe-8a06-83a1a0fea009/Honeycam_2024-09-06_11-22-37.gif)
+![Honeycam 2024-09-06 11-22-37](https://github.com/user-attachments/assets/370c3156-de88-46f5-9ead-94c324534bed)
 
-![Honeycam 2024-09-06 11-23-20.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/8427964f-5e6b-44da-9502-34d1934e3618/Honeycam_2024-09-06_11-23-20.gif)
+![Honeycam 2024-09-06 11-23-20](https://github.com/user-attachments/assets/b3334094-9c81-4daa-a625-c28447e793fa)
 
 - 아바타룸<br>
 
-![Honeycam 2024-09-06 11-25-12.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/04d5acde-054b-4ee3-ae6c-3d684f630daa/Honeycam_2024-09-06_11-25-12.gif)
+![Honeycam 2024-09-06 11-25-12](https://github.com/user-attachments/assets/64e40327-bf29-4c69-ab93-8eb4ddfae860)
 
-![Honeycam 2024-09-06 11-28-10.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/4bcef9a3-1c23-426c-b3bf-6b9c2ead63e1/Honeycam_2024-09-06_11-28-10.gif)
+![Honeycam 2024-09-06 11-28-10](https://github.com/user-attachments/assets/a2a180ee-7375-4014-be9f-23c2baaa3fd3)
 
 </pre>
 </details>
@@ -277,21 +284,21 @@ ERD : (https://www.erdcloud.com)
 
 - 카카오 간편 로그인 연동 및 간편 회원가입<br>
 
-![꿀캠 카카오로그인.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/49740bfc-55b0-4d7c-b9a3-04b76b737a3e/%EA%BF%80%EC%BA%A0_%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif)
+![꿀캠 카카오로그인](https://github.com/user-attachments/assets/2ad46a4d-288b-4133-96e7-878e3dd54922)
 
-![꿀캠 카카오연동.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/7c24dcab-fb7f-4c23-8dc2-dbfe812b1311/%EA%BF%80%EC%BA%A0_%EC%B9%B4%EC%B9%B4%EC%98%A4%EC%97%B0%EB%8F%99.gif)
+![꿀캠 카카오연동](https://github.com/user-attachments/assets/503bfbab-64d7-4cee-b810-708ac3e647f4)
 
 - 일기예보<br>
 
-![꿀캠 일기예보.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/be53663f-17eb-414e-bd97-bf8a532582fc/%EA%BF%80%EC%BA%A0_%EC%9D%BC%EA%B8%B0%EC%98%88%EB%B3%B4.gif)
+![꿀캠 일기예보](https://github.com/user-attachments/assets/5364d4cf-3fbb-4cd6-9d06-d97d2c836c37)
 
 - 포인트 결제 토스페이 연동<br>
 
-![꿀캠 결제창 토스연결.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/2fb4eeba-50b9-4a45-90bc-7437d500a7bc/%EA%BF%80%EC%BA%A0_%EA%B2%B0%EC%A0%9C%EC%B0%BD_%ED%86%A0%EC%8A%A4%EC%97%B0%EA%B2%B0.gif)
+![꿀캠 결제창 토스연결](https://github.com/user-attachments/assets/dc9e4c4a-d5f9-4e64-9e73-07ff079d62d3)
 
 - 결제내역 리스트(전체, 날짜별)<br>
 
-![꿀캠 결제리스트.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/1dde63be-961c-498f-9227-15647d88bfc5/%EA%BF%80%EC%BA%A0_%EA%B2%B0%EC%A0%9C%EB%A6%AC%EC%8A%A4%ED%8A%B8.gif)
+![꿀캠 결제리스트](https://github.com/user-attachments/assets/6e8b4097-89d4-4499-9471-d12484f35599)
 
 </pre>
 </details>
