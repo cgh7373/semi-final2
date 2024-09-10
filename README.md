@@ -83,7 +83,7 @@
 <h1>설계</h1>
 ERD : (https://www.erdcloud.com)
 <br>
-![MINGLE (2) (1)](https://github.com/user-attachments/assets/f0f45368-cb10-4034-935e-aaae7a91035b)
+![MINGLE (2) (1)](https://github-production-user-asset-6210df.s3.amazonaws.com/169425428/365882567-f0f45368-cb10-4034-935e-aaae7a91035b.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240910%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240910T035207Z&X-Amz-Expires=300&X-Amz-Signature=0a0dccade48f601b540d878ff311c6c2cf9e4202c2836e78024b091296f5dc8a&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=838752094)
 
 
 
