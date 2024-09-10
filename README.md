@@ -126,11 +126,11 @@ ERD : (https://www.erdcloud.com)
 - 관리자 메인 <br>
 
 ![관리자 메인홈](https://github.com/user-attachments/assets/6ff9ce69-248c-4b67-bc7d-28012d7cc69b)
-
+<br>
 ![사진변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/ad8a41e0-49c4-4baf-bf12-a5b899008c8a/%EC%82%AC%EC%A7%84%EB%B3%80%EA%B2%BD.gif)
-
+<br>
 ![상품등록.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/8ae21435-93fa-460d-b6a1-ed73a9112ecd/%EC%83%81%ED%92%88%EB%93%B1%EB%A1%9D.gif)
-
+<br>
 ![아이템삭제.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/a7ecdd1c-8edd-4b00-9b6e-e28742d9d408/%EC%95%84%EC%9D%B4%ED%85%9C%EC%82%AD%EC%A0%9C.gif)
 
 - 상점 관리(가격변경, 사진변경, 상품등록, 아이템삭제) <br>
@@ -144,9 +144,9 @@ ERD : (https://www.erdcloud.com)
 - 게시글 관리(게시글 채팅, 게시글 삭제 및 블락, 공지사항 작성) <br>
 
 ![게시글 채팅](https://github.com/user-attachments/assets/88809bc7-0e92-49e5-8ca9-5f01782b5ddc)
-
+<br>
 ![게시글삭제 블락.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/da48ed41-5141-485c-b7e4-f330d675b56d/%EA%B2%8C%EC%8B%9C%EA%B8%80%EC%82%AD%EC%A0%9C_%EB%B8%94%EB%9D%BD.gif)
-
+<br>
 ![공지사항 작성.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/16815091-4891-4175-b998-e20f9b3a0d58/%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD_%EC%9E%91%EC%84%B1.gif)
 
 </pre>
