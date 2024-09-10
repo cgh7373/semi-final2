@@ -310,8 +310,8 @@ ERD : (https://www.erdcloud.com/d/NfBPs32XCs3dZnu8x)
 아쉬워요(각자 아쉬운거나 개선점 있으면 작성해주세요)
 <br><br>
 
-<strong>🧠프로젝트를 통해 깨달은 점 </strong>
-<p>클릭 시 펼쳐 볼 수 있습니다.</pre>
+<strong>🧠프로젝트를 통해 깨달은 점(<p>클릭 시 펼쳐 볼 수 있습니다.</p>) </strong>
+
 <details>
 <summary><strong>🤴김상우 </strong></summary>
 <br>
