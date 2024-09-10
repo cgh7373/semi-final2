@@ -32,33 +32,34 @@
 <br><br><br>
 
 <h1>👶팀원 : 김상우(Leader), 정택은, 최규호, 김서경, 이주영, 유현동</h1>
-<h3>🤴김상우</h3> (https://github.com/kimsssang)<br>
+<h3>🤴김상우</h3>(https://github.com/kimsssang)<br>
 &nbsp;- 관리자 페이지 (관리자 메인, 상점 관리, 회원 관리, 게시글 관리) <br><br>
 
 <br><br>
-👦정택은 (https://github.com/tak511)<br>
+<h3>👦정택은</h3> (https://github.com/tak511)<br>
 &nbsp;- 게시글 전체 조회<br><br>
 &nbsp;- 게시글(상세보기, 수정, 삭제, 검색, 댓글)<br><br>
 <br><br>
-🧑최규호 (https://github.com/cgh7373)<br>
+<h3>🧑최규호</h3> (https://github.com/cgh7373)<br>
 &nbsp;- 캘린더 & 메모<br><br>
 &nbsp;- 회원정보 수정(비밀번호 변경, 닉네임 변경 등)<br><br>
 &nbsp;- 친구관련 시스템(회원검색, 친구신청 등)<br><br>
 &nbsp;- 게시글 관련 시스템(게시글 작성 & 미리보기)<br><br>
 <br><br>
-👩김서경 (https://github.com/kimseokk)<br>
+<h3>👩김서경</h3> (https://github.com/kimseokk)<br>
 &nbsp;- 친구 찾기 시스템<br><br>
 &nbsp;- 실시간 채팅<br><br>
 <br><br>
-👧이주영 (https://github.com/smileJanet)<br>
-&nbsp;- MP3(음악 선택, 추가, 수정)<br>
+<h3>👧이주영</h3> (https://github.com/smileJanet)<br>
+&nbsp;-<h4> MP3(음악 선택, 추가, 수정)</h4><br>
+<li>음악 완성 화면</li>
 ![mp3완성](https://github.com/user-attachments/assets/d3285d80-f10d-400b-8aaf-80694524a589)
 
 
 &nbsp;- 상점(아이템 제작 및 메인 홈피 제작)<br><br>
 &nbsp;- 메인화면 미니홈피<br><br>
 <br><br>
-👨‍🦲유현동 (https://github.com/ehd8216)<br>
+<h3>👨‍🦲유현동</h3> (https://github.com/ehd8216)<br>
 &nbsp;- 카카오 로그인 연동<br><br>
 &nbsp;- 일기예보<br><br>
 &nbsp;- 포인트 결제 토스페이 연동<br><br>
