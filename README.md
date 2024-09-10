@@ -32,37 +32,37 @@
 <br><br><br>
 
 <h1>👶팀원 : 김상우(Leader), 정택은, 최규호, 김서경, 이주영, 유현동</h1>
-🤴김상우(깃허브 주소)<br>
+🤴김상우 (https://github.com/kimsssang)<br>
 &nbsp;- 작업1<br><br>
 &nbsp;- 작업2<br><br>
 &nbsp;- 작업3<br><br>
 &nbsp;- 작업4<br><br>
 <br><br>
-👦정택은(https://github.com/tak511)<br>
+👦정택은 (https://github.com/tak511)<br>
 &nbsp;- 작업1<br><br>
 &nbsp;- 작업2<br><br>
 &nbsp;- 작업3<br><br>
 &nbsp;- 작업4<br><br>
 <br><br>
-🧑최규호(깃허브 주소)<br>
+🧑최규호 (https://github.com/cgh7373)<br>
 &nbsp;- 작업1<br><br>
 &nbsp;- 작업2<br><br>
 &nbsp;- 작업3<br><br>
 &nbsp;- 작업4<br><br>
 <br><br>
-👩김서경(깃허브 주소)<br>
+👩김서경 (https://github.com/kimseokk)<br>
 &nbsp;- 작업1<br><br>
 &nbsp;- 작업2<br><br>
 &nbsp;- 작업3<br><br>
 &nbsp;- 작업4<br><br>
 <br><br>
-👧이주영(깃허브 주소)<br>
+👧이주영 (https://github.com/smileJanet)<br>
 &nbsp;- 작업1<br><br>
 &nbsp;- 작업2<br><br>
 &nbsp;- 작업3<br><br>
 &nbsp;- 작업4<br><br>
 <br><br>
-👨‍🦲유현동(깃허브 주소)<br>
+👨‍🦲유현동 (https://github.com/ehd8216)<br>
 &nbsp;- 작업1<br><br>
 &nbsp;- 작업2<br><br>
 &nbsp;- 작업3<br><br>
