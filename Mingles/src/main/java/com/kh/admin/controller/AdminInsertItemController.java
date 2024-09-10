@@ -148,7 +148,7 @@ public class AdminInsertItemController extends HttpServlet {
 					}else if("itemDes".equals(item.getFieldName())) {
 						itemExplan = item.getString("utf-8");
 						// 가격
-					}else if("itenPrice".equals(item.getFieldName())) {
+					}else if("itemPrice".equals(item.getFieldName())) {
 						price = Integer.parseInt(item.getString());
 						//카테고리
 					}else if("category".equals(item.getFieldName())) {
