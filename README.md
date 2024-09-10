@@ -152,9 +152,9 @@ ERD : (https://www.erdcloud.com)
 ![공지사항 작성](https://github.com/user-attachments/assets/e11d5d55-aada-46c3-bb86-252706df94c7)
 
 </pre>
-</details open>
+</details>
 
-<details>
+<details open>
 <summary>👦정택은</summary>
 <pre>
   
@@ -179,7 +179,7 @@ ERD : (https://www.erdcloud.com)
 </pre>
 </details>
 
-<details>
+<details open>
 <summary>🧑최규호</summary>
 <pre>
 
@@ -230,7 +230,7 @@ ERD : (https://www.erdcloud.com)
 </pre>
 </details>
 
-<details>
+<details open>
 <summary>👩김서경</summary>
 <pre>
 
@@ -247,7 +247,7 @@ ERD : (https://www.erdcloud.com)
 </pre>
 </details>
 
-<details>
+<details open>
 <summary>👧이주영</summary>
 <pre>
 
@@ -280,7 +280,7 @@ ERD : (https://www.erdcloud.com)
 </pre>
 </details>
 
-<details>
+<details open>
 <summary>👨‍🦲유현동</summary>
 <pre>
 
