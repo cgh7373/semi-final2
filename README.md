@@ -126,8 +126,11 @@ ERD : (https://www.erdcloud.com)
 - 관리자 메인 <br>
 
 ![관리자 메인홈](https://github.com/user-attachments/assets/6ff9ce69-248c-4b67-bc7d-28012d7cc69b)
+
 ![사진변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/ad8a41e0-49c4-4baf-bf12-a5b899008c8a/%EC%82%AC%EC%A7%84%EB%B3%80%EA%B2%BD.gif)
+
 ![상품등록.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/8ae21435-93fa-460d-b6a1-ed73a9112ecd/%EC%83%81%ED%92%88%EB%93%B1%EB%A1%9D.gif)
+
 ![아이템삭제.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/a7ecdd1c-8edd-4b00-9b6e-e28742d9d408/%EC%95%84%EC%9D%B4%ED%85%9C%EC%82%AD%EC%A0%9C.gif)
 
 - 상점 관리(가격변경, 사진변경, 상품등록, 아이템삭제) <br>
@@ -141,7 +144,9 @@ ERD : (https://www.erdcloud.com)
 - 게시글 관리(게시글 채팅, 게시글 삭제 및 블락, 공지사항 작성) <br>
 
 ![게시글 채팅](https://github.com/user-attachments/assets/88809bc7-0e92-49e5-8ca9-5f01782b5ddc)
+
 ![게시글삭제 블락.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/da48ed41-5141-485c-b7e4-f330d675b56d/%EA%B2%8C%EC%8B%9C%EA%B8%80%EC%82%AD%EC%A0%9C_%EB%B8%94%EB%9D%BD.gif)
+
 ![공지사항 작성.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/16815091-4891-4175-b998-e20f9b3a0d58/%EA%B3%B5%EC%A7%80%EC%82%AC%ED%95%AD_%EC%9E%91%EC%84%B1.gif)
 
 </pre>
@@ -158,11 +163,13 @@ ERD : (https://www.erdcloud.com)
 - 게시글 수정 및 삭제<br>
 
 ![Honeycam 2024-09-10 10-35-06](https://github.com/user-attachments/assets/d28320ae-0631-4b43-86ef-fce09033389c)
+
 ![Honeycam 2024-09-10 10-36-52.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/f9074882-2b3f-4d88-8df4-f28cdf5915bc/Honeycam_2024-09-10_10-36-52.gif)
 
 - 게시글 검색 및 댓글 작성<br>
 
 ![Honeycam 2024-09-10 10-38-41.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/a14d7c43-03ae-407e-b959-7108a9d23619/Honeycam_2024-09-10_10-38-41.gif)
+
 ![Honeycam 2024-09-10 10-40-34.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/f0a58a4b-63f1-43f9-bf3f-8e0e70e40ded/Honeycam_2024-09-10_10-40-34.gif)
 
 </pre>
@@ -178,25 +185,37 @@ ERD : (https://www.erdcloud.com)
 
 - 회원정보 수정(비밀번호 변경, 닉네임 변경, 이메일 변경, MBTI변경, 상태메세지변경, 프로필사진변경, 배경화면변경)<br>
 ![비밀번호변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/1aec90d7-bef9-4933-9ab1-2462e776546f/%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8%EB%B3%80%EA%B2%BD.gif)
+
 ![닉네임변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/66afc3da-f907-49da-a460-85adaae0d367/%EB%8B%89%EB%84%A4%EC%9E%84%EB%B3%80%EA%B2%BD.gif)
+
 ![이메일변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/4f8069c9-3025-470e-b8f7-f2f104aa69dd/%EC%9D%B4%EB%A9%94%EC%9D%BC%EB%B3%80%EA%B2%BD.gif)
+
 ![엠비티아이변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/2bd5e19f-a7c7-4f5a-9728-51241dcddc48/%EC%97%A0%EB%B9%84%ED%8B%B0%EC%95%84%EC%9D%B4%EB%B3%80%EA%B2%BD.gif)
+
 ![상메변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/d440ab03-4f66-46a2-a2dc-5debd2a0bc61/%EC%83%81%EB%A9%94%EB%B3%80%EA%B2%BD.gif)
+
 ![프사변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/4538108d-809a-4dd3-a65c-33a1fea659d1/%ED%94%84%EC%82%AC%EB%B3%80%EA%B2%BD.gif)
+
 ![배경화면변경.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/e7685988-01f2-4d2f-8d75-382dc5bd41ba/%EB%B0%B0%EA%B2%BD%ED%99%94%EB%A9%B4%EB%B3%80%EA%B2%BD.gif)
 
 - 친구 (검색, 친구신청, 요청확인, 요청 수락, 친구등급설정, 방문하기, 친구게시글보기, 파도타기)<br>
 
 ![회원검색&친구신청.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/baf338b3-bbf5-496f-b94e-8d1d4a6f8b73/%ED%9A%8C%EC%9B%90%EA%B2%80%EC%83%89%EC%B9%9C%EA%B5%AC%EC%8B%A0%EC%B2%AD.gif)
+
 ![받은요청&수락.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/e5e9d934-02f2-4474-bc20-ae2133e4e321/%EB%B0%9B%EC%9D%80%EC%9A%94%EC%B2%AD%EC%88%98%EB%9D%BD.gif)
+
 ![친구등급&방문.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/9d016265-2239-4c7c-a40b-3392ce0bda48/%EC%B9%9C%EA%B5%AC%EB%93%B1%EA%B8%89%EB%B0%A9%EB%AC%B8.gif)
+
 ![친구게시글확인.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/09a34216-01fa-42b1-b8e3-b282e4f846f2/%EC%B9%9C%EA%B5%AC%EA%B2%8C%EC%8B%9C%EA%B8%80%ED%99%95%EC%9D%B8.gif)
+
 ![파도타기.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/da679475-8c6d-4c20-8164-14f3d058d379/%ED%8C%8C%EB%8F%84%ED%83%80%EA%B8%B0.gif)
 
 - 게시글(작성, 미리보기, 게시글보기, 댓글, 설정창에서 게시글 확인)<br>
 
 ![게시글작성.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/33173e59-609f-4808-98fa-1d298fff44ec/%EA%B2%8C%EC%8B%9C%EA%B8%80%EC%9E%91%EC%84%B1.gif)
+
 ![게시글확인&댓글.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/00bfbe71-6351-4721-a548-9d5c8d91485f/%EA%B2%8C%EC%8B%9C%EA%B8%80%ED%99%95%EC%9D%B8%EB%8C%93%EA%B8%80.gif)
+
 ![설정게시판이동.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/39396a95-ebd9-4a7c-8db5-45f831db249f/%EC%84%A4%EC%A0%95%EA%B2%8C%EC%8B%9C%ED%8C%90%EC%9D%B4%EB%8F%99.gif)
 
 </pre>
@@ -213,6 +232,7 @@ ERD : (https://www.erdcloud.com)
 - 실시간 채팅<br>
 
 ![Honeycam 2024-09-10 10-36-56.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/2836167c-7be9-4e22-a55a-47f024dc6d10/Honeycam_2024-09-10_10-36-56.gif)
+
 ![Honeycam 2024-09-10 10-38-24.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/cbabd18e-3d20-4cc9-9a04-01d0d57b84d2/Honeycam_2024-09-10_10-38-24.gif)
 
 </pre>
@@ -225,20 +245,27 @@ ERD : (https://www.erdcloud.com)
 - MP3(음악선택, 음악추가, 음악삭제)<br>
 
 ![Honeycam 2024-09-05 15-53-20.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/4c46a074-da76-4cff-af8f-e8ea28009203/Honeycam_2024-09-05_15-53-20.gif)
+
 ![Honeycam 2024-09-10 09-38-15.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/2c9bd52a-15e9-45bb-9483-70bc1c59ee57/Honeycam_2024-09-10_09-38-15.gif)
+
 ![Honeycam 2024-09-06 09-00-21.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/3b39b9f9-d69c-4cc4-9f20-e90207ac2f87/Honeycam_2024-09-06_09-00-21.gif)
+
 ![Honeycam 2024-09-06 11-11-18.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/d0516d7c-66b6-40bb-b76a-f79add27b799/Honeycam_2024-09-06_11-11-18.gif)
 
 - 상점(메인, 아이템확인, 카테고리별 아이템확인)<br>
 
 ![Honeycam 2024-09-06 11-15-23.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/6e2ae387-5d73-47cf-859a-d7fb1c39ed36/Honeycam_2024-09-06_11-15-23.gif)
+
 ![Honeycam 2024-09-06 11-19-42.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/0cf8243d-6df9-43e7-a930-61752c440bf2/Honeycam_2024-09-06_11-19-42.gif)
+
 ![Honeycam 2024-09-06 11-22-37.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/c447165e-786e-40fe-8a06-83a1a0fea009/Honeycam_2024-09-06_11-22-37.gif)
+
 ![Honeycam 2024-09-06 11-23-20.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/8427964f-5e6b-44da-9502-34d1934e3618/Honeycam_2024-09-06_11-23-20.gif)
 
 - 아바타룸<br>
 
 ![Honeycam 2024-09-06 11-25-12.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/04d5acde-054b-4ee3-ae6c-3d684f630daa/Honeycam_2024-09-06_11-25-12.gif)
+
 ![Honeycam 2024-09-06 11-28-10.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/4bcef9a3-1c23-426c-b3bf-6b9c2ead63e1/Honeycam_2024-09-06_11-28-10.gif)
 
 </pre>
@@ -251,6 +278,7 @@ ERD : (https://www.erdcloud.com)
 - 카카오 간편 로그인 연동 및 간편 회원가입<br>
 
 ![꿀캠 카카오로그인.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/49740bfc-55b0-4d7c-b9a3-04b76b737a3e/%EA%BF%80%EC%BA%A0_%EC%B9%B4%EC%B9%B4%EC%98%A4%EB%A1%9C%EA%B7%B8%EC%9D%B8.gif)
+
 ![꿀캠 카카오연동.gif](https://prod-files-secure.s3.us-west-2.amazonaws.com/cb3ee9e6-5800-490d-ba91-63462b2b1481/7c24dcab-fb7f-4c23-8dc2-dbfe812b1311/%EA%BF%80%EC%BA%A0_%EC%B9%B4%EC%B9%B4%EC%98%A4%EC%97%B0%EB%8F%99.gif)
 
 - 일기예보<br>
