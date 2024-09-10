@@ -83,6 +83,9 @@
 <h1>설계</h1>
 ERD : (https://www.erdcloud.com)
 <br>
-![MINGLE (2) (1)](https://github.com/user-attachments/assets/935501f6-4351-4781-baba-816d65cd6d2a)
+![MINGLE (2) (1)](https://github.com/user-attachments/assets/f0f45368-cb10-4034-935e-aaae7a91035b)
+
+
+
 
 
