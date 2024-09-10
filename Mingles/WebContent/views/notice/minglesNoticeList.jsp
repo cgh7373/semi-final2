@@ -1,11 +1,18 @@
+<%@page import="com.kh.posts.model.vo.Post"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.common.model.vo.PageInfo"%>
 <%@page import="com.kh.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	Member m = (Member)session.getAttribute("loginUser");
-	String contextPath = request.getContextPath();
-	String alertMsg = (String)session.getAttribute("alertMsg");
-	String errorMsg = (String)session.getAttribute("errorMsg");
+Member m=(Member)session.getAttribute("loginUser");
+PageInfo pi=(PageInfo)request.getAttribute("pi"); 
+ArrayList<Post> list = (ArrayList<Post>)request.getAttribute("list");
+String contextPath = request.getContextPath();
+int currentPage = pi.getCurrentPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
+int maxPage = pi.getMaxPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -14,6 +21,7 @@
 <title>Insert title here</title>
 <!-- 외부파일 -->
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -23,123 +31,147 @@
         integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script defer src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
     <link rel="stylesheet" href="./resources/css/commonBoard.css">
     <script defer src="./resources/js/commonBoard.js"></script>
 </head>
 <body>
+<script>
+$(document).ready(function() {
+    // 모달 요소
+    var modal = $('#myModal');
+    var modalText = $('#modal-text');
+    
+    // 닫기 버튼
+    var span = $('.close');
 
-	<!-- 게시글 관련 파일 만들때 이거 통으로 복붙한다음에 만들어요 절대 이파일은 수정하지 말것 -->
+    // ul 태그 클릭 시 모달 열기
+    $(".list_view").click(function() {
+        // 글번호를 모달에 표시
+        var postNum = $(this).children().eq(0).text().trim();
+        modalText.text("글번호: " + postNum + "에 대한 내용");
 
-	<script>
-		document.addEventListener("DOMContentLoaded", function() {
-		// 성공메시지
-		 <% if (alertMsg != null) { %>
-       		 swal({
-             icon: 'success',
-             title: '<%=alertMsg%>',
-        	 });
-         <% session.removeAttribute("alertMsg"); %>
-   		 <% } %>
+        // 모달 창 열기
+        modal.css("display", "block");
+    });
 
-   		 <% if (errorMsg != null) { %>
-       		 swal({
-             icon: 'error',
-             title: '<%=errorMsg%>',
-        	 });
-         <% session.removeAttribute("errorMsg"); %>
-    	 <% } %>
-		 });
-	</script>
-	
-     <% if (m != null) { %>
-	 <div id="wrap">
-        <div id="container">
-            <!-- Left Screen -->
-            <div class="post-list" id="left">
-                <div class="left__content" id="con1">
-                    <img src=<%=m.getProfilePic().substring(4) %> alt="">
-                </div>
-                <div class="left__content" id="con2">
-                    <div id="con2__nickname"><%= m.getNickname() %></div>
-                    <button id="mailIcon" class="material-icons">mail_outline</button>
-                    <div id="con2__my_text"><%=m.getStatusMsg() %></div>
-                    <div id="con2__my_info">
-                        <div id="my_info__1" data-toggle="tooltip" title="<%= m.getEmail() %>">이메일</div>
-                        <div id="my_info__2" data-toggle="tooltip" title="<%= m.getMBTI() %>">MBTI</div>
-                        <div id="my_info__3" data-toggle="tooltip" title="<%= m.getZodiac() %>">별자리</div>
-                        <div id="my_info__4" data-toggle="tooltip" title="<%= m.getABO() %>">혈액형</div>
-                    </div>
-                    
-                </div>
-                <!-- Popular and Recent Posts -->
-                <div class="left__content" id="con3">
-                    <div class="post-box" id="popular">
-                        <div class="sub-title">인기글</div>
-                        <ul>
-                            <li>뽀ㄷH 퀸ㅋr만 눌러</li>
-                            <li>학생○lㄹΓ는 죄로..</li>
-                            <li>친구ㄱг무엇을뜻ㅎг는줄○гㄴı¿ </li>
-                        </ul>
-                    </div>
-                    <div class="post-box" id="recent">
-                        <div class="sub-title">최신글</div>
-                        <ul>
-                            <li>ㅂıㄹr는 ㄱł..참 ㅅĿブıㅎŀスl?</li>
-                            <li>Øl젠 ⊂よ신을 ズı켜주고 싶습LI⊂ト</li>
-                            <li>해피바이러스가 성공적으로 배달되었습니다*^^*</li>
-                        </ul>
-                    </div>
+    // 닫기 버튼 클릭 시 모달 닫기
+    span.click(function() {
+        modal.css("display", "none");
+    });
+
+    // 모달 외부 클릭 시 모달 닫기
+    $(window).click(function(event) {
+        if ($(event.target).is(modal)) {
+            modal.css("display", "none");
+        }
+    });
+});
+</script>
+    <div id="wrap">
+
+        <!-- 메인 화면 -->
+    <div id="container">
+        <div class="post-list" id="right">
+            <div id="post-right__title">
+                <div id="right-title__text">공지사항</div>
+                <div id="right-title__btn">
+                    <button class="btn-set" id="b5"
+                        onclick="history.back()"><span>뒤로가기</span>
+                    </button>
                 </div>
             </div>
-
-            <!-- Right Screen with Post Frame -->
-            <div class="post-list" id="right">
-                <div id="post-right__title">
-                    <div id="right-title__text">공지사항</div>
-                    <div id="right-title__btn">
-                        <button><div>글쓰기</div></button>
-                        <button onclick="goSettings();"><div>뒤로가기</div></button>
+            <div id="post-right__list">
+                <section class="right-list__content">
+                    <ul id="firstul">
+                        <li style="width: 5%;">글번호</li>
+                        <li style="width: 8%;">공개범위</li>
+                        <li style="width: 72%;">제목</li>
+                        <li style="width: 10%;">작성일자</li>
+                        <li style="width: 5%;">조회수</li>
+                    </ul>
+                    <div>
+                        <% if(list.isEmpty()) {%>
+                            <!--게시글 없을 경우-->
+                            <ul>
+                                <li>조회된 게시글이 없습니다.</li>
+                            </ul>
+                            <%}else{ %>
+                                <!--게시글 있을 경우-->
+                                <%for(Post p:list){ %>
+                                    <ul class="list_view">
+                                        <li style="width: 5%;">
+                                            <%=p.getPostNum()%>
+                                        </li>
+                                        <li style="width: 8%;">
+										   공지사항
+                                        </li>
+                                        <li style="width: 72%; text-align: left;">
+                                            <%=p.getPostTitle()%>
+                                        </li>
+                                        <li style="width: 10%;">
+                                            <%=p.getPostRegdate()%>
+                                        </li>
+                                        <li style="width: 5%;">
+                                            <%=p.getPostCount()%>
+                                        </li>
+                                    </ul>
+                                    <%} %>
+                                        <%}%>
                     </div>
-                </div>
-                
-                <script>
-                	function goSettings() {
-                		location.href="views/settings/minglesSettings.jsp";
-                	}
-                </script>
-                
-                <div id="post-right__list">
-                    <table class="right-list__content">
-                    
-                        <!-- 여기가 제목칸들 -->
-                        <thead>
-                            <tr>
-                                <th width="12%">게시번호</th>
-                                <th width="10%">태그</th>
-                                <th width="40%">제목</th>
-                                <th width="8%">조회수</th>
-                                <th width="30%">작성일</th>
-                            </tr>
-                        </thead> 
-                        
-                        
-                        <!-- 여기다가 게시글 동적으로 만들면됨 -->
-                        <tbody>
-                            <tr>
-                                <td>내용1</td>
-                                <td>내용2</td>
-                                <td>내용3</td>
-                                <td>내용4</td>
-                                <td>내용5</td>
-                            </tr>
-                        </tbody>
-                        
-                    </table>
-                </div>
+                </section>
+                   <div class="paging-area" align="center">
+                        <% if(currentPage != 1){%>
+                        <button onclick="location.href='<%= contextPath%>/notice.mi?cpage=<%=currentPage-1%>&writer=<%=m.getMemNo()%>'">&lt;</button>
+                        <%} %>
+                        <%for(int p = startPage; p<=endPage; p++){%>
+                            <%if(p== currentPage){%>
+                                <button disabled class="butchoice"><%= p %></button>
+                            <%}else{%>
+                                <button onclick="location.href='<%= contextPath %>/notice.mi?cpage=<%=p%>&writer=<%=m.getMemNo()%>'"><%= p %></button>
+                                <%} %>
+                        <%}%>
+                        <%if(currentPage != maxPage){ %>
+                        <button onclick="location.href='<%= contextPath%>/notice.mi?cpage=<%=currentPage+1%>&writer=<%=m.getMemNo()%>'">&gt;</button>
+                        <%} %>
+                    </div>
             </div>
         </div>
     </div>
-	<% } %>
+    <div id="myModal" class="modal">
+	  <div class="modal-content">
+		    <span class="close">&times;</span>
+		    <div class="modal_container">
+               
+            </div>
+	  </div>
+	</div>
+</div> 
+<script>
+$(function() {
+    $(".list_view").click(function() {
+        let pno = $(this).children().eq(0).text().trim();
 
+        $.ajax({
+            url: "noticedeail.po",
+            method: "POST",
+            data: { pno: pno },
+            success: function(response) {
+                if (response.error) {
+                    alert(response.error);
+                } else {
+                    // 모달창에 데이터를 채워넣음
+                    $(".modal_container").html(response.postContent);
+                    // 모달창 표시
+                    $("#myModal").css("display", "block");
+                }
+            },
+            error: function() {
+                alert("게시글을 불러오는 중 오류가 발생했습니다.");
+            }
+        });
+    });
+});
+</script>
 </body>
 </html>

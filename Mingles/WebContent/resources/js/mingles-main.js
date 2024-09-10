@@ -115,7 +115,15 @@ $(document).ready(function () {
   $("#file").change(function () {
     if (this.files && this.files[0].type === "audio/mpeg") {
       $("#music--icon").css("color", "#68D8D6");
-    }
+    }else{
+		Swal.fire({
+        title: "파일 삽입은 mp3형식만 가능합니다.",
+        icon: "warning",
+        confirmButtonColor: "#72DDF7",
+        confirmButtonText: "확인했어요",
+      });
+      return;
+}
   });
 
   // THUMBNAIL FILE INSERT -> COLOR CHANGE
@@ -126,7 +134,15 @@ $(document).ready(function () {
 
       if (allowedExt.includes(fileExt)) {
         $("#music--thumbnail").css("color", "#68D8D6");
-      }
+      }else{
+		Swal.fire({
+        title: "파일 삽입은 jpg, jpeg, png 형식만 가능합니다.",
+        icon: "warning",
+        confirmButtonColor: "#72DDF7",
+        confirmButtonText: "확인했어요",
+      });
+      return;
+	}
     }
   });
 
@@ -148,7 +164,7 @@ $(document).ready(function () {
       });
       return;
     }
-
+    
     if (title === "" || singer === "") {
       Swal.fire({
         title: "제목과 가수 모두 적어주세요.",
@@ -303,7 +319,6 @@ function weather() {
   var to_day = getToday();
   var time = getTime();
   getLocation();
-  console.log(to_day, time);
   function getToday() {
     var date = new Date();
     var year = date.getFullYear();
@@ -327,10 +342,22 @@ function weather() {
 
   function getLocation() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
+      navigator.geolocation.getCurrentPosition(showPosition, locationError);
     } else {
       x.innerHTML = "Geolocation is not supported by this browser.";
+      
     }
+  }
+
+  function locationError() {
+    console.log("DD");
+    $("#card").text("위치 액세스가 차단되어있습니다. 날씨정보를 이용하실려면 액세스를 허용해주세요.").css({
+      fontSize: "16px",
+      textAlign: "center",
+      lineHeight: "280%",
+      width: "90%"
+    });
+    $(".weatherCard").css({ pointerEvents: "none" });
   }
 
   function showPosition(position) {
@@ -424,8 +451,6 @@ function weather() {
         "&ny=" +
         Y,
       success: function (res) {
-        console.log("갑자기");
-        console.log(res);
         let item = res.response.body.items.item;
 
         for (let i = 0; i < item.length - 500; i++) {

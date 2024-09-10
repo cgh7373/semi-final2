@@ -51,21 +51,21 @@ function updateItemList(result){
 			let fileName = item.fileName.replace(/^\//, '');
 
 	 		if (fileName.includes("wall-shop")) {
-                walldata.push({ itemImg: fileName });
+                walldata.unshift({ itemImg: fileName });
             } else if (fileName.includes("floor-shop")) {
-                floordata.push({ itemImg: fileName });
+                floordata.unshift({ itemImg: fileName });
             } else if (fileName.includes("theme-shop")) {
-                themedata.push({ itemImg: fileName });
+                themedata.unshift({ itemImg: fileName });
             } else if (fileName.includes("hair-shop")) {
-                hairdata.push({ itemImg: fileName });
+                hairdata.unshift({ itemImg: fileName });
             } else if (fileName.includes("face-shop")) {
-                facedata.push({ itemImg: fileName });
+                facedata.unshift({ itemImg: fileName });
             } else if (fileName.includes("top-shop")) {
-                topdata.push({ itemImg: fileName });
+                topdata.unshift({ itemImg: fileName });
             } else if (fileName.includes("bottom-shop")) {
-                bottomdata.push({ itemImg: fileName });
+                bottomdata.unshift({ itemImg: fileName });
             } else if (fileName.includes("shoes-shop")) {
-                shoesdata.push({ itemImg: fileName });
+                shoesdata.unshift({ itemImg: fileName });
             }
 		});
 	}

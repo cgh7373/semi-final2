@@ -547,12 +547,6 @@ table input[type="text"] {
   cursor: pointer;
   margin: 0 40px;
   font-size: 20px;
-
-  &:hover {
-    border-radius: 20px;
-    box-shadow: 0 0 5px #64dfdf, 0 0 10px #56cfe1, 0 0 15px #48bfe3;
-    transition-duration: 1s;
-  }
 }
 
 /* 날씨 카드 */
@@ -571,7 +565,7 @@ table input[type="text"] {
   align-items: center;
   height: 12%;
   /* width: 52%; */
-  width: 16%;
+  width: 17%;
   background: linear-gradient(50deg, #e0feff, #bbfffd);
   position: absolute;
   left: 36%;

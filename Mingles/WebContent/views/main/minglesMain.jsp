@@ -96,24 +96,14 @@
                                 </div>
                                 <div class="modal-body">
                                     <div class="music--update">
-                                        <div>
-                                            좋아하는 음악을 추가해보세요! (최대 10개 가능)
+                                        <div style = "font-size:20px;, line-height:10px;">
+                                        최대 10개의 좋아하는 음악을 추가할 수 있어요!
+                                        </div>
+                                            (음악:mp3, 썸네일:jpg, jpeg, png허용)
                                             <br /><br />
                                             <ul class="music--list">
                                                 <li class="song">
-                                                    <div class="material-icons selectMusic"
-                                                        style="color: #07beb8; font-size: 18px; cursor: pointer">
-                                                        play_arrow
-                                                    </div>
-                                                    basicSong - hiphopRockstar
-                                                    <div class="material-icons trashcan" style="
-                        color: #dc3545;
-                        font-size: 16px;
-                        visibility: hidden;
-                        cursor: pointer;
-                      ">
-                                                        delete_outline
-                                                    </div>
+  
                                                 </li>
                                             </ul>
                                             <br /><br />
@@ -144,7 +134,7 @@
                                                         &nbsp; 제목 :
                                                         <input type="text" name="title" id="musicTitle" required />
                                                         가수 :
-                                                        <input type="text" name="singer" id="singer" required />
+                                                        <input type="text" name="singer" id="singer"  required />
                                                         <br />
                                                     </td>
                                                 </tr>

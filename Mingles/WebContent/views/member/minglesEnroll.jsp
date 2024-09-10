@@ -219,7 +219,6 @@
                             var gender = res.kakao_account.gender;
                             var name = res.kakao_account.name;
                             var phone = '0'+res.kakao_account.phone_number.substr(4,2)+res.kakao_account.phone_number.substr(7,4)+res.kakao_account.phone_number.substr(12);
-                            console.log(phone)
                             var birthday = res.kakao_account.birthday;
                             var birthyear = res.kakao_account.birthyear;
                             

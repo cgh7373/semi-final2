@@ -40,10 +40,7 @@ String contextPath = request.getContextPath();
         <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" integrity="sha512-8E3KZoPoZCD+1dgfqhPbejQBnQfBXe8FuwL4z/c8sTrgeDMFEnoyTlH3obB4/fV+6Sg0a0XF+L/6xS4Xx1fUEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
         <!-- 내부파일 -->
-        <link
-          rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/css/mingles-chat.css"
-        />
+        <link rel="stylesheet" href="./resources/css/mingles-chat.css?ver=1" />
         <script defer src="./resources/js/mingles-chat.js"></script>
 
         <!-- 마우스 커서 불가사리 -->
@@ -265,7 +262,7 @@ String contextPath = request.getContextPath();
                 <% for(Friend f : friend){ %>
                 <li class="friendList" value="<%= f.getfMemNo() %>" rel="friendList">
                   <div class="friend__icon">
-                    <img src="<%= f.getProfilePic() %>" alt="친구프로필" />
+                    <img src="<%= f.getProfilePic().substring(4) %>" alt="친구프로필" />
                   </div>
                   <div class="friend-info">
                     <span class="friend__name" rel="frinedNick"><%= f.getNickName() %></span>
@@ -289,16 +286,12 @@ String contextPath = request.getContextPath();
               </div>
 
               <!-- send부분 -->
-              <form
-                id="chat-form"
-                method="post"
-                enctype="multipart/form-data"
-              >
+              <div id="chat-form">
               <div class="inputContainer">
                 <input
                   type="text"
                   id="messageInput"
-                  name="inMessage"
+                  name=""
                   placeholder="메세지를 입력하세요 :)"
                 />
                 <label for="input-file">
@@ -315,14 +308,14 @@ String contextPath = request.getContextPath();
                 />
                 
                 <span class="material-icons draw">draw</span>
-                <button class="send_btn" id="subBtn" onclick="insertchat(<%= m.getMemNo() %>)">
+                <button type="button" class="send_btn" id="subBtn" onclick="insertchat(<%= m.getMemNo()%>)">
                   send
                   <div class="hoverEffect">
                     <div><!-- 이펙트공간 --></div>
                   </div>
                 </button>
                 
-              </form>
+              </div>
             </div>
           </section>
         </div>
@@ -471,7 +464,7 @@ String contextPath = request.getContextPath();
                      			chatContent +=
                                      "<div class='chatting ch1'>" +
                                      "<div class='icon'><img src='" +
-                                     chat.toNoprofile +
+                                     chat.toNoprofile.substring(4) +
                                      "' alt='Friend Profile'></div>" +
                                      "<div class='textbox'>" +
                                      chat.chatContent +
@@ -481,7 +474,7 @@ String contextPath = request.getContextPath();
                      			chatContent +=
                                      "<div class='chatting ch2'>" +
                                      "<div class='icon'><img src='" +
-                                     fromMemprofile +
+                                     fromMemprofile.substring(4) +
                                      "' alt='My Profile'></div>" +
                                      "<div class='textbox'>" +
                                      chat.chatContent +
@@ -516,15 +509,46 @@ String contextPath = request.getContextPath();
              		  success:function(inChat){
                       	if(inChat > 0){ // 채팅 보내기 성공 => 갱신 리스트 조회
              			    loadChatting(toNo, fromNo, loginNo);
-             			    $("#messageInput").val("");
              			    }
+             			   $("#messageInput").val("");
              		  },
              		  error:function(){
              			  console.log("응 채팅 보내는거 실패해띠~");
              		  },
              	  });
-               }  
-
+               }
+               
+               //
+              /*  $(()=>{
+            	   const inputs = $("#messageInput");
+            	   
+            	   inputs.on("keydown", (e)=>{
+            		   
+            		   if(e.key === "Enter"){
+            			   $.ajax({
+                      		  url:"insert.ch",
+                      		  data:{
+                      			  content : inputs.val(),
+                      			  toNo:toNo,
+                      			  fromNo:fromNo,
+                      			  loginNo:loginNo,
+                      		  },
+                      		  type:"post",
+                      		  success:function(inChat){
+                               	if(inChat > 0){ // 채팅 보내기 성공 => 갱신 리스트 조회
+                      			    loadChatting(toNo, fromNo, loginNo);
+                      			    }
+                      			   $("#messageInput").val("");
+                      		  },
+                      		  error:function(){
+                      			  console.log("응 채팅 보내는거 실패해띠~");
+                      		  },
+                      	  });
+            		   }
+            	   })
+            	   
+               })
+ */
         </script>
       </body>
     </html></Friend

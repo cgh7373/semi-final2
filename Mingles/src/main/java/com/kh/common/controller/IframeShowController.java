@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.kh.member.model.service.MemberService;
 
 /**
  * Servlet implementation class IframeShowController
@@ -53,11 +54,21 @@ public class IframeShowController extends HttpServlet {
 			break;
 		
 		case "chat" :
-			page = "/Mingles/views/chat/minglesChat.jsp";
+			page = "/Mingles/friend.ch";
 			break;
 			
 		case "posts" : 
 			page = "/Mingles/views/posts/minglesPosts.jsp";
+			break;
+			
+		case "wave" :
+			if (request.getParameter("no") != null) {
+				int no = Integer.parseInt(request.getParameter("no"));
+				int memNo = new MemberService().toWave(no);
+				page = "/Mingles/views/main/minglesMain.jsp?memNo=" + memNo;
+			} else {
+				page = "/Mingles/views/main/minglesMain.jsp";
+			}
 			break;
 			
 		}

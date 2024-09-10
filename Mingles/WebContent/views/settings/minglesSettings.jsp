@@ -624,7 +624,7 @@
 
                                             <div class="right-top">
 
-                                                <span class="material-icons">settings</span>
+                                                <span class="material-icons" style = "font-size:30px">settings</span>
 
                                                 &nbsp;&nbsp;
 
@@ -709,11 +709,11 @@
                                                     }
 
                                                     function toPosts() {
-                                                        location.href = "/Mingles/postsForm.mi";
-                                                    }
+                            			        		location.href="/Mingles/postsForm.mi?cpage=1&writer="+<%=m.getMemNo()%>;
+                            						}
 
                                                     function toNotice() {
-                                                        location.href = "/Mingles/notice.mi";
+                                                        location.href = "/Mingles/notice.mi?cpage=1&writer="+<%=m.getMemNo()%>;
                                                     }
                                                 </script>
 
@@ -753,19 +753,19 @@
                                                                                     value="../../resources/images/2024090509360141012.jpg">
                                                                                     3</option>
                                                                                 <option
-                                                                                    value="../../resources/images/bgi6.jfif">
+                                                                                    value="../../resources/images/2024090517301384653.jpg">
                                                                                     4</option>
                                                                                 <option
-                                                                                    value="../../resources/images/bgi7.jfif">
+                                                                                    value="../../resources/images/2024090517342222833.jpg">
                                                                                     5</option>
                                                                                 <option
-                                                                                    value="../../resources/images/bgi3.jfif">
+                                                                                    value="../../resources/images/2024090517354319896.jpg">
                                                                                     6</option>
                                                                                 <option
-                                                                                    value="../../resources/images/2024090509355058168.jpg">
+                                                                                    value="../../resources/images/2024090517362510792.jpg">
                                                                                     7</option>
                                                                                 <option
-                                                                                    value="../../resources/images/2024082816503036202.jpeg">
+                                                                                    value="../../resources/images/2024090517433031192.jpg">
                                                                                     8</option>
                                                                                 <option
                                                                                     value="../../resources/images/2024090510425453324.jpg">
@@ -788,6 +788,21 @@
                                                                                 <option
                                                                                     value="../../resources/images/2024090512303577187.gif">
                                                                                     15</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090517150151567.gif">
+                                                                                    16</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090517150644252.gif">
+                                                                                    17</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090517151442424.gif">
+                                                                                    18</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090517151832939.gif">
+                                                                                    19</option>
+                                                                                <option
+                                                                                    value="../../resources/images/2024090517183083146.jpg">
+                                                                                    20</option>
                                                                             </select>
 
                                                                             <button id="bgiAdBtn">적용</button>
@@ -1115,7 +1130,7 @@
 
                                                             <!-- Modal Header -->
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title" align="center">상태메세지 변경</h4>
+                                                                <h4 class="modal-title" style = " margin-left:150px;">상태메세지 변경</h4>
                                                                 <button type="button" class="close"
                                                                     data-dismiss="modal">&times;</button>
                                                             </div>
@@ -1157,7 +1172,9 @@
                                                             <div class="modal-header">
                                                                 <h4 class="modal-title" align="center"><input
                                                                         type="text" name="findMember" required
-                                                                        placeholder="회원이름을 입력하세요">
+                                                                        placeholder="회원이름을 입력하세요"
+                                                                        style = "width:300px;"
+                                                                        >
                                                                     <button id="findBtn" class="btn btn-sm"
                                                                         style="background-color: white;">검색</button>
                                                                     <button id="resetBtn" class="btn btn-sm"

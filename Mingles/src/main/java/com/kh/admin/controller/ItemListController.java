@@ -74,7 +74,8 @@ public class ItemListController extends HttpServlet {
 			PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 			// 2. 서비스에게 정보 요청(전체)		
 			ArrayList<Item> list = new ItemService().selectItemList(pi);
-	
+			
+			System.out.println(list);
 			// 3. 응답 던지기
 			request.setAttribute("defaultCategory", category);
 			request.setAttribute("pi", pi);

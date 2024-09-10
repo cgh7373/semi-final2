@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectBlacklist">
+		SELECT
+		        m.MEM_ID AS "MEM_ID",
+		        m.NICKNAME AS "NICKNAME",
+		        b.BLOCK_TYPE AS "BLOCK_TYPE",
+		        b.BLOCK_COUNT AS "BLOCK_COUNT",
+		        r.MEM_ID "REPORT_ID",
+		        b.BLOCK_DATE "BLOCK_DATE"
+		  FROM
+		        MEMBER_BLACKLIST b
+		  JOIN
+		        MEMBER m ON b.MEM_NO = m.MEM_NO 
+		  JOIN
+		        MEMBER r ON b.REPORTMEM_NO = r.MEM_NO
+		  WHERE BLACK_STATUS = 'Y'  
+		  ORDER
+		     BY
+		        b.BLOCK_DATE DESC
+	</entry>
+	<entry key="selectMemberCount">
+		SELECT COUNT(MEM_NO) AS "COUNT"
+		  FROM MEMBER
+		 WHERE EXTRACT(MONTH FROM ENROLL_DATE) = ?
+		   AND STATUS != 'N'
+	</entry>
+	
+	<entry key="selectPayCount">
+		SELECT SUM(PRICE) PRICE
+		  FROM EGGPAYMENT
+		 WHERE EXTRACT(MONTH FROM PAYDATE) = ?
+		   AND PAYSTATUS = 'Y'
+	</entry>
+	
+	<entry key="selectPostCount">
+		SELECT COUNT(POST_NUM) AS "COUNT"
+		  FROM POST
+		 WHERE EXTRACT(MONTH FROM POST_REGDATE) = ?
+		   AND POST_STATUS != 'N'
+	</entry>
+	
+	<entry key="selectItemCount">
+		SELECT 
+		       IC.ITEM_CATEGORY AS ITEM_CATEGORY
+		     , IC.CATEGORYNAME AS CATEGORYNAME
+		     , COUNT(I.ITEM_NUM) AS ITEM_COUNT
+		  FROM ITEMCATEGORY IC
+		  LEFT
+		  JOIN ITEM I
+		    ON I.ITEM_CATEGORY = IC.ITEM_CATEGORY
+		 GROUP 
+		    BY IC.ITEM_CATEGORY
+		     , IC.CATEGORYNAME
+		 ORDER 
+		    BY TO_NUMBER(SUBSTR(IC.ITEM_CATEGORY, 3))
+	</entry>
+	
+	<entry key="selectItem">
+		SELECT ITEM_NUM
+		     , CATEGORYNAME
+		     , ITEM_NAME
+		     , PRICE
+		     , ITEM_INTRO
+		     , ITEM_DATE
+		     , ITEM_STATUS
+		     , ITEM_TAG
+		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
+		     , CHANGE_NAME
+		  FROM ITEM
+		  JOIN ITEMCATEGORY USING(ITEM_CATEGORY)
+		  JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
+		 WHERE ITEM_STATUS = 'Y'
+		 ORDER
+		    BY ITEM_NUM DESC  
+	</entry>
+	
+	<entry key="selectItemCategory">
+		SELECT ITEM_CATEGORY
+		     , CATEGORYNAME
+		  FROM ITEMCATEGORY
+	</entry>
+	
+	
+	<entry key="choiceCategory">
+		SELECT ITEM_NUM
+		     , CATEGORYNAME
+		     , ITEM_NAME
+		     , PRICE
+		     , ITEM_INTRO
+		     , ITEM_DATE
+		     , ITEM_STATUS
+		     , ITEM_TAG
+		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
+		  FROM ITEM I
+		  JOIN ITEMCATEGORY IC USING(ITEM_CATEGORY)
+          JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
+		 WHERE ITEM_STATUS = 'Y'
+		   AND IC.CATEGORYNAME = ?
+		 ORDER
+		    BY ITEM_NUM DESC
+	</entry>
+	
+	<entry key="choiceCategoryDeleted">
+		SELECT ITEM_NUM
+		     , CATEGORYNAME
+		     , ITEM_NAME
+		     , PRICE
+		     , ITEM_INTRO
+		     , ITEM_DATE
+		     , ITEM_STATUS
+		     , FILE_PATH || CHANGE_NAME AS SAVE_FILE
+		     , ITEM_TAG
+		  FROM ITEM I
+		  JOIN ITEMCATEGORY IC USING(ITEM_CATEGORY)
+          JOIN ATTACHMENT ON (ATTACHMENT_NO = FILE_NO)
+		 WHERE ITEM_STATUS = 'N'
+		   AND IC.CATEGORYNAME = ?
+		 ORDER
+		    BY ITEM_NUM DESC
+	</entry>
+	
+	<entry key="insertItemImg">
+		INSERT 
+		  INTO ATTACHMENT 
+			 (
+			   FILE_NO
+			 , ORIGIN_NAME
+			 , CHANGE_NAME
+			 , FILE_PATH
+			 , FILE_POSITION
+)
+		VALUES 
+			 (
+			   SEQ_ATT.NEXTVAL
+			 , ?
+			 , ?
+			 , ?
+			 , 3
+			 )
+	</entry>
+	
+	<entry key="insertItem">
+		INSERT
+		  INTO ITEM 
+				  ( ITEM_NUM
+				  , ITEM_CATEGORY
+				  , ITEM_NAME
+				  , PRICE
+				  , ITEM_INTRO
+				  , ITEM_STATUS
+				  , ATTACHMENT_NO
+				  , ITEM_TAG
+				  )
+			 VALUES 
+				  (
+				    SEQ_ITEM.NEXTVAL
+				  , ?
+				  , ?
+				  , ?
+				  , ?
+				  , 'Y' 
+				  , SEQ_ATT.CURRVAL
+				  , ?
+					 )
+	</entry>
+	
+	<entry key="selectMemberList">
+		SELECT *
+		  FROM (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM (
+		               SELECT 
+		                      M.MEM_NO AS "MEM_NO"
+		                    , MEM_ID
+		                    , NICKNAME
+		                    , TO_CHAR(BIRTHDATE, 'MM/DD') AS BIRTHDAY
+		                    , EMAIL
+		                    , DECODE(GENDER, 'M', '남자', 'F', '여자') AS GENDER
+		                    , TO_CHAR(ENROLL_DATE, 'YY"년"MM"월"DD"일"') AS "ENROLL_DATE"
+		                    , EGG
+		                    , STATUS
+		                    , BLOCK_COUNT
+		                 FROM MEMBER M
+		                 LEFT JOIN MEMBER_BLACKLIST MB ON (M.MEM_NO = MB.MEM_NO)
+		                WHERE MEM_ID != 'admin'
+		                ORDER
+		                   BY MEM_NO ASC
+		               ) A
+		       )
+		       WHERE RNUM BETWEEN ? AND ?
+	</entry>	
+	
+	<!-- 페이징 처리시 필요 -->
+	<entry key="memberCount">
+		SELECT COUNT(MEM_NO) AS "COUNT"
+		  FROM MEMBER
+		 WHERE STATUS != 'N'
+	</entry>
+	
+	<!-- 멤버블랙리스트 등록 -->
+	<entry key="insertBlackList">
+		INSERT
+		  INTO MEMBER_BLACKLIST 
+		       (
+		         BLACKLIST_NO
+		       , MEM_NO
+		       , REPORTMEM_NO
+		       , BLOCK_TYPE
+		       , BLOCK_DATE
+		       , BLOCK_COUNT
+		       , EXPIRY_DATE
+		       ) 
+		VALUES (
+		       SEQ_BLACKLIST.NEXTVAL
+		       , ?
+		       , ?
+		       , '불법 행위로 인한 블랙리스트 등록'
+		       , SYSDATE
+		       , 0
+		       , SYSDATE + INTERVAL '3' DAY 
+		       )
+	</entry>
+	
+	<!-- 멤버블랙의 카운트 증가 -->
+	<entry key="updateBlockCounts">
+		UPDATE MEMBER_BLACKLIST
+		   SET BLOCK_COUNT = BLOCK_COUNT + 1
+		 WHERE BLACKLIST_NO = (SELECT BLACKLIST_NO
+                                 FROM MEMBER_BLACKLIST
+                                WHERE MEM_NO = ?)
+	</entry>
+	
+	<!-- 멤버블랙의 상태 Y로 업데이트(블랙등록) -->
+	<entry key="updateMemberBkStatusY">
+		UPDATE MEMBER_BLACKLIST
+		   SET BLACK_STATUS = 'Y'
+		 WHERE MEM_NO = ?
+		   AND BLACK_STATUS = 'N'
+	</entry>
+	
+	<!-- 멤버의 상태 B로 업데이트 -->
+	<entry key="updateBkStatus">
+		UPDATE MEMBER
+		   SET STATUS = 'B'
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'Y'
+	</entry>
+	
+	<!-- 멤버블랙의 상태 N으로 업데이트 -->
+	<entry key="updateMemberBkStatus">
+		UPDATE MEMBER_BLACKLIST
+		   SET BLACK_STATUS = 'N'
+		 WHERE MEM_NO = ?
+		   AND BLACK_STATUS = 'Y'
+	</entry>
+	
+	<!-- 블랙 해제 할 때 -->
+	<entry key="deleteBlack">
+		UPDATE MEMBER_BLACKLIST
+		   SET BLACK_STATUS = 'N'
+	 	 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="updateBkStatusY">
+		UPDATE MEMBER
+		   SET STATUS = 'Y'
+		 WHERE MEM_NO = ?
+		   AND STATUS = 'B'
+	</entry>
+	
+	
+	<entry key="deleteItem">
+		UPDATE ITEM
+		   SET ITEM_STATUS = 'N',
+		   	   ITEM_CATEGORY = 'IC13',
+		   	   ITEM_UPDATE = SYSDATE
+		 WHERE ITEM_NUM = ?
+	</entry>
+	
+	<entry key="cancelDeleteItem">
+		UPDATE ITEM
+		   SET ITEM_STATUS = 'Y',
+		   	   ITEM_CATEGORY = ?,
+		   	   ITEM_UPDATE = SYSDATE
+		 WHERE ITEM_NUM = ?
+	</entry>
+	
+	<entry key="updatePrice">
+		UPDATE ITEM
+		   SET PRICE = ?,
+		   	   ITEM_UPDATE = SYSDATE
+		 WHERE ITEM_NUM = ?
+	</entry>
+	
+	<entry key="updateItemImg">
+		UPDATE ATTACHMENT
+		   SET ORIGIN_NAME = ?,
+      	   	   CHANGE_NAME = ?,
+		   	   ITEM_UPDATE = SYSDATE
+		 WHERE FILE_NO = (SELECT 
+		                         ATTACHMENT_NO
+		                    FROM ITEM
+		                   WHERE ITEM_NUM = ?
+		                 )
+	</entry>
+	
+	<entry key="deleteImg">
+		DELETE 
+		  FROM ATTACHMENT
+		 WHERE CHANGE_NAME = ?
+	</entry>
+	
+	<entry key="searchMember">
+		SELECT   MEM_NO
+               , MEM_ID
+               , NICKNAME
+               , TO_CHAR(BIRTHDATE, 'MM/DD') AS BIRTHDAY
+               , EMAIL
+               , DECODE(GENDER, 'M', '남자', 'F', '여자') AS GENDER
+               , ENROLL_DATE
+               , EGG
+               , STATUS
+		  FROM MEMBER
+		 WHERE MEM_ID like ?
+		    OR NICKNAME like ?
+	</entry>
+	
+	
+	<entry key="selectPostList">
+		SELECT 
+		       POST_NUM
+		     , POST_TYPE
+		     , POST_TITLE
+		     , POST_CONTENT
+		     , POST_TAG
+		     , POST_SCOPE
+		     , MEM_ID
+		     , POST_COUNT
+		     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS POST_REGDATE
+		     , FILE_PATH || CHANGE_NAME AS POST_ATTACHMENT
+             , POST_THUMBNAIL
+		     , POST_BLOCK
+		  FROM POST
+		  JOIN MEMBER ON (POST_WRITER = MEM_NO)
+          LEFT
+		  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
+		 WHERE POST_STATUS = 'Y'
+		 ORDER
+		    BY POST_NUM DESC
+	</entry>
+	
+	<entry key="insertNoticeImg">
+		INSERT 
+		  INTO ATTACHMENT 
+			 (
+			   FILE_NO
+			 , ORIGIN_NAME
+			 , CHANGE_NAME
+			 , FILE_PATH
+			 , FILE_POSITION
+			 )
+		VALUES 
+			 (
+			   SEQ_ATT.NEXTVAL
+			 , ?
+			 , ?
+			 , ?
+			 , 1
+			 )
+	</entry>
+	
+	<entry key="insertNotice">
+		INSERT 
+		  INTO POST 
+		          (
+		            POST_NUM
+		          , POST_TYPE
+		          , POST_TITLE
+		          , POST_CONTENT
+		          , POST_WRITER
+		          , POST_REGDATE
+		          , POST_ATTACHMENT_NO
+		          )
+		     VALUES
+		          (
+		            SEQ_POST.NEXTVAL
+		          , 2
+		          , ?
+		          , ?
+		          , ?
+		          , SYSDATE
+		          , ?
+		       )
+	</entry>
+	
+	<entry key="deleteNotice">
+		UPDATE POST
+		   SET POST_STATUS = 'N'
+		 WHERE POST_NUM = ?
+	</entry>
+	
+	<entry key="insertNoticeHTML">
+		INSERT 
+		  INTO NOTICE
+				    (
+				      NOTICE_NO
+				    , NOTICE_HTML
+				    , POST_NO  
+				    )
+			   VALUES
+				    (
+				      SEQ_NOTICE.NEXTVAL
+				    , ?
+				    , ?
+				    )
+	</entry>
+	
+	<entry key="selectNoticeHTML">
+		SELECT NOTICE_HTML 
+		  FROM NOTICE
+		 WHERE POST_NO = ?
+	</entry>
+	
+	<entry key="updatePostBlock">
+		UPDATE POST
+		   SET POST_BLOCK = 'Y',
+		   	   POST_UPDATE = SYSDATE
+		 WHERE POST_NUM = ?
+	</entry>
+	
+	<entry key="canclePostBlock">
+		UPDATE POST
+		   SET POST_BLOCK = 'N',
+		   	   POST_UPDATE = SYSDATE
+		 WHERE POST_NUM = ?
+	</entry>
+	
+	<entry key="selectPostType">
+		SELECT POST_TYPE
+		     , POST_TYPE_NAME
+  		  FROM POST_TYPE
+	</entry>
+	
+	<entry key="choicePostType">
+		SELECT 
+		       POST_NUM
+		     , POST_TYPE
+		     , POST_TITLE
+		     , POST_CONTENT
+		     , POST_TAG
+		     , POST_SCOPE
+		     , MEM_ID
+		     , POST_COUNT
+		     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS POST_REGDATE
+		     , FILE_PATH || CHANGE_NAME AS POST_ATTACHMENT
+             , POST_THUMBNAIL
+		     , POST_BLOCK
+		  FROM POST
+		  JOIN MEMBER ON (POST_WRITER = MEM_NO)
+          LEFT
+		  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
+          JOIN POST_TYPE PT USING(POST_TYPE)
+		 WHERE POST_STATUS = 'Y'
+           AND PT.POST_TYPE_NAME = ?
+		 ORDER
+		    BY POST_NUM DESC
+	</entry>
+	
+	<entry key="selectPost">
+		SELECT POST_NUM
+		     , POST_TYPE
+		     , POST_TITLE
+		     , POST_CONTENT
+		     , POST_TAG
+		     , POST_SCOPE
+		     , MEM_ID
+		     , POST_COUNT
+		     , TO_CHAR(POST_REGDATE, 'YY/MM/DD') AS "POST_REGDATE"
+		     , POST_STATUS
+		     , POST_BLOCK
+		     , FILE_PATH || CHANGE_NAME AS SAVEPATH
+             , POST_THUMBNAIL
+		  FROM POST
+		  JOIN MEMBER ON (POST_WRITER = MEM_NO)
+          LEFT
+		  JOIN ATTACHMENT ON (POST_ATTACHMENT_NO = FILE_NO)
+		 WHERE POST_TYPE = 1
+		   AND POST_NUM = ?
+	</entry>
+	
+	<entry key="selectReply">
+		SELECT REPLY_NO
+		     , REPLY_OWN_POST
+		     , MEM_ID
+		     , REPLY_CONTENT
+		     , REPLY_SCOPE
+		     , REPLY_CREATE_DATE
+		     , REPLY_STATUS
+		  FROM REPLY
+		  JOIN MEMBER ON (REPLY_WRITER = MEM_NO)
+		 WHERE REPLY_OWN_POST = ?
+		 ORDER
+		    BY REPLY_CREATE_DATE DESC
+	</entry>
+		
+	<entry key="selectChatList">
+		SELECT 
+		       CHAT_ID
+		     , FROM_MEMNO
+		     , TO_MEMNO
+		     , PROFILE_PIC
+		     , CHAT_CONTENT
+		     , CHAT_TIME
+		FROM CHAT
+		JOIN MEMBER ON (MEM_NO = FROM_MEMNO)
+		WHERE 
+		      (FROM_MEMNO = ? AND TO_MEMNO = (SELECT MEM_NO 
+		                                        FROM MEMBER 
+		                                       WHERE MEM_ID = ?))
+		   OR (FROM_MEMNO = (SELECT MEM_NO 
+		                       FROM MEMBER 
+		                      WHERE MEM_ID = ?) AND TO_MEMNO = ?)
+		ORDER
+		   BY CHAT_TIME
+	</entry>
+	
+	<entry key="insertAdminChatId">
+		INSERT 
+		  INTO CHAT 
+		     (
+		       CHAT_ID
+		     , FROM_MEMNO
+		     , TO_MEMNO
+		     , CHAT_CONTENT
+		     )
+		VALUES 
+		     (
+		       ( SELECT MEM_NO FROM MEMBER WHERE MEM_ID = ?)
+		     , ?
+		     , ( SELECT MEM_NO FROM MEMBER WHERE MEM_ID = ?)
+		     , ?
+		)
+	</entry>
+	
+	<entry key="insertAdminChatNo">
+		INSERT 
+		  INTO CHAT 
+		     (
+		       CHAT_ID
+		     , FROM_MEMNO
+		     , TO_MEMNO
+		     , CHAT_CONTENT
+		     )
+		VALUES 
+		     (
+		       ?
+		     , ?
+		     , ?
+		     , ?
+		)
+	</entry>
+</properties>

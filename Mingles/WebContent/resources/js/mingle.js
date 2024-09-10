@@ -134,4 +134,5 @@ document.querySelector('.styleTab').addEventListener('click', () => handleIframe
 document.querySelector('.chatTab').addEventListener('click', () => handleIframeNavigation(iChat, 'chat'));
 document.querySelector('.explore-tab').addEventListener('click', () => showExplore(iExplore));
 document.querySelector('.postsTab').addEventListener('click', () => handleIframeNavigation(iPosts, 'posts'));
+document.querySelector('.material-icons.waveTab').addEventListener('click', () => handleIframeNavigation(iMain, 'wave'));
 document.querySelector('.anyTab7').addEventListener('click', () => handleIframeNavigation(iEta, 'etas'));

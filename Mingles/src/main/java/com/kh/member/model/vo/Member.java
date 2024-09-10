@@ -21,6 +21,7 @@ public class Member {
 	private String statusMsg;
 	private String kakaoNo;
 	private String backgroundImage;
+	private int blockCount;
 	
 	public Member() {}
 	
@@ -69,6 +70,32 @@ public class Member {
 		this.statusMsg = statusMsg;
 		this.kakaoNo = kakaoNo;
 		this.backgroundImage = backgroundImage;
+	}
+	
+	public Member(int memNo, String memId, String memPwd, String nickname, String birthdate, String phone, String email,
+			String gender, String enrollDate, String modifyDate, String status, int egg, String zodiac, String aBO,
+			String mBTI, String profilePic, String statusMsg, String kakaoNo, String backgroundImage, int blockCount) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.memPwd = memPwd;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.phone = phone;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.modifyDate = modifyDate;
+		this.status = status;
+		this.egg = egg;
+		this.zodiac = zodiac;
+		ABO = aBO;
+		MBTI = mBTI;
+		this.profilePic = profilePic;
+		this.statusMsg = statusMsg;
+		this.kakaoNo = kakaoNo;
+		this.backgroundImage = backgroundImage;
+		this.blockCount = blockCount;
 	}
 
 	public Member(String memId, String memPwd, String nickname, String birthdate, String phone, String email,
@@ -240,6 +267,45 @@ public class Member {
 		this.statusMsg = statusMsg;
 		this.kakaoNo = kakaoNo;
 	}
+	
+//	회원관리 조회
+	public Member(int memNo, String memId, String nickname, String birthdate, String email, String gender,
+			String enrollDate, int egg, String status, int blockCount) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.egg = egg;
+		this.status = status;
+		this.blockCount = blockCount;	
+	}
+	
+	public Member(int memNo, String memId, String nickname, String birthdate, String email, String gender,
+			String enrollDate, int egg, String status) {
+		super();
+		this.memNo = memNo;
+		this.memId = memId;
+		this.nickname = nickname;
+		this.birthdate = birthdate;
+		this.email = email;
+		this.gender = gender;
+		this.enrollDate = enrollDate;
+		this.egg = egg;
+		this.status = status;	
+	}
+	
+
+	public int getBlockCount() {
+		return blockCount;
+	}
+
+	public void setBlockCount(int blockCount) {
+		this.blockCount = blockCount;
+	}
 
 	public String getProfilePic() {
 		return profilePic;
@@ -392,9 +458,11 @@ public class Member {
 				+ ", birthdate=" + birthdate + ", phone=" + phone + ", email=" + email + ", gender=" + gender
 				+ ", enrollDate=" + enrollDate + ", modifyDate=" + modifyDate + ", status=" + status + ", egg=" + egg
 				+ ", zodiac=" + zodiac + ", ABO=" + ABO + ", MBTI=" + MBTI + ", profilePic=" + profilePic
-				+ ", statusMsg=" + statusMsg + ", kakaoNo=" + kakaoNo + ", backgroundImage=" + backgroundImage + "]";
+				+ ", statusMsg=" + statusMsg + ", kakaoNo=" + kakaoNo + ", backgroundImage=" + backgroundImage
+				+ ", blockCount=" + blockCount + "]";
 	}
-	
+
+
 
 
 

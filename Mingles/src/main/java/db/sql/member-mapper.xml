@@ -25,7 +25,7 @@
 		     FROM MEMBER
 			WHERE MEM_ID = ?
 			  AND MEM_PWD = ?
-			  AND STATUS = 'Y'
+			  AND (STATUS = 'Y' OR STATUS = 'A')
 	</entry>
 	
 	<entry key="selectNoMember">
@@ -343,6 +343,17 @@
 		UPDATE MEMBER
 		   SET BACKGROUNDIMAGE = ?
 		 WHERE MEM_NO = ?
+	</entry>
+	
+	<entry key="toWave">
+		SELECT MEM_NO
+		  FROM MEMBER
+		  JOIN FRIEND
+		    ON (SENDER_NO = MEM_NO)
+		 WHERE RECEIVER_NO = ?
+		   AND REQUEST_STATUS = 'A'
+		 ORDER 
+		    BY DBMS_RANDOM.VALUE
 	</entry>
 	
 </properties>

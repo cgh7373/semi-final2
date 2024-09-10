@@ -58,7 +58,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
 
     <!-- 내부파일 -->
     <link rel="stylesheet" href="./resources/css/mingle.css" />
-    <script defer src="<%=contextPath %>/resources/js/mingle.js"></script>
+    <script defer src="./resources/js/mingle.js"></script>
     <link
       rel="icon"
       href="./resources/images/Mingles아이콘-removebg-preview.png"
@@ -73,6 +73,59 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
 
   <body>
     <script>
+    
+    window.Kakao.init("9379dc5e745ff90c58be373c9bbaaa72");
+    console.log(Kakao.isInitialized());
+
+    function kakaoLogin() {
+      
+      Kakao.Auth.login({
+        success: function (authObj) {
+          Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
+
+          Kakao.API.request({
+            url: "/v2/user/me",
+            success: function (res) {
+              var id = res.id;
+              $.ajax({
+                url: "<%=contextPath%>/selectKakaoNo.mi",
+                data: { id: id },
+                success: function (resp) {
+                  var m = JSON.parse(resp);
+                  console.log(m);
+                  if (m === null) {
+                    console.log("회원가입해야함");
+                    location.href =
+                    "<%=contextPath%>/enroll.mi?type=kakao";
+                  } else {
+                    console.log("회원 있음");
+                    $("input#id").val(m.memId);
+                    $("input#password").val(m.memPwd);
+                    $("button#loginBtn").click();
+                  }
+                },
+                error: function (r) {
+                  alert("실패");
+                },
+              });
+            },
+            fail: function (error) {
+              alert(
+                "카카오 로그인에 실패했습니다. 관리자에게 문의하세요." +
+                  JSON.stringify(error)
+              );
+            },
+          });
+        },
+        fail: function (err) {
+          console.log(err);
+        },
+      });
+      
+    }
+
+    
+    
           document.addEventListener("DOMContentLoaded", function () {
         // 성공메시지
         <% if (alertMsg != null) { %>
@@ -91,9 +144,15 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
         <% session.removeAttribute("errorMsg"); %>
         <% } %>
 
-                          <%if (loginUser != null) {%>
-              document.getElementById("wrapper").style.backgroundImage = "url(<%=loginUser.getBackgroundImage() %>)";
-                       <%}%>
+        <%if (loginUser != null) {%>
+        
+       		<% if (loginUser.getBackgroundImage() == null) { %>
+              document.getElementById("wrapper").style.backgroundImage = "url(./resources/images/bgi1.png)";
+ 	        <%} else {%>
+ 	          document.getElementById("wrapper").style.backgroundImage = "url(<%=loginUser.getBackgroundImage() %>)";
+        	<%}%>
+        	
+        <%}%>
 
       });
 
@@ -108,6 +167,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
             }
 
           });
+          
     </script>
 
     <!-- 바탕화면 -->
@@ -215,56 +275,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
             </div>
           </div>
 
-          <script>
-            window.Kakao.init("9379dc5e745ff90c58be373c9bbaaa72");
-            console.log(Kakao.isInitialized());
-
-            function kakaoLogin() {
-              Kakao.Auth.login({
-                success: function (authObj) {
-                  Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
-
-                  Kakao.API.request({
-                    url: "/v2/user/me",
-                    success: function (res) {
-                      var id = res.id;
-
-                      $.ajax({
-                        url: "<%=contextPath%>/selectKakaoNo.mi",
-                        data: { id: id },
-                        success: function (resp) {
-                          var m = JSON.parse(resp);
-                          console.log(m);
-                          if (m === null) {
-                            console.log("회원가입해야함");
-                            location.href =
-                              "<%=contextPath%>/enroll.mi?type=kakao";
-                          } else {
-                            console.log("회원 있음");
-                            $("input#id").val(m.memId);
-                            $("input#password").val(m.memPwd);
-                            $("button#loginBtn").click();
-                          }
-                        },
-                        error: function (r) {
-                          alert("실패");
-                        },
-                      });
-                    },
-                    fail: function (error) {
-                      alert(
-                        "카카오 로그인에 실패했습니다. 관리자에게 문의하세요." +
-                          JSON.stringify(error)
-                      );
-                    },
-                  });
-                },
-                fail: function (err) {
-                  console.log(err);
-                },
-              });
-            }
-          </script>
+          
         </div>
         <% } else { %>
         <script>
@@ -353,7 +364,7 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
         <span class="material-icons settings" title="설정"> settings</span>
 
         <!-- 아무탭1 -->
-        <span class="material-icons anyTab"> sentiment_very_satisfied </span>
+        <span class="material-icons waveTab"> sentiment_very_satisfied </span>
 
         <!-- 상점탭 -->
         <span class="material-icons shopTab" title="상점"> storefront </span>
@@ -374,9 +385,12 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
         <!-- 게시글탭 -->
         <span class="material-icons postsTab" title="게시글">article</span>
 
-        <!-- 아무탭7 -->
-        <span class="material-icons anyTab7">add_circle_outline</span>
-
+       <!-- 아무탭7, 관리자 -->
+            <%if(loginUser != null) {%>
+				<%if(loginUser.getStatus().equals("A")){ %>
+            		<a href="<%=contextPath %>/main.am" class="material-icons anyTab7" style="text-decoration: none; color: black;">manage_accounts</a>
+                <%}%>
+            <%} %>
         <!-- 로그아웃탭 -->
         <span
           class="material-icons logoutTab"
@@ -430,17 +444,20 @@ errorMsg=(String)session.getAttribute("errorMsg"); %>
             const url = "/Mingles/iframeShow.mi?iSrc=" + source;
 
             $.ajax({
-              url: url,
-              success: function (page) {
-                setTimeout(() => {
-                  $(".mgScreens").src = "";
-                  iframe.src = page;
-                  iframe.style.opacity = 1;
-                  iframe.style.visibility = "visible";
-                }, 100);
-              },
-            });
-          }
+                url: url,
+                data: {
+                    no : <%=loginUser.getMemNo() %>,
+        		  },
+                success: function (page) {
+                  setTimeout(() => {
+                    $(".mgScreens").src = "";
+                    iframe.src = page;
+                    iframe.style.opacity = 1;
+                    iframe.style.visibility = "visible";
+                  }, 100);
+                },
+              });
+            }
         </script>
 
         <!-- 거북이 -->

@@ -81,17 +81,17 @@ function init() {
 init();
 
 // chatting enterKey
-let chattingInput = document.querySelector("input[type=text]");
-let trimInput = chattingInput.value.trim();
+let chattingInput = $("#messageInput");
 let chatbtn = document.querySelector(".send_btn");
 
-chattingInput.addEventListener("keydown", (e) => {
+chattingInput.on("keydown", (e) => {
   if (e.key === "Enter") {
-    if (trimInput === "") {
+    if (chattingInput.val() === "") {
       alert("메세지를 입력해주세요 :)");
-      e.preventDefault();
+      return;
     } else {
       chatbtn.onclick();
     }
   }
 });
+

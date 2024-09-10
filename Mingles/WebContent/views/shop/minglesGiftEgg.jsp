@@ -181,29 +181,29 @@ int giftUserNo = (int)request.getAttribute("giftUserNo"); String alertMsg =
             const tossPayments = TossPayments("test_ck_GePWvyJnrK2K7KR4BPjLVgLzN97E");
             const payment = tossPayments.payment({ customerKey :"fdsafdsai923f2rdfsar3" });
 
-            payment.requestPayment({
-                method: "CARD",
-                amount: {
-                    currency: "KRW",
-                    value: price,
-                },
-                orderId: "faMOdjVdbHNEIHd0Shh0n",
-                orderName: point+"거북알",
-                customerEmail: "",
-                customerName: "주지훈",
-                customerMobilePhone: "01012345678",
-                windowTarget: "iframe",
-                card: {
-                    useEscrow: false,
-                    flowMode: "DEFAULT",
-                    useCardPoint: false,
-                    useAppCardOnly: false,
-                },
-                successUrl:"http://192.168.20.52:8005/Mingles/eggGiftUpdate.mi?giftUserNo="+giftUserNo+"&sum="+sum+"&userNo="+userNo+"&price="+price+"&point="+point+"&payOption="+payOption,
-                failUrl:"http://www.naver.com",
-            });
+              payment.requestPayment({
+                  method: "CARD",
+                  amount: {
+                      currency: "KRW",
+                      value: price,
+                  },
+                  orderId: "faMOdjVdbHNEIHd0Shh0n",
+                  orderName: point+"거북알",
+                  customerEmail: "",
+                  customerName: "주지훈",
+                  customerMobilePhone: "01012345678",
+                  windowTarget: "iframe",
+                  card: {
+                      useEscrow: false,
+                      flowMode: "DEFAULT",
+                      useCardPoint: false,
+                      useAppCardOnly: false,
+                  },
+                  successUrl:"http://192.168.20.52:8005/Mingles/eggGiftUpdate.mi?giftUserNo="+giftUserNo+"&sum="+sum+"&userNo="+userNo+"&price="+price+"&point="+point+"&payOption="+payOption,
+                  failUrl:"http://www.naver.com",
+              });
 
-        }
+          }
       </script>
     </div>
   </body>
