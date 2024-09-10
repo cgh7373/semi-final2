@@ -123,4 +123,4 @@ ERD : (https://www.erdcloud.com)
 
 <h1>🌏프로젝트 구현</h1>
 <strong>🤴김상우</strong><br>
-![adminmain] (screen/관리자 메인홈.gif)
+![관리자 메인홈](https://github.com/user-attachments/assets/37b938a9-7f2d-4f0f-92d3-38c59499ebf5)
