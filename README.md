@@ -302,11 +302,12 @@ ERD : (https://www.erdcloud.com)
 </pre>
 </details>
 
-<h1>최종보고서</h1>
+<h1>📗최종보고서</h1>
 <details>
 <summary>접기/펼치기</summary>
 <pre>
     
+![Honeycam 2024-09-10 16-40-30](https://github.com/user-attachments/assets/c024c775-98e7-4406-bcd4-373b64e36eda)
 ![2](https://github.com/user-attachments/assets/12bb5b8f-a02e-4e3c-9c2c-579e33535b8d)
 ![3](https://github.com/user-attachments/assets/7617de2f-9d4f-4e8b-8d04-2a881cef38ab)
 ![4](https://github.com/user-attachments/assets/5ecf9651-5ba6-4f38-b39a-48e23c1d1dc3)
