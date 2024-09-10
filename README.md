@@ -52,8 +52,7 @@
 <br><br>
 👧이주영 (https://github.com/smileJanet)<br>
 &nbsp;- MP3(음악 선택, 추가, 수정)<br>
-![GIF description](![mp3완성](https://github.com/user-attachments/assets/abc8a7db-c98d-4a4b-b050-6ffe8a1d09d0)
-)
+![mp3완성](https://github.com/user-attachments/assets/d3285d80-f10d-400b-8aaf-80694524a589)
 
 
 &nbsp;- 상점(아이템 제작 및 메인 홈피 제작)<br><br>
