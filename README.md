@@ -121,7 +121,7 @@ ERD : (https://www.erdcloud.com)
 
 <h1>🌏프로젝트 구현</h1>
 
-<details>
+<details open>
 <summary>🤴김상우</summary>
 <pre>
 
@@ -152,7 +152,7 @@ ERD : (https://www.erdcloud.com)
 ![공지사항 작성](https://github.com/user-attachments/assets/e11d5d55-aada-46c3-bb86-252706df94c7)
 
 </pre>
-</details>
+</details open>
 
 <details>
 <summary>👦정택은</summary>
