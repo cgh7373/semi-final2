@@ -80,7 +80,7 @@
 </ul>
 <br><br><br>
 
-<h1>설계</h1>
+<h1>🛠설계</h1>
 ERD : (https://www.erdcloud.com/d/NfBPs32XCs3dZnu8x)
 
 <br><br><br>
@@ -322,7 +322,7 @@ ERD : (https://www.erdcloud.com/d/NfBPs32XCs3dZnu8x)
 아쉬운 점은 기능을 좀 더 세부적으로 기획하고 개발했다면, 사용자가 더 편리하게 사용할 수 있는 웹페이지를 만들 수 있었을 것 같다는 점입니다.
 다음 프로젝트에서는 좀 더 꼼꼼하고 스택들을 더 쌓아서 보다 완성도 높은 결과물을 만들 수 있도록 노력하겠습니다
 </details>
-<br>
+<br><br>
 <details>
 <summary><strong>👦정택은 </strong></summary>
 <br>
