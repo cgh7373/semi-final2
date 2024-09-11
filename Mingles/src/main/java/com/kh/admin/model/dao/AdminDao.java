@@ -304,7 +304,7 @@ public class AdminDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertItem");
-		
+		System.out.println(i.getPrice());
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, i.getItemCategory());

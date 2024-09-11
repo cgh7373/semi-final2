@@ -298,7 +298,7 @@
 		UPDATE ATTACHMENT
 		   SET ORIGIN_NAME = ?,
       	   	   CHANGE_NAME = ?,
-		   	   ITEM_UPDATE = SYSDATE
+		   	   UPLOAD_DATE = SYSDATE
 		 WHERE FILE_NO = (SELECT 
 		                         ATTACHMENT_NO
 		                    FROM ITEM

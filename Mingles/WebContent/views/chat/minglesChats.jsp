@@ -354,7 +354,7 @@ String contextPath = request.getContextPath();
       							sFriend += `
           							<li class='friendList' value="\${s[i].fMemNo}" rel='friendList'>
                                         <div class='friend__icon'>
-                                        	<img src="\${s[i].profilePic}" alt='친구프로필' />
+                                        	<img src="\${s[i].profilePic.substring(4)}" alt='친구프로필' />
                                         </div>
                                         <div class='friend-info'>
                                         	<span class='friend__name' rel='frinedNick'>\${s[i].nickName}</span>
